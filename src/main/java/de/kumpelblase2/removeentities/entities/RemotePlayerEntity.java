@@ -1,5 +1,6 @@
 package de.kumpelblase2.removeentities.entities;
 
+import org.bukkit.inventory.Inventory;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.MinecraftServer;
@@ -24,5 +25,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public RemoteEntity getRemoteEntity()
 	{
 		return this.m_remoteEntity;
+	}
+
+	@Override
+	public Inventory getInventory() //TODO why does this need casting?
+	{
+		return (Inventory)this.inventory;
 	}
 }

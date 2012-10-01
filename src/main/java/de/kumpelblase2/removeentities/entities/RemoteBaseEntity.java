@@ -1,6 +1,8 @@
 package de.kumpelblase2.removeentities.entities;
 
+import net.minecraft.server.EntityLiving;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.removeentities.features.FeatureSet;
 import de.kumpelblase2.removeentities.thinking.Mind;
@@ -100,5 +102,11 @@ public class RemoteBaseEntity implements RemoteEntity
 	public RemoteEntityType getType()
 	{
 		return this.m_type;
+	}
+
+	@Override
+	public EntityLiving getHandle()
+	{
+		return ((CraftLivingEntity)this.getBukkitEntity()).getHandle();
 	}
 }

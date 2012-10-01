@@ -1,6 +1,8 @@
 package de.kumpelblase2.removeentities.entities;
 
-public interface RemoteEntityHandle
+import org.bukkit.inventory.InventoryHolder;
+
+public interface RemoteEntityHandle extends InventoryHolder
 {
 	public RemoteEntity getRemoteEntity();
 }
