@@ -1,71 +1,35 @@
 package de.kumpelblase2.removeentities.thinking;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import de.kumpelblase2.removeentities.entities.RemoteEntity;
 
 public class Mind
 {
-	private Map<Integer, List<Behaviour>> m_behaviours;
+	private Map<String, Behaviour> m_behaviours;
 	private RemoteEntity m_entity;
 	private boolean m_canFeel = true;
+	private Desire m_currentDesire;
 	
 	public Mind(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
+		this.m_behaviours = new HashMap<String, Behaviour>();
 	}
 	
-	public void addBehaviour(Behaviour inBehaviour, Integer inPriority)
+	public void addBehaviour(Behaviour inBehaviour)
 	{
-		if(this.m_behaviours.containsKey(inPriority))
-		{
-			this.m_behaviours.get(inPriority).add(inBehaviour);
-		}
-		else
-		{
-			List<Behaviour> behaviours = new ArrayList<Behaviour>();
-			behaviours.add(inBehaviour);
-			this.m_behaviours.put(inPriority, behaviours);
-		}
+		this.m_behaviours.put(inBehaviour.getName(), inBehaviour);
 	}
 	
 	public boolean removeBehaviour(String inName)
 	{
-		boolean found = false;
-		Iterator<Entry<Integer, List<Behaviour>>> iterator = this.m_behaviours.entrySet().iterator();
-		while(iterator.hasNext())
-		{
-			Entry<Integer, List<Behaviour>> entry = iterator.next();
-			Iterator<Behaviour> it = entry.getValue().iterator();
-			while(it.hasNext())
-			{
-				Behaviour b = it.next();
-				if(b.getName().equals(inName))
-				{
-					it.remove();
-					found = true;
-				}
-			}
-			if(entry.getValue().size() == 0)
-				iterator.remove();
-		}
-		return found;
+		return this.m_behaviours.remove(inName) != null;
 	}
 	
 	public boolean hasBehaviour(String inName)
 	{
-		for(List<Behaviour> behaviours : this.m_behaviours.values())
-		{
-			for(Behaviour b : behaviours)
-			{
-				if(b.getName().equals(inName))
-					return true;
-			}
-		}
-		return false;
+		return this.m_behaviours.containsKey(inName);
 	}
 	
 	public boolean canFeel()
@@ -81,5 +45,20 @@ public class Mind
 	public RemoteEntity getEntity()
 	{
 		return this.m_entity;
+	}
+	
+	public Behaviour getBehaviour(String inName)
+	{
+		return this.m_behaviours.get(inName);
+	}
+	
+	public void setCurrentDesire(Desire inDesire)
+	{
+		this.m_currentDesire = inDesire;
+	}
+	
+	public Desire getCurrentDesire()
+	{
+		return this.m_currentDesire;
 	}
 }
