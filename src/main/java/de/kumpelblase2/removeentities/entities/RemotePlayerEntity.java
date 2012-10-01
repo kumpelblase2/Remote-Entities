@@ -23,6 +23,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
+		this.noDamageTicks = 1;
 	}
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, RemoteEntity inEntity)
@@ -72,5 +73,13 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void h_()
+	{
+		super.h_();
+		if(this.noDamageTicks > 0)
+			this.noDamageTicks--;
 	}
 }
