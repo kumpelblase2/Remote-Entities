@@ -2,9 +2,12 @@ package de.kumpelblase2.removeentities;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import net.minecraft.server.EntityLiving;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
@@ -25,6 +28,24 @@ public class EntityManager
 		m_instance = this;
 		this.m_plugin = inPlugin;
 		this.m_entities = new HashMap<Integer, RemoteEntity>();
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				Iterator<Entry<Integer, RemoteEntity>> it = m_entities.entrySet().iterator();
+				while(it.hasNext())
+				{
+					Entry<Integer, RemoteEntity> entry = it.next();
+					entry.getValue().getHandle().z();
+					if(entry.getValue().getHandle().dead)
+					{
+						entry.getValue().despawn();
+						it.remove();
+					}
+				}
+			}
+		}, 1L, 1L);
 	}
 	
 	public static EntityManager getInstance()
@@ -90,7 +111,7 @@ public class EntityManager
 	public void removeEntity(int inID)
 	{
 		if(this.m_entities.containsKey((Integer)inID))
-			this.m_entities.get((Integer)inID).depsawn();
+			this.m_entities.get((Integer)inID).despawn();
 		
 		this.m_entities.remove((Integer)inID);
 	}

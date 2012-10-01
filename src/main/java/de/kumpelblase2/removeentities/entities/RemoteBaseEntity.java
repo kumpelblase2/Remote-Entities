@@ -63,7 +63,7 @@ public class RemoteBaseEntity implements RemoteEntity
 	}
 
 	@Override
-	public void depsawn()
+	public void despawn()
 	{
 	}
 
@@ -108,5 +108,11 @@ public class RemoteBaseEntity implements RemoteEntity
 	public EntityLiving getHandle()
 	{
 		return ((CraftLivingEntity)this.getBukkitEntity()).getHandle();
+	}
+
+	@Override
+	public boolean isSpawned()
+	{
+		return false;
 	}
 }

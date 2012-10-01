@@ -1,5 +1,6 @@
 package de.kumpelblase2.removeentities.thinking;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import de.kumpelblase2.removeentities.entities.RemoteEntity;
@@ -60,5 +61,15 @@ public class Mind
 	public Desire getCurrentDesire()
 	{
 		return this.m_currentDesire;
+	}
+	
+	public Collection<Behaviour> getBehaviours()
+	{
+		return this.m_behaviours.values();
+	}
+
+	public void clearBehaviours()
+	{
+		this.m_behaviours.clear();
 	}
 }

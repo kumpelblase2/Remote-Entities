@@ -5,11 +5,12 @@ import net.minecraft.server.WorldServer;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.removeentities.thinking.Behaviour;
 
 public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
 {
-	private RemotePlayerEntity m_entity;
-	private String m_name;
+	protected RemotePlayerEntity m_entity;
+	protected String m_name;
 	
 	public RemotePlayer(int inID, String inName)
 	{
@@ -54,14 +55,39 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	public void setName(String inName)
 	{
 		this.m_name = inName;
+		Location loc = this.getBukkitEntity().getLocation();
+		this.despawn();
+		this.spawn(loc);
 	}
 	
 	@Override
 	public void spawn(Location inLocation)
 	{
+		if(this.isSpawned())
+			return;
+		
 		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new ItemInWorldManager(worldServer), this);
-		worldServer.addEntity(m_entity); //TODO is this needed?
+		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
+	}
+	
+	@Override
+	public boolean isSpawned()
+	{
+		return this.m_entity != null;
+	}
+	
+	@Override
+	public void despawn()
+	{
+		for(Behaviour behaviour : this.getMind().getBehaviours())
+		{
+			behaviour.onRemove();
+		}
+		this.getMind().clearBehaviours();
+		this.getMind().setCurrentDesire(null);
+		this.getBukkitEntity().remove();
+		this.m_entity = null;
 	}
 }

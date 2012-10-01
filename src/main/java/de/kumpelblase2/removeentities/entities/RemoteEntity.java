@@ -17,7 +17,8 @@ public interface RemoteEntity
 	public void move(Location inLocation);
 	public void teleport(Location inLocation);
 	public void spawn(Location inLocation);
-	public void depsawn();
+	public void despawn();
+	public boolean isSpawned();
 	public void setMaxHealth(int inMax);
 	public int getMaxHealth();
 	public void setStationary(boolean inState);
