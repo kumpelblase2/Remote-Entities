@@ -1,13 +1,24 @@
 package de.kumpelblase2.removeentities.thinking;
 
-public class TouchBehaviour implements Behaviour //TODO
+import org.bukkit.entity.HumanEntity;
+import de.kumpelblase2.removeentities.entities.RemoteEntity;
+
+public abstract class TouchBehaviour implements Behaviour
 {
 	protected final String NAME = "Touch";
+	protected final RemoteEntity m_entity;
+	
+	public TouchBehaviour(RemoteEntity inEntity)
+	{
+		this.m_entity = inEntity;
+	}
 	
 	@Override
 	public void run()
 	{
 	}
+	
+	public abstract void onTouch(HumanEntity inPlayer);
 
 	@Override
 	public String getName()
@@ -23,5 +34,11 @@ public class TouchBehaviour implements Behaviour //TODO
 	@Override
 	public void onRemove()
 	{
+	}
+	
+	@Override
+	public RemoteEntity getRemoteEntity()
+	{
+		return this.m_entity;
 	}
 }

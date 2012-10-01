@@ -5,10 +5,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import de.kumpelblase2.removeentities.EntityManager;
+import de.kumpelblase2.removeentities.entities.RemoteEntity;
 
 public abstract class DamageBehaviour implements Behaviour
 {
 	protected final String NAME = "Damage";
+	private final RemoteEntity m_entity;
+	
+	public DamageBehaviour(RemoteEntity inEntity)
+	{
+		this.m_entity = inEntity;
+	}
 	
 	@Override
 	public void onRemove()
@@ -29,7 +36,8 @@ public abstract class DamageBehaviour implements Behaviour
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void onDamageEvent(EntityDamageEvent event)
 	{
-		this.onDamage(event);
+		if(this.m_entity.getMind().canFeel())
+			this.onDamage(event);
 	}
 
 	public abstract void onDamage(EntityDamageEvent event);
