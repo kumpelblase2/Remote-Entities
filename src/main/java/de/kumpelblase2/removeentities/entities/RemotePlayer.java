@@ -1,5 +1,9 @@
 package de.kumpelblase2.removeentities.entities;
 
+import net.minecraft.server.ItemInWorldManager;
+import net.minecraft.server.WorldServer;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 
 public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
@@ -50,5 +54,14 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	public void setName(String inName)
 	{
 		this.m_name = inName;
+	}
+	
+	@Override
+	public void spawn(Location inLocation)
+	{
+		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
+		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new ItemInWorldManager(worldServer), this);
+		worldServer.addEntity(m_entity); //TODO is this needed?
+		this.m_entity.getBukkitEntity().teleport(inLocation);
 	}
 }
