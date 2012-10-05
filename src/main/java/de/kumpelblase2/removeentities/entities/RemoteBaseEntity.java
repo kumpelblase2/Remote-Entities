@@ -1,13 +1,11 @@
 package de.kumpelblase2.removeentities.entities;
 
 import net.minecraft.server.EntityLiving;
-import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
-import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.removeentities.features.FeatureSet;
 import de.kumpelblase2.removeentities.thinking.Mind;
 
-public class RemoteBaseEntity implements RemoteEntity
+public abstract class RemoteBaseEntity implements RemoteEntity
 {
 	private final int m_id;
 	protected Mind m_mind;
@@ -36,46 +34,9 @@ public class RemoteBaseEntity implements RemoteEntity
 	}
 
 	@Override
-	public LivingEntity getBukkitEntity()
-	{
-		return null;
-	}
-
-	@Override
 	public FeatureSet getFeatures()
 	{
 		return this.m_features;
-	}
-
-	@Override
-	public void move(Location inLocation)
-	{
-	}
-
-	@Override
-	public void teleport(Location inLocation)
-	{
-	}
-
-	@Override
-	public void spawn(Location inLocation)
-	{
-	}
-
-	@Override
-	public void despawn()
-	{
-	}
-
-	@Override
-	public void setMaxHealth(int inMax)
-	{
-	}
-
-	@Override
-	public int getMaxHealth()
-	{
-		return 0;
 	}
 
 	@Override
@@ -108,11 +69,5 @@ public class RemoteBaseEntity implements RemoteEntity
 	public EntityLiving getHandle()
 	{
 		return ((CraftLivingEntity)this.getBukkitEntity()).getHandle();
-	}
-
-	@Override
-	public boolean isSpawned()
-	{
-		return false;
 	}
 }

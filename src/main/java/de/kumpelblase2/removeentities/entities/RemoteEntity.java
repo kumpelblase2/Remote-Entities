@@ -23,4 +23,8 @@ public interface RemoteEntity
 	public int getMaxHealth();
 	public void setStationary(boolean inState);
 	public boolean isStationary();
+	public float getSpeed();
+	public void setSpeed(float inSpeed);
+	public boolean isPushable();
+	public void setPushable(boolean inState);
 }

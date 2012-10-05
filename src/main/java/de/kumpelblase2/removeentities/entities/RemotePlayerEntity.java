@@ -7,21 +7,29 @@ import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EnumGamemode;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.Navigation;
 import net.minecraft.server.NetworkManager;
 import net.minecraft.server.World;
 import de.kumpelblase2.removeentities.nms.NullNetServerHandler;
 import de.kumpelblase2.removeentities.nms.RemoteEntityNetworkManager;
 import de.kumpelblase2.removeentities.thinking.*;
+import de.kumpelblase2.removeentities.thinking.goals.DesireWanderAroundArea;
 
 public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHandle
 {
-	private RemoteEntity m_remoteEntity;
-	private int m_lastBouncedId;
-	private long m_lastBouncedTime;
+	protected RemoteEntity m_remoteEntity;
+	protected int m_lastBouncedId;
+	protected long m_lastBouncedTime;
+	protected float m_speed = DefaultEntitySpeed.PLAYER_SPEED;
+	protected int m_maxHealth = 20;
+	protected PathfinderGoalSelectorHelper goalSelectorHelper;
+	protected PathfinderGoalSelectorHelper targetSelectorHelper;
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager)
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
+		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
+		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 	}
@@ -54,14 +62,18 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void b_(EntityHuman entity)
 	{
-		if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
-			if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
-			{
-				((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch(entity.getBukkitEntity());
-				this.m_lastBouncedTime = System.currentTimeMillis();
-				this.m_lastBouncedId = entity.id;
+		if(entity instanceof EntityPlayer)
+		{
+			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
+				{
+					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					this.m_lastBouncedTime = System.currentTimeMillis();
+					this.m_lastBouncedId = entity.id;
+				}
 			}
 		}
+		super.b_(entity);
 	}
 	
 	@Override
@@ -79,7 +91,111 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public void h_()
 	{
 		super.h_();
+		super.g();
+		
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
+		
+		Navigation navigation = getNavigation();
+        if(!navigation.f())
+        {
+            navigation.e();
+            this.applyMovement();
+        }
+        else if(motX != 0 || motZ != 0 || motY != 0)
+        {
+            if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
+                motX = motY = motZ = 0;
+        }
+        
+        this.getRemoteEntity().getMind().tick();
+	}
+	
+	public void applyMovement()
+	{
+		getControllerMove().c();
+		getControllerLook().a();
+		getControllerJump().b();
+		e(this.getSpeed());
+		
+		if (bu)
+		{
+            boolean inLiquid = H() || J();
+            if (inLiquid)
+            {
+                motY += 0.04;
+            }
+            else if (onGround && bE == 0)
+            {
+                motY = 0.6;
+                bE = 10;
+            }
+        }
+		else
+		{
+            bE = 0;
+        }
+        br *= 0.98F;
+        bs *= 0.98F;
+        bt *= 0.9F;
+
+        float prev = aG;
+        aG *= bs() * this.getSpeed();
+        e(br, bs); 
+        aG = prev;
+        as = yaw;
+	}
+	
+	@Override
+	public void g(double x, double y, double z)
+	{
+		if(this.m_remoteEntity.isPushable())
+			super.g(x, y, z);
+	}
+	
+	@Override
+	public int getMaxHealth()
+	{
+		if(this.m_maxHealth == 0) // otherwise the entity will die instantly
+			return 20;
+		return this.m_maxHealth;
+	}
+	
+	public void setMaxHealth(int inMax)
+	{
+		this.m_maxHealth = inMax;
+	}
+	
+	public float getSpeed()
+	{
+		return this.m_speed;
+	}
+	
+	public void setSpeed(float inSpeed)
+	{
+		this.m_speed = inSpeed;
+	}
+
+	@Override
+	public void setupStandardGoals()
+	{
+	}
+
+	@Override
+	public PathfinderGoalSelectorHelper getGoalSelector()
+	{
+		return this.goalSelectorHelper;
+	}
+
+	@Override
+	public PathfinderGoalSelectorHelper getTargetSelector()
+	{
+		return this.targetSelectorHelper;
+	}
+	
+	@Override
+	public boolean aV()
+	{
+		return true;
 	}
 }

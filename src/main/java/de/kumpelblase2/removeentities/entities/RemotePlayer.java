@@ -11,6 +11,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 {
 	protected RemotePlayerEntity m_entity;
 	protected String m_name;
+	protected boolean m_isPushable = false;
 	
 	public RemotePlayer(int inID, String inName)
 	{
@@ -70,6 +71,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new ItemInWorldManager(worldServer), this);
 		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
+		this.m_entity.world.players.remove(this.m_entity);
 	}
 	
 	@Override
@@ -86,8 +88,55 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 			behaviour.onRemove();
 		}
 		this.getMind().clearBehaviours();
-		this.getMind().setCurrentDesire(null);
 		this.getBukkitEntity().remove();
 		this.m_entity = null;
+	}
+
+	@Override
+	public void move(Location inLocation)
+	{
+		
+	}
+
+	@Override
+	public void teleport(Location inLocation)
+	{
+		this.m_entity.getBukkitEntity().teleport(inLocation);
+	}
+
+	@Override
+	public void setMaxHealth(int inMax)
+	{
+		this.m_entity.setMaxHealth(inMax);
+	}
+
+	@Override
+	public int getMaxHealth()
+	{
+		return this.m_entity.getMaxHealth();
+	}
+
+	@Override
+	public float getSpeed()
+	{
+		return this.m_entity.getSpeed();
+	}
+
+	@Override
+	public void setSpeed(float inSpeed)
+	{
+		this.m_entity.setSpeed(inSpeed);
+	}
+
+	@Override
+	public boolean isPushable()
+	{
+		return this.m_isPushable;
+	}
+
+	@Override
+	public void setPushable(boolean inState)
+	{
+		this.m_isPushable = inState;
 	}
 }

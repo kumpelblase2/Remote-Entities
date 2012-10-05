@@ -10,6 +10,7 @@ import net.minecraft.server.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.removeentities.entities.RemoteEntity;
@@ -80,6 +81,7 @@ public class EntityManager
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class);
 			RemoteEntity entity = constructor.newInstance(id);
 			entity.spawn(inLocation);
+			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
 			this.m_entities.put(id, entity);
 			return entity;
 		}
@@ -98,6 +100,7 @@ public class EntityManager
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, String.class);
 			RemoteEntity entity = constructor.newInstance(id, inName);
 			entity.spawn(inLocation);
+			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
 			this.m_entities.put(id, entity);
 			return entity;
 		}
@@ -139,5 +142,26 @@ public class EntityManager
 	public void addRemoteEntity(int inID, RemoteEntity inEntity)
 	{
 		this.m_entities.put(inID, inEntity);
+	}
+	
+	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity) //TODO copy more shit
+	{
+		RemoteEntityType type = RemoteEntityType.getByEntityClass(((CraftLivingEntity)inEntity).getHandle().getClass());
+		Location originalSpot = inEntity.getLocation();
+		String name = (inEntity instanceof HumanEntity) ? ((HumanEntity)inEntity).getName() : null;
+		inEntity.remove();
+		try
+		{
+			if(name == null)
+				return this.createEntity(type, originalSpot);
+			else
+				return this.createNamedEntity(type, originalSpot, name);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+			
 	}
 }
