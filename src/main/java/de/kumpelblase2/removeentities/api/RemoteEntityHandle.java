@@ -9,4 +9,5 @@ public interface RemoteEntityHandle extends InventoryHolder
 	public void setupStandardGoals();
 	public PathfinderGoalSelectorHelper getGoalSelector();
 	public PathfinderGoalSelectorHelper getTargetSelector();
+	public void setMaxHealth(int inHealth);
 }

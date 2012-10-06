@@ -14,8 +14,8 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected long m_lastBouncedTime;
 	protected float m_speed = DefaultEntitySpeed.PLAYER_SPEED;
 	protected int m_maxHealth = 20;
-	protected PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected PathfinderGoalSelectorHelper targetSelectorHelper;
+	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
+	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager)
 	{
@@ -25,6 +25,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 		this.W = 1;
+		this.getNavigation().e(true);
 	}
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, RemoteEntity inEntity)

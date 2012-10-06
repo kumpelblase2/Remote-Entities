@@ -6,13 +6,10 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.removeentities.api.*;
-import de.kumpelblase2.removeentities.api.thinking.Behaviour;
 
 public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
 {
-	protected RemotePlayerEntity m_entity;
 	protected String m_name;
-	protected boolean m_isPushable = false;
 	
 	public RemotePlayer(int inID, String inName)
 	{
@@ -24,17 +21,6 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	{
 		this(inID, inName);
 		this.m_entity = inEntity;
-	}
-	
-	public void setEntity(RemotePlayerEntity inEntity)
-	{
-		this.m_entity = inEntity;
-	}
-	
-	@Override
-	public LivingEntity getBukkitEntity()
-	{
-		return (LivingEntity)this.m_entity.getBukkitEntity();
 	}
 
 	@Override
@@ -74,41 +60,11 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
 	}
-	
-	@Override
-	public boolean isSpawned()
-	{
-		return this.m_entity != null;
-	}
-	
-	@Override
-	public void despawn()
-	{
-		for(Behaviour behaviour : this.getMind().getBehaviours())
-		{
-			behaviour.onRemove();
-		}
-		this.getMind().clearBehaviours();
-		this.getBukkitEntity().remove();
-		this.m_entity = null;
-	}
-
-	@Override
-	public void move(Location inLocation)
-	{
-		
-	}
-
-	@Override
-	public void teleport(Location inLocation)
-	{
-		this.m_entity.getBukkitEntity().teleport(inLocation);
-	}
 
 	@Override
 	public void setMaxHealth(int inMax)
 	{
-		this.m_entity.setMaxHealth(inMax);
+		this.getHandle().setMaxHealth(inMax);
 	}
 
 	@Override
@@ -120,24 +76,18 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	@Override
 	public float getSpeed()
 	{
-		return this.m_entity.getSpeed();
+		return this.getHandle().getSpeed();
 	}
 
 	@Override
 	public void setSpeed(float inSpeed)
 	{
-		this.m_entity.setSpeed(inSpeed);
+		this.getHandle().setSpeed(inSpeed);
 	}
-
+	
 	@Override
-	public boolean isPushable()
+	public RemotePlayerEntity getHandle()
 	{
-		return this.m_isPushable;
-	}
-
-	@Override
-	public void setPushable(boolean inState)
-	{
-		this.m_isPushable = inState;
+		return (RemotePlayerEntity)this.m_entity;
 	}
 }

@@ -6,11 +6,10 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.removeentities.api.*;
-import de.kumpelblase2.removeentities.api.thinking.Behaviour;
 
 public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Fightable
 {
-	protected RemoteZombieEntity m_entity;
+	protected float m_speed = 0.25F;
 	
 	public RemoteZombie(int inID)
 	{
@@ -24,22 +23,6 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	}
 
 	@Override
-	public LivingEntity getBukkitEntity()
-	{
-		return (LivingEntity)this.m_entity.getBukkitEntity();
-	}
-
-	@Override
-	public void move(Location inLocation)
-	{
-	}
-
-	@Override
-	public void teleport(Location inLocation)
-	{
-	}
-
-	@Override
 	public void spawn(Location inLocation)
 	{
 		if(this.isSpawned())
@@ -48,31 +31,13 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 		this.m_entity = new RemoteZombieEntity(worldServer, this);
 		this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
-		worldServer.addEntity(m_entity, SpawnReason.CUSTOM);
-	}
-
-	@Override
-	public void despawn()
-	{
-		for(Behaviour behaviour : this.getMind().getBehaviours())
-		{
-			behaviour.onRemove();
-		}
-		this.getMind().clearBehaviours();
-		this.getBukkitEntity().remove();
-		this.m_entity = null;
-	}
-
-	@Override
-	public boolean isSpawned()
-	{
-		return this.m_entity != null;
+		worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 	}
 
 	@Override
 	public void setMaxHealth(int inMax)
 	{
-		
+		((RemoteZombieEntity)this.m_entity).setMaxHealth(inMax);
 	}
 
 	@Override
@@ -84,23 +49,13 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	@Override
 	public float getSpeed()
 	{
-		return 0;
+		return this.m_speed;
 	}
 
 	@Override
 	public void setSpeed(float inSpeed)
 	{
-	}
-
-	@Override
-	public boolean isPushable()
-	{
-		return false;
-	}
-
-	@Override
-	public void setPushable(boolean inState)
-	{
+		this.m_speed = inSpeed;
 	}
 
 	@Override
@@ -118,6 +73,6 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	@Override
 	public RemoteZombieEntity getHandle()
 	{
-		return this.m_entity;
+		return (RemoteZombieEntity)this.m_entity;
 	}
 }

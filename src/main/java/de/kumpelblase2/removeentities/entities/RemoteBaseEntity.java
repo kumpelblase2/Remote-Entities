@@ -1,10 +1,14 @@
 package de.kumpelblase2.removeentities.entities;
 
+import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityLiving;
-import org.bukkit.craftbukkit.entity.CraftLivingEntity;
+import net.minecraft.server.MathHelper;
+import net.minecraft.server.PathEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 import de.kumpelblase2.removeentities.api.features.FeatureSet;
+import de.kumpelblase2.removeentities.api.thinking.Behaviour;
 import de.kumpelblase2.removeentities.api.thinking.Mind;
 
 public abstract class RemoteBaseEntity implements RemoteEntity
@@ -14,6 +18,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected FeatureSet m_features;
 	protected boolean m_isStationary = false;
 	protected RemoteEntityType m_type;
+	protected EntityLiving m_entity;
+	protected boolean m_isPushable = true;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType)
 	{
@@ -70,6 +76,60 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public EntityLiving getHandle()
 	{
-		return ((CraftLivingEntity)this.getBukkitEntity()).getHandle();
+		return this.m_entity;
+	}
+	
+	@Override
+	public LivingEntity getBukkitEntity()
+	{
+		if(this.m_entity != null)
+			return (LivingEntity)this.m_entity.getBukkitEntity();
+		
+		return null;
+	}
+	
+	@Override
+	public boolean move(Location inLocation)
+	{
+		PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
+		return this.m_entity.getNavigation().a(path, this.getSpeed());
+	}
+
+	@Override
+	public void teleport(Location inLocation)
+	{
+		this.getBukkitEntity().teleport(inLocation);
+	}
+	
+
+	@Override
+	public void despawn()
+	{
+		for(Behaviour behaviour : this.getMind().getBehaviours())
+		{
+			behaviour.onRemove();
+		}
+		this.getMind().clearBehaviours();
+		if(this.getBukkitEntity() != null)
+			this.getBukkitEntity().remove();
+		this.m_entity = null;
+	}
+	
+	@Override
+	public boolean isSpawned()
+	{
+		return this.m_entity != null;
+	}
+	
+	@Override
+	public boolean isPushable()
+	{
+		return this.m_isPushable;
+	}
+
+	@Override
+	public void setPushable(boolean inState)
+	{
+		this.m_isPushable = inState;
 	}
 }

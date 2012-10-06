@@ -5,17 +5,15 @@ import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
 import de.kumpelblase2.removeentities.api.features.InventoryFeature;
 import de.kumpelblase2.removeentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.removeentities.api.thinking.goals.DesireLookAtNearest;
 import de.kumpelblase2.removeentities.utilities.ReflectionUtil;
-import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntityZombie;
 import net.minecraft.server.World;
 
 public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHandle
 {
 	protected RemoteEntity m_remoteEntity;
-	protected PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected PathfinderGoalSelectorHelper targetSelectorHelper;
+	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
+	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	
 	static
 	{
@@ -55,7 +53,7 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	{
 		this.goalSelectorHelper.clearGoals();
 		this.targetSelectorHelper.clearGoals();
-		this.goalSelector.a(0, new DesireLookAtNearest(this.m_remoteEntity, EntityPlayer.class, 8));
+		//this.goalSelector.a(0, new DesireLookAtNearest(this.m_remoteEntity, EntityPlayer.class, 8));
 	}
 
 	@Override
@@ -68,5 +66,11 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	public PathfinderGoalSelectorHelper getTargetSelector()
 	{
 		return this.targetSelectorHelper;
+	}
+
+	@Override
+	public void setMaxHealth(int inHealth)
+	{
+		
 	}
 }
