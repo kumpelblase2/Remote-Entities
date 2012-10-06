@@ -5,7 +5,8 @@ import net.minecraft.server.WorldServer;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
-import de.kumpelblase2.removeentities.thinking.Behaviour;
+import de.kumpelblase2.removeentities.api.*;
+import de.kumpelblase2.removeentities.api.thinking.Behaviour;
 
 public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
 {

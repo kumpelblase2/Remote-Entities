@@ -5,7 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-import de.kumpelblase2.removeentities.thinking.Behaviour;
+import de.kumpelblase2.removeentities.api.*;
+import de.kumpelblase2.removeentities.api.thinking.Behaviour;
 
 public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Fightable
 {

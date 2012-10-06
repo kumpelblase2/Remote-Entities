@@ -1,9 +1,11 @@
 package de.kumpelblase2.removeentities.entities;
 
 import org.bukkit.inventory.Inventory;
-import de.kumpelblase2.removeentities.features.InventoryFeature;
-import de.kumpelblase2.removeentities.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.removeentities.thinking.goals.DesireLookAtNearest;
+import de.kumpelblase2.removeentities.api.RemoteEntity;
+import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
+import de.kumpelblase2.removeentities.api.features.InventoryFeature;
+import de.kumpelblase2.removeentities.api.thinking.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.removeentities.api.thinking.goals.DesireLookAtNearest;
 import de.kumpelblase2.removeentities.utilities.ReflectionUtil;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntityZombie;

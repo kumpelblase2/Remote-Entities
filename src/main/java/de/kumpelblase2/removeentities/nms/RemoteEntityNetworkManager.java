@@ -1,10 +1,7 @@
 package de.kumpelblase2.removeentities.nms;
 
 import java.io.IOException;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.NetHandler;
-import net.minecraft.server.NetworkManager;
-import net.minecraft.server.Packet;
+import net.minecraft.server.*;
 
 public class RemoteEntityNetworkManager extends NetworkManager
 {

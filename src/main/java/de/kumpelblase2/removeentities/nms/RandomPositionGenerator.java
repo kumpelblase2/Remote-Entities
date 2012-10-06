@@ -1,9 +1,7 @@
 package de.kumpelblase2.removeentities.nms;
 
 import java.util.Random;
-import net.minecraft.server.EntityLiving;
-import net.minecraft.server.MathHelper;
-import net.minecraft.server.Vec3D;
+import net.minecraft.server.*;
 
 public class RandomPositionGenerator
 {

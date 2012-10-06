@@ -1,11 +1,8 @@
 package de.kumpelblase2.removeentities;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import net.minecraft.server.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,9 +10,7 @@ import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
-import de.kumpelblase2.removeentities.entities.RemoteEntity;
-import de.kumpelblase2.removeentities.entities.RemoteEntityHandle;
-import de.kumpelblase2.removeentities.entities.RemoteEntityType;
+import de.kumpelblase2.removeentities.api.*;
 import de.kumpelblase2.removeentities.exceptions.NoNameExeption;
 
 public class EntityManager

@@ -2,18 +2,10 @@ package de.kumpelblase2.removeentities.entities;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.EnumGamemode;
-import net.minecraft.server.ItemInWorldManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.Navigation;
-import net.minecraft.server.NetworkManager;
-import net.minecraft.server.World;
-import de.kumpelblase2.removeentities.nms.NullNetServerHandler;
-import de.kumpelblase2.removeentities.nms.RemoteEntityNetworkManager;
-import de.kumpelblase2.removeentities.thinking.*;
-import de.kumpelblase2.removeentities.thinking.goals.DesireWanderAroundArea;
+import net.minecraft.server.*;
+import de.kumpelblase2.removeentities.api.*;
+import de.kumpelblase2.removeentities.api.thinking.*;
+import de.kumpelblase2.removeentities.nms.*;
 
 public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHandle
 {
@@ -32,6 +24,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
+		this.W = 1;
 	}
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, RemoteEntity inEntity)

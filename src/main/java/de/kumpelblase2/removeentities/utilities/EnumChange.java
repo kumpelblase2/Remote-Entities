@@ -1,15 +1,8 @@
 package de.kumpelblase2.removeentities.utilities;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import sun.reflect.ConstructorAccessor;
-import sun.reflect.FieldAccessor;
-import sun.reflect.ReflectionFactory;
+import java.lang.reflect.*;
+import java.util.*;
+import sun.reflect.*;
 
 @SuppressWarnings("restriction")
 public final class EnumChange

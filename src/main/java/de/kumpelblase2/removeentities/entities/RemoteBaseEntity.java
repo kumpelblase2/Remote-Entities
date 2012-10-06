@@ -2,8 +2,10 @@ package de.kumpelblase2.removeentities.entities;
 
 import net.minecraft.server.EntityLiving;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
-import de.kumpelblase2.removeentities.features.FeatureSet;
-import de.kumpelblase2.removeentities.thinking.Mind;
+import de.kumpelblase2.removeentities.api.RemoteEntity;
+import de.kumpelblase2.removeentities.api.RemoteEntityType;
+import de.kumpelblase2.removeentities.api.features.FeatureSet;
+import de.kumpelblase2.removeentities.api.thinking.Mind;
 
 public abstract class RemoteBaseEntity implements RemoteEntity
 {
