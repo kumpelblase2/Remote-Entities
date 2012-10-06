@@ -21,6 +21,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	{
 		this(inID, inName);
 		this.m_entity = inEntity;
+		this.m_speed = DefaultEntitySpeed.PLAYER_SPEED;
 	}
 
 	@Override
@@ -76,13 +77,13 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	@Override
 	public float getSpeed()
 	{
-		return this.getHandle().getSpeed();
+		return this.m_speed;
 	}
 
 	@Override
 	public void setSpeed(float inSpeed)
 	{
-		this.getHandle().setSpeed(inSpeed);
+		this.m_speed = inSpeed;
 	}
 	
 	@Override

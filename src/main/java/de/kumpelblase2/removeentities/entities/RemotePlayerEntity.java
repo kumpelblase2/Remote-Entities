@@ -12,7 +12,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	protected float m_speed = DefaultEntitySpeed.PLAYER_SPEED;
 	protected int m_maxHealth = 20;
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
@@ -110,7 +109,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		getControllerMove().c();
 		getControllerLook().a();
 		getControllerJump().b();
-		e(this.getSpeed());
+		e(this.getRemoteEntity().getSpeed());
 		
 		if (bu)
 		{
@@ -134,7 +133,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
         bt *= 0.9F;
 
         float prev = aG;
-        aG *= bs() * this.getSpeed();
+        aG *= bs() * this.getRemoteEntity().getSpeed();
         e(br, bs); 
         aG = prev;
         as = yaw;
@@ -158,16 +157,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public void setMaxHealth(int inMax)
 	{
 		this.m_maxHealth = inMax;
-	}
-	
-	public float getSpeed()
-	{
-		return this.m_speed;
-	}
-	
-	public void setSpeed(float inSpeed)
-	{
-		this.m_speed = inSpeed;
 	}
 
 	@Override

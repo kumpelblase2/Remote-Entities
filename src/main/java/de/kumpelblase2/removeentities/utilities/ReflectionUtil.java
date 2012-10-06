@@ -32,7 +32,7 @@ public final class ReflectionUtil
 		}
 	}
 	
-	public static void registerEntityType(Class<?> inClass, String name)
+	public static void registerEntityType(Class<?> inClass, String name, int inID)
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public final class ReflectionUtil
             Method a = net.minecraft.server.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
  
-            a.invoke(a, inClass, name, 54);
+            a.invoke(a, inClass, name, inID);
         }
 		catch (Exception e)
 		{

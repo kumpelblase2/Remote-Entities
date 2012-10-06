@@ -7,14 +7,24 @@ import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
 import de.kumpelblase2.removeentities.api.features.InventoryFeature;
 import de.kumpelblase2.removeentities.api.thinking.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.removeentities.utilities.ReflectionUtil;
 
 public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
-	protected float m_speed;
 	protected int m_maxHealth = 20;
+	
+	static
+	{
+		ReflectionUtil.registerEntityType(RemoteCreeperEntity.class, "Creeper", 50);
+	}
+	
+	public RemoteCreeperEntity(World world)
+	{
+		this(world, null);
+	}
 	
 	public RemoteCreeperEntity(World world, RemoteEntity inRemoteEntity)
 	{
@@ -42,6 +52,8 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	@Override
 	public void setupStandardGoals()
 	{
+		this.getGoalSelector().clearGoals();
+		this.getTargetSelector().clearGoals();
 	}
 
 	@Override
@@ -65,16 +77,14 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	@Override
 	public int getMaxHealth()
 	{
+		if(this.m_maxHealth == 0)
+			return 20;
 		return this.m_maxHealth;
 	}
 	
-	public float getSpeed()
+	@Override
+	public boolean aV()
 	{
-		return this.m_speed;
-	}
-	
-	public void setSpeed(float inSpeed)
-	{
-		this.m_speed = inSpeed;
+		return true;
 	}
 }

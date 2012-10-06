@@ -20,6 +20,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected RemoteEntityType m_type;
 	protected EntityLiving m_entity;
 	protected boolean m_isPushable = true;
+	protected float m_speed;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType)
 	{
@@ -131,5 +132,17 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	public void setPushable(boolean inState)
 	{
 		this.m_isPushable = inState;
+	}
+	
+	@Override
+	public float getSpeed()
+	{
+		return this.m_speed;
+	}
+	
+	@Override
+	public void setSpeed(float inSpeed)
+	{
+		this.m_speed = inSpeed;
 	}
 }

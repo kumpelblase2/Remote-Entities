@@ -11,13 +11,14 @@ import net.minecraft.server.World;
 
 public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHandle
 {
-	protected RemoteEntity m_remoteEntity;
+	private RemoteEntity m_remoteEntity;
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
+	protected int m_maxHealth = 20;
 	
 	static
 	{
-		ReflectionUtil.registerEntityType(RemoteZombieEntity.class, "Zombie");
+		ReflectionUtil.registerEntityType(RemoteZombieEntity.class, "Zombie", 54);
 	}
 	
 	public RemoteZombieEntity(World world)
@@ -51,9 +52,6 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	@Override
 	public void setupStandardGoals()
 	{
-		this.goalSelectorHelper.clearGoals();
-		this.targetSelectorHelper.clearGoals();
-		//this.goalSelector.a(0, new DesireLookAtNearest(this.m_remoteEntity, EntityPlayer.class, 8));
 	}
 
 	@Override
@@ -71,6 +69,14 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	@Override
 	public void setMaxHealth(int inHealth)
 	{
-		
+		this.m_maxHealth = inHealth;
+	}
+	
+	@Override
+	public int getMaxHealth()
+	{
+		if(this.m_maxHealth == 0)
+			return 20;
+		return this.m_maxHealth;
 	}
 }

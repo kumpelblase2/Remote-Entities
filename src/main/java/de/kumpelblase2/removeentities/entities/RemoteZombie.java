@@ -8,9 +8,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.removeentities.api.*;
 
 public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Fightable
-{
-	protected float m_speed = 0.25F;
-	
+{	
 	public RemoteZombie(int inID)
 	{
 		super(inID, RemoteEntityType.Zombie);
@@ -20,6 +18,7 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	{
 		this(inID);
 		this.m_entity = inEntitiy;
+		this.m_speed = 0.2F;
 	}
 
 	@Override
@@ -44,18 +43,6 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	public int getMaxHealth()
 	{
 		return this.m_entity.getMaxHealth();
-	}
-
-	@Override
-	public float getSpeed()
-	{
-		return this.m_speed;
-	}
-
-	@Override
-	public void setSpeed(float inSpeed)
-	{
-		this.m_speed = inSpeed;
 	}
 
 	@Override
