@@ -81,7 +81,7 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	}
 	
 	@Override
-	public void aV()
+	public boolean aV()
 	{
 		return true;
 	}
