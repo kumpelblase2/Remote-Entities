@@ -8,6 +8,7 @@ public enum RemoteEntityType
 {
 	Human(RemotePlayer.class, RemotePlayerEntity.class, true), 
 	Zombie(RemoteZombie.class, RemoteZombieEntity.class, false),
+	Spider(RemoteSpider.class, RemoteSpiderEntity.class, false),
 	Creeper(RemoteCreeper.class, RemoteCreeperEntity.class, false);
 	
 	private Class<? extends EntityLiving> m_entityClass;
