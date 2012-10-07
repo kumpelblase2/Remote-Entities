@@ -6,10 +6,11 @@ import net.minecraft.server.EntityLiving;
 
 public enum RemoteEntityType
 {
-	Human(RemotePlayer.class, RemotePlayerEntity.class, true), 
+	Human(RemotePlayer.class, RemotePlayerEntity.class, true),
 	Zombie(RemoteZombie.class, RemoteZombieEntity.class, false),
 	Spider(RemoteSpider.class, RemoteSpiderEntity.class, false),
-	Creeper(RemoteCreeper.class, RemoteCreeperEntity.class, false);
+	Creeper(RemoteCreeper.class, RemoteCreeperEntity.class, false), 
+	Skeleton(RemoteSkeleton.class, RemoteSkeletonEntity.class, false);
 	
 	private Class<? extends EntityLiving> m_entityClass;
 	private Class<? extends RemoteEntity> m_remoteClass;
