@@ -119,6 +119,16 @@ public class Mind
 		((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().addGoal((PathfinderGoal)inDesire, inPriority);
 	}
 	
+	public void clearMovementDesires()
+	{
+		((RemoteEntityHandle)this.m_entity.getHandle()).getGoalSelector().clearGoals();
+	}
+	
+	public void clearTargetDesires()
+	{
+		((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().clearGoals();
+	}
+	
 	public void tick()
 	{
 		if(this.canFeel())

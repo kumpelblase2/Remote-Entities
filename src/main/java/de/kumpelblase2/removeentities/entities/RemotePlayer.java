@@ -13,13 +13,13 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	
 	public RemotePlayer(int inID, String inName)
 	{
-		super(inID, RemoteEntityType.Human);
-		this.m_name = inName;
+		this(inID, inName, null);
 	}
 	
 	public RemotePlayer(int inID, String inName, RemotePlayerEntity inEntity)
 	{
-		this(inID, inName);
+		super(inID, RemoteEntityType.Human);
+		this.m_name = inName;
 		this.m_entity = inEntity;
 		this.m_speed = DefaultEntitySpeed.PLAYER_SPEED;
 	}
@@ -72,18 +72,6 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	public int getMaxHealth()
 	{
 		return this.m_entity.getMaxHealth();
-	}
-
-	@Override
-	public float getSpeed()
-	{
-		return this.m_speed;
-	}
-
-	@Override
-	public void setSpeed(float inSpeed)
-	{
-		this.m_speed = inSpeed;
 	}
 	
 	@Override

@@ -1,10 +1,14 @@
 package de.kumpelblase2.removeentities.entities;
 
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.PathEntity;
+import net.minecraft.server.World;
+import net.minecraft.server.WorldServer;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 import de.kumpelblase2.removeentities.api.features.FeatureSet;
@@ -28,8 +32,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		this.m_mind = new Mind(this);
 		this.m_features = new FeatureSet();
 		this.m_type = inType;
+		this.m_speed = 0;
 	}
-	
+
 	@Override
 	public int getID()
 	{
@@ -92,8 +97,12 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation)
 	{
-		PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
-		return this.m_entity.getNavigation().a(path, this.getSpeed());
+		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), this.getSpeed()))
+		{
+			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
+			return this.m_entity.getNavigation().a(path, this.getSpeed());
+		}
+		return true;
 	}
 
 	@Override
@@ -102,7 +111,25 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		this.getBukkitEntity().teleport(inLocation);
 	}
 	
-
+	@Override
+	public void spawn(Location inLocation)
+	{
+		if(this.isSpawned())
+			return;
+		
+		try
+		{
+			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
+			this.m_entity = (EntityLiving)this.m_type.getEntityClass().getConstructor(World.class, RemoteEntity.class).newInstance(worldServer, this);
+			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
+			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void despawn()
 	{
