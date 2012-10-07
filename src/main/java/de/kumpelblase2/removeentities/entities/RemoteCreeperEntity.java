@@ -87,4 +87,11 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	{
 		return true;
 	}
+	
+	@Override
+	public void h_()
+	{
+		super.h_();
+		this.getRemoteEntity().getMind().tick();
+	}
 }

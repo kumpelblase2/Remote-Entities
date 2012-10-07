@@ -79,4 +79,17 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 			return 20;
 		return this.m_maxHealth;
 	}
+	
+	@Override
+	public void aV()
+	{
+		return true;
+	}
+	
+	@Override
+	public void h_()
+	{
+		super.h_();
+		this.getRemoteEntity().getMind().tick();
+	}
 }
