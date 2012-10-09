@@ -14,7 +14,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	private RemoteEntity m_remoteEntity;
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
-	protected int m_maxHealth = 10;
+	protected int m_maxHealth;
+	public static int defaultMaxHealth = 20;
 	
 	static
 	{
@@ -26,6 +27,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		super(world);
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		this.m_maxHealth = defaultMaxHealth;
 	}
 	
 	public RemoteSkeletonEntity(World world, RemoteEntity inEntity)
@@ -76,7 +78,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	public int getMaxHealth()
 	{
 		if(this.m_maxHealth == 0)
-			return 10;
+			return defaultMaxHealth;
 		return this.m_maxHealth;
 	}
 }

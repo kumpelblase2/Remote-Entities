@@ -14,7 +14,8 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	private RemoteEntity m_remoteEntity;
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
-	protected int m_maxHealth = 20;
+	protected int m_maxHealth;
+	public static int defaultMaxHealth = 20;
 	
 	static
 	{
@@ -32,6 +33,7 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 		this.m_remoteEntity = inRemoteEntity;
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		this.m_maxHealth = defaultMaxHealth;
 	}
 
 	@Override
@@ -52,8 +54,6 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getGoalSelector().clearGoals();
-		this.getTargetSelector().clearGoals();
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	public int getMaxHealth()
 	{
 		if(this.m_maxHealth == 0)
-			return 20;
+			return defaultMaxHealth;
 		return this.m_maxHealth;
 	}
 	

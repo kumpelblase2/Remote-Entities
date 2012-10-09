@@ -12,7 +12,8 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	protected int m_maxHealth = 20;
+	protected int m_maxHealth;
+	public static int defaultMaxHealth = 20;
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	
@@ -21,6 +22,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		super(minecraftserver, world, s, iteminworldmanager);
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		this.m_maxHealth = defaultMaxHealth;
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 		this.W = 1;
