@@ -11,7 +11,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.removeentities.api.*;
-import de.kumpelblase2.removeentities.exceptions.NoNameExeption;
+import de.kumpelblase2.removeentities.exceptions.NoNameException;
 
 public class EntityManager
 {
@@ -65,10 +65,10 @@ public class EntityManager
 		return current;
 	}
 	
-	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation) throws NoNameExeption
+	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation) throws NoNameException
 	{
 		if(inType.isNamed())
-			throw new NoNameExeption("Tried to spawn a named entity without name");
+			throw new NoNameException("Tried to spawn a named entity without name");
 
 		Integer id = this.getNextFreeID();
 		try
