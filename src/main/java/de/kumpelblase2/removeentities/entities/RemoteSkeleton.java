@@ -16,7 +16,6 @@ public class RemoteSkeleton extends RemoteBaseEntity implements Fightable
 	{
 		super(inID, RemoteEntityType.Skeleton);
 		this.m_entity = inEntity;
-		this.m_speed = 0.2F;
 	}
 
 	@Override

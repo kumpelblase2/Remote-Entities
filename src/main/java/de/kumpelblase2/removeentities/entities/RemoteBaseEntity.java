@@ -1,14 +1,17 @@
 package de.kumpelblase2.removeentities.entities;
 
+import java.lang.reflect.Field;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import net.minecraft.server.EntityCreature;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.PathEntity;
 import net.minecraft.server.World;
 import net.minecraft.server.WorldServer;
+import de.kumpelblase2.removeentities.api.DefaultEntitySpeed;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 import de.kumpelblase2.removeentities.api.features.FeatureSet;
@@ -32,7 +35,15 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		this.m_mind = new Mind(this);
 		this.m_features = new FeatureSet();
 		this.m_type = inType;
-		this.m_speed = 0;
+		try
+		{
+			Field speed = DefaultEntitySpeed.class.getDeclaredField(this.m_type.name().toUpperCase() + "_SPEED");
+			this.m_speed = speed.getFloat(null);
+		}
+		catch(Exception e)
+		{
+			this.m_speed = 0;
+		}
 	}
 
 	@Override
@@ -100,6 +111,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), this.getSpeed()))
 		{
 			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
+			if(this.m_entity instanceof EntityCreature)
+				((EntityCreature)this.m_entity).setPathEntity(path);
 			return this.m_entity.getNavigation().a(path, this.getSpeed());
 		}
 		return true;

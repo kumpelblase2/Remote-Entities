@@ -14,7 +14,6 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	{
 		super(inID, RemoteEntityType.Zombie);
 		this.m_entity = inEntitiy;
-		this.m_speed = 0.2F;
 	}
 
 	@Override

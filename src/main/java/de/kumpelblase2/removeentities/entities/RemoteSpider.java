@@ -15,7 +15,6 @@ public class RemoteSpider extends RemoteBaseEntity implements Fightable
 	{
 		super(inID, RemoteEntityType.Spider);
 		this.m_entity = inEntity;
-		this.m_speed = 0.2F;
 	}
 
 	@Override

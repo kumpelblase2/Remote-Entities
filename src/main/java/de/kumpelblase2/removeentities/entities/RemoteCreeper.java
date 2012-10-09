@@ -15,7 +15,6 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 	{
 		super(inID, RemoteEntityType.Creeper);
 		this.m_entity = inEntity;
-		this.m_speed = 0.3F;
 	}
 	@Override
 	public void setMaxHealth(int inMax)

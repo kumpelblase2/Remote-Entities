@@ -21,7 +21,6 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		super(inID, RemoteEntityType.Human);
 		this.m_name = inName;
 		this.m_entity = inEntity;
-		this.m_speed = DefaultEntitySpeed.PLAYER_SPEED;
 	}
 
 	@Override
