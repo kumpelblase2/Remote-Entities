@@ -10,7 +10,28 @@ public enum RemoteEntityType
 	Zombie(RemoteZombie.class, RemoteZombieEntity.class, false),
 	Spider(RemoteSpider.class, RemoteSpiderEntity.class, false),
 	Creeper(RemoteCreeper.class, RemoteCreeperEntity.class, false), 
-	Skeleton(RemoteSkeleton.class, RemoteSkeletonEntity.class, false);
+	Skeleton(RemoteSkeleton.class, RemoteSkeletonEntity.class, false),
+	Blaze(RemoteBlaze.class, RemoteBlazeEntity.class, false),
+	CaveSpider(RemoteCaveSpider.class, RemoteCaveSpiderEntity.class, false),
+	Chicken(RemoteChicken.class, RemoteChickenEntity.class, false),
+	Cow(RemoteCow.class, RemoteCowEntity.class, false),
+	EnderDragon(RemoteEnderDragon.class, RemoteEnderDragonEntity.class, false),
+	Enderman(RemoteEnderman.class, RemoteEndermanEntity.class, false),
+	Ghast(RemoteGhast.class, RemoteGhastEntity.class, false),
+	IronGolem(RemoteIronGolem.class, RemoteIronGolemEntity.class, false),
+	LavaSlime(RemoteLavaSlime.class, RemoteLavaSlimeEntity.class, false),
+	Mushroom(RemoteMushroom.class, RemoteMushroomEntity.class, false),
+	Ocelote(RemoteOcelote.class, RemoteOceloteEntity.class, false),
+	Pig(RemotePig.class, RemotePigEntity.class, false),
+	Pigmen(RemotePigmen.class, RemotePigmenEntity.class, false),
+	Sheep(RemoteSheep.class, RemoteSheepEntity.class, false),
+	Silverfish(RemoteSilverfish.class, RemoteSilverfishEntity.class, false),
+	Slime(RemoteSlime.class, RemoteSlimeEntity.class, false),
+	Snowman(RemoteSnowman.class, RemoteSnowmanEntity.class, false),
+	Squid(RemoteSquid.class, RemoteSquidEntity.class, false),
+	Villager(RemoteVillager.class, RemoteVillagerEntity.class, false),
+	Wolf(RemoteWolf.class, RemoteWolfEntity.class, false);
+	
 	
 	private Class<? extends EntityLiving> m_entityClass;
 	private Class<? extends RemoteEntity> m_remoteClass;
