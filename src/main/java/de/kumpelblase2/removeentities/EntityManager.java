@@ -9,6 +9,9 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.removeentities.api.*;
 import de.kumpelblase2.removeentities.exceptions.NoNameException;
@@ -17,9 +20,9 @@ public class EntityManager
 {
 	private static EntityManager m_instance;
 	private Map<Integer, RemoteEntity> m_entities;
-	private Plugin m_plugin;
+	private final Plugin m_plugin;
 	
-	public EntityManager(Plugin inPlugin)
+	public EntityManager(final Plugin inPlugin)
 	{
 		m_instance = this;
 		this.m_plugin = inPlugin;
@@ -42,6 +45,16 @@ public class EntityManager
 				}
 			}
 		}, 1L, 1L);
+		
+		Bukkit.getPluginManager().registerEvents(new Listener()
+		{
+			@EventHandler
+			public void disabled(PluginDisableEvent event)
+			{
+				if(event.getPlugin() == inPlugin)
+					despawnAll();
+			}
+		}, inPlugin);
 	}
 	
 	public static EntityManager getInstance()
@@ -156,7 +169,15 @@ public class EntityManager
 		{
 			e.printStackTrace();
 			return null;
+		}		
+	}
+	
+	public void despawnAll()
+	{
+		for(RemoteEntity entity : this.m_entities.values())
+		{
+			entity.despawn();
 		}
-			
+		this.m_entities.clear();
 	}
 }
