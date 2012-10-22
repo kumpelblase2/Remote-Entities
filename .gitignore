@@ -12,3 +12,7 @@
 .settings/org.eclipse.jdt.core.prefs
 
 .settings/org.eclipse.m2e.core.prefs
+
+*.DS_Store
+
+target/classes/de/kumpelblase2/removeentities/.DS_Store
