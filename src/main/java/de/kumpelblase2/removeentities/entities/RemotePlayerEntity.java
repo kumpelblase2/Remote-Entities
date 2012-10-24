@@ -1,9 +1,12 @@
 package de.kumpelblase2.removeentities.entities;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import net.minecraft.server.*;
+import net.minecraft.server.Navigation;
 import de.kumpelblase2.removeentities.api.*;
+import de.kumpelblase2.removeentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.removeentities.api.thinking.*;
 import de.kumpelblase2.removeentities.nms.*;
 
@@ -62,6 +65,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
 				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
 				{
+					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
+					Bukkit.getPluginManager().callEvent(event);
+					if(event.isCancelled())
+						return;
+					
 					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
@@ -91,16 +99,14 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
 		
+        if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
+            motX = motY = motZ = 0;
+		
 		Navigation navigation = getNavigation();
         if(!navigation.f())
         {
             navigation.e();
             this.applyMovement();
-        }
-        else if(motX != 0 || motZ != 0 || motY != 0)
-        {
-            if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
-                motX = motY = motZ = 0;
         }
         
         this.getRemoteEntity().getMind().tick();
@@ -108,6 +114,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	
 	public void applyMovement()
 	{
+		if(this.m_remoteEntity.isStationary())
+			return;
+		
 		getControllerMove().c();
 		getControllerLook().a();
 		getControllerJump().b();
@@ -144,8 +153,17 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void g(double x, double y, double z)
 	{
-		if(this.m_remoteEntity.isPushable())
+		if(this.m_remoteEntity.isPushable() || !this.m_remoteEntity.isStationary())
 			super.g(x, y, z);
+	}
+	
+	@Override
+	public void move(double d0, double d1, double d2)
+	{
+		if(this.m_remoteEntity.isStationary())
+			return;
+		
+		super.move(d0, d1, d2);
 	}
 	
 	@Override

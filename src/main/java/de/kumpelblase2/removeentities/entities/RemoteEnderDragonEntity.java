@@ -1,12 +1,21 @@
 package de.kumpelblase2.removeentities.entities;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.Entity;
 import net.minecraft.server.EntityEnderDragon;
+import net.minecraft.server.EntityHuman;
+import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.MathHelper;
 import net.minecraft.server.World;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
+import de.kumpelblase2.removeentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.removeentities.api.features.InventoryFeature;
+import de.kumpelblase2.removeentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.removeentities.api.thinking.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.removeentities.api.thinking.TouchBehaviour;
 import de.kumpelblase2.removeentities.utilities.ReflectionUtil;
 
 public class RemoteEnderDragonEntity extends EntityEnderDragon implements RemoteEntityHandle
@@ -15,6 +24,8 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
 	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	protected int m_maxHealth;
+	protected int m_lastBouncedId;
+	protected long m_lastBouncedTime;
 	public static int defaultMaxHealth = 100;
 	
 	static
@@ -87,5 +98,106 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	{
 		super.h_();
 		this.getRemoteEntity().getMind().tick();
+	}
+	
+	@Override
+	public void move(double x, double y, double z)
+	{
+		if(!this.getRemoteEntity().isStationary())
+			super.move(x, y, z);
+	}
+	
+	@Override
+	public void d()
+	{
+		if(this.getRemoteEntity().isStationary())
+		{
+			// --- Taken from EntityEnderDragon.java#77 - #81
+			if(this.health <= 0)
+			{
+				float f = (this.random.nextFloat() - 0.5F) * 8.0F;
+				float d05 = (this.random.nextFloat() - 0.5F) * 4.0F;
+	            float f1 = (this.random.nextFloat() - 0.5F) * 8.0F;
+	            this.world.a("largeexplode", this.locX + (double) f, this.locY + 2.0D + (double) d05, this.locZ + (double) f1, 0.0D, 0.0D, 0.0D);
+			}
+			// ---
+			return;
+		}
+		
+		super.d();
+	}
+	
+	@Override
+	public void g(double x, double y, double z)
+	{
+		if(!this.getRemoteEntity().isPushable())
+			return;
+		super.g(x, y, z);
+	}
+	
+	@Override
+	public void collide(Entity entity)
+	{
+		// --- Taken from Entity.java#778 - #802
+		if (entity.passenger != this && entity.vehicle != this) {
+            double d0 = entity.locX - this.locX;
+            double d1 = entity.locZ - this.locZ;
+            double d2 = MathHelper.a(d0, d1);
+
+            if (d2 >= 0.009999999776482582D) {
+                d2 = (double) MathHelper.sqrt(d2);
+                d0 /= d2;
+                d1 /= d2;
+                double d3 = 1.0D / d2;
+
+                if (d3 > 1.0D) {
+                    d3 = 1.0D;
+                }
+
+                d0 *= d3;
+                d1 *= d3;
+                d0 *= 0.05000000074505806D;
+                d1 *= 0.05000000074505806D;
+                d0 *= (double) (1.0F - this.Y);
+                d1 *= (double) (1.0F - this.Y);
+                if(this.getRemoteEntity().isPushable()) // Added
+                	this.g(-d0, 0.0D, -d1);				// Added
+                entity.g(d0, 0.0D, d1);
+            }
+        }
+		// ---
+	}
+	
+	@Override
+	public void b_(EntityHuman entity)
+	{
+		if(entity instanceof EntityPlayer)
+		{
+			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
+				{
+					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
+					Bukkit.getPluginManager().callEvent(event);
+					if(event.isCancelled())
+						return;
+					
+					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					this.m_lastBouncedTime = System.currentTimeMillis();
+					this.m_lastBouncedId = entity.id;
+				}
+			}
+		}
+		super.b_(entity);
+	}
+	
+	@Override
+	public boolean c(EntityHuman entity)
+	{
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
+		{
+			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+		}
+		
+		return super.c(entity);
 	}
 }
