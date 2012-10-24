@@ -5,20 +5,21 @@ import net.minecraft.server.WorldServer;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.*;
 
 public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
 {
 	protected String m_name;
 	
-	public RemotePlayer(int inID, String inName)
+	public RemotePlayer(int inID, String inName, EntityManager inManager)
 	{
-		this(inID, inName, null);
+		this(inID, inName, null, inManager);
 	}
 	
-	public RemotePlayer(int inID, String inName, RemotePlayerEntity inEntity)
+	public RemotePlayer(int inID, String inName, RemotePlayerEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Human);
+		super(inID, RemoteEntityType.Human, inManager);
 		this.m_name = inName;
 		this.m_entity = inEntity;
 	}
@@ -77,5 +78,12 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	public RemotePlayerEntity getHandle()
 	{
 		return (RemotePlayerEntity)this.m_entity;
+	}
+
+	@Override
+	public LivingEntity getTarget()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

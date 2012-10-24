@@ -1,18 +1,19 @@
 package de.kumpelblase2.removeentities.entities;
 
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 
 public class RemoteVillager extends RemoteBaseEntity
 {
-	public RemoteVillager(int inID)
+	public RemoteVillager(int inID, EntityManager inManager)
 	{
-		this(inID, null);
+		this(inID, null, inManager);
 	}
 	
-	public RemoteVillager(int inID, RemoteVillagerEntity inEntity)
+	public RemoteVillager(int inID, RemoteVillagerEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Villager);
+		super(inID, RemoteEntityType.Villager, inManager);
 		this.m_entity = inEntity;
 	}
 

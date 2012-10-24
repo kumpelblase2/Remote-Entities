@@ -1,20 +1,21 @@
 package de.kumpelblase2.removeentities.entities;
 
 import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.Fightable;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 
 public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 {
-	public RemoteEnderman(int inID)
+	public RemoteEnderman(int inID, EntityManager inManager)
 	{
-		this(inID, null);
+		this(inID, null, inManager);
 	}
 	
-	public RemoteEnderman(int inID, RemoteEndermanEntity inEntity)
+	public RemoteEnderman(int inID, RemoteEndermanEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Enderman);
+		super(inID, RemoteEntityType.Enderman, inManager);
 		this.m_entity = inEntity;
 	}
 
@@ -42,5 +43,12 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public LivingEntity getTarget()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

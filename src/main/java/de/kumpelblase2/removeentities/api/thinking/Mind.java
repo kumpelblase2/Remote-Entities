@@ -1,21 +1,22 @@
 package de.kumpelblase2.removeentities.api.thinking;
 
 import java.util.*;
-import net.minecraft.server.PathfinderGoal;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
-import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
-import de.kumpelblase2.removeentities.utilities.ReflectionUtil;
 
 public class Mind
 {
 	private Map<String, Behaviour> m_behaviours;
 	private RemoteEntity m_entity;
 	private boolean m_canFeel = true;
+	private Navigation m_targetNavigation;
+	private Navigation m_movementNavigation;
 	
 	public Mind(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
 		this.m_behaviours = new HashMap<String, Behaviour>();
+		this.m_targetNavigation = new Navigation();
+		this.m_movementNavigation = new Navigation();
 	}
 	
 	public void addBehaviour(Behaviour inBehaviour)
@@ -65,38 +66,12 @@ public class Mind
 	
 	public List<Desire> getMovementDesires()
 	{
-		try
-		{
-			List<Desire> desires = new ArrayList<Desire>();
-			for(Object o : ((RemoteEntityHandle)this.m_entity.getHandle()).getGoalSelector().getGoals())
-			{
-				desires.add((Desire)ReflectionUtil.getGoalFromItem(o));
-			}
-			return desires;
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
-		}
+		return this.m_movementNavigation.getDesires();
 	}
 	
 	public List<Desire> getActionDesires()
 	{
-		try
-		{
-			List<Desire> desires = new ArrayList<Desire>();
-			for(Object o : ((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().getGoals())
-			{
-				desires.add((Desire)ReflectionUtil.getGoalFromItem(o));
-			}
-			return desires;
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
-		}
+		return this.m_targetNavigation.getDesires();
 	}
 	
 	public<T extends Desire> T getMovementDesire(Class<T> inClass)
@@ -111,22 +86,26 @@ public class Mind
 	
 	public void addMovementDesire(Desire inDesire, int inPriority)
 	{
-		((RemoteEntityHandle)this.m_entity.getHandle()).getGoalSelector().addGoal((PathfinderGoal)inDesire, inPriority);
+		//((RemoteEntityHandle)this.m_entity.getHandle()).getGoalSelector().addGoal((PathfinderGoal)inDesire, inPriority);
+		this.m_movementNavigation.addDesire(inDesire, inPriority);
 	}
 	
 	public void addTargetDesire(Desire inDesire, int inPriority)
 	{
-		((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().addGoal((PathfinderGoal)inDesire, inPriority);
+		//((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().addGoal((PathfinderGoal)inDesire, inPriority);
+		this.m_targetNavigation.addDesire(inDesire, inPriority);
 	}
 	
 	public void clearMovementDesires()
 	{
-		((RemoteEntityHandle)this.m_entity.getHandle()).getGoalSelector().clearGoals();
+		//((RemoteEntityHandle)this.m_entity.getHandle()).getGoalSelector().clearGoals();
+		this.m_movementNavigation.clearDesires();
 	}
 	
 	public void clearTargetDesires()
 	{
-		((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().clearGoals();
+		//((RemoteEntityHandle)this.m_entity.getHandle()).getTargetSelector().clearGoals();
+		this.m_targetNavigation.clearDesires();
 	}
 	
 	public void tick()
@@ -138,5 +117,7 @@ public class Mind
 				behaviour.run();
 			}
 		}
+		this.m_movementNavigation.onUpdate();
+		this.m_targetNavigation.onUpdate();
 	}
 }

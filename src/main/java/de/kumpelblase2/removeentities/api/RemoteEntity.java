@@ -3,6 +3,7 @@ package de.kumpelblase2.removeentities.api;
 import net.minecraft.server.EntityLiving;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.features.FeatureSet;
 import de.kumpelblase2.removeentities.api.thinking.Mind;
 
@@ -27,4 +28,5 @@ public interface RemoteEntity
 	public void setSpeed(float inSpeed);
 	public boolean isPushable();
 	public void setPushable(boolean inState);
+	public EntityManager getManager();
 }

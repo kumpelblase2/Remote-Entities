@@ -1,20 +1,25 @@
 package de.kumpelblase2.removeentities.entities;
 
+import net.minecraft.server.Entity;
+import net.minecraft.server.EntityCreature;
+import net.minecraft.server.EntityLiving;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.Fightable;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 
 public class RemoteBlaze extends RemoteBaseEntity implements Fightable
-{
-	public RemoteBlaze(int inID)
+{	
+	public RemoteBlaze(int inID, EntityManager inManager)
 	{
-		this(inID, null);
+		this(inID, null, inManager);
 	}
 	
-	public RemoteBlaze(int inID, RemoteBlazeEntity inEntity)
+	public RemoteBlaze(int inID, RemoteBlazeEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Blaze);
+		super(inID, RemoteEntityType.Blaze, inManager);
 		this.m_entity = inEntity;
 	}
 
@@ -33,14 +38,23 @@ public class RemoteBlaze extends RemoteBaseEntity implements Fightable
 	@Override
 	public void attack(LivingEntity inTarget)
 	{
-		// TODO Auto-generated method stub
-		
+		((EntityCreature)this.m_entity).setTarget(((CraftLivingEntity)inTarget).getHandle());
+		this.m_entity.c(((CraftLivingEntity)inTarget).getHandle());
 	}
 
 	@Override
 	public void loseTarget()
 	{
-		// TODO Auto-generated method stub
+		((EntityCreature)this.m_entity).setTarget(null);
+	}
+
+	@Override
+	public LivingEntity getTarget()
+	{
+		Entity target = ((EntityCreature)this.m_entity).m();
+		if(target != null && target instanceof EntityLiving)
+			return (LivingEntity)target.getBukkitEntity();
 		
+		return null;	
 	}
 }

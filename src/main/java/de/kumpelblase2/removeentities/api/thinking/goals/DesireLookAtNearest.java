@@ -35,4 +35,47 @@ public class DesireLookAtNearest extends PathfinderGoalLookAtPlayer implements D
 			this.m_entity.getHandle().yaw = this.m_entity.getHandle().as;
 		}
 	}
+
+	@Override
+	public int getType()
+	{
+		return this.h();
+	}
+
+	@Override
+	public boolean isContinous()
+	{
+		return this.g();
+	}
+
+	@Override
+	public void startExecuting()
+	{
+		this.e();
+	}
+
+	@Override
+	public void stopExecuting()
+	{
+		this.c();
+	}
+
+	@Override
+	public boolean update()
+	{
+		this.d();
+		return true;
+	}
+
+	@Override
+	public boolean shouldExecute()
+	{
+		return this.a();
+	}
+
+	@Override
+	public boolean canContinue()
+	{
+		return this.a();
+	}
 }

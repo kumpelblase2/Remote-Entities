@@ -3,9 +3,8 @@ package de.kumpelblase2.removeentities.api.events;
 import org.bukkit.event.*;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 
-public class RemoteEvent extends Event implements Cancellable
+public abstract class RemoteEvent extends Event implements Cancellable
 {
-	public static final HandlerList handlers = new HandlerList();
 	private boolean m_isCancelled = false;
 	protected final RemoteEntity m_remoteEntity;
 	
@@ -17,12 +16,6 @@ public class RemoteEvent extends Event implements Cancellable
 	public RemoteEntity getRemoteEntity()
 	{
 		return this.m_remoteEntity;
-	}
-	
-	@Override
-	public HandlerList getHandlers()
-	{
-		return handlers;
 	}
 
 	@Override

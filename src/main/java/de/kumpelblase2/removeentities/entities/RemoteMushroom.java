@@ -1,18 +1,19 @@
 package de.kumpelblase2.removeentities.entities;
 
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.RemoteEntityHandle;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
 
 public class RemoteMushroom extends RemoteBaseEntity
 {
-	public RemoteMushroom(int inID)
+	public RemoteMushroom(int inID, EntityManager inManager)
 	{
-		this(inID, null);
+		this(inID, null, inManager);
 	}
 	
-	public RemoteMushroom(int inID, RemoteMushroomEntity inEntity)
+	public RemoteMushroom(int inID, RemoteMushroomEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Mushroom);
+		super(inID, RemoteEntityType.Mushroom, inManager);
 		this.m_entity = inEntity;
 	}
 

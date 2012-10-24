@@ -1,23 +1,23 @@
 package de.kumpelblase2.removeentities.api.events;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 
-public class RemoteEntityInteractEvent extends RemoteEvent
+public class RemoteEntityTouchEvent extends RemoteEvent
 {
-	protected final Player m_interactor;
+	protected final LivingEntity m_touchingEntity;
 	private static HandlerList handlers = new HandlerList();
 	
-	public RemoteEntityInteractEvent(RemoteEntity inEntity, Player inInteractor)
+	public RemoteEntityTouchEvent(RemoteEntity inEntity, LivingEntity inTouchingEntity)
 	{
 		super(inEntity);
-		this.m_interactor = inInteractor;
+		this.m_touchingEntity = inTouchingEntity;
 	}
 	
-	public Player getInteractor()
+	public LivingEntity getTouchingEntity()
 	{
-		return this.m_interactor;
+		return this.m_touchingEntity;
 	}
 	
 	public static HandlerList getHandlerList()

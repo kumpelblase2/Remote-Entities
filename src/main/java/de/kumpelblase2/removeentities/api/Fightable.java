@@ -6,4 +6,5 @@ public interface Fightable
 {
 	public void attack(LivingEntity inTarget);
 	public void loseTarget();
+	public LivingEntity getTarget();
 }

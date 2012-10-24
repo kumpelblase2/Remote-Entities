@@ -11,6 +11,7 @@ import net.minecraft.server.MathHelper;
 import net.minecraft.server.PathEntity;
 import net.minecraft.server.World;
 import net.minecraft.server.WorldServer;
+import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.DefaultEntitySpeed;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 import de.kumpelblase2.removeentities.api.RemoteEntityType;
@@ -28,8 +29,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected EntityLiving m_entity;
 	protected boolean m_isPushable = true;
 	protected float m_speed;
+	protected final EntityManager m_manager;
 	
-	public RemoteBaseEntity(int inID, RemoteEntityType inType)
+	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
 		this.m_id = inID;
 		this.m_mind = new Mind(this);
@@ -44,6 +46,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		{
 			this.m_speed = 0;
 		}
+		this.m_manager = inManager;
 	}
 
 	@Override
@@ -52,6 +55,12 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		return this.m_id;
 	}
 
+	@Override
+	public EntityManager getManager()
+	{
+		return this.m_manager;
+	}
+	
 	@Override
 	public Mind getMind()
 	{

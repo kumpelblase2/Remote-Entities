@@ -66,7 +66,10 @@ public enum RemoteEntityType
 	
 	public static void addType(String inName, Class<? extends EntityLiving> inEntityClass, Class<? extends RemoteEntity> inRemoteClass, boolean isNamed)
 	{
-		EnumChange.addEnum(RemoteEntityType.class, inName, new Class<?>[] { Class.class, Class.class, boolean.class }, new Object[] { inRemoteClass, inEntityClass, isNamed });
+		if(valueOf(inName) == null)
+			EnumChange.addEnum(RemoteEntityType.class, inName, new Class<?>[] { Class.class, Class.class, boolean.class }, new Object[] { inRemoteClass, inEntityClass, isNamed });
+		else
+			replaceType(inName, inEntityClass, inRemoteClass, isNamed);
 	}
 	
 	public static void removeType(String inName)
@@ -84,7 +87,7 @@ public enum RemoteEntityType
 	{
 		for(RemoteEntityType type : values())
 		{
-			if(type.getEntityClass().equals(inEntityClass))
+			if(type.getEntityClass().equals(inEntityClass) || type.getEntityClass().getSuperclass().equals(inEntityClass))
 				return type;
 		}
 		return null;

@@ -18,13 +18,11 @@ import de.kumpelblase2.removeentities.exceptions.NoNameException;
 
 public class EntityManager
 {
-	private static EntityManager m_instance;
 	private Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
 	
 	public EntityManager(final Plugin inPlugin)
 	{
-		m_instance = this;
 		this.m_plugin = inPlugin;
 		this.m_entities = new HashMap<Integer, RemoteEntity>();
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
@@ -57,11 +55,6 @@ public class EntityManager
 		}, inPlugin);
 	}
 	
-	public static EntityManager getInstance()
-	{
-		return m_instance;
-	}
-	
 	public Plugin getPlugin()
 	{
 		return this.m_plugin;
@@ -86,8 +79,8 @@ public class EntityManager
 		Integer id = this.getNextFreeID();
 		try
 		{
-			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class);
-			RemoteEntity entity = constructor.newInstance(id);
+			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, EntityManager.class);
+			RemoteEntity entity = constructor.newInstance(id, this);
 			entity.spawn(inLocation);
 			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
 			this.m_entities.put(id, entity);
@@ -105,8 +98,8 @@ public class EntityManager
 		Integer id = this.getNextFreeID();
 		try
 		{
-			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, String.class);
-			RemoteEntity entity = constructor.newInstance(id, inName);
+			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, String.class, EntityManager.class);
+			RemoteEntity entity = constructor.newInstance(id, inName, this);
 			entity.spawn(inLocation);
 			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
 			this.m_entities.put(id, entity);
@@ -152,7 +145,7 @@ public class EntityManager
 		this.m_entities.put(inID, inEntity);
 	}
 	
-	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity) //TODO copy more shit
+	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity) //TODO copy more shit from entity
 	{
 		RemoteEntityType type = RemoteEntityType.getByEntityClass(((CraftLivingEntity)inEntity).getHandle().getClass());
 		Location originalSpot = inEntity.getLocation();

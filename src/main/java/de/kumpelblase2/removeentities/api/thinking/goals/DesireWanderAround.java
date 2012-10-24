@@ -66,4 +66,47 @@ public class DesireWanderAround extends PathfinderGoal implements Desire
 	{
 		return this.m_entity;
 	}
+
+	@Override
+	public int getType()
+	{
+		return this.h();
+	}
+
+	@Override
+	public boolean isContinous()
+	{
+		return this.g();
+	}
+
+	@Override
+	public void startExecuting()
+	{
+		this.e();
+	}
+
+	@Override
+	public void stopExecuting()
+	{
+		this.c();
+	}
+
+	@Override
+	public boolean update()
+	{
+		this.d();
+		return true;
+	}
+
+	@Override
+	public boolean shouldExecute()
+	{
+		return this.a();
+	}
+
+	@Override
+	public boolean canContinue()
+	{
+		return this.a();
+	}
 }

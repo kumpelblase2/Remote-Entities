@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
-import de.kumpelblase2.removeentities.EntityManager;
 import de.kumpelblase2.removeentities.api.RemoteEntity;
 
 public abstract class DamageBehaviour implements Behaviour
@@ -25,7 +24,7 @@ public abstract class DamageBehaviour implements Behaviour
 	
 	public void onAdd()
 	{
-		Bukkit.getPluginManager().registerEvents(this, EntityManager.getInstance().getPlugin());
+		Bukkit.getPluginManager().registerEvents(this, this.m_entity.getManager().getPlugin());
 	}
 	
 	@Override
