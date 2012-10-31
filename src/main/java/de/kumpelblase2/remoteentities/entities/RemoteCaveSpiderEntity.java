@@ -45,6 +45,8 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		this.m_maxHealth = defaultMaxHealth;
+		this.goalSelectorHelper.clearGoals();
+		this.targetSelectorHelper.clearGoals();
 	}
 	
 	@Override

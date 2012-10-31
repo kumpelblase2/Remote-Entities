@@ -1,6 +1,5 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -47,6 +46,8 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		this.m_maxHealth = defaultMaxHealth;
+		this.goalSelectorHelper.clearGoals();
+		this.targetSelectorHelper.clearGoals();
 	}
 	
 	@Override
@@ -150,21 +151,5 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 		}
 		
 		return super.c(entity);
-	}
-	
-	
-	@Override
-	protected void bc()
-	{
-		try
-		{
-			Field tickField = EntitySheep.class.getDeclaredField("e");
-			tickField.setAccessible(true);
-			tickField.set(this, this.getRemoteEntity().getMind().getActionDesire(DesireEatGrass.class).tickTime());
-			super.bc();
-		}
-		catch(Exception e)
-		{
-		}
 	}
 }

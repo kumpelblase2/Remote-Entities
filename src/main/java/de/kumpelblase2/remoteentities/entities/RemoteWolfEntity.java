@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -7,6 +8,7 @@ import org.bukkit.inventory.Inventory;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntitySheep;
+import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.EntityWolf;
 import net.minecraft.server.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -47,6 +49,17 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		this.m_maxHealth = defaultMaxHealth;
+		this.goalSelectorHelper.clearGoals();
+		this.targetSelectorHelper.clearGoals();
+		try
+		{
+			Field sitField = EntityTameableAnimal.class.getDeclaredField("d");
+			sitField.setAccessible(true);
+			sitField.set(this, new DesireSitTemp(this.getRemoteEntity()));
+		}
+		catch(Exception e)
+		{
+		}
 	}
 	
 	@Override

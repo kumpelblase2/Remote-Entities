@@ -4,18 +4,16 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.EntityAnimal;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityOcelot;
 import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.Item;
-import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
 import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
@@ -49,6 +47,20 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		this.m_maxHealth = defaultMaxHealth;
+		this.goalSelectorHelper.clearGoals();
+		this.targetSelectorHelper.clearGoals();
+		try
+		{
+			Field temptField = EntityOcelot.class.getDeclaredField("e");
+			temptField.setAccessible(true);
+			temptField.set(this, new DesireTemptTemp(this.getRemoteEntity()));
+			Field sitField = EntityTameableAnimal.class.getDeclaredField("d");
+			sitField.setAccessible(true);
+			sitField.set(this, new DesireSitTemp(this.getRemoteEntity()));
+		}
+		catch(Exception e)
+		{
+		}
 	}
 	
 	@Override
@@ -144,78 +156,5 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 			}
 		}
 		super.b_(entity);
-	}
-	
-	@Override
-	public boolean c(EntityHuman entityhuman)
-	{
-		if(entityhuman instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
-		{
-			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entityhuman.getBukkitEntity());
-		}
-		
-		ItemStack itemstack = entityhuman.inventory.getItemInHand();
-
-        if (this.isTamed()) {
-            if (entityhuman.name.equalsIgnoreCase(this.getOwnerName()) && !this.world.isStatic && !this.b(itemstack)) {
-                this.d.a(!this.isSitting());
-            }
-        } else if (this.getRemoteEntity().getMind().getMovementDesire(DesireTempt.class).isTempted() && itemstack != null && itemstack.id == Item.RAW_FISH.id && entityhuman.e(this) < 9.0D) {
-            if (!entityhuman.abilities.canInstantlyBuild) {
-                --itemstack.count;
-            }
-
-            if (itemstack.count <= 0) {
-                entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
-            }
-
-            if (!this.world.isStatic) {
-                if (this.random.nextInt(3) == 0) {
-                    this.setTamed(true);
-                    this.setCatType(1 + this.world.random.nextInt(3));
-                    this.setOwnerName(entityhuman.name);
-                    this.e(true);
-                    this.d.a(true);
-                    this.world.broadcastEntityEffect(this, (byte) 7);
-                } else {
-                    this.e(false);
-                    this.world.broadcastEntityEffect(this, (byte) 6);
-                }
-            }
-
-            return true;
-        }
-
-        if (itemstack != null && this.b(itemstack) && this.getAge() == 0) {
-            if (!entityhuman.abilities.canInstantlyBuild) {
-                --itemstack.count;
-                if (itemstack.count <= 0) {
-                    entityhuman.inventory.setItem(entityhuman.inventory.itemInHandIndex, (ItemStack) null);
-                }
-            }
-
-            try
-            {
-            	Field loveField = EntityAnimal.class.getDeclaredField("love");
-            	loveField.setAccessible(true);
-            	loveField.set(this, 600);
-            }
-            catch(Exception e)
-            {
-            }
-            this.target = null;
-
-            for (int i = 0; i < 7; ++i) {
-                double d0 = this.random.nextGaussian() * 0.02D;
-                double d1 = this.random.nextGaussian() * 0.02D;
-                double d2 = this.random.nextGaussian() * 0.02D;
-
-                this.world.a("heart", this.locX + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, this.locY + 0.5D + (double) (this.random.nextFloat() * this.length), this.locZ + (double) (this.random.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
-            }
-
-            return true;
-        } else {
-            return false;
-        }
 	}
 }

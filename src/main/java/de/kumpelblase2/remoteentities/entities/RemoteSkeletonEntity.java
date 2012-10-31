@@ -40,6 +40,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		this.m_maxHealth = defaultMaxHealth;
+		this.goalSelectorHelper.clearGoals();
+		this.targetSelectorHelper.clearGoals();
 	}
 	
 	public RemoteSkeletonEntity(World world, RemoteEntity inEntity)

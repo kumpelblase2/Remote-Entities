@@ -44,6 +44,8 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
 		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
 		this.m_jumpDelay = this.random.nextInt(20) + 10;
+		this.goalSelectorHelper.clearGoals();
+		this.targetSelectorHelper.clearGoals();
 	}
 	
 	@Override
