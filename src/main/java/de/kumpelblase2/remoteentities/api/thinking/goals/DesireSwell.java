@@ -4,6 +4,7 @@ import net.minecraft.server.EntityCreeper;
 import net.minecraft.server.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotACreeperException;
 
 public class DesireSwell extends DesireBase
 {
@@ -14,7 +15,7 @@ public class DesireSwell extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityCreeper))
-			throw new Exception("Entity needs to be a creeper");
+			throw new NotACreeperException();
 		
 		this.m_creeper = (EntityCreeper)this.getRemoteEntity().getHandle();
 		this.m_type = 1;

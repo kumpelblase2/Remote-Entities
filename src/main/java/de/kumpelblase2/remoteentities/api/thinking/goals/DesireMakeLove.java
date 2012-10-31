@@ -5,6 +5,7 @@ import net.minecraft.server.MathHelper;
 import net.minecraft.server.Village;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 
 public class DesireMakeLove extends DesireBase
 {
@@ -17,7 +18,7 @@ public class DesireMakeLove extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))
-			throw new Exception("Entity must be a villager");
+			throw new NotAVillagerException();
 		
 		this.m_villager = (EntityVillager)this.getRemoteEntity().getHandle();
 		this.m_type = 3;

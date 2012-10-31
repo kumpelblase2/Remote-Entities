@@ -7,6 +7,7 @@ import net.minecraft.server.TileEntityChest;
 import net.minecraft.server.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotAnOcelotException;
 
 public class DesireSitOnBlock extends DesireBase
 {
@@ -22,7 +23,7 @@ public class DesireSitOnBlock extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityOcelot))
-			throw new Exception("Entity needs to be an ocelote");
+			throw new NotAnOcelotException();
 		
 		this.m_ocelot = (EntityOcelot)this.getRemoteEntity().getHandle();
 		this.m_type = 5;

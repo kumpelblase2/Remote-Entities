@@ -6,6 +6,7 @@ import net.minecraft.server.EntityVillager;
 import net.minecraft.server.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
 public class DesirePlayer extends DesireBase
@@ -18,12 +19,13 @@ public class DesirePlayer extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))
-			throw new Exception("Entity needs to be a villager");
+			throw new NotAVillagerException();
 		
 		this.m_villager = (EntityVillager)this.getRemoteEntity().getHandle();
 		this.m_type = 1;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean shouldExecute()
 	{

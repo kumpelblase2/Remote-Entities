@@ -5,6 +5,7 @@ import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 
 public class DesireTradeWithPlayer extends DesireBase
 {
@@ -14,7 +15,7 @@ public class DesireTradeWithPlayer extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))
-			throw new Exception("Entity needs to be a villager");
+			throw new NotAVillagerException();
 		
 		this.m_villager = (EntityVillager)this.getRemoteEntity().getHandle();
 		this.m_type = 5;

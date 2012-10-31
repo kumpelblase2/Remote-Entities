@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.server.EntityAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.CantBreedException;
 
 public class DesireFollowParent extends DesireBase
 {
@@ -16,7 +17,7 @@ public class DesireFollowParent extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityAnimal))
-			throw new Exception("Entity can't have a parent");
+			throw new CantBreedException();
 		
 		this.m_animal = (EntityAnimal)this.getRemoteEntity().getHandle();
 		

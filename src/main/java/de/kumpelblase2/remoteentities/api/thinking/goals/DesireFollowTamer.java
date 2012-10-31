@@ -5,6 +5,7 @@ import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
 public class DesireFollowTamer extends DesireBase
 {
@@ -19,7 +20,7 @@ public class DesireFollowTamer extends DesireBase
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal))
-			throw new Exception("No tameable animal provided.");
+			throw new NotTameableException();
 		
 		this.m_animal = (EntityTameableAnimal)this.getRemoteEntity().getHandle();
 		this.m_type = 3;

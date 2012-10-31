@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
 public class DesireProtectOwner extends DesireTargetBase
 {
@@ -13,7 +14,7 @@ public class DesireProtectOwner extends DesireTargetBase
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal))
-			throw new Exception("Entity needs owner");
+			throw new NotTameableException();
 		
 		this.m_animal = (EntityTameableAnimal)this.getRemoteEntity().getHandle();
 		this.m_type = 1;

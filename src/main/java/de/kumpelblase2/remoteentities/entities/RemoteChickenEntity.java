@@ -16,7 +16,7 @@ import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
 import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
-import de.kumpelblase2.remoteentities.api.thinking.goals.*
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteChickenEntity extends EntityChicken implements RemoteEntityHandle

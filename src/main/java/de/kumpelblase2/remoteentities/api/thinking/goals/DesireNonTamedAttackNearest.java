@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
 public class DesireNonTamedAttackNearest extends DesireAttackNearest
 {
@@ -12,7 +13,7 @@ public class DesireNonTamedAttackNearest extends DesireAttackNearest
 	{
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMeele, inChance);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal))
-			throw new Exception("Entity needs to be a tamed entity");
+			throw new NotTameableException();
 		
 		this.m_animal = (EntityTameableAnimal)this.getRemoteEntity().getHandle();
 	}
