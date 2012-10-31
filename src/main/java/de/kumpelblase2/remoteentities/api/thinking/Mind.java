@@ -78,7 +78,7 @@ public class Mind
 	{
 		for(Desire desire : this.getMovementDesires())
 		{
-			if(desire.getClass().equals(inClass))
+			if(desire.getClass().equals(inClass) || desire.getClass().getSuperclass().equals(inClass))
 				return inClass.cast(desire);
 		}
 		return null;
@@ -88,7 +88,7 @@ public class Mind
 	{
 		for(Desire desire : this.getActionDesires())
 		{
-			if(desire.getClass().equals(inClass))
+			if(desire.getClass().equals(inClass) || desire.getClass().getSuperclass().equals(inClass))
 				return inClass.cast(desire);
 		}
 		return null;
