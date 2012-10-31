@@ -2,7 +2,6 @@ package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import net.minecraft.server.EntityHuman;
@@ -18,24 +17,7 @@ import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
 import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackOnCollide;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireBegForItem;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireBreed;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireEatGrass;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFollowParent;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFollowTamer;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireHelpAttacking;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLeapAtTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireNonTamedAttackNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesirePanic;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireProtectOwner;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSit;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireTempt;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle

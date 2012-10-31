@@ -6,7 +6,6 @@ import org.bukkit.inventory.Inventory;
 import net.minecraft.server.EntityCaveSpider;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.EntityVillager;
 import net.minecraft.server.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
@@ -16,18 +15,7 @@ import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
 import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackNearestAtNight;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackOnCollide;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireDestroyDoor;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLeapAtTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveThroughVillage;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveTowardsRestriction;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEntityHandle

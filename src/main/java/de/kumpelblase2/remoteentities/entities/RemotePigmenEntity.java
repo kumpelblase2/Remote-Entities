@@ -16,16 +16,7 @@ import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
 import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackOnCollide;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireDestroyDoor;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveThroughVillage;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveTowardsRestriction;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityHandle

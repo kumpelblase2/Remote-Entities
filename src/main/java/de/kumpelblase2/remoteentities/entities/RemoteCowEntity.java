@@ -16,14 +16,7 @@ import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
 import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireBreed;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFollowParent;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesirePanic;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireTempt;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
