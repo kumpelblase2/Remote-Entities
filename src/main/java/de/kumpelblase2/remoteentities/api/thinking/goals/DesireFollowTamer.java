@@ -1,15 +1,17 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
 public class DesireFollowTamer extends DesireBase
 {
-	protected EntityTameableAnimal m_animal;
+	protected EntityLiving m_animal;
 	protected float m_minDistance;
 	protected float m_maxDistance;
 	protected EntityLiving m_owner;
@@ -19,10 +21,10 @@ public class DesireFollowTamer extends DesireBase
 	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal))
+		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature("TAMING"))
 			throw new NotTameableException();
 		
-		this.m_animal = (EntityTameableAnimal)this.getRemoteEntity().getHandle();
+		this.m_animal = this.getRemoteEntity().getHandle();
 		this.m_type = 3;
 		this.m_maxDistance = inMaxDistance;
 		this.m_minDistance = inMinDistance;
@@ -31,10 +33,10 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving owner = this.m_animal.getOwner();
+		EntityLiving owner = this.getTamer();
 		if(owner == null)
 			return false;
-		else if(this.m_animal.isSitting())
+		else if(this.isSitting())
 			return false;
 		else if(this.m_animal.e(owner) < this.m_minDistance * this.m_minDistance)
 			return false;
@@ -48,7 +50,7 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_animal.getNavigation().f() && this.m_animal.e(this.m_owner) > this.m_maxDistance * this.m_maxDistance && !this.m_animal.isSitting();
+		return !this.m_animal.getNavigation().f() && this.m_animal.e(this.m_owner) > this.m_maxDistance * this.m_maxDistance && !this.isSitting();
 	}
 	
 	@Override
@@ -71,7 +73,7 @@ public class DesireFollowTamer extends DesireBase
 	public boolean update()
 	{
 		this.m_animal.getControllerLook().a(this.m_owner, 10, this.m_animal.bf());
-		if(!this.m_animal.isSitting())
+		if(!this.isSitting())
 		{
 			if(--this.m_moveTick <= 0)
 			{
@@ -101,5 +103,20 @@ public class DesireFollowTamer extends DesireBase
 			}
 		}
 		return true;
+	}
+	
+	protected EntityLiving getTamer()
+	{
+		if(this.m_animal instanceof EntityTameableAnimal)
+			return ((EntityTameableAnimal)this.m_animal).getOwner();
+		else
+			return ((CraftPlayer)((TamingFeature)this.getRemoteEntity().getFeatures().getFeature("TAMING")).getTamer()).getHandle();
+	}
+	
+	protected boolean isSitting()
+	{
+		if(this.m_animal instanceof EntityTameableAnimal)
+			return ((EntityTameableAnimal)this.m_animal).isSitting();
+		return false;
 	}
 }

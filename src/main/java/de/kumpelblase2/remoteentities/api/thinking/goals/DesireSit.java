@@ -4,6 +4,7 @@ import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.NotAnAnimalException;
 
 public class DesireSit extends DesireBase
 {
@@ -14,8 +15,9 @@ public class DesireSit extends DesireBase
 	{
 		super(inEntity);
 		if(!(inEntity.getHandle() instanceof EntityTameableAnimal))
-			throw new Exception("Entity must be an animal");
+			throw new NotAnAnimalException();
 		
+		this.m_animal = (EntityTameableAnimal)this.getRemoteEntity().getHandle();
 		this.m_type = 5;
 	}
 
