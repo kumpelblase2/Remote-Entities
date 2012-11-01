@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityGhast;
 import net.minecraft.server.EntityHuman;
@@ -159,5 +160,13 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }

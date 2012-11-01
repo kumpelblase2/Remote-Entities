@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntitySheep;
@@ -168,5 +169,13 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityOcelot;
 import net.minecraft.server.EntityPlayer;
@@ -156,5 +157,13 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 			}
 		}
 		super.b_(entity);
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }

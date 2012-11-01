@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityMagmaCube;
@@ -171,5 +172,13 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }

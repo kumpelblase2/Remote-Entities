@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityMushroomCow;
 import net.minecraft.server.EntityPlayer;
@@ -131,5 +132,13 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }

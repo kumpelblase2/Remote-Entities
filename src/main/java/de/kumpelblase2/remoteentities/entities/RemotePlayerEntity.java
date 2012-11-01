@@ -201,4 +201,12 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		return true;
 	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
+	}
 }

@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntitySkeleton;
@@ -160,5 +161,20 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void h_()
+	{
+		super.h_();
+		this.getRemoteEntity().getMind().tick();
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }

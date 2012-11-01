@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityCreeper;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityOcelot;
@@ -157,5 +158,13 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 		}
 		
 		return super.c(entity);
+	}
+	
+	@Override
+	public void die(DamageSource damagesource)
+	{
+		this.getRemoteEntity().getMind().clearMovementDesires();
+		this.getRemoteEntity().getMind().clearActionDesires();
+		super.die(damagesource);
 	}
 }
