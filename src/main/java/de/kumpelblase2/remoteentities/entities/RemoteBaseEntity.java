@@ -45,7 +45,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		}
 		catch(Exception e)
 		{
-			this.m_speed = 0;
+			this.m_speed = 0.25F;
 		}
 		this.m_manager = inManager;
 	}
