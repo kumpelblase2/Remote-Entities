@@ -10,9 +10,9 @@ public class RemoteInventoryFeature extends RemoteFeature implements InventoryFe
 {
 	private CraftInventoryCustom m_inventory;
 	
-	public RemoteInventoryFeature(String inName, RemoteEntity inEntity)
+	public RemoteInventoryFeature(RemoteEntity inEntity)
 	{
-		super(inName, inEntity);
+		super("INVENTORY", inEntity);
 		this.m_inventory = new CraftInventoryCustom((InventoryHolder)inEntity.getHandle(), InventoryType.CHEST);
 	}
 	

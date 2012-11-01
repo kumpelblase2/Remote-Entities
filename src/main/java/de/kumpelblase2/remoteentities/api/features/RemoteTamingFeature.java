@@ -7,9 +7,9 @@ public class RemoteTamingFeature extends RemoteFeature implements TamingFeature
 {
 	private Player m_tamer;
 	
-	public RemoteTamingFeature(String inName, RemoteEntity inEntity)
+	public RemoteTamingFeature(RemoteEntity inEntity)
 	{
-		super(inName, inEntity);
+		super("TAMING", inEntity);
 	}
 
 	@Override

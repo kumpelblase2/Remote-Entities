@@ -8,9 +8,9 @@ public class RemoteEquipmentFeature extends RemoteFeature implements EquipmentFe
 {
 	private Equipment m_equipment;
 	
-	public RemoteEquipmentFeature(String inName, RemoteEntity inEntity)
+	public RemoteEquipmentFeature(RemoteEntity inEntity)
 	{
-		super(inName, inEntity);
+		super("EQUIPMENT", inEntity);
 		this.m_equipment = new Equipment(new ItemStack(Material.AIR), new ItemStack[4]);
 	}
 
