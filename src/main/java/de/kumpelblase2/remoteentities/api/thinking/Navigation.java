@@ -18,7 +18,6 @@ public class Navigation
 	
 	public void onUpdate()
 	{
-		List<DesireItem> tempList = new ArrayList<DesireItem>();
 		if(++this.m_delay % 3 == 0)
 		{
 			for(DesireItem item : this.m_desires)
@@ -27,17 +26,18 @@ public class Navigation
 				{
 					if(this.hasHighestPriority(item) && item.getDesire().canContinue())
 						continue;
-								 
+					
 					item.getDesire().stopExecuting();
 					this.m_executingDesires.remove(item);
 				}
 							 
 				if(this.hasHighestPriority(item) && item.getDesire().shouldExecute())
 				{
-					tempList.add(item);
+					item.getDesire().startExecuting();
 					this.m_executingDesires.add(item);
 				}
 			}
+			this.m_delay = 0;
 		}
 		else
 		{
@@ -47,15 +47,10 @@ public class Navigation
 				DesireItem item = it.next();
 				if(!item.getDesire().canContinue())
 				{
-					item.getDesire().startExecuting();
+					item.getDesire().stopExecuting();
 					it.remove();
 				}
 			}
-		}
-		
-		for(DesireItem item : tempList)
-		{
-			item.getDesire().startExecuting();
 		}
 		
 		Iterator<DesireItem> it = this.m_executingDesires.iterator();
@@ -81,14 +76,10 @@ public class Navigation
 			if(inItem.getPriority() >= item.getPriority())
 			{
 				if(this.m_executingDesires.contains(item) && !areTasksCompatible(item.getDesire(), inItem.getDesire()))
-				{
 					return false; 
-				}
 			}
-			else if(this.m_executingDesires.contains(item) && !item.getDesire().isContinous())
-			{				 
+			else if(this.m_executingDesires.contains(item) && !item.getDesire().isContinous())			 
 				return false;
-			}
 		} 
 		return true;
 	}
@@ -107,14 +98,18 @@ public class Navigation
 		return tempDesires;
 	}
 	
-	public void removeDesireByType(Class<? extends Desire> inType)
+	public boolean removeDesireByType(Class<? extends Desire> inType)
 	{
 		Iterator<DesireItem> it = this.m_desires.iterator();
+		boolean found = false;
 		while(it.hasNext())
 		{
 			DesireItem item = it.next();
-			if(item.getDesire().getClass().equals(inType))
+			if(item.getDesire().getClass().equals(inType) || item.getDesire().getClass().getSuperclass().equals(inType))
+			{
 				it.remove();
+				found = true;
+			}
 		}
 		
 		it = this.m_executingDesires.iterator();
@@ -125,8 +120,10 @@ public class Navigation
 			{
 				item.getDesire().stopExecuting();
 				it.remove();
+				found = true;
 			}
 		}
+		return found;
 	}
 	
 	public void clearDesires()

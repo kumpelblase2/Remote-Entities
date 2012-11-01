@@ -116,17 +116,7 @@ public class Mind
 	
 	public boolean removeMovementDesire(Class<? extends Desire> inToRemove)
 	{
-		Iterator<Desire> it = this.getMovementDesires().iterator();
-		while(it.hasNext())
-		{
-			Desire d = it.next();
-			if(d.getClass() == inToRemove)
-			{
-				it.remove();
-				return true;
-			}
-		}
-		return false;
+		return this.m_targetNavigation.removeDesireByType(inToRemove);
 	}
 	
 	public void removeMovementDesires(Class<? extends Desire> inToRemove)
@@ -136,17 +126,7 @@ public class Mind
 	
 	public boolean removeActionDesire(Class<? extends Desire> inToRemove)
 	{
-		Iterator<Desire> it = this.getActionDesires().iterator();
-		while(it.hasNext())
-		{
-			Desire d = it.next();
-			if(d.getClass() == inToRemove)
-			{
-				it.remove();
-				return true;
-			}
-		}
-		return false;
+		return this.m_movementNavigation.removeDesireByType(inToRemove);
 	}
 	
 	public void removeActionDesires(Class<? extends Desire> inToRemove)

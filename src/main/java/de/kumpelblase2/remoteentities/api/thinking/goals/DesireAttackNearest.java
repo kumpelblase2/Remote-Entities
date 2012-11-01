@@ -73,6 +73,6 @@ public class DesireAttackNearest extends DesireTargetBase
 	public void startExecuting()
 	{
 		this.getRemoteEntity().getHandle().b(this.m_target);
-		super.stopExecuting();
+		super.startExecuting();
 	}
 }
