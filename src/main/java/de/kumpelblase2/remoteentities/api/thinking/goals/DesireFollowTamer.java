@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.MathHelper;
@@ -78,7 +79,7 @@ public class DesireFollowTamer extends DesireBase
 			if(--this.m_moveTick <= 0)
 			{
 				this.m_moveTick = 10;
-				if(!this.m_animal.getNavigation().a(this.m_owner, this.getRemoteEntity().getSpeed()))
+				if(!this.getRemoteEntity().move((LivingEntity)this.m_owner.getBukkitEntity()))
 				{
 					if(this.m_animal.e(this.m_owner) >= 144)
 					{
