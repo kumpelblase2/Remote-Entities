@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -21,20 +22,16 @@ public class DesireWanderAround extends DesireBase
 	public boolean shouldExecute()
 	{
 		if(this.getRemoteEntity().getHandle().ax() >= 100)
-		{
 			return false;
-		}
 		else if(this.getRemoteEntity().getHandle().au().nextInt(120) != 0)
-		{
 			return false;
-		}
+		else if(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getRemoteEntity().getHandle()).isSitting())
+			return false;
 		else
 		{
 			Vec3D vector = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 10, 7);
 			if(vector == null)
-			{
 				return false;
-			}
 			else
 			{
 				this.m_xPos = vector.a;

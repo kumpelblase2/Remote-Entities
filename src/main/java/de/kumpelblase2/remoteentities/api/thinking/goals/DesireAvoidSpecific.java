@@ -21,6 +21,7 @@ public class DesireAvoidSpecific extends DesireBase
 		this.m_minDistance = inMinDistance;
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;
+		this.m_type = 1;
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class DesireAvoidSpecific extends DesireBase
 	}
 
 	@Override
-	public void stopExecuting() // that's it?
+	public void stopExecuting()
 	{
 		this.m_closestEntity = null;
 	}
@@ -58,7 +59,7 @@ public class DesireAvoidSpecific extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.m_toAvoid == EntityPlayer.class)
+		if(this.m_toAvoid == EntityHuman.class)
         {
             if(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getRemoteEntity().getHandle()).isTamed())
                 return false;
