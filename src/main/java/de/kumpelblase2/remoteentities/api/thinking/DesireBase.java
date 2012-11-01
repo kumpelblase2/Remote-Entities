@@ -27,7 +27,7 @@ public abstract class DesireBase implements Desire
 	
 	public boolean update()
 	{
-		return false;
+		return true;
 	}
 	
 	public boolean isContinous()

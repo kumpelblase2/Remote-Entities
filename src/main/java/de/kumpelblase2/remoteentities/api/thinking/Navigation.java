@@ -56,7 +56,8 @@ public class Navigation
 		Iterator<DesireItem> it = this.m_executingDesires.iterator();
 		while(it.hasNext())
 		{
-			if(!it.next().getDesire().update())
+			DesireItem item = it.next();
+			if(!item.getDesire().update())
 				it.remove();
 		}
 	}
