@@ -1,7 +1,6 @@
-package de.kumpelblase2.remoteentities.entities;
+package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireEatGrass;
 import net.minecraft.server.PathfinderGoalEatTile;
 
 public class DesireEatGrassTemp extends PathfinderGoalEatTile
