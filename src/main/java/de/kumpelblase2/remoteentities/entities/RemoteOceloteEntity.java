@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import net.minecraft.server.DamageSource;
+import net.minecraft.server.EntityChicken;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityOcelot;
 import net.minecraft.server.EntityPlayer;
@@ -96,7 +97,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 9);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 10);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 10F), 11);
-			mind.addActionDesire(new DesireDefendVillage(this.getRemoteEntity()), 1);
+			mind.addActionDesire(new DesireNonTamedAttackNearest(this.getRemoteEntity(), EntityChicken.class, 14, false, true, 750), 1);
 		}
 		catch(Exception e)
 		{
