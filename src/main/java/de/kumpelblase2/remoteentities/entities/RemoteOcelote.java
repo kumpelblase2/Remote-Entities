@@ -19,7 +19,7 @@ public class RemoteOcelote extends RemoteBaseEntity implements Fightable
 	
 	public RemoteOcelote(int inID, RemoteOceloteEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Ocelote, inManager);
+		super(inID, RemoteEntityType.Ocelot, inManager);
 		this.m_entity = inEntity;
 	}
 

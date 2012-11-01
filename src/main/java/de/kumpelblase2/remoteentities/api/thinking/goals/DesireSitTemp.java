@@ -19,6 +19,7 @@ public class DesireSitTemp extends PathfinderGoalSit
 		if(this.m_entity.getMind().getMovementDesire(DesireSit.class) == null)
 			return;
 		
+		System.out.println("sit");
 		this.m_entity.getMind().getMovementDesire(DesireSit.class).canSit(flag);
 	}
 }
