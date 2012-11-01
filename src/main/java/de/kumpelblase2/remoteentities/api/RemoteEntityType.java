@@ -21,7 +21,7 @@ public enum RemoteEntityType
 	IronGolem(RemoteIronGolem.class, RemoteIronGolemEntity.class, false),
 	LavaSlime(RemoteLavaSlime.class, RemoteLavaSlimeEntity.class, false),
 	Mushroom(RemoteMushroom.class, RemoteMushroomEntity.class, false),
-	Ocelote(RemoteOcelote.class, RemoteOceloteEntity.class, false),
+	Ocelot(RemoteOcelote.class, RemoteOceloteEntity.class, false),
 	Pig(RemotePig.class, RemotePigEntity.class, false),
 	Pigmen(RemotePigmen.class, RemotePigmenEntity.class, false),
 	Sheep(RemoteSheep.class, RemoteSheepEntity.class, false),
