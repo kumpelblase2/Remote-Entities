@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import java.lang.reflect.Field;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import net.minecraft.server.EntityCreature;
@@ -122,6 +123,21 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
 			if(this.m_entity instanceof EntityCreature)
 				((EntityCreature)this.m_entity).setPathEntity(path);
+			return this.m_entity.getNavigation().a(path, this.getSpeed());
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean move(LivingEntity inEntity)
+	{
+		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
+		if(!this.m_entity.getNavigation().a(handle, this.getSpeed()))
+		{
+			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, 20, true, false, false, true);
+			if(this.m_entity instanceof EntityCreature)
+				((EntityCreature)this.m_entity).setPathEntity(path);
+			
 			return this.m_entity.getNavigation().a(path, this.getSpeed());
 		}
 		return true;
