@@ -29,7 +29,7 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 	
 	static
 	{
-		ReflectionUtil.registerEntityType(RemoteEnderDragonEntity.class, "Enderman", 58);
+		ReflectionUtil.registerEntityType(RemoteEndermanEntity.class, "Enderman", 58);
 	}
 	
 	public RemoteEndermanEntity(World world)
