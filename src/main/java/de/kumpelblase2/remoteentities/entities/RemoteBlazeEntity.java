@@ -103,6 +103,12 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	}
 	
 	@Override
+	public boolean aV()
+	{
+		return true;
+	}
+	
+	@Override
 	public void b_(EntityHuman entity)
 	{
 		if(entity instanceof EntityPlayer)

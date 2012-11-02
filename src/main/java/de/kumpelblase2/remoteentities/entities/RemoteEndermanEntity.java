@@ -141,4 +141,10 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 		this.getRemoteEntity().getMind().clearActionDesires();
 		super.die(damagesource);
 	}
+	
+	@Override
+	public boolean aV()
+	{
+		return true;
+	}
 }

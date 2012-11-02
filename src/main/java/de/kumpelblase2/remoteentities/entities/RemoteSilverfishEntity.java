@@ -142,4 +142,10 @@ public class RemoteSilverfishEntity extends EntitySilverfish implements RemoteEn
 		this.getRemoteEntity().getMind().clearActionDesires();
 		super.die(damagesource);
 	}
+	
+	@Override
+	public boolean aV()
+	{
+		return true;
+	}
 }

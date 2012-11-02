@@ -169,4 +169,10 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 		this.getRemoteEntity().getMind().clearActionDesires();
 		super.die(damagesource);
 	}
+	
+	@Override
+	public boolean aV()
+	{
+		return true;
+	}
 }
