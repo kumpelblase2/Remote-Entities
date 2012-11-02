@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.Location;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.Vec3D;
@@ -62,10 +63,10 @@ public class DesireMoveIndoors extends DesireBase
 		{
 			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, Vec3D.a().create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 			if(vec != null)
-				entity.getNavigation().a(vec.a, vec.b, vec.c, this.getRemoteEntity().getSpeed());
+				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.a, vec.b, vec.c));
 		}
 		else
-			entity.getNavigation().a(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5, this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 	}
 	
 	@Override

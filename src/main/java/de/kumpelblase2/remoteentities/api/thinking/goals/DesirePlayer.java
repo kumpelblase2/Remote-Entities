@@ -2,6 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
+import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityVillager;
 import net.minecraft.server.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -95,7 +97,7 @@ public class DesirePlayer extends DesireBase
 		if(this.m_friend != null)
 		{
 			if(this.m_villager.e(this.m_friend) > 4)
-				this.m_villager.getNavigation().a(this.m_friend, this.getRemoteEntity().getSpeed());
+				this.getRemoteEntity().move((LivingEntity)this.m_friend.getBukkitEntity());
 		}
 		else if(this.m_villager.getNavigation().f())
 		{
@@ -104,7 +106,7 @@ public class DesirePlayer extends DesireBase
 			if(vec == null)
 				return true;
 			
-			this.m_villager.getNavigation().a(vec.a, vec.b, vec.c, this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.a, vec.b, vec.c));
 		}
 		return true;
 	}

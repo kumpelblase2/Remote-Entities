@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -103,7 +104,7 @@ public class DesireTempt extends DesireBase
 		if(this.getRemoteEntity().getHandle().e(this.m_nearPlayer) < 6.25)
 			this.getRemoteEntity().getHandle().getNavigation().g();
 		else
-			this.getRemoteEntity().getHandle().getNavigation().a(this.m_nearPlayer, this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move((LivingEntity)this.m_nearPlayer.getBukkitEntity());
 		
 		return false;
 	}

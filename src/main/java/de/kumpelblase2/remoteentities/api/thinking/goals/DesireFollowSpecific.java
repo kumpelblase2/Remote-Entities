@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -61,7 +62,7 @@ public class DesireFollowSpecific extends DesireBase
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
-			if(!this.getRemoteEntity().getHandle().getNavigation().a(this.m_toFollow, this.getRemoteEntity().getSpeed()))
+			if(!this.getRemoteEntity().move((LivingEntity)this.m_toFollow))
 			{
 				if(this.getRemoteEntity().getHandle().e(this.m_toFollow) >= 144)
 				{

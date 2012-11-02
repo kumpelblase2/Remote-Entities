@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityVillager;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.Village;
@@ -79,7 +80,7 @@ public class DesireMakeLove extends DesireBase
 		this.m_loveTick--;
 		this.m_villager.getControllerLook().a(this.m_partner, 10, 30);
 		if(this.m_villager.e(this.m_partner) > 2.25)
-			this.m_villager.getNavigation().a(this.m_partner, this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move((LivingEntity)this.m_partner);
 		else if(this.m_loveTick == 0 && this.m_partner.o())
 			this.createBaby();
 		

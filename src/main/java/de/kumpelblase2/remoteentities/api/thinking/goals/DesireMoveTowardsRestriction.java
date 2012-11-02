@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.Location;
 import net.minecraft.server.ChunkCoordinates;
 import net.minecraft.server.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -48,6 +49,6 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_x, this.m_y, this.m_z, this.getRemoteEntity().getSpeed());
+		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x, this.m_y, this.m_z));
 	}
 }

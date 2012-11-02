@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import net.minecraft.server.EntityAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -30,7 +31,7 @@ public class DesireBreed extends DesireBase
 	public boolean update()
 	{
 		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_mate, 10, this.getRemoteEntity().getHandle().bf());
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_mate, this.getRemoteEntity().getSpeed());
+		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
 		if(this.m_mateTicks == 60)
 		{

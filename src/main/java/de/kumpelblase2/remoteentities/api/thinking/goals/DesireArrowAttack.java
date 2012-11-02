@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityArrow;
 import net.minecraft.server.EntityFireball;
 import net.minecraft.server.EntityHuman;
@@ -54,7 +55,7 @@ public class DesireArrowAttack extends DesireBase
 		if(dist <= maxDist && this.m_inRangeTick >= 20)
 			this.getRemoteEntity().getHandle().getNavigation().g();
 		else
-			this.getRemoteEntity().getHandle().getNavigation().a(this.m_target, this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity());
 		
 		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_target, 30, 30);
 		this.m_shootTicks = Math.max(this.m_shootTicks - 1, 0);

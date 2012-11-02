@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.Location;
 import net.minecraft.server.EntityTameableAnimal;
 import net.minecraft.server.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -51,6 +52,6 @@ public class DesireWanderAround extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_xPos, this.m_yPos, this.m_zPos, this.getRemoteEntity().getSpeed());
+		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_xPos, this.m_yPos, this.m_zPos));
 	}
 }

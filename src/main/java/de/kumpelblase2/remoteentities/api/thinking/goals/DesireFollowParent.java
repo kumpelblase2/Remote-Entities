@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.EntityAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -91,7 +92,7 @@ public class DesireFollowParent extends DesireBase
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
-			this.m_animal.getNavigation().a(this.m_parent, this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move((LivingEntity)this.m_parent.getBukkitEntity());
 		}		
 		return true;
 	}

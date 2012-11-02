@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.Location;
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockBed;
 import net.minecraft.server.EntityOcelot;
@@ -44,11 +45,12 @@ public class DesireSitOnBlock extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_ocelot.getNavigation().a(this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D, this.getRemoteEntity().getSpeed());
+		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 		this.m_currentSitTick = 0;
 		this.m_d = 0;
 		this.m_maxSitTicks = this.m_ocelot.au().nextInt(this.m_ocelot.au().nextInt(1200) + 1200) + 1200;
-		this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
+		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
+			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
 	}
 	
 	@Override
