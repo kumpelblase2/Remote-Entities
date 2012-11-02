@@ -85,14 +85,6 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		return this.m_isStationary;
 	}
-	
-	protected void clearPathfindingStrategies()
-	{
-	}
-	
-	protected void restorePathfindingStrategies()
-	{
-	}
 
 	@Override
 	public RemoteEntityType getType()
@@ -141,6 +133,13 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			return this.m_entity.getNavigation().a(path, this.getSpeed());
 		}
 		return true;
+	}
+	
+	@Override
+	public void stopMoving()
+	{
+		if(this.m_entity.getNavigation().f())
+			this.m_entity.getNavigation().g();
 	}
 
 	@Override

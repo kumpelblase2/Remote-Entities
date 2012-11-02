@@ -17,6 +17,7 @@ public interface RemoteEntity
 	public FeatureSet getFeatures();
 	public boolean move(Location inLocation);
 	public boolean move(LivingEntity inEntity);
+	public void stopMoving();
 	public void teleport(Location inLocation);
 	public void spawn(Location inLocation);
 	public void despawn();
