@@ -73,6 +73,11 @@ public class EntityManager
 	
 	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation) throws NoNameException
 	{
+		return this.createEntity(inType, inLocation, true);
+	}
+	
+	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation, boolean inSetupGoals) throws NoNameException
+	{
 		if(inType.isNamed())
 			throw new NoNameException("Tried to spawn a named entity without name");
 
@@ -82,7 +87,8 @@ public class EntityManager
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, EntityManager.class);
 			RemoteEntity entity = constructor.newInstance(id, this);
 			entity.spawn(inLocation);
-			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+			if(inSetupGoals)
+				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
 			this.m_entities.put(id, entity);
 			return entity;
 		}
@@ -95,13 +101,19 @@ public class EntityManager
 	
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName)
 	{
+		return this.createNamedEntity(inType, inLocation, inName, true);
+	}
+	
+	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName, boolean inSetupGoals)
+	{
 		Integer id = this.getNextFreeID();
 		try
 		{
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, String.class, EntityManager.class);
 			RemoteEntity entity = constructor.newInstance(id, inName, this);
 			entity.spawn(inLocation);
-			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+			if(inSetupGoals)
+				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
 			this.m_entities.put(id, entity);
 			return entity;
 		}
