@@ -73,7 +73,7 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 		try
 		{
 			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireArrowAttack(this.getRemoteEntity(), RemoteProjectileType.SNOWBALL), 1);
+			mind.addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.SNOWBALL), 1);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 2);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 3);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 4);

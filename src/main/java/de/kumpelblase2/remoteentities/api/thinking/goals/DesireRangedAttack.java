@@ -17,7 +17,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
-public class DesireArrowAttack extends DesireBase
+public class DesireRangedAttack extends DesireBase
 {
 	protected EntityLiving m_target;
 	protected RemoteProjectileType m_projeProjectileType;
@@ -25,12 +25,12 @@ public class DesireArrowAttack extends DesireBase
 	protected int m_shootTicks;
 	protected int m_shootDelay;
 	
-	public DesireArrowAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType)
+	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType)
 	{
 		this(inEntity, inProjectileType, 60);
 	}
 	
-	public DesireArrowAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay)
+	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay)
 	{
 		super(inEntity);
 		this.m_projeProjectileType = inProjectileType;

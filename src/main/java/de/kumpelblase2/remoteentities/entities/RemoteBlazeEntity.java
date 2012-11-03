@@ -64,7 +64,7 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesire(new DesireArrowAttack(this.getRemoteEntity(), RemoteProjectileType.SMALL_FIREBALL, 20), 1);
+		this.getRemoteEntity().getMind().addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.SMALL_FIREBALL, 20), 1);
 		this.getRemoteEntity().getMind().addActionDesire(new DesireAttackTarget(this.getRemoteEntity(), 64, true, true), 1);
 		this.getRemoteEntity().getMind().addActionDesire(new DesireAttackNearest(this.getRemoteEntity(), EntityHuman.class, 64, true, 0), 2);
 	}
