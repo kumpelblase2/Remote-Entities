@@ -76,10 +76,10 @@ public class Navigation
 			
 			if(inItem.getPriority() >= item.getPriority())
 			{
-				if(this.m_executingDesires.contains(item) && !areTasksCompatible(item.getDesire(), inItem.getDesire()))
+				if(!areTasksCompatible(item.getDesire(), inItem.getDesire()) && this.m_executingDesires.contains(item))
 					return false; 
 			}
-			else if(this.m_executingDesires.contains(item) && !item.getDesire().isContinous())			 
+			else if(!item.getDesire().isContinous() && this.m_executingDesires.contains(item))			 
 				return false;
 		} 
 		return true;
