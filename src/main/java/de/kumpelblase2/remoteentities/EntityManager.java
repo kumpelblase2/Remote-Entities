@@ -185,4 +185,9 @@ public class EntityManager
 		}
 		this.m_entities.clear();
 	}
+	
+	public List<RemoteEntity> getAllEntities()
+	{
+		return new ArrayList<RemoteEntity>(this.m_entities.values());
+	}
 }

@@ -84,4 +84,34 @@ public abstract class EnterSightBehaviour implements Behaviour
 	{
 		return this.m_entity;
 	}
+	
+	public void setXRange(double inX)
+	{
+		this.m_xRange = inX;
+	}
+	
+	public void setYRange(double inY)
+	{
+		this.m_yRange = inY;
+	}
+	
+	public void setZRange(double inZ)
+	{
+		this.m_zRange = inZ;
+	}
+	
+	public double getXRange()
+	{
+		return this.m_xRange;
+	}
+	
+	public double getYRange()
+	{
+		return this.m_yRange;
+	}
+	
+	public double getZRange()
+	{
+		return this.m_zRange;
+	}
 }
