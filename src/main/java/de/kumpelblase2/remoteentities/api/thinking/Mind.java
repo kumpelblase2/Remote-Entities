@@ -69,6 +69,16 @@ public class Mind
 		return this.m_movementNavigation.getDesires();
 	}
 	
+	public int getHighestMovementPriority()
+	{
+		return this.m_movementNavigation.getHighestPriority();
+	}
+	
+	public int getHighestActionPriority()
+	{
+		return this.m_targetNavigation.getHighestPriority();
+	}
+	
 	public List<Desire> getActionDesires()
 	{
 		return this.m_targetNavigation.getDesires();

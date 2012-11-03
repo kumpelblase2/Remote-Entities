@@ -136,4 +136,16 @@ public class Navigation
 		this.m_desires.clear();
 		this.m_executingDesires.clear();
 	}
+	
+	public int getHighestPriority()
+	{
+		int highest = 0;
+		for(DesireItem item : this.m_desires)
+		{
+			if(item.getPriority() > highest)
+				highest = item.getPriority();
+		}
+		
+		return highest;
+	}
 }
