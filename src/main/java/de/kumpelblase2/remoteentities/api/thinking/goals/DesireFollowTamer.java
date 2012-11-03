@@ -22,7 +22,7 @@ public class DesireFollowTamer extends DesireBase
 	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature("TAMING"))
+		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 		
 		this.m_animal = this.getRemoteEntity().getHandle();
@@ -111,7 +111,7 @@ public class DesireFollowTamer extends DesireBase
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).getOwner();
 		else
-			return ((CraftPlayer)((TamingFeature)this.getRemoteEntity().getFeatures().getFeature("TAMING")).getTamer()).getHandle();
+			return ((CraftPlayer)this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle();
 	}
 	
 	protected boolean isSitting()

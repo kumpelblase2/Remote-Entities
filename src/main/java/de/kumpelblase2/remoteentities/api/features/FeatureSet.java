@@ -1,27 +1,48 @@
 package de.kumpelblase2.remoteentities.api.features;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-@SuppressWarnings("serial")
-public class FeatureSet extends HashMap<String, Feature>
-{	
-	public boolean hasFeature(String inName)
+public class FeatureSet
+{
+	protected List<Feature> m_features = new ArrayList<Feature>();
+	
+	public boolean hasFeature(Class<? extends Feature> inType)
 	{
-		return this.containsKey(inName);
+		for(Feature feature : this.m_features)
+		{
+			if(feature.getClass().equals(inType) || inType.isAssignableFrom(feature.getClass()))
+				return true;
+		}
+		return false;
 	}
 	
 	public void addFeature(Feature inFeature)
 	{
-		this.put(inFeature.getName(), inFeature);
+		this.removeFeature(inFeature.getClass());
+		this.m_features.add(inFeature);
 	}
 	
-	public boolean removeFeature(String inName)
+	public void removeFeature(Class<? extends Feature> inType)
 	{
-		return this.remove(inName) != null;
+		Iterator<Feature> it = this.m_features.iterator();
+		while(it.hasNext())
+		{
+			Feature feature = it.next();
+			if(feature.getClass().equals(inType) || inType.isAssignableFrom(feature.getClass()))
+				it.remove();
+		}
 	}
 	
-	public Feature getFeature(String inName)
-	{
-		return this.get(inName);
+	@SuppressWarnings("unchecked")
+	public<T extends Feature> T getFeature(Class<T> inType)
+	{		
+		for(Feature feature : this.m_features)
+		{
+			if(feature.getClass().equals(inType) || inType.isAssignableFrom(feature.getClass()))
+				return (T)feature;
+		}
+		return null;
 	}
 }

@@ -66,10 +66,10 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	@Override
 	public Inventory getInventory()
 	{
-		if(!this.m_remoteEntity.getFeatures().hasFeature("Inventory"))
+		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature("Inventory")).getInventory();
+		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
 	}
 
 	@Override
@@ -103,18 +103,6 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		{
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public PathfinderGoalSelectorHelper getGoalSelector()
-	{
-		return this.goalSelectorHelper;
-	}
-
-	@Override
-	public PathfinderGoalSelectorHelper getTargetSelector()
-	{
-		return this.targetSelectorHelper;
 	}
 
 	@Override

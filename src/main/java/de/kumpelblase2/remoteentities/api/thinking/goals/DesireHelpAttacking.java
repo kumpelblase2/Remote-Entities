@@ -15,7 +15,7 @@ public class DesireHelpAttacking extends DesireTargetBase
 	public DesireHelpAttacking(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight) throws Exception
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature("TAMING"))
+		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 		
 		this.m_animal = this.getRemoteEntity().getHandle();
@@ -52,7 +52,7 @@ public class DesireHelpAttacking extends DesireTargetBase
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).isTamed();
 		else
-			return ((TamingFeature)this.getRemoteEntity().getFeatures().getFeature("TAMING")).isTamed();
+			return this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).isTamed();
 	}
 	
 	protected EntityLiving getTamer()
@@ -60,6 +60,6 @@ public class DesireHelpAttacking extends DesireTargetBase
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).getOwner();
 		else
-			return ((CraftPlayer)((TamingFeature)this.getRemoteEntity().getFeatures().getFeature("TAMING")).getTamer()).getHandle();
+			return ((CraftPlayer)this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle();
 	}
 }

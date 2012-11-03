@@ -49,10 +49,10 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	@Override
 	public Inventory getInventory()
 	{
-		if(!this.m_remoteEntity.getFeatures().hasFeature("Inventory"))
+		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature("Inventory")).getInventory();
+		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
 	}
 
 	@Override
@@ -67,18 +67,6 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 		this.getRemoteEntity().getMind().addMovementDesire(new DesireArrowAttack(this.getRemoteEntity(), RemoteProjectileType.SMALL_FIREBALL, 20), 1);
 		this.getRemoteEntity().getMind().addActionDesire(new DesireAttackTarget(this.getRemoteEntity(), 64, true, true), 1);
 		this.getRemoteEntity().getMind().addActionDesire(new DesireAttackNearest(this.getRemoteEntity(), EntityHuman.class, 64, true, 0), 2);
-	}
-
-	@Override
-	public PathfinderGoalSelectorHelper getGoalSelector()
-	{
-		return this.goalSelectorHelper;
-	}
-
-	@Override
-	public PathfinderGoalSelectorHelper getTargetSelector()
-	{
-		return this.targetSelectorHelper;
 	}
 
 	@Override

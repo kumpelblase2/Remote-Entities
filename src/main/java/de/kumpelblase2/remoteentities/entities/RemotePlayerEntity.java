@@ -183,18 +183,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public void setupStandardGoals()
 	{
 	}
-
-	@Override
-	public PathfinderGoalSelectorHelper getGoalSelector()
-	{
-		return this.goalSelectorHelper;
-	}
-
-	@Override
-	public PathfinderGoalSelectorHelper getTargetSelector()
-	{
-		return this.targetSelectorHelper;
-	}
 	
 	@Override
 	public boolean aV()

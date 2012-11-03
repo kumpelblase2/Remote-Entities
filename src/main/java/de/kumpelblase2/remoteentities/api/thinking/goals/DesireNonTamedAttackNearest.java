@@ -13,7 +13,7 @@ public class DesireNonTamedAttackNearest extends DesireAttackNearest
 	public DesireNonTamedAttackNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance) throws Exception
 	{
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMeele, inChance);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature("TAMING"))
+		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 		
 		this.m_animal = this.getRemoteEntity().getHandle();
@@ -30,6 +30,6 @@ public class DesireNonTamedAttackNearest extends DesireAttackNearest
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).isTamed();
 		else
-			return ((TamingFeature)this.getRemoteEntity().getFeatures().getFeature("TAMING")).isTamed();
+			return this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).isTamed();
 	}
 }
