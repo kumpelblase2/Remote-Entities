@@ -7,6 +7,7 @@ import net.minecraft.server.Entity;
 import net.minecraft.server.EntityArrow;
 import net.minecraft.server.EntityFireball;
 import net.minecraft.server.EntityHuman;
+import net.minecraft.server.EntityLargeFireball;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntitySmallFireball;
 import net.minecraft.server.EntitySnowball;
@@ -51,7 +52,7 @@ public class DesireArrowAttack extends DesireBase
 	{
 		double maxDist = 100;
 		double dist = this.getRemoteEntity().getHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
-		boolean canSee = this.getRemoteEntity().getHandle().at().canSee(this.m_target);
+		boolean canSee = this.getRemoteEntity().getHandle().az().canSee(this.m_target);
 		
 		if(canSee)
 			this.m_inRangeTick++;
@@ -80,7 +81,7 @@ public class DesireArrowAttack extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving target = this.getRemoteEntity().getHandle().az();
+		EntityLiving target = this.getRemoteEntity().getHandle().aF();
 		
 		if(target == null)
 			return false;
@@ -103,7 +104,7 @@ public class DesireArrowAttack extends DesireBase
 		if(this.m_projeProjectileType == RemoteProjectileType.ARROW)
 		{
 			EntityArrow arrow = new EntityArrow(this.getRemoteEntity().getHandle().world, this.getRemoteEntity().getHandle(), this.m_target, 1.6F, 12);
-			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.au().nextFloat() * 0.4F + 0.8F));
+			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aA().nextFloat() * 0.4F + 0.8F));
 			entity.world.addEntity(arrow);
 		}
 		else if(this.m_projeProjectileType == RemoteProjectileType.SNOWBALL)
@@ -114,8 +115,8 @@ public class DesireArrowAttack extends DesireBase
 			double zDiff = this.m_target.locZ - entity.locZ;
 			float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff) * 0.2F;
 			
-			snowball.c(xDiff, yDiff + dist, zDiff, 1.6F, 12);
-			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.au().nextFloat() * 0.4F + 0.8F));
+			snowball.shoot(xDiff, yDiff + dist, zDiff, 1.6F, 12);
+			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aA().nextFloat() * 0.4F + 0.8F));
 		}
 		else if(this.m_projeProjectileType == RemoteProjectileType.SMALL_FIREBALL)
 		{
@@ -124,7 +125,7 @@ public class DesireArrowAttack extends DesireBase
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
 			double zDiff = this.m_target.locZ - entity.locZ;
 			float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff) * 0.2F;
-			EntitySmallFireball fireball = new EntitySmallFireball(entity.world, entity, xDiff + entity.au().nextGaussian() * dist, yDiff, zDiff + entity.au().nextGaussian() * dist);
+			EntitySmallFireball fireball = new EntitySmallFireball(entity.world, entity, xDiff + entity.aA().nextGaussian() * dist, yDiff, zDiff + entity.aA().nextGaussian() * dist);
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			entity.world.addEntity(fireball);
 		}
@@ -136,10 +137,10 @@ public class DesireArrowAttack extends DesireBase
 			double d = 4;
 			Vec3D vec = entity.i(1F);
 			entity.world.a(null, 1008, (int)entity.locX, (int)entity.locY, (int)entity.locZ, 0);
-			EntityFireball fireball = new EntityFireball(entity.world, entity, xDiff, yDiff, zDiff);
-			fireball.locX = entity.locX + vec.a * d;
+			EntityFireball fireball = new EntityLargeFireball(entity.world, entity, xDiff, yDiff, zDiff);
+			fireball.locX = entity.locX + vec.c * d;
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
-			fireball.locZ = entity.locZ + vec.c * d;
+			fireball.locZ = entity.locZ + vec.e * d;
 			entity.world.addEntity(fireball);
 		}
 	}

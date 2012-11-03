@@ -91,9 +91,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		super.g();
 		
 		if(this.noDamageTicks > 0)
@@ -122,7 +122,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		getControllerJump().b();
 		e(this.getRemoteEntity().getSpeed());
 		
-		if (bu)
+		if (bG)
 		{
             boolean inLiquid = H() || J();
             if (inLiquid)
@@ -139,15 +139,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		{
             bE = 0;
         }
-        br *= 0.98F;
-        bs *= 0.98F;
-        bt *= 0.9F;
+        bD *= 0.98F;
+        bE *= 0.98F;
+        bF *= 0.9F;
 
-        float prev = aG;
-        aG *= bs() * this.getRemoteEntity().getSpeed();
-        e(br, bs); 
-        aG = prev;
-        as = yaw;
+        float prev = aM;
+        aM *= by() * this.getRemoteEntity().getSpeed();
+        e(bD, bE); 
+        aM = prev;
+        ay = yaw;
 	}
 	
 	@Override
@@ -185,7 +185,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
-	public boolean aV()
+	public boolean bb()
 	{
 		return true;
 	}

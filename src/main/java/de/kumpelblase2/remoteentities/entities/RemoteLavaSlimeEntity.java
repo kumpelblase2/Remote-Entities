@@ -85,45 +85,39 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	
 	@Override
-	protected void be()
+	protected void bk()
 	{
-		this.bb();
+		this.bh();
 		if(this.m_target != null)
 		{
 			this.a(this.m_target, 10.0F, 20.0F);
 		}
 		
 		// --- Taken from EntitySlime.java#103 - #121
-		if (this.onGround && this.m_jumpDelay-- <= 0)
-		{
-            this.m_jumpDelay = this.k();
-            if (this.m_target != null)
-            {
+		if (this.onGround && this.m_jumpDelay-- <= 0) {
+            this.m_jumpDelay = this.j();
+            if (this.m_target != null) {
                 this.m_jumpDelay /= 3;
             }
 
-            this.bu = true;
-            if (this.r())
-            {
-                this.world.makeSound(this, this.o(), this.aP(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.bG = true;
+            if (this.q()) {
+                this.world.makeSound(this, this.n(), this.aV(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.br = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bs = (float) (1 * this.getSize());
-        }
-		else
-		{
-            this.bu = false;
-            if (this.onGround)
-            {
-                this.br = this.bs = 0.0F;
+            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bE = (float) (1 * this.getSize());
+        } else {
+            this.bG = false;
+            if (this.onGround) {
+                this.bD = this.bE = 0.0F;
             }
         }
 		// ---
@@ -171,7 +165,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	}
 	
 	@Override
-	public boolean aV()
+	public boolean bb()
 	{
 		return true;
 	}

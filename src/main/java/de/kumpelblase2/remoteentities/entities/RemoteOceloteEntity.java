@@ -120,9 +120,9 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	

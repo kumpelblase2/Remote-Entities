@@ -101,15 +101,15 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 	}
 	
 	@Override
-	public boolean aV()
+	public boolean bb()
 	{
 		return true;
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	

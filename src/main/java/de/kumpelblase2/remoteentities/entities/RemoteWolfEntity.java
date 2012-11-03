@@ -120,9 +120,9 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	

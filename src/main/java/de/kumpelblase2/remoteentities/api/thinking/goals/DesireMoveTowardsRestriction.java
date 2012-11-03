@@ -22,19 +22,19 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().aB())
+		if(this.getRemoteEntity().getHandle().aH())
 			return false;
 		else
 		{
-			ChunkCoordinates chunkCoords = this.getRemoteEntity().getHandle().aC();
-			Vec3D vec = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 16, 7, Vec3D.a().create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
+			ChunkCoordinates chunkCoords = this.getRemoteEntity().getHandle().aI();
+			Vec3D vec = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 16, 7, Vec3D.a.create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
 			if(vec == null)
 				return false;
 			else
 			{
-				this.m_x = vec.a;
-				this.m_y = vec.b;
-				this.m_z = vec.c;
+				this.m_x = vec.c;
+				this.m_y = vec.d;
+				this.m_z = vec.e;
 				return true;
 			}
 		}

@@ -105,9 +105,9 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	

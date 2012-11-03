@@ -34,7 +34,7 @@ public class DesireProtectOwner extends DesireTargetBase
 				return false;
 			else
 			{
-				this.m_ownerTarget = owner.av();
+				this.m_ownerTarget = owner.aF();
 				return this.isSuitableTarget(this.m_ownerTarget, false);
 			}
 		}

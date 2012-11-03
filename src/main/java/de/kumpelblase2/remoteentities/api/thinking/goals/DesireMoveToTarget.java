@@ -25,22 +25,22 @@ public class DesireMoveToTarget extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		this.m_target = this.getRemoteEntity().getHandle().az();
+		this.m_target = this.getRemoteEntity().getHandle().aF();
 		if(this.m_target == null)
 			return false;
 		else if(this.m_target.e(this.getRemoteEntity().getHandle()) > this.m_minDistance * this.m_minDistance)
 			return false;
 		else
 		{
-			Vec3D vec = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 16, 7, Vec3D.a().create(this.m_target.locX, this.m_target.locY, this.m_target.locZ));
+			Vec3D vec = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 16, 7, Vec3D.a.create(this.m_target.locX, this.m_target.locY, this.m_target.locZ));
 			
 			if(vec == null)
 				return false;
 			else
 			{
-				this.m_x = vec.a;
-				this.m_y = vec.b;
-				this.m_z = vec.c;
+				this.m_x = vec.c;
+				this.m_y = vec.d;
+				this.m_z = vec.e;
 				return true;
 			}
 		}

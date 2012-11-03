@@ -18,7 +18,7 @@ public class DesireOcelotAttack extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving target = this.getRemoteEntity().getHandle().az();
+		EntityLiving target = this.getRemoteEntity().getHandle().aF();
 		if(target == null)
 			return false;
 		

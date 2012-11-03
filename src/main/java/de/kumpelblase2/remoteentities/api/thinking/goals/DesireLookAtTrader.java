@@ -21,9 +21,9 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 		else
 		{
 			EntityVillager villager = (EntityVillager)entity;
-			if(villager.q())
+			if(villager.n()) //TODO
 			{
-				this.m_target = villager.l_();
+				this.m_target = villager.m_();
 				return true;
 			}
 			return false;

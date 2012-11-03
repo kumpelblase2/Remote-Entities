@@ -29,9 +29,9 @@ public class DesireWanderAroundArea extends DesireWanderAround
 				Vec3D vector = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 10, 7);
 				if(vector != null)
 				{
-					this.m_xPos = vector.a;
-					this.m_yPos = vector.b;
-					this.m_zPos = vector.c;
+					this.m_xPos = vector.c;
+					this.m_yPos = vector.d;
+					this.m_zPos = vector.e;
 					return true;
 				}
 				tries++;

@@ -57,6 +57,6 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 	@Override
 	public LivingEntity getTarget()
 	{
-		return (LivingEntity)this.getHandle().az().getBukkitEntity();
+		return (LivingEntity)this.getHandle().aF().getBukkitEntity();
 	}
 }

@@ -30,7 +30,7 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	@Override
 	public boolean canContinue()
 	{
-		double dist = this.getRemoteEntity().getHandle().e(this.m_x, this.m_y, this.m_z);
+		double dist = this.getRemoteEntity().getHandle().e((double)this.m_x, (double)this.m_y, (double)this.m_z);
 		return this.m_breakTick <= 240 && !this.m_door.a_(this.getRemoteEntity().getHandle().world, this.m_x, this.m_y, this.m_z) && dist < 4;
 	}
 	
@@ -38,21 +38,21 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	public void stopExecuting()
 	{
 		super.stopExecuting();
-		this.getRemoteEntity().getHandle().world.f(this.getRemoteEntity().getHandle().id, this.m_x, this.m_y, this.m_z, -1);
+		this.getRemoteEntity().getHandle().world.g(this.getRemoteEntity().getHandle().id, this.m_x, this.m_y, this.m_z, -1);
 	}
 	
 	@Override
 	public boolean update()
 	{
 		super.update();
-		if(this.getRemoteEntity().getHandle().au().nextInt(20) == 0)
+		if(this.getRemoteEntity().getHandle().aA().nextInt(20) == 0)
 			this.getRemoteEntity().getHandle().world.triggerEffect(1010, this.m_x, this.m_y, this.m_z, 0);
 		
 		this.m_breakTick++;
 		int i = (int)(this.m_breakTick / 240 * 10);
 		if(i != this.m_lastBreak)
 		{
-			this.getRemoteEntity().getHandle().world.f(this.getRemoteEntity().getHandle().id, this.m_x, this.m_y, this.m_z, i);
+			this.getRemoteEntity().getHandle().world.g(this.getRemoteEntity().getHandle().id, this.m_x, this.m_y, this.m_z, i);
 			this.m_lastBreak = i;
 		}
 		

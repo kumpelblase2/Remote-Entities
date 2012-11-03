@@ -106,9 +106,9 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	

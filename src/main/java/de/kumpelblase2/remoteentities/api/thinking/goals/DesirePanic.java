@@ -29,9 +29,9 @@ public class DesirePanic extends DesireBase
 				return false;
 			else
 			{
-				this.m_x = vec.a;
-				this.m_y = vec.b;
-				this.m_z = vec.c;
+				this.m_x = vec.c;
+				this.m_y = vec.d;
+				this.m_z = vec.e;
 				return true;
 			}
 		}

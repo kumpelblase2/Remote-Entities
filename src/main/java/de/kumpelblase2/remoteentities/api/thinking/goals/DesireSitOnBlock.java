@@ -33,7 +33,7 @@ public class DesireSitOnBlock extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.au().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
+		return this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aA().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class DesireSitOnBlock extends DesireBase
 		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 		this.m_currentSitTick = 0;
 		this.m_d = 0;
-		this.m_maxSitTicks = this.m_ocelot.au().nextInt(this.m_ocelot.au().nextInt(1200) + 1200) + 1200;
+		this.m_maxSitTicks = this.m_ocelot.aA().nextInt(this.m_ocelot.aA().nextInt(1200) + 1200) + 1200;
 		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
 			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
 	}
@@ -64,7 +64,7 @@ public class DesireSitOnBlock extends DesireBase
 	{
 		this.m_currentSitTick++;
 		this.m_ocelot.setSitting(true);
-		if(this.m_ocelot.e(this.m_x, this.m_y + 1, this.m_z) > 1)
+		if(this.m_ocelot.e((double)this.m_x, (double)this.m_y + 1, (double)this.m_z) > 1)
 		{
 			this.m_ocelot.setSitting(false);
 			this.m_ocelot.getNavigation().a(this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D);
@@ -89,7 +89,7 @@ public class DesireSitOnBlock extends DesireBase
 			{
 				if(this.isSitableBlock(this.m_ocelot.world, x, y, z) && this.m_ocelot.world.isEmpty(x, y + 1, z))
 				{
-					double dist = this.m_ocelot.e(x, y, z);
+					double dist = this.m_ocelot.e((double)x, (double)y, (double)z);
 					if(dist < minDist)
 					{
 						this.m_x = x;
@@ -120,7 +120,7 @@ public class DesireSitOnBlock extends DesireBase
 			if(type == Block.BURNING_FURNACE.id)
 				return true;
 			
-			if(type == Block.BED.id && !BlockBed.a_(data))
+			if(type == Block.BED.id && !BlockBed.b_(data)) //TODO
 				return true;
 		}
 		

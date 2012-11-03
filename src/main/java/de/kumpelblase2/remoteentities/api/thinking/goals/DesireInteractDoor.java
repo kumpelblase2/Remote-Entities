@@ -69,7 +69,7 @@ public class DesireInteractDoor extends DesireBase
 				this.m_y = point.b + 1;
 				this.m_z = point.c;
 				
-				if(this.getRemoteEntity().getHandle().e(this.m_x, this.m_y, this.m_z) <= 2.25)
+				if(this.getRemoteEntity().getHandle().e((double)this.m_x, (double)this.m_y, (double)this.m_z) <= 2.25)
 				{
 					this.m_door = this.getDoor(this.m_x, this.m_y, this.m_z);
 					if(this.m_door != null)

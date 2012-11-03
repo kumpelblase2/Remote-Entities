@@ -85,9 +85,9 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	
@@ -159,7 +159,7 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	}
 	
 	@Override
-	public boolean aV()
+	public boolean bb()
 	{
 		return true;
 	}

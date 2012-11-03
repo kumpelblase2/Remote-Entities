@@ -51,7 +51,7 @@ public class RemoteSilverfish extends RemoteBaseEntity implements Fightable
 	@Override
 	public LivingEntity getTarget()
 	{
-		Entity target = ((EntityCreature)this.m_entity).m();
+		Entity target = ((EntityCreature)this.m_entity).l();
 		if(target != null && target instanceof EntityLiving)
 			return (LivingEntity)target.getBukkitEntity();
 		

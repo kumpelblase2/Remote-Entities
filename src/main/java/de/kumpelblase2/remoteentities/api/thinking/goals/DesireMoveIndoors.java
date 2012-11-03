@@ -26,9 +26,9 @@ public class DesireMoveIndoors extends DesireBase
 	public boolean shouldExecute()
 	{
 		EntityLiving entity = this.getRemoteEntity().getHandle();
-		if((!entity.world.s() || entity.world.J()) && !entity.world.worldProvider.e)
+		if((!entity.world.t() || entity.world.M()) && !entity.world.worldProvider.e)
 		{
-			if(entity.au().nextInt(50) != 0)
+			if(entity.aA().nextInt(50) != 0)
 				return false;
 			else if(this.m_x != -1 && entity.e(this.m_x, entity.locY, this.m_z) < 4)
 				return false;
@@ -61,9 +61,9 @@ public class DesireMoveIndoors extends DesireBase
 		EntityLiving entity = this.getRemoteEntity().getHandle();
 		if(entity.e(this.m_targetDoor.getIndoorsX(), entity.locY, this.m_targetDoor.getIndoorsZ()) > 256)
 		{
-			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, Vec3D.a().create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
+			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, Vec3D.a.create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 			if(vec != null)
-				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.a, vec.b, vec.c));
+				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
 		}
 		else
 			this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));

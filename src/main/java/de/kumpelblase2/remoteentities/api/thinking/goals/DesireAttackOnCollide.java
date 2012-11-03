@@ -30,7 +30,7 @@ public class DesireAttackOnCollide extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entityTarget = this.getRemoteEntity().getHandle().az();
+		EntityLiving entityTarget = this.getRemoteEntity().getHandle().aF();
 		
 		if(entityTarget == null)
 			return false;
@@ -47,9 +47,9 @@ public class DesireAttackOnCollide extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getRemoteEntity().getHandle().az();
+		EntityLiving entityTarget = this.getRemoteEntity().getHandle().aF();
 		EntityLiving entity = this.getRemoteEntity().getHandle();
-		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.d(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
+		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.e(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
 	}
 	
 	@Override
@@ -74,9 +74,9 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entity = this.getRemoteEntity().getHandle();
 		entity.getControllerLook().a(this.m_target, 30, 30);
-		if((this.m_ignoreSight || entity.at().canSee(this.m_target)) && --this.m_moveTick <= 0)
+		if((this.m_ignoreSight || entity.az().canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.au().nextInt(7);
+			this.m_moveTick = 4 + entity.aA().nextInt(7);
 			entity.getNavigation().a(this.m_target, this.getRemoteEntity().getSpeed());
 		}
 		
