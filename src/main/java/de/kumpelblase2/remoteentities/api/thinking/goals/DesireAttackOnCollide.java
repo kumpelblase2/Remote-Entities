@@ -1,6 +1,8 @@
 
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.event.entity.EntityTargetEvent;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.PathEntity;
@@ -52,7 +54,7 @@ public class DesireAttackOnCollide extends DesireBase
 	
 	@Override
 	public void startExecuting()
-	{
+	{		
 		this.getRemoteEntity().getHandle().getNavigation().a(this.m_path, this.getRemoteEntity().getSpeed());
 		this.m_moveTick = 0;
 	}
@@ -60,6 +62,9 @@ public class DesireAttackOnCollide extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
+		EntityTargetEvent.TargetReason reason = this.m_target.isAlive() ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
+        CraftEventFactory.callEntityTargetEvent(this.getRemoteEntity().getHandle(), null, reason);
+		
 		this.m_target = null;
 		this.getRemoteEntity().getHandle().getNavigation().g();
 	}

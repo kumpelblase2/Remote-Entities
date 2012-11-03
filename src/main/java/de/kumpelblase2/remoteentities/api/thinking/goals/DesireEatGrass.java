@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
 import net.minecraft.server.Block;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.MathHelper;
@@ -70,15 +72,21 @@ public class DesireEatGrass extends DesireBase
 			
 			if(entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id)
 			{
-				entity.world.triggerEffect(2001, x, y, z, Block.LONG_GRASS.id + 4096);
-				entity.world.setTypeId(x, z, z, 0);
-				entity.aA();
+				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getRemoteEntity().getHandle().world.getWorld().getBlockAt(x, y, z), Material.AIR).isCancelled())
+				{
+					entity.world.triggerEffect(2001, x, y, z, Block.LONG_GRASS.id + 4096);
+					entity.world.setTypeId(x, z, z, 0);
+					entity.aA();
+				}
 			}
 			else if(entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id)
 			{
-				entity.world.triggerEffect(2001, x, y, z, Block.GRASS.id);
-				entity.world.setTypeId(x, y - 1, z, Block.DIRT.id);
-				entity.aA();
+				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getRemoteEntity().getHandle().world.getWorld().getBlockAt(x, y - 1, z), Material.DIRT).isCancelled())
+				{
+					entity.world.triggerEffect(2001, x, y, z, Block.GRASS.id);
+					entity.world.setTypeId(x, y - 1, z, Block.DIRT.id);
+					entity.aA();
+				}
 			}
 		}
 		return true;

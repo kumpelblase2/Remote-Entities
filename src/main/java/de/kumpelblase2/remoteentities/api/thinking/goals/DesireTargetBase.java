@@ -1,5 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.event.entity.EntityTargetEvent;
+import net.minecraft.server.EntityCreature;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityTameableAnimal;
@@ -114,6 +117,38 @@ public abstract class DesireTargetBase extends DesireBase
 						if(this.m_useAttack == 2)
 							return false;
 					}
+					
+					
+					EntityTargetEvent.TargetReason reason = EntityTargetEvent.TargetReason.RANDOM_TARGET;
+
+	                if (this instanceof DesireDefendVillage) {
+	                    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
+	                } else if (this instanceof DesireAttackTarget) {
+	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
+	                } else if (this instanceof DesireAttackNearest) {
+	                    if (inEntity instanceof EntityHuman) {
+	                        reason = EntityTargetEvent.TargetReason.CLOSEST_PLAYER;
+	                    }
+	                } else if (this instanceof DesireProtectOwner) {
+	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
+	                } else if (this instanceof DesireHelpAttacking) {
+	                    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
+	                }
+
+	                org.bukkit.event.entity.EntityTargetLivingEntityEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callEntityTargetLivingEvent(this.getRemoteEntity().getHandle(), inEntity, reason);
+	                if (event.isCancelled() || event.getTarget() == null) {
+	                    if (this.getRemoteEntity().getHandle() instanceof EntityCreature) {
+	                        ((EntityCreature)this.getRemoteEntity().getHandle()).target = null;
+	                    }
+	                    return false;
+	                } else if (inEntity.getBukkitEntity() != event.getTarget()) {
+	                    this.getRemoteEntity().getHandle().b((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
+	                }
+	                if (this.getRemoteEntity().getHandle() instanceof EntityCreature) {
+	                    ((EntityCreature) this.getRemoteEntity().getHandle()).target = ((org.bukkit.craftbukkit.entity.CraftEntity) event.getTarget()).getHandle();
+	                }
+					
+					
 					return true;
 				}
 			}

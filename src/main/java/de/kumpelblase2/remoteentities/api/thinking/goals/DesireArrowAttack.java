@@ -1,6 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityTargetEvent;
+import net.minecraft.server.Entity;
 import net.minecraft.server.EntityArrow;
 import net.minecraft.server.EntityFireball;
 import net.minecraft.server.EntityHuman;
@@ -37,7 +40,10 @@ public class DesireArrowAttack extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
+		EntityTargetEvent.TargetReason reason = this.m_target.isAlive() ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
+		CraftEventFactory.callEntityTargetEvent((Entity)this.getRemoteEntity().getHandle(), null, reason);
 		this.m_target = null;
+		this.m_inRangeTick = 0;
 	}
 
 	@Override
