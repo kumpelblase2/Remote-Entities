@@ -62,4 +62,14 @@ public class Equipment
 	{
 		return this.m_armor[3];
 	}
+	
+	public ItemStack[] getArmorParts()
+	{
+		return this.m_armor;
+	}
+	
+	public void setArmorParts(ItemStack[] inArmor)
+	{
+		this.m_armor = inArmor;
+	}
 }

@@ -4,4 +4,5 @@ public interface EquipmentFeature extends Feature
 {
 	public Equipment getEquipment();
 	public void applyEquipment(Equipment inEquipment);
+	public void updateEquipment();
 }
