@@ -9,9 +9,11 @@ import net.minecraft.server.EntityFireball;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLargeFireball;
 import net.minecraft.server.EntityLiving;
+import net.minecraft.server.EntityPotion;
 import net.minecraft.server.EntitySmallFireball;
 import net.minecraft.server.EntitySnowball;
 import net.minecraft.server.MathHelper;
+import net.minecraft.server.MobEffectList;
 import net.minecraft.server.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
@@ -129,7 +131,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			entity.world.addEntity(fireball);
 		}
-		else
+		else if(this.m_projeProjectileType == RemoteProjectileType.FIREBALL)
 		{
 			double xDiff = this.m_target.locX - entity.locX;
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
@@ -142,6 +144,26 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			fireball.locZ = entity.locZ + vec.e * d;
 			entity.world.addEntity(fireball);
+		}
+		else
+		{
+			EntityPotion potion = new EntityPotion(entity.world, this.getRemoteEntity().getHandle(), 32732);
+			potion.pitch -= 20;
+			double d0 = this.m_target.locX + this.m_target.motX - entity.locX;
+            double d1 = this.m_target.locY + (double) this.m_target.getHeadHeight() - 1.100000023841858D - entity.locY;
+            double d2 = this.m_target.locZ + this.m_target.motZ - entity.locZ;
+            float f = MathHelper.sqrt(d0 * d0 + d2 * d2);
+
+            if (f >= 8.0F && !this.m_target.hasEffect(MobEffectList.SLOWER_MOVEMENT)) {
+                potion.setPotionValue(32698);
+            } else if (this.m_target.getHealth() >= 8 && !this.m_target.hasEffect(MobEffectList.POISON)) {
+                potion.setPotionValue(32660);
+            } else if (f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aA().nextFloat() < 0.25F) {
+                potion.setPotionValue(32696);
+            }
+
+            potion.shoot(d0, d1 + (double) (f * 0.2F), d2, 0.75F, 8.0F);
+            entity.world.addEntity(potion);
 		}
 	}
 }
