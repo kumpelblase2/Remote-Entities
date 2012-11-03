@@ -209,4 +209,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		this.m_speed = inSpeed;
 	}
+	
+	@Override
+	public int getMaxHealth()
+	{
+		return this.m_entity.getMaxHealth();
+	}
 }

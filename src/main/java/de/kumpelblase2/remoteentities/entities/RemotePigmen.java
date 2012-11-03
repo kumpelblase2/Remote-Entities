@@ -30,12 +30,6 @@ public class RemotePigmen extends RemoteBaseEntity implements Fightable
 	}
 
 	@Override
-	public int getMaxHealth()
-	{
-		return this.m_entity.getMaxHealth();
-	}
-
-	@Override
 	public void attack(LivingEntity inTarget)
 	{
 		((EntityCreature)this.m_entity).setTarget(((CraftLivingEntity)inTarget).getHandle());

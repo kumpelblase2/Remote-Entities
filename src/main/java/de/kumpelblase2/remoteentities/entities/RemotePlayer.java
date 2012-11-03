@@ -67,12 +67,6 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	{
 		this.getHandle().setMaxHealth(inMax);
 	}
-
-	@Override
-	public int getMaxHealth()
-	{
-		return this.m_entity.getMaxHealth();
-	}
 	
 	@Override
 	public RemotePlayerEntity getHandle()
