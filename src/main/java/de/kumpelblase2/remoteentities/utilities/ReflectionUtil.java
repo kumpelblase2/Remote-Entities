@@ -2,10 +2,14 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 import net.minecraft.server.*;
 
 public final class ReflectionUtil
 {
+	private static Set<Class<?>> m_registeredClasses = new HashSet<Class<?>>();
+	
 	public static void replaceGoalSelector(EntityLiving inEntity, String inSelectorName, PathfinderGoalSelector inNewSelector)
 	{
 		try
@@ -34,6 +38,9 @@ public final class ReflectionUtil
 	
 	public static void registerEntityType(Class<?> inClass, String name, int inID)
 	{
+		if(m_registeredClasses.contains(inClass))
+			return;
+		
 		try
 		{
             @SuppressWarnings("rawtypes")
@@ -46,6 +53,7 @@ public final class ReflectionUtil
             a.setAccessible(true);
  
             a.invoke(a, inClass, name, inID);
+            m_registeredClasses.add(inClass);
         }
 		catch (Exception e)
 		{
