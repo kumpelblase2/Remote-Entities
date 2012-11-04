@@ -15,6 +15,7 @@ public class RemoteEquipmentFeature extends RemoteFeature implements EquipmentFe
 	{
 		super("EQUIPMENT", inEntity);
 		this.m_equipment = new Equipment(new ItemStack(Material.AIR), new ItemStack[4]);
+		this.loadEquipment();
 	}
 
 	@Override
@@ -48,5 +49,17 @@ public class RemoteEquipmentFeature extends RemoteFeature implements EquipmentFe
 	public void updateEquipment()
 	{
 		this.applyEquipment(this.getEquipment());
+	}
+	
+	public void loadEquipment()
+	{
+		if(this.m_entity.getHandle() == null)
+			return;
+		
+		this.m_equipment.setItemInHand(new CraftItemStack(this.m_entity.getHandle().getEquipment(0)));
+		for(int i = 0, j = 4; i < 4; i++, j--)
+		{
+			this.m_equipment.getArmorParts()[i] = new CraftItemStack(this.m_entity.getHandle().getEquipment(j));
+		}
 	}
 }
