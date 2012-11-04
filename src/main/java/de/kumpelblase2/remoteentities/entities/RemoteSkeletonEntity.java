@@ -7,6 +7,8 @@ import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntitySkeleton;
+import net.minecraft.server.Item;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
@@ -49,6 +51,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	{
 		this(world);
 		this.m_remoteEntity = inEntity;
+		this.setEquipment(0, new ItemStack(Item.BOW));
 	}
 
 	@Override
