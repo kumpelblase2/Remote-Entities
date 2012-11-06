@@ -9,9 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
@@ -34,7 +31,7 @@ public class EntityManager
 				while(it.hasNext())
 				{
 					Entry<Integer, RemoteEntity> entry = it.next();
-					entry.getValue().getHandle().z();
+					entry.getValue().getHandle().y();
 					if(entry.getValue().getHandle().dead)
 					{
 						entry.getValue().despawn();
@@ -43,16 +40,6 @@ public class EntityManager
 				}
 			}
 		}, 1L, 1L);
-		
-		Bukkit.getPluginManager().registerEvents(new Listener()
-		{
-			@EventHandler
-			public void disabled(PluginDisableEvent event)
-			{
-				if(event.getPlugin() == inPlugin)
-					despawnAll();
-			}
-		}, inPlugin);
 	}
 	
 	public Plugin getPlugin()
