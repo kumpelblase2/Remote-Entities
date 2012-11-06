@@ -8,8 +8,8 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 public abstract class EnterSightBehaviour implements Behaviour
 {
 	protected final String NAME = "EnterSight";
-	protected int m_tick = 20;
-	protected int m_defaultInterval = 20;
+	protected int m_tick = 0;
+	protected int m_defaultInterval = 10;
 	protected Set<String> m_inRange;
 	protected final RemoteEntity m_entity;
 	protected double m_xRange = 10;
@@ -41,7 +41,7 @@ public abstract class EnterSightBehaviour implements Behaviour
 		}
 	}
 
-	private void checkSight()
+	protected void checkSight()
 	{
 		Set<String> temp = new HashSet<String>();
 		List<Entity> entities = this.m_entity.getBukkitEntity().getNearbyEntities(this.m_xRange, this.m_yRange, this.m_zRange);
