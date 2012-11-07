@@ -17,14 +17,12 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected long m_lastBouncedTime;
 	protected int m_maxHealth;
 	public static int defaultMaxHealth = 20;
-	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager)
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
-		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
-		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
+		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_maxHealth = defaultMaxHealth;
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
@@ -60,9 +58,10 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void b_(EntityHuman entity)
 	{
-		if(entity instanceof EntityPlayer)
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			{
 				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
 				{
 					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());

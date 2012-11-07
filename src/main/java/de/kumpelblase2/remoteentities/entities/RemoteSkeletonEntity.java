@@ -25,8 +25,6 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	protected int m_maxHealth;
 	public static int defaultMaxHealth = 20;
 	protected int m_lastBouncedId;
@@ -40,11 +38,9 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	public RemoteSkeletonEntity(World world)
 	{
 		super(world);
-		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
-		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
+		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_maxHealth = defaultMaxHealth;
-		this.goalSelectorHelper.clearGoals();
-		this.targetSelectorHelper.clearGoals();
 	}
 	
 	public RemoteSkeletonEntity(World world, RemoteEntity inEntity)
@@ -124,9 +120,10 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	@Override
 	public void b_(EntityHuman entity)
 	{
-		if(entity instanceof EntityPlayer)
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			{
 				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
 				{
 					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
