@@ -4,5 +4,6 @@ public enum DespawnReason
 {
 	DEATH,
 	PLUGIN_DISABLE,
-	CUSTOM
+	CUSTOM,
+	NAME_CHANGE
 }

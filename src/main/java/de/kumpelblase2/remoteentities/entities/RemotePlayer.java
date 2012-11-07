@@ -2,11 +2,13 @@ package de.kumpelblase2.remoteentities.entities;
 
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.WorldServer;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 
 public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
 {
@@ -45,7 +47,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	{
 		this.m_name = inName;
 		Location loc = this.getBukkitEntity().getLocation();
-		this.despawn();
+		this.despawn(DespawnReason.NAME_CHANGE);
 		this.spawn(loc);
 	}
 	
@@ -54,6 +56,13 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	{
 		if(this.isSpawned())
 			return;
+		
+		RemoteEntitySpawnEvent event = new RemoteEntitySpawnEvent(this, inLocation);
+		Bukkit.getPluginManager().callEvent(event);
+		if(event.isCancelled())
+			return;
+		
+		inLocation = event.getSpawnLocation();
 		
 		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new ItemInWorldManager(worldServer), this);
