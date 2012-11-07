@@ -34,7 +34,7 @@ public class EntityManager
 					entry.getValue().getHandle().y();
 					if(entry.getValue().getHandle().dead)
 					{
-						entry.getValue().despawn();
+						entry.getValue().despawn(DespawnReason.DEATH);
 						it.remove();
 					}
 				}
@@ -114,7 +114,7 @@ public class EntityManager
 	public void removeEntity(int inID)
 	{
 		if(this.m_entities.containsKey((Integer)inID))
-			this.m_entities.get((Integer)inID).despawn();
+			this.m_entities.get((Integer)inID).despawn(DespawnReason.CUSTOM);
 		
 		this.m_entities.remove((Integer)inID);
 	}
@@ -166,9 +166,14 @@ public class EntityManager
 	
 	public void despawnAll()
 	{
+		this.despawnAll(DespawnReason.CUSTOM);
+	}
+	
+	public void despawnAll(DespawnReason inReason)
+	{
 		for(RemoteEntity entity : this.m_entities.values())
 		{
-			entity.despawn();
+			entity.despawn(inReason);
 		}
 		this.m_entities.clear();
 	}

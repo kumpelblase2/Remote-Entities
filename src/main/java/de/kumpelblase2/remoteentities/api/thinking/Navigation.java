@@ -3,6 +3,8 @@ package de.kumpelblase2.remoteentities.api.thinking;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.bukkit.Bukkit;
+import de.kumpelblase2.remoteentities.api.events.RemoteDesireAddEvent;
 
 public class Navigation
 {
@@ -64,7 +66,12 @@ public class Navigation
 	 
 	public void addDesire(Desire inDesire, int inPriority)
 	{
-		this.m_desires.add(new DesireItem(inDesire, inPriority));
+		RemoteDesireAddEvent event = new RemoteDesireAddEvent(inDesire.getRemoteEntity(), inDesire, inPriority);
+		Bukkit.getPluginManager().callEvent(event);
+		if(event.isCancelled())
+			return;
+		
+		this.m_desires.add(new DesireItem(event.getDesire(), event.getPriority()));
 	}
 	 
 	public boolean hasHighestPriority(DesireItem inItem)

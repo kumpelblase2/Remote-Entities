@@ -20,7 +20,7 @@ public interface RemoteEntity
 	public void stopMoving();
 	public void teleport(Location inLocation);
 	public void spawn(Location inLocation);
-	public void despawn();
+	public void despawn(DespawnReason inReason);
 	public boolean isSpawned();
 	public void setMaxHealth(int inMax);
 	public int getMaxHealth();

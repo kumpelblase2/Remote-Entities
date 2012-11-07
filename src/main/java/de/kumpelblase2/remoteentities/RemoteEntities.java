@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class RemoteEntities extends JavaPlugin
@@ -79,7 +80,7 @@ public class RemoteEntities extends JavaPlugin
 		{
 			EntityManager manager = RemoteEntities.getManagerOfPlugin(event.getPlugin().getName());
 			if(manager != null)
-				manager.despawnAll();
+				manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
 		}
 	}
 }

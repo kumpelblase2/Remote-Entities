@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
@@ -14,8 +15,11 @@ import net.minecraft.server.World;
 import net.minecraft.server.WorldServer;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.DefaultEntitySpeed;
+import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.thinking.Behaviour;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
@@ -154,8 +158,15 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(this.isSpawned())
 			return;
 		
+		RemoteEntitySpawnEvent event = new RemoteEntitySpawnEvent(this, inLocation);
+		Bukkit.getPluginManager().callEvent(event);
+		if(event.isCancelled())
+			return;
+		
+		inLocation = event.getSpawnLocation();
+		
 		try
-		{
+		{			
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 			this.m_entity = (EntityLiving)this.m_type.getEntityClass().getConstructor(World.class, RemoteEntity.class).newInstance(worldServer, this);
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
@@ -168,8 +179,13 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
-	public void despawn()
+	public void despawn(DespawnReason inReason)
 	{
+		RemoteEntityDespawnEvent event = new RemoteEntityDespawnEvent(this, inReason);
+		Bukkit.getPluginManager().callEvent(event);
+		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
+			return;
+		
 		for(Behaviour behaviour : this.getMind().getBehaviours())
 		{
 			behaviour.onRemove();
