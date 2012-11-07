@@ -33,8 +33,13 @@ public class RemoteEntities extends JavaPlugin
 	public static EntityManager createManager(Plugin inPlugin)
 	{
 		EntityManager manager = new EntityManager(inPlugin);
-		getInstance().m_managers.put(inPlugin.getName(), manager);
+		registerCustomManager(manager, inPlugin.getName());
 		return manager;
+	}
+	
+	public static void registerCustomManager(EntityManager inManager, String inName)
+	{
+		getInstance().m_managers.put(inName, inManager);
 	}
 	
 	public static EntityManager getManagerOfPlugin(String inName)
