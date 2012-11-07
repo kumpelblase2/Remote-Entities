@@ -6,12 +6,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public abstract class DamageBehaviour implements Behaviour
+public abstract class DamageBehavior implements Behavior
 {
 	protected final String NAME = "Damage";
 	private final RemoteEntity m_entity;
 	
-	public DamageBehaviour(RemoteEntity inEntity)
+	public DamageBehavior(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
 	}

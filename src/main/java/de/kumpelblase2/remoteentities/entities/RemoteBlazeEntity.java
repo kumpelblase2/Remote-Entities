@@ -106,7 +106,7 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 					if(event.isCancelled())
 						return;
 					
-					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
 				}
@@ -120,7 +120,7 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
-			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
 		return super.c(entity);

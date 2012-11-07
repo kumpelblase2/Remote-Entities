@@ -42,6 +42,11 @@ public class EntityManager
 		}, 1L, 1L);
 	}
 	
+	/**
+	 * Gets the plugin that created this EntityManager
+	 * 
+	 * @return	the plugin
+	 */
 	public Plugin getPlugin()
 	{
 		return this.m_plugin;
@@ -58,11 +63,29 @@ public class EntityManager
 		return current;
 	}
 	
+	/**
+	 * Create an entity at given location with given type.
+	 * 
+	 * @param inType			type of the entity to create
+	 * @param inLocation		location where it should get created
+	 * @return					the created entity
+	 * @throws NoNameException	when trying to create a named entity. Use {@link EntityManager#createNamedEntity(RemoteEntityType, Location, String)} instead
+	 */
 	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation) throws NoNameException
 	{
 		return this.createEntity(inType, inLocation, true);
 	}
 	
+	/**
+	 * Creates an entity at given location with given type.
+	 * You can also specify if you want to setup the default desires/goals of the entity (default is true).
+	 * 
+	 * @param inType			type of the entity to create
+	 * @param inLocation		location where it should get created
+	 * @param inSetupGoals		if default desires/goals should be applied
+	 * @return					the created entity
+	 * @throws NoNameException	when trying to create a named entity. Use {@link EntityManager#createNamedEntity(RemoteEntityType, Location, String, boolean)} instead
+	 */
 	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation, boolean inSetupGoals) throws NoNameException
 	{
 		if(inType.isNamed())
@@ -86,11 +109,28 @@ public class EntityManager
 		return null;
 	}
 	
+	/**
+	 * Creates a named entity at given location with given type.
+	 * 
+	 * @param inType		type of the entity to create
+	 * @param inLocation	location where it should get created
+	 * @param inName		name of the entity
+	 * @return				the created entity
+	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName)
 	{
 		return this.createNamedEntity(inType, inLocation, inName, true);
 	}
 	
+	/**
+	 * Creates a named entity at given location with given type.
+	 * 
+	 * @param inType		type of the entity to create
+	 * @param inLocation	location where it should get created
+	 * @param inName		name of the entity
+	 * @param inSetupGoals	if default goals/desires should be applied
+	 * @return				the created entity
+	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName, boolean inSetupGoals)
 	{
 		Integer id = this.getNextFreeID();
@@ -111,6 +151,11 @@ public class EntityManager
 		return null;
 	}
 	
+	/**
+	 * Removes an entity completely. If the entity is not despawned already, it'll do so.
+	 * 
+	 * @param inID	ID of the entity to remove
+	 */
 	public void removeEntity(int inID)
 	{
 		if(this.m_entities.containsKey((Integer)inID))
@@ -119,12 +164,24 @@ public class EntityManager
 		this.m_entities.remove((Integer)inID);
 	}
 	
+	/**
+	 * Checks whether the provided entity is a RemoteEntity created by this manager
+	 * 
+	 * @param inEntity	entity to check
+	 * @return			true if the entity is a RemoteEntity, false if not
+	 */
 	public boolean isRemoteEntity(LivingEntity inEntity)
 	{
 		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
 		return handle instanceof RemoteEntityHandle;
 	}
 	
+	/**
+	 * Gets the existing RemoteEntity from the provided entity.
+	 * 
+	 * @param inEntity	entity
+	 * @return			instance of the RemoteEntity
+	 */
 	public RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
 	{
 		if(!this.isRemoteEntity(inEntity))
@@ -134,16 +191,34 @@ public class EntityManager
 		return ((RemoteEntityHandle)entityHandle).getRemoteEntity();
 	}
 	
+	/**
+	 * Gets the RemoteEntity by its ID
+	 * 
+	 * @param inID	ID of the entity
+	 * @return		RemoteEntity with given ID
+	 */
 	public RemoteEntity getRemoteEntityByID(int inID)
 	{
 		return this.m_entities.get((Integer)inID);
 	}
 	
+	/**
+	 * Adds an already existing RemoteEntity to the manager
+	 * 
+	 * @param inID		ID of the entity
+	 * @param inEntity	entity to add
+	 */
 	public void addRemoteEntity(int inID, RemoteEntity inEntity)
 	{
 		this.m_entities.put(inID, inEntity);
 	}
 	
+	/**
+	 * Creates a RemoteEntity from an existing minecraft entity. The old entity will be replaced with the RemoteEntity
+	 * 
+	 * @param inEntity	entity to replace
+	 * @return			instance of the RemoteEntity
+	 */
 	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity) //TODO copy more shit from entity
 	{
 		RemoteEntityType type = RemoteEntityType.getByEntityClass(((CraftLivingEntity)inEntity).getHandle().getClass());
@@ -164,11 +239,19 @@ public class EntityManager
 		}		
 	}
 	
+	/**
+	 * Despawns all entities from this manager 
+	 */
 	public void despawnAll()
 	{
 		this.despawnAll(DespawnReason.CUSTOM);
 	}
 	
+	/**
+	 * Despawns all entities from this manager with the given {@link DespawnReason}.
+	 * 
+	 * @param inReason	despawn reason
+	 */
 	public void despawnAll(DespawnReason inReason)
 	{
 		for(RemoteEntity entity : this.m_entities.values())
@@ -178,6 +261,11 @@ public class EntityManager
 		this.m_entities.clear();
 	}
 	
+	/**
+	 * Gets all entities created by this manager
+	 * 
+	 * @return	list of all entities
+	 */
 	public List<RemoteEntity> getAllEntities()
 	{
 		return new ArrayList<RemoteEntity>(this.m_entities.values());

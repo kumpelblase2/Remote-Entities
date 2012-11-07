@@ -18,7 +18,7 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
+import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
@@ -136,7 +136,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 					if(event.isCancelled())
 						return;
 					
-					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
 				}

@@ -21,7 +21,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
-import de.kumpelblase2.remoteentities.api.thinking.Behaviour;
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 
 public abstract class RemoteBaseEntity implements RemoteEntity
@@ -186,7 +186,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
 			return;
 		
-		for(Behaviour behaviour : this.getMind().getBehaviours())
+		for(Behavior behaviour : this.getMind().getBehaviours())
 		{
 			behaviour.onRemove();
 		}

@@ -5,7 +5,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class Mind
 {
-	private Map<String, Behaviour> m_behaviours;
+	private Map<String, Behavior> m_behaviours;
 	private RemoteEntity m_entity;
 	private boolean m_canFeel = true;
 	private Navigation m_targetNavigation;
@@ -14,12 +14,12 @@ public class Mind
 	public Mind(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
-		this.m_behaviours = new HashMap<String, Behaviour>();
+		this.m_behaviours = new HashMap<String, Behavior>();
 		this.m_targetNavigation = new Navigation();
 		this.m_movementNavigation = new Navigation();
 	}
 	
-	public void addBehaviour(Behaviour inBehaviour)
+	public void addBehaviour(Behavior inBehaviour)
 	{
 		this.m_behaviours.put(inBehaviour.getName(), inBehaviour);
 	}
@@ -49,12 +49,12 @@ public class Mind
 		return this.m_entity;
 	}
 	
-	public Behaviour getBehaviour(String inName)
+	public Behavior getBehaviour(String inName)
 	{
 		return this.m_behaviours.get(inName);
 	}
 	
-	public Collection<Behaviour> getBehaviours()
+	public Collection<Behavior> getBehaviours()
 	{
 		return this.m_behaviours.values();
 	}
@@ -148,7 +148,7 @@ public class Mind
 	{
 		if(this.canFeel())
 		{
-			for(Behaviour behaviour : this.m_behaviours.values())
+			for(Behavior behaviour : this.m_behaviours.values())
 			{
 				behaviour.run();
 			}

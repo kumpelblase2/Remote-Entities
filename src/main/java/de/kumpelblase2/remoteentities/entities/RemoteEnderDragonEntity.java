@@ -14,9 +14,9 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
+import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
+import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteEnderDragonEntity extends EntityEnderDragon implements RemoteEntityHandle
@@ -169,7 +169,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 					if(event.isCancelled())
 						return;
 					
-					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
 				}
@@ -183,7 +183,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
-			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
 		return super.c(entity);

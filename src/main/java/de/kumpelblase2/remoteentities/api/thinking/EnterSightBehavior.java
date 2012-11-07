@@ -5,7 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public abstract class EnterSightBehaviour implements Behaviour
+public abstract class EnterSightBehavior implements Behavior
 {
 	protected final String NAME = "EnterSight";
 	protected int m_tick = 0;
@@ -16,13 +16,13 @@ public abstract class EnterSightBehaviour implements Behaviour
 	protected double m_yRange = 5;
 	protected double m_zRange = 10;
 	
-	public EnterSightBehaviour(RemoteEntity inEntity)
+	public EnterSightBehavior(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
 		this.m_inRange = new HashSet<String>();
 	}
 	
-	public EnterSightBehaviour(RemoteEntity inEntity, double xRange, double yRange, double zRange)
+	public EnterSightBehavior(RemoteEntity inEntity, double xRange, double yRange, double zRange)
 	{
 		this(inEntity);
 		this.m_xRange = xRange;
