@@ -31,7 +31,8 @@ public enum RemoteEntityType
 	Squid(RemoteSquid.class, RemoteSquidEntity.class, false),
 	Villager(RemoteVillager.class, RemoteVillagerEntity.class, false),
 	Wolf(RemoteWolf.class, RemoteWolfEntity.class, false),
-	Witch(RemoteWitch.class, RemoteWitchEntity.class, false);
+	Witch(RemoteWitch.class, RemoteWitchEntity.class, false),
+	Wither(RemoteWither.class, RemoteWitherEntity.class, false);
 	
 	
 	private Class<? extends EntityLiving> m_entityClass;
