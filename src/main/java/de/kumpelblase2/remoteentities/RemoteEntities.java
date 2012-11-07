@@ -3,11 +3,13 @@ package de.kumpelblase2.remoteentities;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class RemoteEntities extends JavaPlugin
 {
@@ -47,6 +49,27 @@ public class RemoteEntities extends JavaPlugin
 	public static RemoteEntities getInstance()
 	{
 		return s_instance;
+	}
+	
+	public static boolean isRemoteEntity(LivingEntity inEntity)
+	{
+		for(EntityManager manager : getInstance().m_managers.values())
+		{
+			if(manager.isRemoteEntity(inEntity))
+				return true;
+		}
+		return false;
+	}
+	
+	public static RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
+	{
+		for(EntityManager manager : getInstance().m_managers.values())
+		{
+			RemoteEntity entity = manager.getRemoteEntityFromEntity(inEntity);
+			if(entity != null)
+				return entity;
+		}
+		return null;
 	}
 	
 	class DisableListener implements Listener
