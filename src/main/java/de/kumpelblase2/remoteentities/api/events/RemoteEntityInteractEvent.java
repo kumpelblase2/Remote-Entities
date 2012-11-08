@@ -4,6 +4,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
+/**
+ * Gets fired when a player interacts with an entity
+ */
 public class RemoteEntityInteractEvent extends RemoteEvent
 {
 	protected final Player m_interactor;
@@ -15,6 +18,11 @@ public class RemoteEntityInteractEvent extends RemoteEvent
 		this.m_interactor = inInteractor;
 	}
 	
+	/**
+	 * Player that interacted with the entity
+	 * 
+	 * @return player
+	 */
 	public Player getInteractor()
 	{
 		return this.m_interactor;

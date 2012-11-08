@@ -4,6 +4,9 @@ import org.bukkit.event.HandlerList;
 import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
+/**
+ * Event that gets fired when an entity gets despawned
+ */
 public class RemoteEntityDespawnEvent extends RemoteEvent
 {
 	private static HandlerList handlers = new HandlerList();
@@ -26,6 +29,16 @@ public class RemoteEntityDespawnEvent extends RemoteEvent
 		return handlers;
 	}
 	
+	public static HandlerList getHandlerList()
+	{
+		return handlers;
+	}
+	
+	/**
+	 * Gets the reason why the entity gets despawned
+	 * 
+	 * @return reason
+	 */
 	public DespawnReason getReason()
 	{
 		return this.m_reason;

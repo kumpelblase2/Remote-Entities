@@ -5,20 +5,18 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public abstract class EnterSightBehavior implements Behavior
+public abstract class EnterSightBehavior extends BaseBehavior
 {
-	protected final String NAME = "EnterSight";
 	protected int m_tick = 0;
 	protected int m_defaultInterval = 10;
 	protected Set<String> m_inRange;
-	protected final RemoteEntity m_entity;
 	protected double m_xRange = 10;
 	protected double m_yRange = 5;
 	protected double m_zRange = 10;
 	
 	public EnterSightBehavior(RemoteEntity inEntity)
 	{
-		this.m_entity = inEntity;
+		super(inEntity, "EnterSight");
 		this.m_inRange = new HashSet<String>();
 	}
 	
@@ -59,30 +57,18 @@ public abstract class EnterSightBehavior implements Behavior
 		}
 		this.m_inRange = temp;
 	}
-
-	@Override
-	public String getName()
-	{
-		return this.NAME;
-	}
 	
+	/**
+	 * Gets called when a player walks into the range of the entity
+	 * 
+	 * @param inPlayer player
+	 */
 	public abstract void onEnterSight(Player inPlayer);
 
 	@Override
 	public void onRemove()
 	{
 		this.m_inRange.clear();
-	}
-
-	@Override
-	public void onAdd()
-	{
-	}
-	
-	@Override
-	public RemoteEntity getRemoteEntity()
-	{
-		return this.m_entity;
 	}
 	
 	public void setXRange(double inX)
