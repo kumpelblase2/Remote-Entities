@@ -11,13 +11,13 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
-public class DesirePlayer extends DesireBase
+public class DesirePlay extends DesireBase
 {
 	protected EntityVillager m_villager;
 	protected EntityVillager m_friend;
 	protected int m_playTick;
 	
-	public DesirePlayer(RemoteEntity inEntity) throws Exception
+	public DesirePlay(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))

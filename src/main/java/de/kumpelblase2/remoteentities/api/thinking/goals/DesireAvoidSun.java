@@ -18,6 +18,7 @@ public class DesireAvoidSun extends DesireBase
 	public DesireAvoidSun(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = 1;
 	}
 
 	@Override

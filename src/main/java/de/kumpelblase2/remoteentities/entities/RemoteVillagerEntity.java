@@ -79,7 +79,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 5);
 			mind.addMovementDesire(new DesireMakeLove(this.getRemoteEntity()), 6);
 			mind.addMovementDesire(new DesireAcceptFlower(this.getRemoteEntity()), 7);
-			mind.addMovementDesire(new DesirePlayer(this.getRemoteEntity()), 8);
+			mind.addMovementDesire(new DesirePlay(this.getRemoteEntity()), 8);
 			mind.addMovementDesire(new DesireInteract(this.getRemoteEntity(), EntityHuman.class, 3), 9);
 			mind.addMovementDesire(new DesireInteract(this.getRemoteEntity(), EntityVillager.class, 5), 9);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 9);

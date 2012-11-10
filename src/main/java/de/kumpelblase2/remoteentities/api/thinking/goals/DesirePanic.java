@@ -15,6 +15,7 @@ public class DesirePanic extends DesireBase
 	public DesirePanic(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = 1;
 	}
 
 	@Override

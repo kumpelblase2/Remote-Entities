@@ -28,6 +28,7 @@ public class DesireAttackNearest extends DesireTargetBase
 		this.m_targetChance = inChance;
 		this.m_targetClass = inTargetClass;
 		this.m_onlyAtNight = false;
+		this.m_type = 1;
 	}
 
 	@SuppressWarnings("unchecked")
