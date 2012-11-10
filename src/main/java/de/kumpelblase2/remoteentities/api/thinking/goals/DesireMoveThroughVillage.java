@@ -32,7 +32,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	{
 		this.cleanupDoors();
 		EntityLiving entity = this.getRemoteEntity().getHandle();
-		if(this.m_onlyNight && entity.world.s())
+		if(this.m_onlyNight && entity.world.t())
 			return false;
 		else
 		{
@@ -55,14 +55,14 @@ public class DesireMoveThroughVillage extends DesireBase
 						return true;
 					else
 					{
-						Vec3D vec = RandomPositionGenerator.a(entity, 10, 7, Vec3D.a().create(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ));
+						Vec3D vec = RandomPositionGenerator.a(entity, 10, 7, Vec3D.a.create(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ));
 						
 						if(vec == null)
 							return false;
 						else
 						{
 							entity.getNavigation().b(false);
-							this.m_path = entity.getNavigation().a(vec.a, vec.b, vec.c);
+							this.m_path = entity.getNavigation().a(vec.c, vec.d, vec.e);
 							entity.getNavigation().b(flag);
 							return this.m_path != null;
 						}
@@ -80,7 +80,7 @@ public class DesireMoveThroughVillage extends DesireBase
 		else
 		{
 			float f = this.getRemoteEntity().getHandle().width + 4;
-			return this.getRemoteEntity().getHandle().e(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ) > f * f;
+			return this.getRemoteEntity().getHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) > f * f;
 		}
 	}
 	
@@ -93,7 +93,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		if(this.getRemoteEntity().getHandle().getNavigation().f() || this.getRemoteEntity().getHandle().e(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ) < 16)
+		if(this.getRemoteEntity().getHandle().getNavigation().f() || this.getRemoteEntity().getHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
 			this.m_doors.add(this.m_nextDoor);
 	}
 	

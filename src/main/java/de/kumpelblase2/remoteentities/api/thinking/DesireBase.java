@@ -30,7 +30,7 @@ public abstract class DesireBase implements Desire
 		return true;
 	}
 	
-	public boolean isContinous()
+	public boolean isContinuous()
 	{
 		return this.m_isContinous;
 	}

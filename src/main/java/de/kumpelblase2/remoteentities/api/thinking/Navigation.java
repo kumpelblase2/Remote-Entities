@@ -3,6 +3,8 @@ package de.kumpelblase2.remoteentities.api.thinking;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.bukkit.Bukkit;
+import de.kumpelblase2.remoteentities.api.events.RemoteDesireAddEvent;
 
 public class Navigation
 {
@@ -64,7 +66,12 @@ public class Navigation
 	 
 	public void addDesire(Desire inDesire, int inPriority)
 	{
-		this.m_desires.add(new DesireItem(inDesire, inPriority));
+		RemoteDesireAddEvent event = new RemoteDesireAddEvent(inDesire.getRemoteEntity(), inDesire, inPriority);
+		Bukkit.getPluginManager().callEvent(event);
+		if(event.isCancelled())
+			return;
+		
+		this.m_desires.add(new DesireItem(event.getDesire(), event.getPriority()));
 	}
 	 
 	public boolean hasHighestPriority(DesireItem inItem)
@@ -79,7 +86,7 @@ public class Navigation
 				if(!areTasksCompatible(item.getDesire(), inItem.getDesire()) && this.m_executingDesires.contains(item))
 					return false; 
 			}
-			else if(!item.getDesire().isContinous() && this.m_executingDesires.contains(item))			 
+			else if(!item.getDesire().isContinuous() && this.m_executingDesires.contains(item))			 
 				return false;
 		} 
 		return true;
@@ -100,31 +107,39 @@ public class Navigation
 	}
 	
 	public boolean removeDesireByType(Class<? extends Desire> inType)
-	{
-		Iterator<DesireItem> it = this.m_desires.iterator();
-		boolean found = false;
-		while(it.hasNext())
+	{		
+		List<DesireItem> temp = new ArrayList<DesireItem>();
+		for(DesireItem item : this.m_desires)
 		{
-			DesireItem item = it.next();
 			if(item.getDesire().getClass().equals(inType) || item.getDesire().getClass().getSuperclass().equals(inType))
-			{
-				it.remove();
-				found = true;
-			}
+				temp.add(item);
 		}
 		
-		it = this.m_executingDesires.iterator();
-		while(it.hasNext())
+		if(temp.size() == 0)
+			return false;
+		
+		if(temp.size() > 1)
 		{
-			DesireItem item = it.next();
-			if(item.getDesire().getClass().equals(inType))
+			DesireItem lowest = temp.get(0);
+			for(DesireItem item : temp)
 			{
-				item.getDesire().stopExecuting();
-				it.remove();
-				found = true;
+				if(this.hasLowestPriority(item))
+				{
+					lowest = item;
+					break;
+				}
 			}
+			temp.clear();
+			temp.add(lowest);
+			lowest.getDesire().stopExecuting();
 		}
-		return found;
+		else
+		{
+			temp.get(0).getDesire().stopExecuting();
+		}
+		this.m_desires.remove(temp.get(0));
+		this.m_executingDesires.remove(temp.get(0));
+		return true;
 	}
 	
 	public void clearDesires()
@@ -147,5 +162,19 @@ public class Navigation
 		}
 		
 		return highest;
+	}
+	
+	protected boolean hasLowestPriority(DesireItem inItem)
+	{
+		int lowest = inItem.getPriority();
+		for(DesireItem item : this.m_desires)
+		{
+			if(item.getDesire().getClass().equals(inItem.getDesire().getClass()) || item.getDesire().getClass().getSuperclass().equals(inItem.getDesire().getClass()))
+			{
+				if(item.getPriority() < lowest)
+					lowest = item.getPriority();
+			}
+		}
+		return lowest == inItem.getPriority();
 	}
 }

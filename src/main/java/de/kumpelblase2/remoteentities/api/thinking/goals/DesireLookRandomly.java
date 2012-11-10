@@ -19,7 +19,7 @@ public class DesireLookRandomly extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getRemoteEntity().getHandle().au().nextFloat() < 0.02F;
+		return this.getRemoteEntity().getHandle().aA().nextFloat() < 0.02F;
 	}
 	
 	@Override
@@ -31,11 +31,11 @@ public class DesireLookRandomly extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		double d = 6.283185307179586D * this.getRemoteEntity().getHandle().au().nextDouble();
+		double d = 6.283185307179586D * this.getRemoteEntity().getHandle().aA().nextDouble();
 		
 		this.m_xDiff = Math.cos(d);
 		this.m_zDiff = Math.sin(d);
-		this.m_lookTick = 20 + this.getRemoteEntity().getHandle().au().nextInt(20);
+		this.m_lookTick = 20 + this.getRemoteEntity().getHandle().aA().nextInt(20);
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class DesireLookRandomly extends DesireBase
 	{
 		this.m_lookTick--;
 		EntityLiving entity = this.getRemoteEntity().getHandle();
-		entity.getControllerLook().a(entity.locX + this.m_xDiff, entity.locY + entity.getHeadHeight(), entity.locZ + this.m_zDiff, 10, entity.bf());
+		entity.getControllerLook().a(entity.locX + this.m_xDiff, entity.locY + entity.getHeadHeight(), entity.locZ + this.m_zDiff, 10, entity.bm());
 		return true;
 	}
 }

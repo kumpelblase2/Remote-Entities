@@ -4,6 +4,9 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
+/**
+ * Event that gets fired when an entity got touched by another
+ */
 public class RemoteEntityTouchEvent extends RemoteEvent
 {
 	protected final LivingEntity m_touchingEntity;
@@ -15,6 +18,11 @@ public class RemoteEntityTouchEvent extends RemoteEvent
 		this.m_touchingEntity = inTouchingEntity;
 	}
 	
+	/**
+	 * Entity that's touching the RemoteEntity
+	 * 
+	 * @return entity
+	 */
 	public LivingEntity getTouchingEntity()
 	{
 		return this.m_touchingEntity;

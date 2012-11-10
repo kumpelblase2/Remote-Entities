@@ -58,7 +58,7 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_toFollow, 10, this.getRemoteEntity().getHandle().bf());
+		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_toFollow, 10, this.getRemoteEntity().getHandle().bm());
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;

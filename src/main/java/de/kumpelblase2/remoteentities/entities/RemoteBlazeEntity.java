@@ -18,8 +18,6 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	protected int m_maxHealth;
 	public static int defaultMaxHealth = 20;
 	protected int m_lastBouncedId;
@@ -39,11 +37,9 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	{
 		super(world);
 		this.m_remoteEntity = inRemoteEntity;
-		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
-		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
+		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_maxHealth = defaultMaxHealth;
-		this.goalSelectorHelper.clearGoals();
-		this.targetSelectorHelper.clearGoals();
 	}
 	
 	@Override
@@ -64,7 +60,7 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesire(new DesireArrowAttack(this.getRemoteEntity(), RemoteProjectileType.SMALL_FIREBALL, 20), 1);
+		this.getRemoteEntity().getMind().addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.SMALL_FIREBALL, 20), 1);
 		this.getRemoteEntity().getMind().addActionDesire(new DesireAttackTarget(this.getRemoteEntity(), 64, true, true), 1);
 		this.getRemoteEntity().getMind().addActionDesire(new DesireAttackNearest(this.getRemoteEntity(), EntityHuman.class, 64, true, 0), 2);
 	}
@@ -84,14 +80,14 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	
 	@Override
-	public boolean aV()
+	public boolean bb()
 	{
 		return true;
 	}
@@ -99,9 +95,10 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	@Override
 	public void b_(EntityHuman entity)
 	{
-		if(entity instanceof EntityPlayer)
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			{
 				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
 				{
 					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
@@ -109,7 +106,7 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 					if(event.isCancelled())
 						return;
 					
-					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
 				}
@@ -123,7 +120,7 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
-			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
 		return super.c(entity);

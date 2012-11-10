@@ -115,6 +115,16 @@ public final class EnumChange
 		}
 	}
 
+	/**
+	 * Removes an enum instance from the enum class given as argument
+	 * 
+	 * @param <T>
+	 *            the type of the enum (implicit)
+	 * @param enumType
+	 *            the class of the enum to be modified
+	 * @param enumName
+	 *            the name of the new enum instance to be removed to the class.
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Enum<T>>void removeEnum(final Class<T> enumType, final String enumName)
 	{

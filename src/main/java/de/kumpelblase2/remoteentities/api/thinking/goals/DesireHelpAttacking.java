@@ -34,7 +34,7 @@ public class DesireHelpAttacking extends DesireTargetBase
 				return false;
 			else
 			{
-				this.m_ownerTarget = owner.aw();
+				this.m_ownerTarget = owner.aC();
 				return this.isSuitableTarget(this.m_ownerTarget, false);
 			}
 		}

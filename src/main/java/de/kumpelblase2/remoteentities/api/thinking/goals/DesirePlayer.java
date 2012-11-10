@@ -33,7 +33,7 @@ public class DesirePlayer extends DesireBase
 	{
 		if(this.m_villager.getAge() >= 0)
 			return false;
-		else if(this.m_villager.au().nextInt(400) != 0)
+		else if(this.m_villager.aA().nextInt(400) != 0)
 			return false;
 		else
 		{
@@ -106,7 +106,7 @@ public class DesirePlayer extends DesireBase
 			if(vec == null)
 				return true;
 			
-			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.a, vec.b, vec.c));
+			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
 		}
 		return true;
 	}

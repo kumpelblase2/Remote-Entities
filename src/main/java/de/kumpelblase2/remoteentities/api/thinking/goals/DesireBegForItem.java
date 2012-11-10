@@ -33,9 +33,9 @@ public class DesireBegForItem extends DesireBase
 	public void startExecuting()
 	{
 		if(this.getRemoteEntity().getHandle() instanceof EntityWolf)
-			((EntityWolf)this.getRemoteEntity().getHandle()).i(true);
+			((EntityWolf)this.getRemoteEntity().getHandle()).j(true);
 		
-		this.m_ticks = 40 + this.getRemoteEntity().getHandle().au().nextInt(40);
+		this.m_ticks = 40 + this.getRemoteEntity().getHandle().aA().nextInt(40);
 	}
 
 	@Override
@@ -43,13 +43,13 @@ public class DesireBegForItem extends DesireBase
 	{
 		this.m_nearestPlayer = null;
 		if(this.getRemoteEntity().getHandle() instanceof EntityWolf)
-			((EntityWolf)this.getRemoteEntity().getHandle()).i(false);
+			((EntityWolf)this.getRemoteEntity().getHandle()).j(false);
 	}
 	
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getRemoteEntity().getHandle().bf());
+		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getRemoteEntity().getHandle().bm());
 		this.m_ticks--;
 		return true;
 	}

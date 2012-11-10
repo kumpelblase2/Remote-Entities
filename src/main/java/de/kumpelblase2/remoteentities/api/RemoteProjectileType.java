@@ -5,5 +5,6 @@ public enum RemoteProjectileType
 	ARROW,
 	SNOWBALL,
 	FIREBALL,
-	SMALL_FIREBALL
+	SMALL_FIREBALL,
+	POTION
 }

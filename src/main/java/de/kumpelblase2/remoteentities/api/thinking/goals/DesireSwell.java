@@ -24,15 +24,15 @@ public class DesireSwell extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving target = this.m_creeper.az();
-		return this.m_creeper.p() > 0 || target != null && this.m_creeper.e(target) < 9;
+		EntityLiving target = this.m_creeper.aF();
+		return this.m_creeper.o() > 0 || target != null && this.m_creeper.e(target) < 9;
 	}
 	
 	@Override
 	public void startExecuting()
 	{
 		this.m_creeper.getNavigation().g();
-		this.m_target = this.m_creeper.az();
+		this.m_target = this.m_creeper.aF();
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class DesireSwell extends DesireBase
 			this.m_creeper.a(-1);
 		else if(this.m_creeper.e(this.m_target) > 49)
 			this.m_creeper.a(-1);
-		else if(!this.m_creeper.at().canSee(this.m_target))
+		else if(!this.m_creeper.az().canSee(this.m_target))
 			this.m_creeper.a(-1);
 		else
 			this.m_creeper.a(1);
