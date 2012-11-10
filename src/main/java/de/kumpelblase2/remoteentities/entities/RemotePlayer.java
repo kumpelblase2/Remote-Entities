@@ -1,10 +1,12 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import net.minecraft.server.EntityLiving;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
@@ -29,11 +31,13 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	@Override
 	public void attack(LivingEntity inTarget)
 	{
+		this.m_entity.b(((CraftLivingEntity)inTarget).getHandle());
 	}
 
 	@Override
 	public void loseTarget()
 	{
+		this.m_entity.b((EntityLiving)null);
 	}
 
 	@Override
@@ -86,7 +90,6 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	@Override
 	public LivingEntity getTarget()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return (LivingEntity)this.m_entity.aF().getBukkitEntity();
 	}
 }
