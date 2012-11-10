@@ -18,7 +18,7 @@ public class EntityManager
 	private Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
 	
-	EntityManager(final Plugin inPlugin)
+	protected EntityManager(final Plugin inPlugin)
 	{
 		this.m_plugin = inPlugin;
 		this.m_entities = new HashMap<Integer, RemoteEntity>();
