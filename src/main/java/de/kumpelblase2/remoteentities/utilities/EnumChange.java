@@ -4,7 +4,6 @@ import java.lang.reflect.*;
 import java.util.*;
 import sun.reflect.*;
 
-@SuppressWarnings("restriction")
 public final class EnumChange
 {
 	private static ReflectionFactory reflectionFactory = ReflectionFactory.getReflectionFactory();

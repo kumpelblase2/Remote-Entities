@@ -1,9 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import java.lang.reflect.Field;
-import java.util.Iterator;
 import java.util.List;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 import net.minecraft.server.PathfinderGoal;
 import net.minecraft.server.PathfinderGoalSelector;
 
