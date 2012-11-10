@@ -1,7 +1,6 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -19,5 +18,4 @@ target/classes/de/kumpelblase2/removeentities/.DS_Store
 
 dependency-reduced-pom.xml
 
-target/maven-archiver/pom.properties
 target/*
