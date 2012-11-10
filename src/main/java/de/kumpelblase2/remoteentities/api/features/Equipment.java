@@ -24,7 +24,7 @@ public class Equipment
 	}
 	
 	/**
-	 * Gets the item which is holded in the hand
+	 * Gets the item which is hold in the hand
 	 * 
 	 * @return item in hand
 	 */
@@ -76,7 +76,7 @@ public class Equipment
 	/**
 	 * Sets the leggings
 	 * 
-	 * @param inLeggins leggings
+	 * @param inLeggings leggings
 	 */
 	public void setLeggings(ItemStack inLeggings)
 	{
