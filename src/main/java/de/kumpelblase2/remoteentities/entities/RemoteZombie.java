@@ -28,12 +28,6 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	}
 
 	@Override
-	public int getMaxHealth()
-	{
-		return this.m_entity.getMaxHealth();
-	}
-
-	@Override
 	public void attack(LivingEntity inTarget)
 	{
 		((EntityCreature)this.m_entity).setTarget(((CraftLivingEntity)inTarget).getHandle());
@@ -49,7 +43,7 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	@Override
 	public LivingEntity getTarget()
 	{
-		Entity target = ((EntityCreature)this.m_entity).m();
+		Entity target = ((EntityCreature)this.m_entity).l();
 		if(target != null && target instanceof EntityLiving)
 			return (LivingEntity)target.getBukkitEntity();
 		

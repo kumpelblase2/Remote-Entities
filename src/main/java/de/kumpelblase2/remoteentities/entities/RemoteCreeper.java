@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 
 public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 {
@@ -24,13 +25,7 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 	@Override
 	public void setMaxHealth(int inMax)
 	{
-		this.getHandle().setMaxHealth(inMax);
-	}
-
-	@Override
-	public int getMaxHealth()
-	{
-		return this.m_entity.getMaxHealth();
+		((RemoteEntityHandle)this.getHandle()).setMaxHealth(inMax);
 	}
 
 	@Override
@@ -44,12 +39,6 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 	public void loseTarget()
 	{
 		((EntityCreature)this.m_entity).setTarget(null);
-	}
-	
-	@Override
-	public RemoteCreeperEntity getHandle()
-	{
-		return (RemoteCreeperEntity)this.m_entity;
 	}
 	
 	public void explode()
@@ -66,7 +55,7 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 	@Override
 	public LivingEntity getTarget()
 	{
-		Entity target = ((EntityCreature)this.m_entity).m();
+		Entity target = ((EntityCreature)this.m_entity).l();
 		if(target != null && target instanceof EntityLiving)
 			return (LivingEntity)target.getBukkitEntity();
 		

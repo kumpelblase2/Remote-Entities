@@ -34,9 +34,9 @@ public class DesireAttackNearest extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.m_onlyAtNight && this.getRemoteEntity().getHandle().world.s())
+		if(this.m_onlyAtNight && this.getRemoteEntity().getHandle().world.t())
 			return false;
-		else if(this.m_targetChance > 0 && this.getRemoteEntity().getHandle().au().nextInt(this.m_targetChance) != 0)
+		else if(this.m_targetChance > 0 && this.getRemoteEntity().getHandle().aA().nextInt(this.m_targetChance) != 0)
 			return false;
 		else
 		{

@@ -34,7 +34,7 @@ public class DesireTradeWithPlayer extends DesireBase
 			return false;
 		else
 		{
-			EntityHuman trader = this.m_villager.l_();
+			EntityHuman trader = this.m_villager.m_();
 			return trader == null ? false : this.m_villager.e(trader) > 16 ? false : (trader.activeContainer instanceof Container);
 		}
 	}

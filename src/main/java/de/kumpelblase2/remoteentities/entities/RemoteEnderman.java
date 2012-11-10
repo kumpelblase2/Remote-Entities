@@ -31,12 +31,6 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 	}
 
 	@Override
-	public int getMaxHealth()
-	{
-		return this.m_entity.getMaxHealth();
-	}
-
-	@Override
 	public void attack(LivingEntity inTarget)
 	{
 		this.m_hadAttackDesire = this.getMind().getActionDesire(DesireAttackTarget.class) != null;
@@ -57,6 +51,6 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 	@Override
 	public LivingEntity getTarget()
 	{
-		return (LivingEntity)this.getHandle().az().getBukkitEntity();
+		return (LivingEntity)this.getHandle().aF().getBukkitEntity();
 	}
 }

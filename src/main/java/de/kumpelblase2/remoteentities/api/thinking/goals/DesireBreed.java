@@ -30,7 +30,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_mate, 10, this.getRemoteEntity().getHandle().bf());
+		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_mate, 10, this.getRemoteEntity().getHandle().bm());
 		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
 		if(this.m_mateTicks == 60)
@@ -46,7 +46,7 @@ public class DesireBreed extends DesireBase
 		if(!(this.getRemoteEntity().getHandle() instanceof EntityAnimal))
 			return false;
 		EntityAnimal entity = (EntityAnimal)this.getRemoteEntity().getHandle();
-		if(!entity.s())
+		if(!entity.r())
 			return false;
 		else
 		{
@@ -58,7 +58,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_mate.isAlive() && this.m_mate.s() && this.m_mateTicks < 60;
+		return this.m_mate.isAlive() && this.m_mate.r() && this.m_mateTicks < 60;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -89,19 +89,19 @@ public class DesireBreed extends DesireBase
 			EntityAnimal entity = (EntityAnimal)this.getRemoteEntity().getHandle();
 			entity.setAge(6000);
 			this.m_mate.setAge(6000);
-			entity.t();
-			this.m_mate.t();
+			entity.s();
+			this.m_mate.s();
 			baby.setAge(-24000);
 			baby.setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
 			entity.world.addEntity(baby, SpawnReason.BREEDING);
-			Random r = entity.au();
+			Random r = entity.aA();
 			for(int i = 0; i < 7; ++i)
 			{
 				double d0 = r.nextGaussian() * 0.02D;
 				double d1 = r.nextGaussian() * 0.02D;
 				double d2 = r.nextGaussian() * 0.02D;
 				
-				entity.world.a("heart", entity.locX + (r.nextFloat() * entity.width * 2) - entity.width, entity.locY + 0.5D + (r.nextFloat() * entity.length), entity.locZ + (r.nextFloat() * entity.width * 2) - entity.width, d0, d1, d2);
+				entity.world.addParticle("heart", entity.locX + (r.nextFloat() * entity.width * 2) - entity.width, entity.locY + 0.5D + (r.nextFloat() * entity.length), entity.locZ + (r.nextFloat() * entity.width * 2) - entity.width, d0, d1, d2);
 			}
 		}
 		

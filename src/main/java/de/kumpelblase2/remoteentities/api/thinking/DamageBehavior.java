@@ -6,14 +6,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public abstract class DamageBehaviour implements Behaviour
-{
-	protected final String NAME = "Damage";
-	private final RemoteEntity m_entity;
-	
-	public DamageBehaviour(RemoteEntity inEntity)
+public abstract class DamageBehavior extends BaseBehavior
+{	
+	public DamageBehavior(RemoteEntity inEntity)
 	{
-		this.m_entity = inEntity;
+		super(inEntity, "Damage");
 	}
 	
 	@Override
@@ -22,14 +19,10 @@ public abstract class DamageBehaviour implements Behaviour
 		EntityDamageEvent.getHandlerList().unregister(this);
 	}
 	
+	@Override
 	public void onAdd()
 	{
 		Bukkit.getPluginManager().registerEvents(this, this.m_entity.getManager().getPlugin());
-	}
-	
-	@Override
-	public void run()
-	{
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -39,11 +32,10 @@ public abstract class DamageBehaviour implements Behaviour
 			this.onDamage(event);
 	}
 
+	/**
+	 * Called when the entity get damaged by something
+	 * 
+	 * @param event damage event
+	 */
 	public abstract void onDamage(EntityDamageEvent event);
-	
-	@Override
-	public String getName()
-	{
-		return this.NAME;
-	}
 }

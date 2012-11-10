@@ -26,7 +26,7 @@ public class DesireDefendVillage extends DesireTargetBase
 	{
 		Village nextVillage;
 		if(this.getRemoteEntity().getHandle() instanceof EntityIronGolem)
-			nextVillage = ((EntityIronGolem)this.getRemoteEntity().getHandle()).n();
+			nextVillage = ((EntityIronGolem)this.getRemoteEntity().getHandle()).m();
 		else
 			nextVillage = WorldUtilities.getClosestVillage(this.getRemoteEntity().getHandle());
 		

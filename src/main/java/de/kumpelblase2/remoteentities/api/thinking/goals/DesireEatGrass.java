@@ -35,7 +35,7 @@ public class DesireEatGrass extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().au().nextInt(this.getRemoteEntity().getHandle().isBaby() ? 50 : 1000) != 0)
+		if(this.getRemoteEntity().getHandle().aA().nextInt(this.getRemoteEntity().getHandle().isBaby() ? 50 : 1000) != 0)
 			return false;
 		else
 		{

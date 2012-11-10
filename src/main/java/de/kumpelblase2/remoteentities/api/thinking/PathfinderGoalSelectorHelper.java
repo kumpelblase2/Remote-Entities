@@ -66,34 +66,6 @@ public class PathfinderGoalSelectorHelper
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void removeGoal(Class<? extends Desire> toRemove)
-	{
-		Iterator goals = this.getGoals().iterator();
-		while(goals.hasNext())
-		{
-			Object o = goals.next();
-			if(ReflectionUtil.getGoalFromItem(o).getClass().equals(toRemove))
-				goals.remove();
-		}
-		
-		try
-		{
-			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("b");
-			arrayListField.setAccessible(true);
-			goals = ((List)arrayListField.get(this.m_selector)).iterator();
-			while(goals.hasNext())
-			{
-				Object o = goals.next();
-				if(ReflectionUtil.getGoalFromItem(o).getClass().equals(toRemove))
-					goals.remove();
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
 	
 	public void addGoal(PathfinderGoal inGoal, int inPriority)
 	{

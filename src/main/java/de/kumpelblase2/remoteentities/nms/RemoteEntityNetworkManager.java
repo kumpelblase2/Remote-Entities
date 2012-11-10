@@ -15,7 +15,7 @@ public class RemoteEntityNetworkManager extends NetworkManager
 			{
 				return false;
 			}
-		}, server.E().getPrivate());
+		}, server.F().getPrivate());
 	}
 
 	@Override

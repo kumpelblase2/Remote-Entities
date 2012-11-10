@@ -54,7 +54,7 @@ public abstract class DesireTargetBase extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving target = this.getRemoteEntity().getHandle().az();
+		EntityLiving target = this.getRemoteEntity().getHandle().aF();
 		
 		if(target == null)
 			return false;
@@ -66,7 +66,7 @@ public abstract class DesireTargetBase extends DesireBase
 		{
 			if(this.m_shouldCheckSight)
 			{
-				if(this.getRemoteEntity().getHandle().at().canSee(target))
+				if(this.getRemoteEntity().getHandle().az().canSee(target))
 					this.m_notSeeingTarget = 0;
 				else if(++this.m_notSeeingTarget > 60)
 					return false;
@@ -100,9 +100,9 @@ public abstract class DesireTargetBase extends DesireBase
 				else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
 					return false;
 					
-				if(!this.getRemoteEntity().getHandle().d(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
+				if(!this.getRemoteEntity().getHandle().e(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
 					return false;
-				else if(this.m_shouldCheckSight && !this.getRemoteEntity().getHandle().at().canSee(inEntity))
+				else if(this.m_shouldCheckSight && !this.getRemoteEntity().getHandle().az().canSee(inEntity))
 					return false;
 				else
 				{
@@ -158,7 +158,7 @@ public abstract class DesireTargetBase extends DesireBase
 	
 	protected boolean useAttack(EntityLiving inEntity)
 	{
-		this.m_lastAttackTick = 10 + this.getRemoteEntity().getHandle().au().nextInt(5);
+		this.m_lastAttackTick = 10 + this.getRemoteEntity().getHandle().aA().nextInt(5);
 		PathEntity path = this.getRemoteEntity().getHandle().getNavigation().a(inEntity);
 		
 		if(path == null)

@@ -73,7 +73,7 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.m_animal.getControllerLook().a(this.m_owner, 10, this.m_animal.bf());
+		this.m_animal.getControllerLook().a(this.m_owner, 10, this.m_animal.bm());
 		if(!this.isSitting())
 		{
 			if(--this.m_moveTick <= 0)

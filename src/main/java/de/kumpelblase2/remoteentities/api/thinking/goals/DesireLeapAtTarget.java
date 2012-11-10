@@ -20,13 +20,13 @@ public class DesireLeapAtTarget extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		this.m_target = this.getRemoteEntity().getHandle().az();
+		this.m_target = this.getRemoteEntity().getHandle().aF();
 		if(this.m_target == null)
 			return false;
 		else
 		{
 			double dist = this.getRemoteEntity().getHandle().e(this.m_target);
-			return dist >= 4 && dist <= 16 ? (!this.getRemoteEntity().getHandle().onGround ? false : this.getRemoteEntity().getHandle().au().nextInt(5) == 0) : false;
+			return dist >= 4 && dist <= 16 ? (!this.getRemoteEntity().getHandle().onGround ? false : this.getRemoteEntity().getHandle().aA().nextInt(5) == 0) : false;
 		}
 	}
 	

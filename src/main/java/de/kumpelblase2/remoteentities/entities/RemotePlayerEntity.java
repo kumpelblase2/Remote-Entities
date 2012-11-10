@@ -17,14 +17,12 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected long m_lastBouncedTime;
 	protected int m_maxHealth;
 	public static int defaultMaxHealth = 20;
-	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager)
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
-		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
-		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
+		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_maxHealth = defaultMaxHealth;
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
@@ -60,9 +58,10 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void b_(EntityHuman entity)
 	{
-		if(entity instanceof EntityPlayer)
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			{
 				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
 				{
 					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
@@ -70,7 +69,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 					if(event.isCancelled())
 						return;
 					
-					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
 				}
@@ -84,16 +83,16 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
-			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
 		return super.c(entity);
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		super.g();
 		
 		if(this.noDamageTicks > 0)
@@ -122,7 +121,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		getControllerJump().b();
 		e(this.getRemoteEntity().getSpeed());
 		
-		if (bu)
+		if (bG)
 		{
             boolean inLiquid = H() || J();
             if (inLiquid)
@@ -139,15 +138,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		{
             bE = 0;
         }
-        br *= 0.98F;
-        bs *= 0.98F;
-        bt *= 0.9F;
+        bD *= 0.98F;
+        bE *= 0.98F;
+        bF *= 0.9F;
 
-        float prev = aG;
-        aG *= bs() * this.getRemoteEntity().getSpeed();
-        e(br, bs); 
-        aG = prev;
-        as = yaw;
+        float prev = aM;
+        aM *= by() * this.getRemoteEntity().getSpeed();
+        e(bD, bE); 
+        aM = prev;
+        ay = yaw;
 	}
 	
 	@Override
@@ -185,7 +184,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
-	public boolean aV()
+	public boolean bb()
 	{
 		return true;
 	}

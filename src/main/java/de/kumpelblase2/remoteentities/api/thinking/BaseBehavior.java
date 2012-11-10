@@ -1,15 +1,15 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public abstract class InteractBehaviour implements Behaviour
+public class BaseBehavior implements Behavior
 {
-	protected final String NAME = "Interact";
-	protected final RemoteEntity m_entity;
+	protected final String m_name;
+	protected RemoteEntity m_entity;
 	
-	public InteractBehaviour(RemoteEntity inEntity)
+	public BaseBehavior(RemoteEntity inEntity, String inName)
 	{
+		this.m_name = inName;
 		this.m_entity = inEntity;
 	}
 	
@@ -21,7 +21,7 @@ public abstract class InteractBehaviour implements Behaviour
 	@Override
 	public String getName()
 	{
-		return this.NAME;
+		return this.m_name;
 	}
 
 	@Override
@@ -34,8 +34,6 @@ public abstract class InteractBehaviour implements Behaviour
 	{
 	}
 
-	public abstract void onInteract(Player inPlayer);
-	
 	@Override
 	public RemoteEntity getRemoteEntity()
 	{

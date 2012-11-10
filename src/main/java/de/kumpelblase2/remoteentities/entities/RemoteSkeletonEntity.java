@@ -7,24 +7,24 @@ import net.minecraft.server.DamageSource;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EntitySkeleton;
+import net.minecraft.server.Item;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehaviour;
+import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehaviour;
+import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected final PathfinderGoalSelectorHelper goalSelectorHelper;
-	protected final PathfinderGoalSelectorHelper targetSelectorHelper;
 	protected int m_maxHealth;
 	public static int defaultMaxHealth = 20;
 	protected int m_lastBouncedId;
@@ -38,17 +38,16 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	public RemoteSkeletonEntity(World world)
 	{
 		super(world);
-		this.goalSelectorHelper = new PathfinderGoalSelectorHelper(this.goalSelector);
-		this.targetSelectorHelper = new PathfinderGoalSelectorHelper(this.targetSelector);
+		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
+		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_maxHealth = defaultMaxHealth;
-		this.goalSelectorHelper.clearGoals();
-		this.targetSelectorHelper.clearGoals();
 	}
 	
 	public RemoteSkeletonEntity(World world, RemoteEntity inEntity)
 	{
 		this(world);
 		this.m_remoteEntity = inEntity;
+		this.setEquipment(0, new ItemStack(Item.BOW));
 	}
 
 	@Override
@@ -75,7 +74,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
 			mind.addMovementDesire(new DesireRestrictSun(this.getRemoteEntity()), 2);
 			mind.addMovementDesire(new DesireAvoidSun(this.getRemoteEntity()), 3);
-			mind.addMovementDesire(new DesireArrowAttack(this.getRemoteEntity(), RemoteProjectileType.ARROW, 60), 4);
+			mind.addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.ARROW, 60), 4);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 6);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
@@ -121,9 +120,10 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	@Override
 	public void b_(EntityHuman entity)
 	{
-		if(entity instanceof EntityPlayer)
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.getRemoteEntity().getMind().canFeel() && (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000) && this.getRemoteEntity().getMind().hasBehaviour("Touch")) {
+			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			{
 				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
 				{
 					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
@@ -131,7 +131,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 					if(event.isCancelled())
 						return;
 					
-					((TouchBehaviour)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
 					this.m_lastBouncedTime = System.currentTimeMillis();
 					this.m_lastBouncedId = entity.id;
 				}
@@ -145,16 +145,16 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
-			((InteractBehaviour)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
 		return super.c(entity);
 	}
 	
 	@Override
-	public void h_()
+	public void j_()
 	{
-		super.h_();
+		super.j_();
 		this.getRemoteEntity().getMind().tick();
 	}
 	

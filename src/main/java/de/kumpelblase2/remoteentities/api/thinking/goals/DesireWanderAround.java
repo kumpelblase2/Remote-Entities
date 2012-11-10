@@ -22,9 +22,9 @@ public class DesireWanderAround extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().ax() >= 100)
+		if(this.getRemoteEntity().getHandle().aD() >= 100)
 			return false;
-		else if(this.getRemoteEntity().getHandle().au().nextInt(120) != 0)
+		else if(this.getRemoteEntity().getHandle().aA().nextInt(120) != 0)
 			return false;
 		else if(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getRemoteEntity().getHandle()).isSitting())
 			return false;
@@ -35,9 +35,9 @@ public class DesireWanderAround extends DesireBase
 				return false;
 			else
 			{
-				this.m_xPos = vector.a;
-				this.m_yPos = vector.b;
-				this.m_zPos = vector.c;
+				this.m_xPos = vector.c;
+				this.m_yPos = vector.d;
+				this.m_zPos = vector.e;
 				return true;
 			}
 		}

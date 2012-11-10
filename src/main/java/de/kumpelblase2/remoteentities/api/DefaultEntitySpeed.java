@@ -27,4 +27,6 @@ public class DefaultEntitySpeed
 	public static final float VILLAGER_SPEED = 0.3F;
 	public static final float WOLF_SPEED = 0.3F;
 	public static final float SKELETON_SPEED = 0.25F;
+	public static final float WITCH_SPEED = 0.25F;
+	public static final float WITHER_SPEED = 0.6F;
 }
