@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.kumpelblase2</groupId>
+  <artifactId>remoteentities</artifactId>
+  <version>1.0</version>
+  <name>RemoteEntities</name>
+  <description>Be able to control every entity in the game. Also you can create npcs if you want to!</description>
+  <repositories>
+  	<repository>
+  		<id>bukkit</id>
+  		<url>http://repo.bukkit.org/content/groups/public/</url>
+  	</repository>
+  </repositories>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.bukkit</groupId>
+  		<artifactId>craftbukkit</artifactId>
+  		<version>1.4.2-R0.2</version>
+  		<scope>provided</scope>
+  	</dependency>
+  </dependencies>
+  
+  <distributionManagement>
+	<repository>
+		<id>repo</id>
+		<url>https://github.com/kumpelblase2/Remote-Entities/raw/master/releases</url>
+	</repository>
+	<snapshotRepository>
+		<id>snapshot-repo</id>
+		<url>https://github.com/kumpelblase2/Remote-Entities/raw/master/snapshots</url>
+	</snapshotRepository>
+  </distributionManagement>
+  
+  
+  <build>
+		<defaultGoal>install</defaultGoal>
+		<directory>${basedir}/target</directory>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.7.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<finalName>${project.artifactId}-${project.version}</finalName>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-javadoc-plugin</artifactId>
+        		<version>2.9</version>
+        		<configuration>
+        			<show>public</show>
+        		</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+      <resource>
+		<targetPath>.</targetPath>
+		<filtering>true</filtering>
+		<directory>${basedir}/src/main/resources/</directory>
+		<includes>
+			<include>plugin.yml</include>
+		</includes>
+      </resource>
+    </resources>
+	</build>
+</project>
