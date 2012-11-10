@@ -17,6 +17,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected long m_lastBouncedTime;
 	protected int m_maxHealth;
 	public static int defaultMaxHealth = 20;
+	protected EntityLiving m_target;
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager)
 	{
@@ -195,5 +196,17 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.getRemoteEntity().getMind().clearMovementDesires();
 		this.getRemoteEntity().getMind().clearActionDesires();
 		super.die(damagesource);
+	}
+	
+	@Override
+	public EntityLiving aF()
+	{
+		return this.m_target;
+	}
+	
+	@Override
+	public void b(EntityLiving inEntity)
+	{
+		this.m_target = inEntity;
 	}
 }
