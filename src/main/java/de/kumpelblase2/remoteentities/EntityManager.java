@@ -119,6 +119,17 @@ public class EntityManager
 	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName)
 	{
+		if(!inType.isNamed())
+		{
+			try
+			{
+				return this.createEntity(inType, inLocation);
+			}
+			catch(NoNameException e)
+			{
+				return null;
+			}
+		}
 		return this.createNamedEntity(inType, inLocation, inName, true);
 	}
 	
@@ -133,6 +144,18 @@ public class EntityManager
 	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName, boolean inSetupGoals)
 	{
+		if(!inType.isNamed())
+		{
+			try
+			{
+				return this.createEntity(inType, inLocation, inSetupGoals);
+			}
+			catch(NoNameException e)
+			{
+				return null;
+			}
+		}
+		
 		Integer id = this.getNextFreeID();
 		try
 		{
@@ -222,6 +245,9 @@ public class EntityManager
 	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity) //TODO copy more shit from entity
 	{
 		RemoteEntityType type = RemoteEntityType.getByEntityClass(((CraftLivingEntity)inEntity).getHandle().getClass());
+		if(type == null)
+			return null;
+		
 		Location originalSpot = inEntity.getLocation();
 		String name = (inEntity instanceof HumanEntity) ? ((HumanEntity)inEntity).getName() : null;
 		inEntity.remove();
