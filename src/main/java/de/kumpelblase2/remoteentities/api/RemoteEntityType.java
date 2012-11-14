@@ -39,15 +39,10 @@ public enum RemoteEntityType
 	private Class<? extends RemoteEntity> m_remoteClass;
 	private boolean m_isNamed = false;
 	
-	private RemoteEntityType(Class<? extends RemoteEntity> inRemoteClass, Class<? extends EntityLiving> inEntityClass)
+	private RemoteEntityType(Class<? extends RemoteEntity> inRemoteClass, Class<? extends EntityLiving> inEntityClass, boolean inNamed)
 	{
 		this.m_entityClass = inEntityClass;
 		this.m_remoteClass = inRemoteClass;
-	}
-	
-	private RemoteEntityType(Class<? extends RemoteEntity> inRemoteClass, Class<? extends EntityLiving> inEntityClass, boolean inNamed)
-	{
-		this(inRemoteClass, inEntityClass);
 		this.m_isNamed = inNamed;
 	}
 	
@@ -66,23 +61,29 @@ public enum RemoteEntityType
 		return this.m_isNamed;
 	}
 	
+	public void setRemoteClass(Class<? extends RemoteEntity> inClass)
+	{
+		this.m_remoteClass = inClass;
+	}
+	
+	public void setEntityClass(Class<? extends EntityLiving> inClass)
+	{
+		this.m_entityClass = inClass;
+	}
+	
+	public void setNamed(boolean inNamed)
+	{
+		this.m_isNamed = inNamed;
+	}
+	
 	public static void addType(String inName, Class<? extends EntityLiving> inEntityClass, Class<? extends RemoteEntity> inRemoteClass, boolean isNamed)
 	{
-		if(valueOf(inName) == null)
-			EnumChange.addEnum(RemoteEntityType.class, inName, new Class<?>[] { Class.class, Class.class, boolean.class }, new Object[] { inRemoteClass, inEntityClass, isNamed });
-		else
-			replaceType(inName, inEntityClass, inRemoteClass, isNamed);
+		EnumChange.addEnum(RemoteEntityType.class, inName, new Class[] { Class.class, Class.class, boolean.class }, new Object[] { inRemoteClass, inEntityClass, isNamed });
 	}
 	
 	public static void removeType(String inName)
 	{
 		EnumChange.removeEnum(RemoteEntityType.class, inName);
-	}
-	
-	public static void replaceType(String inName, Class<? extends EntityLiving> inEntityClass, Class<? extends RemoteEntity> inRemoteClass, boolean isNamed)
-	{
-		removeType(inName);
-		addType(inName, inEntityClass, inRemoteClass, isNamed);
 	}
 	
 	public static RemoteEntityType getByEntityClass(Class<? extends EntityLiving> inEntityClass)
