@@ -14,16 +14,18 @@ public class DesireSit extends DesireBase
 	public DesireSit(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(inEntity.getHandle() instanceof EntityTameableAnimal))
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))
 			throw new NotAnAnimalException();
 		
-		this.m_animal = (EntityTameableAnimal)this.getRemoteEntity().getHandle();
+		this.m_animal = (EntityTameableAnimal)this.getEntityHandle();
 		this.m_type = 5;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.m_animal == null)
+			return false;
 		if(!this.m_animal.isTamed())
 			return false;
 		else if(this.m_animal.H())

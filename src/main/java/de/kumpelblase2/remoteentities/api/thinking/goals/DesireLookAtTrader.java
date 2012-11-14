@@ -15,7 +15,7 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		if(!(entity instanceof EntityVillager))
 			return false;
 		else

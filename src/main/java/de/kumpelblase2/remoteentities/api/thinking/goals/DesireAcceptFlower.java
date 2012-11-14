@@ -23,7 +23,10 @@ public class DesireAcceptFlower extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
+		if(entity == null)
+			return false;
+		
 		if(entity instanceof EntityAgeable && ((EntityAgeable)entity).getAge() >= 0)
 			return false;
 		else if(!entity.world.t())
@@ -60,7 +63,7 @@ public class DesireAcceptFlower extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_takeFlowerTick = this.getRemoteEntity().getHandle().aA().nextInt(320);
+		this.m_takeFlowerTick = this.getEntityHandle().aA().nextInt(320);
 		this.m_takeFlower = false;
 		this.m_nearestGolem.getNavigation().g();
 	}
@@ -69,13 +72,13 @@ public class DesireAcceptFlower extends DesireBase
 	public void stopExecuting()
 	{
 		this.m_nearestGolem = null;
-		this.getRemoteEntity().getHandle().getNavigation().g();
+		this.getEntityHandle().getNavigation().g();
 	}
 	
 	@Override
 	public boolean update()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		if(this.m_nearestGolem.o() == this.m_takeFlowerTick)
 		{
 			entity.getNavigation().a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());

@@ -24,7 +24,7 @@ public class DesireAttackNearest extends DesireTargetBase
 	public DesireAttackNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
-		this.m_comparator = new DistanceComparator(null, this.getRemoteEntity().getHandle());
+		this.m_comparator = new DistanceComparator(null, this.getEntityHandle());
 		this.m_targetChance = inChance;
 		this.m_targetClass = inTargetClass;
 		this.m_onlyAtNight = false;
@@ -35,15 +35,18 @@ public class DesireAttackNearest extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.m_onlyAtNight && this.getRemoteEntity().getHandle().world.t())
+		if(this.getEntityHandle() == null)
 			return false;
-		else if(this.m_targetChance > 0 && this.getRemoteEntity().getHandle().aA().nextInt(this.m_targetChance) != 0)
+		
+		if(this.m_onlyAtNight && this.getEntityHandle().world.t())
+			return false;
+		else if(this.m_targetChance > 0 && this.getEntityHandle().aA().nextInt(this.m_targetChance) != 0)
 			return false;
 		else
 		{
 			if(this.m_targetClass == EntityHuman.class)
 			{
-				EntityHuman human = this.getRemoteEntity().getHandle().world.findNearbyVulnerablePlayer(this.getRemoteEntity().getHandle(), this.m_distance);
+				EntityHuman human = this.getEntityHandle().world.findNearbyVulnerablePlayer(this.getEntityHandle(), this.m_distance);
 				
 				if(this.isSuitableTarget(human, false))
 				{
@@ -53,7 +56,7 @@ public class DesireAttackNearest extends DesireTargetBase
 			}
 			else
 			{
-				List<EntityLiving> entities = this.getRemoteEntity().getHandle().world.a(this.m_targetClass, this.getRemoteEntity().getHandle().boundingBox.grow(this.m_distance, 4, this.m_distance));
+				List<EntityLiving> entities = this.getEntityHandle().world.a(this.m_targetClass, this.getEntityHandle().boundingBox.grow(this.m_distance, 4, this.m_distance));
 				Collections.sort(entities, this.m_comparator);
 				Iterator<EntityLiving> it = entities.iterator();
 				while(it.hasNext())
@@ -73,7 +76,7 @@ public class DesireAttackNearest extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().b(this.m_target);
+		this.getEntityHandle().b(this.m_target);
 		super.startExecuting();
 	}
 }

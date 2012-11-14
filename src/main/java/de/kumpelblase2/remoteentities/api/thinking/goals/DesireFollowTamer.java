@@ -22,10 +22,10 @@ public class DesireFollowTamer extends DesireBase
 	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 		
-		this.m_animal = this.getRemoteEntity().getHandle();
+		this.m_animal = this.getEntityHandle();
 		this.m_type = 3;
 		this.m_maxDistance = inMaxDistance;
 		this.m_minDistance = inMinDistance;
@@ -34,6 +34,8 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.m_animal == null)
+			return false;
 		EntityLiving owner = this.getTamer();
 		if(owner == null)
 			return false;

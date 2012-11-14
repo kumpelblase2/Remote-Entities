@@ -6,7 +6,7 @@ import net.minecraft.server.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.entity.CraftLivingEntity;;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
@@ -31,12 +31,18 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	@Override
 	public void attack(LivingEntity inTarget)
 	{
+		if(this.m_entity == null)
+			return;
+		
 		this.m_entity.b(((CraftLivingEntity)inTarget).getHandle());
 	}
 
 	@Override
 	public void loseTarget()
 	{
+		if(this.m_entity == null)
+			return;
+		
 		this.m_entity.b((EntityLiving)null);
 	}
 
@@ -78,18 +84,22 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	@Override
 	public void setMaxHealth(int inMax)
 	{
-		this.getHandle().setMaxHealth(inMax);
-	}
-	
-	@Override
-	public RemotePlayerEntity getHandle()
-	{
-		return (RemotePlayerEntity)this.m_entity;
+		if(this.m_entity == null)
+			return;
+		
+		((RemoteEntityHandle)this.getHandle()).setMaxHealth(inMax);
 	}
 
 	@Override
 	public LivingEntity getTarget()
 	{
-		return (LivingEntity)this.m_entity.aF().getBukkitEntity();
+		if(this.m_entity == null)
+			return null;
+		
+		EntityLiving target = this.m_entity.aF();
+		if(target != null)
+			return (LivingEntity)target.getBukkitEntity();
+		
+		return null;
 	}
 }

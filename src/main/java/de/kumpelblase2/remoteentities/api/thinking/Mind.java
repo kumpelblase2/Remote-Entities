@@ -267,6 +267,9 @@ public class Mind
 	 */
 	public void tick()
 	{
+		if(this.m_entity.getHandle() == null)
+			return;
+		
 		if(this.canFeel())
 		{
 			for(Behavior behaviour : this.m_behaviours.values())

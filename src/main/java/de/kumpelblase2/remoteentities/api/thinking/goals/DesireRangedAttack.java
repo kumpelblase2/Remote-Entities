@@ -44,7 +44,7 @@ public class DesireRangedAttack extends DesireBase
 	public void stopExecuting()
 	{
 		EntityTargetEvent.TargetReason reason = this.m_target.isAlive() ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
-		CraftEventFactory.callEntityTargetEvent((Entity)this.getRemoteEntity().getHandle(), null, reason);
+		CraftEventFactory.callEntityTargetEvent((Entity)this.getEntityHandle(), null, reason);
 		this.m_target = null;
 		this.m_inRangeTick = 0;
 	}
@@ -53,8 +53,8 @@ public class DesireRangedAttack extends DesireBase
 	public boolean update()
 	{
 		double maxDist = 100;
-		double dist = this.getRemoteEntity().getHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
-		boolean canSee = this.getRemoteEntity().getHandle().az().canSee(this.m_target);
+		double dist = this.getEntityHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
+		boolean canSee = this.getEntityHandle().az().canSee(this.m_target);
 		
 		if(canSee)
 			this.m_inRangeTick++;
@@ -62,11 +62,11 @@ public class DesireRangedAttack extends DesireBase
 			this.m_inRangeTick = 0;
 		
 		if(dist <= maxDist && this.m_inRangeTick >= 20)
-			this.getRemoteEntity().getHandle().getNavigation().g();
+			this.getEntityHandle().getNavigation().g();
 		else
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity());
 		
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_target, 30, 30);
+		this.getEntityHandle().getControllerLook().a(this.m_target, 30, 30);
 		this.m_shootTicks = Math.max(this.m_shootTicks - 1, 0);
 		if(this.m_shootTicks <= 0)
 		{
@@ -83,7 +83,10 @@ public class DesireRangedAttack extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving target = this.getRemoteEntity().getHandle().aF();
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		EntityLiving target = this.getEntityHandle().aF();
 		
 		if(target == null)
 			return false;
@@ -97,15 +100,15 @@ public class DesireRangedAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.shouldExecute() || !this.getRemoteEntity().getHandle().getNavigation().f();
+		return this.shouldExecute() || !this.getEntityHandle().getNavigation().f();
 	}
 	
 	protected void shoot()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		if(this.m_projeProjectileType == RemoteProjectileType.ARROW)
 		{
-			EntityArrow arrow = new EntityArrow(this.getRemoteEntity().getHandle().world, this.getRemoteEntity().getHandle(), this.m_target, 1.6F, 12);
+			EntityArrow arrow = new EntityArrow(this.getEntityHandle().world, this.getEntityHandle(), this.m_target, 1.6F, 12);
 			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aA().nextFloat() * 0.4F + 0.8F));
 			entity.world.addEntity(arrow);
 		}
@@ -147,7 +150,7 @@ public class DesireRangedAttack extends DesireBase
 		}
 		else
 		{
-			EntityPotion potion = new EntityPotion(entity.world, this.getRemoteEntity().getHandle(), 32732);
+			EntityPotion potion = new EntityPotion(entity.world, this.getEntityHandle(), 32732);
 			potion.pitch -= 20;
 			double d0 = this.m_target.locX + this.m_target.motX - entity.locX;
             double d1 = this.m_target.locY + (double) this.m_target.getHeadHeight() - 1.100000023841858D - entity.locY;

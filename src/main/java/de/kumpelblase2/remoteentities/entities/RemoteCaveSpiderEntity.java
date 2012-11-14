@@ -106,7 +106,8 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 	public void j_()
 	{
 		super.j_();
-		this.getRemoteEntity().getMind().tick();
+		if(this.getRemoteEntity() != null)
+			this.getRemoteEntity().getMind().tick();
 	}
 	
 	@Override

@@ -82,7 +82,8 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 	public void j_()
 	{
 		super.j_();
-		this.getRemoteEntity().getMind().tick();
+		if(this.getRemoteEntity() == null)
+			this.getRemoteEntity().getMind().tick();
 	}
 	
 	@Override

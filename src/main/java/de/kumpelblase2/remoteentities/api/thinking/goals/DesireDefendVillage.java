@@ -24,17 +24,20 @@ public class DesireDefendVillage extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.getEntityHandle() == null)
+			return false;
+		
 		Village nextVillage;
-		if(this.getRemoteEntity().getHandle() instanceof EntityIronGolem)
-			nextVillage = ((EntityIronGolem)this.getRemoteEntity().getHandle()).m();
+		if(this.getEntityHandle() instanceof EntityIronGolem)
+			nextVillage = ((EntityIronGolem)this.getEntityHandle()).m();
 		else
-			nextVillage = WorldUtilities.getClosestVillage(this.getRemoteEntity().getHandle());
+			nextVillage = WorldUtilities.getClosestVillage(this.getEntityHandle());
 		
 		if(nextVillage == null)
 			return false;
 		else
 		{
-			this.m_nextTarget = nextVillage.b(this.getRemoteEntity().getHandle());
+			this.m_nextTarget = nextVillage.b(this.getEntityHandle());
 			return this.isSuitableTarget(this.m_nextTarget, false);
 		}
 	}
@@ -42,7 +45,7 @@ public class DesireDefendVillage extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().b(this.m_nextTarget);
+		this.getEntityHandle().b(this.m_nextTarget);
 		super.startExecuting();
 	}
 }

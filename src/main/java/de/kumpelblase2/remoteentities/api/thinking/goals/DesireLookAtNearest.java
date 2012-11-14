@@ -28,7 +28,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_lookTicks = 40 + this.getRemoteEntity().getHandle().aA().nextInt(40);
+		this.m_lookTicks = 40 + this.getEntityHandle().aA().nextInt(40);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_target.locX, this.m_target.locY + this.m_target.getHeadHeight(), this.m_target.locZ, 10, this.getRemoteEntity().getHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_target.locX, this.m_target.locY + this.m_target.getHeadHeight(), this.m_target.locZ, 10, this.getEntityHandle().bm());
 		this.m_lookTicks--;
 		return true;
 	}
@@ -48,7 +48,10 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
+		if(entity == null)
+			return false;
+		
 		if(entity.aA().nextFloat() >= this.m_lookPossibility)
 			return false;
 		else
@@ -65,6 +68,6 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_target.isAlive() ? false : (this.getRemoteEntity().getHandle().e(this.m_target) > (this.m_minDist * this.m_minDist) ? false : this.m_lookTicks > 0);
+		return !this.m_target.isAlive() ? false : (this.getEntityHandle().e(this.m_target) > (this.m_minDist * this.m_minDist) ? false : this.m_lookTicks > 0);
 	}
 }

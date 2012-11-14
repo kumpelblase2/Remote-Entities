@@ -114,6 +114,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation)
 	{
+		if(this.m_entity == null)
+			return false;
+		
 		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), this.getSpeed()))
 		{
 			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
@@ -127,6 +130,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(LivingEntity inEntity)
 	{
+		if(this.m_entity == null)
+			return false;
+		
 		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
 		if(!this.m_entity.getNavigation().a(handle, this.getSpeed()))
 		{
@@ -142,6 +148,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public void stopMoving()
 	{
+		if(this.m_entity == null)
+			return;
+		
 		if(this.m_entity.getNavigation().f())
 			this.m_entity.getNavigation().g();
 	}
@@ -149,6 +158,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public void teleport(Location inLocation)
 	{
+		if(this.m_entity == null)
+			return;
+		
 		this.getBukkitEntity().teleport(inLocation);
 	}
 	
@@ -180,7 +192,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	
 	@Override
 	public void despawn(DespawnReason inReason)
-	{
+	{		
 		RemoteEntityDespawnEvent event = new RemoteEntityDespawnEvent(this, inReason);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)

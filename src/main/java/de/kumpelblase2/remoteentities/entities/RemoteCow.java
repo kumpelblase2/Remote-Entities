@@ -20,6 +20,9 @@ public class RemoteCow extends RemoteBaseEntity
 	@Override
 	public void setMaxHealth(int inMax)
 	{
+		if(this.m_entity == null)
+			return;
+		
 		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
 }

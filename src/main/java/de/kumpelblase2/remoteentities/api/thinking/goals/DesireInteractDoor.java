@@ -30,8 +30,8 @@ public class DesireInteractDoor extends DesireBase
 	public void startExecuting()
 	{
 		this.m_foundDoor = false;
-		this.m_entityX = (float)(this.m_x + 0.5 - this.getRemoteEntity().getHandle().locX);
-		this.m_entityZ = (float)(this.m_z + 0.5 - this.getRemoteEntity().getHandle().locZ);
+		this.m_entityX = (float)(this.m_x + 0.5 - this.getEntityHandle().locX);
+		this.m_entityZ = (float)(this.m_z + 0.5 - this.getEntityHandle().locZ);
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public class DesireInteractDoor extends DesireBase
 	@Override
 	public boolean update()
 	{
-		float entityX = (float)(this.m_x + 0.5 - this.getRemoteEntity().getHandle().locX);
-		float entityZ = (float)(this.m_z + 0.5 - this.getRemoteEntity().getHandle().locZ);
+		float entityX = (float)(this.m_x + 0.5 - this.getEntityHandle().locX);
+		float entityZ = (float)(this.m_z + 0.5 - this.getEntityHandle().locZ);
 		float dist = this.m_entityX * entityX + this.m_entityZ * entityZ;
 		
 		if(dist < 0)
@@ -55,10 +55,13 @@ public class DesireInteractDoor extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(!this.getRemoteEntity().getHandle().positionChanged)
+		if(this.getEntityHandle() == null)
 			return false;
 		
-		Navigation nav = this.getRemoteEntity().getHandle().getNavigation();
+		if(!this.getEntityHandle().positionChanged)
+			return false;
+		
+		Navigation nav = this.getEntityHandle().getNavigation();
 		PathEntity path = nav.d();
 		if(path != null && !path.b() && nav.c())
 		{
@@ -69,7 +72,7 @@ public class DesireInteractDoor extends DesireBase
 				this.m_y = point.b + 1;
 				this.m_z = point.c;
 				
-				if(this.getRemoteEntity().getHandle().e((double)this.m_x, (double)this.m_y, (double)this.m_z) <= 2.25)
+				if(this.getEntityHandle().e((double)this.m_x, (double)this.m_y, (double)this.m_z) <= 2.25)
 				{
 					this.m_door = this.getDoor(this.m_x, this.m_y, this.m_z);
 					if(this.m_door != null)
@@ -77,9 +80,9 @@ public class DesireInteractDoor extends DesireBase
 				}
 			}
 			
-			this.m_x = MathHelper.floor(this.getRemoteEntity().getHandle().locX);
-			this.m_y = MathHelper.floor(this.getRemoteEntity().getHandle().locY + 1);
-			this.m_z = MathHelper.floor(this.getRemoteEntity().getHandle().locZ);
+			this.m_x = MathHelper.floor(this.getEntityHandle().locX);
+			this.m_y = MathHelper.floor(this.getEntityHandle().locY + 1);
+			this.m_z = MathHelper.floor(this.getEntityHandle().locZ);
 			this.m_door = this.getDoor(this.m_x, this.m_y, this.m_z);
 			return this.m_door != null;
 		}
@@ -95,7 +98,7 @@ public class DesireInteractDoor extends DesireBase
 	
 	protected BlockDoor getDoor(int x, int y, int z)
 	{
-		int id = this.getRemoteEntity().getHandle().world.getTypeId(x, y, z);
+		int id = this.getEntityHandle().world.getTypeId(x, y, z);
 		
 		if((!this.m_ironDoor && id == Block.WOODEN_DOOR.id) || (this.m_ironDoor && id == Block.IRON_DOOR_BLOCK.id))
 			return (BlockDoor)Block.byId[id];

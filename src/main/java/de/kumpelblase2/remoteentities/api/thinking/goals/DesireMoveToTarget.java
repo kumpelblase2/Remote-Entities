@@ -25,14 +25,17 @@ public class DesireMoveToTarget extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		this.m_target = this.getRemoteEntity().getHandle().aF();
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		this.m_target = this.getEntityHandle().aF();
 		if(this.m_target == null)
 			return false;
-		else if(this.m_target.e(this.getRemoteEntity().getHandle()) > this.m_minDistance * this.m_minDistance)
+		else if(this.m_target.e(this.getEntityHandle()) > this.m_minDistance * this.m_minDistance)
 			return false;
 		else
 		{
-			Vec3D vec = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 16, 7, Vec3D.a.create(this.m_target.locX, this.m_target.locY, this.m_target.locZ));
+			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, Vec3D.a.create(this.m_target.locX, this.m_target.locY, this.m_target.locZ));
 			
 			if(vec == null)
 				return false;
@@ -49,7 +52,7 @@ public class DesireMoveToTarget extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().getNavigation().f() && this.m_target.isAlive() && this.m_target.e(this.getRemoteEntity().getHandle()) < this.m_minDistance * this.m_minDistance;
+		return !this.getEntityHandle().getNavigation().f() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistance * this.m_minDistance;
 	}
 	
 	@Override

@@ -22,15 +22,18 @@ public class DesireWanderAround extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().aD() >= 100)
+		if(this.getEntityHandle() == null)
 			return false;
-		else if(this.getRemoteEntity().getHandle().aA().nextInt(120) != 0)
+		
+		if(this.getEntityHandle().aD() >= 100)
 			return false;
-		else if(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getRemoteEntity().getHandle()).isSitting())
+		else if(this.getEntityHandle().aA().nextInt(120) != 0)
+			return false;
+		else if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isSitting())
 			return false;
 		else
 		{
-			Vec3D vector = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 10, 7);
+			Vec3D vector = RandomPositionGenerator.a(this.getEntityHandle(), 10, 7);
 			if(vector == null)
 				return false;
 			else
@@ -46,7 +49,7 @@ public class DesireWanderAround extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().getNavigation().f();
+		return !this.getEntityHandle().getNavigation().f();
 	}
 	
 	@Override

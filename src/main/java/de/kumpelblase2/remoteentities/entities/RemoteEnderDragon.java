@@ -49,6 +49,9 @@ public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
 	@Override
 	public void setMaxHealth(int inMax)
 	{
+		if(this.m_entity == null)
+			return;
+		
 		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
 	

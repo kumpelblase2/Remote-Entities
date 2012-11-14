@@ -32,24 +32,24 @@ public class DesireBegForItem extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		if(this.getRemoteEntity().getHandle() instanceof EntityWolf)
-			((EntityWolf)this.getRemoteEntity().getHandle()).j(true);
+		if(this.getEntityHandle() instanceof EntityWolf)
+			((EntityWolf)this.getEntityHandle()).j(true);
 		
-		this.m_ticks = 40 + this.getRemoteEntity().getHandle().aA().nextInt(40);
+		this.m_ticks = 40 + this.getEntityHandle().aA().nextInt(40);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
 		this.m_nearestPlayer = null;
-		if(this.getRemoteEntity().getHandle() instanceof EntityWolf)
-			((EntityWolf)this.getRemoteEntity().getHandle()).j(false);
+		if(this.getEntityHandle() instanceof EntityWolf)
+			((EntityWolf)this.getEntityHandle()).j(false);
 	}
 	
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getRemoteEntity().getHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getEntityHandle().bm());
 		this.m_ticks--;
 		return true;
 	}
@@ -57,7 +57,10 @@ public class DesireBegForItem extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		this.m_nearestPlayer = this.getRemoteEntity().getHandle().world.findNearbyPlayer(this.getRemoteEntity().getHandle(), this.m_minDistance);
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		this.m_nearestPlayer = this.getEntityHandle().world.findNearbyPlayer(this.getEntityHandle(), this.m_minDistance);
 		return this.m_nearestPlayer == null ? false : this.update();
 	}
 
@@ -67,7 +70,7 @@ public class DesireBegForItem extends DesireBase
 		if(!this.m_nearestPlayer.isAlive())
 			return false;
 		
-		if(this.getRemoteEntity().getHandle().e(this.m_nearestPlayer) > this.m_minDistance * this.m_minDistance)
+		if(this.getEntityHandle().e(this.m_nearestPlayer) > this.m_minDistance * this.m_minDistance)
 			return false;
 		
 		return this.m_ticks > 0 && this.hasItemInHand(this.m_nearestPlayer);

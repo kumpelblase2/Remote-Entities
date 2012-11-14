@@ -14,23 +14,25 @@ public class DesireTradeWithPlayer extends DesireBase
 	public DesireTradeWithPlayer(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))
+		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 		
-		this.m_villager = (EntityVillager)this.getRemoteEntity().getHandle();
+		this.m_villager = (EntityVillager)this.getEntityHandle();
 		this.m_type = 5;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
-		if(!this.getRemoteEntity().getHandle().isAlive())
+		if(this.getEntityHandle() == null)
 			return false;
-		else if(this.getRemoteEntity().getHandle().H())
+		if(!this.getEntityHandle().isAlive())
 			return false;
-		else if(!this.getRemoteEntity().getHandle().onGround)
+		else if(this.getEntityHandle().H())
 			return false;
-		else if(this.getRemoteEntity().getHandle().velocityChanged)
+		else if(!this.getEntityHandle().onGround)
+			return false;
+		else if(this.getEntityHandle().velocityChanged)
 			return false;
 		else
 		{

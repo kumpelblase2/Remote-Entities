@@ -18,7 +18,10 @@ public class DesireOcelotAttack extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving target = this.getRemoteEntity().getHandle().aF();
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		EntityLiving target = this.getEntityHandle().aF();
 		if(target == null)
 			return false;
 		
@@ -29,21 +32,21 @@ public class DesireOcelotAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_target.isAlive() ? false : this.getRemoteEntity().getHandle().e(this.m_target) > 225 ? false : !this.getRemoteEntity().getHandle().getNavigation().f() || this.shouldExecute();
+		return !this.m_target.isAlive() ? false : this.getEntityHandle().e(this.m_target) > 225 ? false : !this.getEntityHandle().getNavigation().f() || this.shouldExecute();
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
 		this.m_target = null;
-		this.getRemoteEntity().getHandle().getNavigation().g();
+		this.getEntityHandle().getNavigation().g();
 	}
 	
 	@Override
 	public boolean update()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_target, 30, 30);
+		EntityLiving entity = this.getEntityHandle();
+		this.getEntityHandle().getControllerLook().a(this.m_target, 30, 30);
 		double minDist = entity.width * 2 * entity.width * 2;
 		double dist = entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
 		float speed = 0.23F;

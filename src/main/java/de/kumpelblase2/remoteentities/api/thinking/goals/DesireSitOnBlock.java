@@ -23,17 +23,17 @@ public class DesireSitOnBlock extends DesireBase
 	public DesireSitOnBlock(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityOcelot))
+		if(!(this.getEntityHandle() instanceof EntityOcelot))
 			throw new NotAnOcelotException();
 		
-		this.m_ocelot = (EntityOcelot)this.getRemoteEntity().getHandle();
+		this.m_ocelot = (EntityOcelot)this.getEntityHandle();
 		this.m_type = 5;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aA().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
+		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aA().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
 	}
 	
 	@Override

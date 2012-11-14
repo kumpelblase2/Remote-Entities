@@ -20,10 +20,10 @@ public class DesirePlay extends DesireBase
 	public DesirePlay(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))
+		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 		
-		this.m_villager = (EntityVillager)this.getRemoteEntity().getHandle();
+		this.m_villager = (EntityVillager)this.getEntityHandle();
 		this.m_type = 1;
 	}
 
@@ -31,6 +31,9 @@ public class DesirePlay extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.getEntityHandle() == null)
+			return false;
+		
 		if(this.m_villager.getAge() >= 0)
 			return false;
 		else if(this.m_villager.aA().nextInt(400) != 0)

@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
+import net.minecraft.server.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public abstract class DesireBase implements Desire
@@ -17,6 +18,14 @@ public abstract class DesireBase implements Desire
 	public RemoteEntity getRemoteEntity()
 	{
 		return this.m_entity;
+	}
+	
+	public EntityLiving getEntityHandle()
+	{
+		if(this.m_entity == null)
+			return null;
+		
+		return this.getRemoteEntity().getHandle();
 	}
 
 	@Override

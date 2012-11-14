@@ -30,7 +30,9 @@ public class DesireAvoidSun extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
+		if(entity == null)
+			return false;
 		if(!entity.world.t())
 			return false;
 		else if(!entity.isBurning())
@@ -56,12 +58,12 @@ public class DesireAvoidSun extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().getNavigation().f();
+		return !this.getEntityHandle().getNavigation().f();
 	}
 	
 	protected Vec3D getShadowPlace()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		Random r = entity.aA();
 		
 		for(int i = 0; i < 10; i++)

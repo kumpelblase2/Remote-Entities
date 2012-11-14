@@ -17,10 +17,10 @@ public class DesireFollowParent extends DesireBase
 	public DesireFollowParent(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityAnimal))
+		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			throw new CantBreedException();
 		
-		this.m_animal = (EntityAnimal)this.getRemoteEntity().getHandle();
+		this.m_animal = (EntityAnimal)this.getEntityHandle();
 		
 	}
 
@@ -28,6 +28,9 @@ public class DesireFollowParent extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.getEntityHandle() == null)
+			return false;
+		
 		if(this.m_animal.getAge() >= 0)
 			return false;
 		else

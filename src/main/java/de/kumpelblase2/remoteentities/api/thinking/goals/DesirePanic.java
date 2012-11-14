@@ -21,11 +21,11 @@ public class DesirePanic extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().az() == null)
+		if(this.getEntityHandle() == null || this.getEntityHandle().az() == null)
 			return false;
 		else
 		{
-			Vec3D vec = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 5, 4);
+			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 5, 4);
 			if(vec == null)
 				return false;
 			else
@@ -47,6 +47,6 @@ public class DesirePanic extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().getNavigation().f();
+		return !this.getEntityHandle().getNavigation().f();
 	}
 }

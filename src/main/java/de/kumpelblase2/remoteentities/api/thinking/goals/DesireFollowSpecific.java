@@ -25,11 +25,14 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.getEntityHandle() == null)
+			return false;
+		
 		if(this.m_toFollow == null)
 			return false;
 		else if(!this.m_toFollow.isAlive())
 			return false;
-		else if(this.m_toFollow.e(this.getRemoteEntity().getHandle()) < this.m_minDistance * this.m_minDistance)
+		else if(this.m_toFollow.e(this.getEntityHandle()) < this.m_minDistance * this.m_minDistance)
 			return false;
 		return true;
 	}
@@ -37,34 +40,34 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_avoidWaterState = this.getRemoteEntity().getHandle().getNavigation().a();
-		this.getRemoteEntity().getHandle().getNavigation().a(false);
+		this.m_avoidWaterState = this.getEntityHandle().getNavigation().a();
+		this.getEntityHandle().getNavigation().a(false);
 		this.m_moveTick = 0;
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
-		this.getRemoteEntity().getHandle().getNavigation().g();
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_avoidWaterState);
+		this.getEntityHandle().getNavigation().g();
+		this.getEntityHandle().getNavigation().a(this.m_avoidWaterState);
 	}
 	
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().getNavigation().f() && this.m_toFollow.e(this.getRemoteEntity().getHandle()) > this.m_maxDistance * this.m_maxDistance;
+		return !this.getEntityHandle().getNavigation().f() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistance * this.m_maxDistance;
 	}
 	
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_toFollow, 10, this.getRemoteEntity().getHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_toFollow, 10, this.getEntityHandle().bm());
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
 			if(!this.getRemoteEntity().move((LivingEntity)this.m_toFollow))
 			{
-				if(this.getRemoteEntity().getHandle().e(this.m_toFollow) >= 144)
+				if(this.getEntityHandle().e(this.m_toFollow) >= 144)
 				{
 					int x = MathHelper.floor(this.m_toFollow.locX) - 2;
 					int z = MathHelper.floor(this.m_toFollow.locZ) - 2;
@@ -74,10 +77,10 @@ public class DesireFollowSpecific extends DesireBase
 					{
 						for(int l = 0; l <= 4; l++)
 						{
-							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getRemoteEntity().getHandle().world.t(x + i, y - 1, z + l) && ! this.getRemoteEntity().getHandle().world.s(x + i, y, z + l) && ! this.getRemoteEntity().getHandle().world.s(x + i, y + 1, z + l))
+							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.t(x + i, y - 1, z + l) && ! this.getEntityHandle().world.s(x + i, y, z + l) && ! this.getEntityHandle().world.s(x + i, y + 1, z + l))
 							{
-								this.getRemoteEntity().getHandle().setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.getRemoteEntity().getHandle().yaw, this.getRemoteEntity().getHandle().pitch);
-								this.getRemoteEntity().getHandle().getNavigation().g();
+								this.getEntityHandle().setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.getEntityHandle().yaw, this.getEntityHandle().pitch);
+								this.getEntityHandle().getNavigation().g();
 								return true;
 							}
 						}

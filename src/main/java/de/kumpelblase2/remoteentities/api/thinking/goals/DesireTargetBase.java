@@ -48,25 +48,25 @@ public abstract class DesireTargetBase extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.getRemoteEntity().getHandle().b((EntityLiving)null);
+		this.getEntityHandle().b((EntityLiving)null);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving target = this.getRemoteEntity().getHandle().aF();
+		EntityLiving target = this.getEntityHandle().aF();
 		
 		if(target == null)
 			return false;
 		else if(!target.isAlive())
 			return false;
-		else if(this.getRemoteEntity().getHandle().e(target) > (this.m_distance * this.m_distance))
+		else if(this.getEntityHandle().e(target) > (this.m_distance * this.m_distance))
 			return false;
 		else
 		{
 			if(this.m_shouldCheckSight)
 			{
-				if(this.getRemoteEntity().getHandle().az().canSee(target))
+				if(this.getEntityHandle().az().canSee(target))
 					this.m_notSeeingTarget = 0;
 				else if(++this.m_notSeeingTarget > 60)
 					return false;
@@ -79,30 +79,30 @@ public abstract class DesireTargetBase extends DesireBase
 	{
 		if(inEntity == null)
 			return false;
-		else if(inEntity == this.getRemoteEntity().getHandle())
+		else if(inEntity == this.getEntityHandle())
 			return false;
 		else if(!inEntity.isAlive())
 			return false;
-		else if(inEntity.boundingBox.e > this.getRemoteEntity().getHandle().boundingBox.b && inEntity.boundingBox.b < this.getRemoteEntity().getHandle().boundingBox.e)
+		else if(inEntity.boundingBox.e > this.getEntityHandle().boundingBox.b && inEntity.boundingBox.b < this.getEntityHandle().boundingBox.e)
 		{
-			if(!this.getRemoteEntity().getHandle().a(inEntity.getClass()))
+			if(!this.getEntityHandle().a(inEntity.getClass()))
 				return false;
 			else
 			{
-				if(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getRemoteEntity().getHandle()).isTamed())
+				if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isTamed())
 				{
 					if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
 						return false;
 				
-					if(inEntity == ((EntityTameableAnimal)this.getRemoteEntity().getHandle()).getOwner())
+					if(inEntity == ((EntityTameableAnimal)this.getEntityHandle()).getOwner())
 						return false;
 				}
 				else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
 					return false;
 					
-				if(!this.getRemoteEntity().getHandle().e(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
+				if(!this.getEntityHandle().e(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
 					return false;
-				else if(this.m_shouldCheckSight && !this.getRemoteEntity().getHandle().az().canSee(inEntity))
+				else if(this.m_shouldCheckSight && !this.getEntityHandle().az().canSee(inEntity))
 					return false;
 				else
 				{
@@ -135,17 +135,17 @@ public abstract class DesireTargetBase extends DesireBase
 	                    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
 	                }
 
-	                org.bukkit.event.entity.EntityTargetLivingEntityEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callEntityTargetLivingEvent(this.getRemoteEntity().getHandle(), inEntity, reason);
+	                org.bukkit.event.entity.EntityTargetLivingEntityEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
 	                if (event.isCancelled() || event.getTarget() == null) {
-	                    if (this.getRemoteEntity().getHandle() instanceof EntityCreature) {
-	                        ((EntityCreature)this.getRemoteEntity().getHandle()).target = null;
+	                    if (this.getEntityHandle() instanceof EntityCreature) {
+	                        ((EntityCreature)this.getEntityHandle()).target = null;
 	                    }
 	                    return false;
 	                } else if (inEntity.getBukkitEntity() != event.getTarget()) {
-	                    this.getRemoteEntity().getHandle().b((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
+	                    this.getEntityHandle().b((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
 	                }
-	                if (this.getRemoteEntity().getHandle() instanceof EntityCreature) {
-	                    ((EntityCreature) this.getRemoteEntity().getHandle()).target = ((org.bukkit.craftbukkit.entity.CraftEntity) event.getTarget()).getHandle();
+	                if (this.getEntityHandle() instanceof EntityCreature) {
+	                    ((EntityCreature) this.getEntityHandle()).target = ((org.bukkit.craftbukkit.entity.CraftEntity) event.getTarget()).getHandle();
 	                }
 					
 					
@@ -158,8 +158,8 @@ public abstract class DesireTargetBase extends DesireBase
 	
 	protected boolean useAttack(EntityLiving inEntity)
 	{
-		this.m_lastAttackTick = 10 + this.getRemoteEntity().getHandle().aA().nextInt(5);
-		PathEntity path = this.getRemoteEntity().getHandle().getNavigation().a(inEntity);
+		this.m_lastAttackTick = 10 + this.getEntityHandle().aA().nextInt(5);
+		PathEntity path = this.getEntityHandle().getNavigation().a(inEntity);
 		
 		if(path == null)
 			return false;

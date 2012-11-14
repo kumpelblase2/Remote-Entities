@@ -12,19 +12,19 @@ public class DesireRestrictSun extends DesireBase
 
 	@Override
 	public boolean shouldExecute()
-	{
-		return this.getRemoteEntity().getHandle().world.t();
+	{		
+		return this.getEntityHandle() != null && this.getEntityHandle().world.t();
 	}
 	
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().getNavigation().d(true);
+		this.getEntityHandle().getNavigation().d(true);
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
-		this.getRemoteEntity().getHandle().getNavigation().d(false);
+		this.getEntityHandle().getNavigation().d(false);
 	}
 }

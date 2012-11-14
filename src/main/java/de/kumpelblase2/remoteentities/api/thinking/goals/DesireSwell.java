@@ -14,16 +14,19 @@ public class DesireSwell extends DesireBase
 	public DesireSwell(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityCreeper))
+		if(!(this.getEntityHandle() instanceof EntityCreeper))
 			throw new NotACreeperException();
 		
-		this.m_creeper = (EntityCreeper)this.getRemoteEntity().getHandle();
+		this.m_creeper = (EntityCreeper)this.getEntityHandle();
 		this.m_type = 1;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.m_creeper == null)
+			return false;
+		
 		EntityLiving target = this.m_creeper.aF();
 		return this.m_creeper.o() > 0 || target != null && this.m_creeper.e(target) < 9;
 	}

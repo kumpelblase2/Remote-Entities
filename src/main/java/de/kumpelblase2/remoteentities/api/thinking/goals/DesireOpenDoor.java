@@ -23,14 +23,14 @@ public class DesireOpenDoor extends DesireInteractDoor
 	public void startExecuting()
 	{
 		this.m_closeTick = 20;
-		this.m_door.setDoor(this.getRemoteEntity().getHandle().world, this.m_x, this.m_y, this.m_z, true);
+		this.m_door.setDoor(this.getEntityHandle().world, this.m_x, this.m_y, this.m_z, true);
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
 		if(this.m_closeDoor)
-			this.m_door.setDoor(this.getRemoteEntity().getHandle().world, this.m_x, this.m_y, this.m_z, false);
+			this.m_door.setDoor(this.getEntityHandle().world, this.m_x, this.m_y, this.m_z, false);
 	}
 	
 	@Override

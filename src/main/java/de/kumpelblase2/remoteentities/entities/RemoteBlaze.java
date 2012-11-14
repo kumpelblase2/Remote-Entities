@@ -26,12 +26,18 @@ public class RemoteBlaze extends RemoteBaseEntity implements Fightable
 	@Override
 	public void setMaxHealth(int inMax)
 	{
+		if(this.m_entity == null)
+			return;
+		
 		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
 
 	@Override
 	public void attack(LivingEntity inTarget)
 	{
+		if(this.m_entity == null)
+			return;
+		
 		((EntityCreature)this.m_entity).setTarget(((CraftLivingEntity)inTarget).getHandle());
 		this.m_entity.c(((CraftLivingEntity)inTarget).getHandle());
 	}
@@ -39,12 +45,18 @@ public class RemoteBlaze extends RemoteBaseEntity implements Fightable
 	@Override
 	public void loseTarget()
 	{
+		if(this.m_entity == null)
+			return;
+		
 		((EntityCreature)this.m_entity).setTarget(null);
 	}
 
 	@Override
 	public LivingEntity getTarget()
 	{
+		if(this.m_entity == null)
+			return null;
+		
 		Entity target = ((EntityCreature)this.m_entity).l();
 		if(target != null && target instanceof EntityLiving)
 			return (LivingEntity)target.getBukkitEntity();

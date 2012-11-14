@@ -30,7 +30,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_mate, 10, this.getRemoteEntity().getHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_mate, 10, this.getEntityHandle().bm());
 		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
 		if(this.m_mateTicks == 60)
@@ -43,9 +43,9 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityAnimal))
+		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			return false;
-		EntityAnimal entity = (EntityAnimal)this.getRemoteEntity().getHandle();
+		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 		if(!entity.r())
 			return false;
 		else
@@ -65,7 +65,7 @@ public class DesireBreed extends DesireBase
 	protected EntityAnimal getNextAnimal()
 	{
 		double range = 8;
-		List entities = this.getRemoteEntity().getHandle().world.a(this.getRemoteEntity().getHandle().getClass(), this.getRemoteEntity().getHandle().boundingBox.grow(range, range, range));
+		List entities = this.getEntityHandle().world.a(this.getEntityHandle().getClass(), this.getEntityHandle().boundingBox.grow(range, range, range));
 		Iterator it = entities.iterator();
 		
 		EntityAnimal nearest;
@@ -76,17 +76,17 @@ public class DesireBreed extends DesireBase
 			
 			nearest = (EntityAnimal)it.next();
 		}
-		while(!((EntityAnimal)this.getRemoteEntity().getHandle()).mate(nearest));
+		while(!((EntityAnimal)this.getEntityHandle()).mate(nearest));
 		return nearest;
 	}
 	
 	protected EntityAnimal createChild()
 	{
-		EntityAnimal baby = ((EntityAnimal)this.getRemoteEntity().getHandle()).createChild(this.m_mate);
+		EntityAnimal baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate);
 		
 		if(baby != null)
 		{
-			EntityAnimal entity = (EntityAnimal)this.getRemoteEntity().getHandle();
+			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 			entity.setAge(6000);
 			this.m_mate.setAge(6000);
 			entity.s();

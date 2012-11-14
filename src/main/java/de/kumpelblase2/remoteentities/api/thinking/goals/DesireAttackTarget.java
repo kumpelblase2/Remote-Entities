@@ -22,20 +22,23 @@ public class DesireAttackTarget extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.isSuitableTarget(this.getRemoteEntity().getHandle().aB(), true);
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		return this.isSuitableTarget(this.getEntityHandle().aB(), true);
 	}
 	
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getRemoteEntity().getHandle().aB();
+		EntityLiving entityTarget = this.getEntityHandle().aB();
 		return entityTarget != null && entityTarget != this.m_target; 
 	}
 	
 	@Override
 	public void startExecuting()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		entity.b(entity.aB());
 		this.m_target = entity.aB();
 		
@@ -49,7 +52,7 @@ public class DesireAttackTarget extends DesireTargetBase
 			{
 				EntityLiving target = it.next();
 				
-				if(this.getRemoteEntity().getHandle() != target && target.aF() == null)
+				if(this.getEntityHandle() != target && target.aF() == null)
 					target.b(entity.aB());
 			}
 		}

@@ -38,7 +38,10 @@ public class DesireTempt extends DesireBase
 		}
 		else
 		{
-			this.m_nearPlayer = this.getRemoteEntity().getHandle().world.findNearbyPlayer(this.getRemoteEntity().getHandle(), 10);
+			if(this.getEntityHandle() == null)
+				return false;
+			
+			this.m_nearPlayer = this.getEntityHandle().world.findNearbyPlayer(this.getEntityHandle(), 10);
 			if(this.m_nearPlayer == null)
 				return false;
 			else
@@ -54,7 +57,7 @@ public class DesireTempt extends DesireBase
 	{
 		if(this.m_scaredByMovement)
 		{
-			if(this.getRemoteEntity().getHandle().e(this.m_nearPlayer) < 36)
+			if(this.getEntityHandle().e(this.m_nearPlayer) < 36)
 			{
 				if(this.m_nearPlayer.e(this.m_x, this.m_y, this.m_z) > 0.010000000000000002D)
 					return false;
@@ -83,26 +86,26 @@ public class DesireTempt extends DesireBase
 		this.m_y = this.m_nearPlayer.locY;
 		this.m_z = this.m_nearPlayer.locZ;
 		this.m_isTempted = true;
-		this.m_avoidWaterState = this.getRemoteEntity().getHandle().getNavigation().a();
-		this.getRemoteEntity().getHandle().getNavigation().a(false);
+		this.m_avoidWaterState = this.getEntityHandle().getNavigation().a();
+		this.getEntityHandle().getNavigation().a(false);
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
 		this.m_nearPlayer = null;
-		this.getRemoteEntity().getHandle().getNavigation().g();
+		this.getEntityHandle().getNavigation().g();
 		this.m_delayTicks = 100;
 		this.m_isTempted = false;
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_avoidWaterState);
+		this.getEntityHandle().getNavigation().a(this.m_avoidWaterState);
 	}
 	
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getRemoteEntity().getHandle().bm());
-		if(this.getRemoteEntity().getHandle().e(this.m_nearPlayer) < 6.25)
-			this.getRemoteEntity().getHandle().getNavigation().g();
+		this.getEntityHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getEntityHandle().bm());
+		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
+			this.getEntityHandle().getNavigation().g();
 		else
 			this.getRemoteEntity().move((LivingEntity)this.m_nearPlayer.getBukkitEntity());
 		

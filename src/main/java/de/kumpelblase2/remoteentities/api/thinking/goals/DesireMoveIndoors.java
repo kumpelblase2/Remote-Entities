@@ -25,7 +25,10 @@ public class DesireMoveIndoors extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
+		if(entity == null)
+			return false;
+		
 		if((!entity.world.t() || entity.world.M()) && !entity.world.worldProvider.e)
 		{
 			if(entity.aA().nextInt(50) != 0)
@@ -51,14 +54,14 @@ public class DesireMoveIndoors extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().getNavigation().f();
+		return !this.getEntityHandle().getNavigation().f();
 	}
 	
 	@Override
 	public void startExecuting()
 	{
 		this.m_x = -1;
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		if(entity.e(this.m_targetDoor.getIndoorsX(), entity.locY, this.m_targetDoor.getIndoorsZ()) > 256)
 		{
 			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, Vec3D.a.create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));

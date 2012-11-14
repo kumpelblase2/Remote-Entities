@@ -20,26 +20,29 @@ public class DesireLeapAtTarget extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		this.m_target = this.getRemoteEntity().getHandle().aF();
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		this.m_target = this.getEntityHandle().aF();
 		if(this.m_target == null)
 			return false;
 		else
 		{
-			double dist = this.getRemoteEntity().getHandle().e(this.m_target);
-			return dist >= 4 && dist <= 16 ? (!this.getRemoteEntity().getHandle().onGround ? false : this.getRemoteEntity().getHandle().aA().nextInt(5) == 0) : false;
+			double dist = this.getEntityHandle().e(this.m_target);
+			return dist >= 4 && dist <= 16 ? (!this.getEntityHandle().onGround ? false : this.getEntityHandle().aA().nextInt(5) == 0) : false;
 		}
 	}
 	
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getRemoteEntity().getHandle().onGround;
+		return !this.getEntityHandle().onGround;
 	}
 	
 	@Override
 	public boolean update()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		double xDiff = this.m_target.locX - entity.locX;
 		double zDiff = this.m_target.locZ - entity.locZ;
 		float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff);

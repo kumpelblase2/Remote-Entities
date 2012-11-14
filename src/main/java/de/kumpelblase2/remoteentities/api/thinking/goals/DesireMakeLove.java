@@ -18,16 +18,19 @@ public class DesireMakeLove extends DesireBase
 	public DesireMakeLove(RemoteEntity inEntity) throws Exception
 	{
 		super(inEntity);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityVillager))
+		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 		
-		this.m_villager = (EntityVillager)this.getRemoteEntity().getHandle();
+		this.m_villager = (EntityVillager)this.getEntityHandle();
 		this.m_type = 3;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.getEntityHandle() == null)
+			return false;
+		
 		if(this.m_villager.getAge() != 0)
 			return false;
 		else if(this.m_villager.aA().nextInt(500) != 0)

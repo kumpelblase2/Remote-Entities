@@ -30,7 +30,10 @@ public class DesireAttackOnCollide extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		EntityLiving entityTarget = this.getRemoteEntity().getHandle().aF();
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		EntityLiving entityTarget = this.getEntityHandle().aF();
 		
 		if(entityTarget == null)
 			return false;
@@ -39,7 +42,7 @@ public class DesireAttackOnCollide extends DesireBase
 		else
 		{
 			this.m_target = entityTarget;
-			this.m_path = this.getRemoteEntity().getHandle().getNavigation().a(this.m_target);
+			this.m_path = this.getEntityHandle().getNavigation().a(this.m_target);
 			return this.m_path != null;
 		}
 	}
@@ -47,15 +50,15 @@ public class DesireAttackOnCollide extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getRemoteEntity().getHandle().aF();
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entityTarget = this.getEntityHandle().aF();
+		EntityLiving entity = this.getEntityHandle();
 		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.e(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
 	}
 	
 	@Override
 	public void startExecuting()
 	{		
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_path, this.getRemoteEntity().getSpeed());
+		this.getEntityHandle().getNavigation().a(this.m_path, this.getRemoteEntity().getSpeed());
 		this.m_moveTick = 0;
 	}
 	
@@ -63,16 +66,16 @@ public class DesireAttackOnCollide extends DesireBase
 	public void stopExecuting()
 	{
 		EntityTargetEvent.TargetReason reason = this.m_target.isAlive() ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
-        CraftEventFactory.callEntityTargetEvent(this.getRemoteEntity().getHandle(), null, reason);
+        CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
 		
 		this.m_target = null;
-		this.getRemoteEntity().getHandle().getNavigation().g();
+		this.getEntityHandle().getNavigation().g();
 	}
 	
 	@Override
 	public boolean update()
 	{
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		entity.getControllerLook().a(this.m_target, 30, 30);
 		if((this.m_ignoreSight || entity.az().canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{

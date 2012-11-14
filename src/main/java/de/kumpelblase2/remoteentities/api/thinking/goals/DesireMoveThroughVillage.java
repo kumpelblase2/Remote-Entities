@@ -31,8 +31,8 @@ public class DesireMoveThroughVillage extends DesireBase
 	public boolean shouldExecute()
 	{
 		this.cleanupDoors();
-		EntityLiving entity = this.getRemoteEntity().getHandle();
-		if(this.m_onlyNight && entity.world.t())
+		EntityLiving entity = this.getEntityHandle();		
+		if(entity == null || (this.m_onlyNight && entity.world.t()))
 			return false;
 		else
 		{
@@ -75,25 +75,25 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		if(this.getRemoteEntity().getHandle().getNavigation().f())
+		if(this.getEntityHandle().getNavigation().f())
 			return false;
 		else
 		{
-			float f = this.getRemoteEntity().getHandle().width + 4;
-			return this.getRemoteEntity().getHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) > f * f;
+			float f = this.getEntityHandle().width + 4;
+			return this.getEntityHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) > f * f;
 		}
 	}
 	
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().getNavigation().a(this.m_path, this.getRemoteEntity().getSpeed());
+		this.getEntityHandle().getNavigation().a(this.m_path, this.getRemoteEntity().getSpeed());
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
-		if(this.getRemoteEntity().getHandle().getNavigation().f() || this.getRemoteEntity().getHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
+		if(this.getEntityHandle().getNavigation().f() || this.getEntityHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
 			this.m_doors.add(this.m_nextDoor);
 	}
 	
@@ -127,7 +127,7 @@ public class DesireMoveThroughVillage extends DesireBase
 		@SuppressWarnings("unchecked")
 		List<VillageDoor> allDoors = inVillage.getDoors();
 		Iterator<VillageDoor> it = allDoors.iterator();
-		EntityLiving entity = this.getRemoteEntity().getHandle();
+		EntityLiving entity = this.getEntityHandle();
 		
 		while(it.hasNext())
 		{

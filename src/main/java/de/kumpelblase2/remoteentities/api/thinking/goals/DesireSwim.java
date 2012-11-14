@@ -9,20 +9,20 @@ public class DesireSwim extends DesireBase
 	{
 		super(inEntity);
 		this.m_type = 4;
-		this.getRemoteEntity().getHandle().getNavigation().e(true);
+		this.getEntityHandle().getNavigation().e(true);
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getRemoteEntity().getHandle().H() || this.getRemoteEntity().getHandle().J();
+		return this.getEntityHandle() != null && (this.getEntityHandle().H() || this.getEntityHandle().J());
 	}
 	
 	@Override
 	public boolean update()
 	{
-		if(this.getRemoteEntity().getHandle().aA().nextFloat() < 0.8F)
-			this.getRemoteEntity().getHandle().getControllerJump().a();
+		if(this.getEntityHandle().aA().nextFloat() < 0.8F)
+			this.getEntityHandle().getControllerJump().a();
 		return true;
 	}
 }

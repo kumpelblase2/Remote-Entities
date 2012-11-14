@@ -15,16 +15,19 @@ public class DesireHelpAttacking extends DesireTargetBase
 	public DesireHelpAttacking(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight) throws Exception
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
-		if(!(this.getRemoteEntity().getHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 		
-		this.m_animal = this.getRemoteEntity().getHandle();
+		this.m_animal = this.getEntityHandle();
 		this.m_type = 1;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
+		if(this.m_animal == null)
+			return false;
+		
 		if(!this.isTamed())
 			return false;
 		else
@@ -43,7 +46,7 @@ public class DesireHelpAttacking extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().getHandle().b(this.m_ownerTarget);
+		this.getEntityHandle().b(this.m_ownerTarget);
 		super.startExecuting();
 	}
 	

@@ -17,7 +17,7 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	@Override
 	public boolean shouldExecute()
 	{
-		return !super.shouldExecute() ? false : ! this.m_door.a_(this.getRemoteEntity().getHandle().world, this.m_x, this.m_y, this.m_z);
+		return !super.shouldExecute() ? false : ! this.m_door.a_(this.getEntityHandle().world, this.m_x, this.m_y, this.m_z);
 	}
 	
 	@Override
@@ -30,36 +30,36 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	@Override
 	public boolean canContinue()
 	{
-		double dist = this.getRemoteEntity().getHandle().e((double)this.m_x, (double)this.m_y, (double)this.m_z);
-		return this.m_breakTick <= 240 && !this.m_door.a_(this.getRemoteEntity().getHandle().world, this.m_x, this.m_y, this.m_z) && dist < 4;
+		double dist = this.getEntityHandle().e((double)this.m_x, (double)this.m_y, (double)this.m_z);
+		return this.m_breakTick <= 240 && !this.m_door.a_(this.getEntityHandle().world, this.m_x, this.m_y, this.m_z) && dist < 4;
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
 		super.stopExecuting();
-		this.getRemoteEntity().getHandle().world.g(this.getRemoteEntity().getHandle().id, this.m_x, this.m_y, this.m_z, -1);
+		this.getEntityHandle().world.g(this.getEntityHandle().id, this.m_x, this.m_y, this.m_z, -1);
 	}
 	
 	@Override
 	public boolean update()
 	{
 		super.update();
-		if(this.getRemoteEntity().getHandle().aA().nextInt(20) == 0)
-			this.getRemoteEntity().getHandle().world.triggerEffect(1010, this.m_x, this.m_y, this.m_z, 0);
+		if(this.getEntityHandle().aA().nextInt(20) == 0)
+			this.getEntityHandle().world.triggerEffect(1010, this.m_x, this.m_y, this.m_z, 0);
 		
 		this.m_breakTick++;
 		int i = (int)(this.m_breakTick / 240 * 10);
 		if(i != this.m_lastBreak)
 		{
-			this.getRemoteEntity().getHandle().world.g(this.getRemoteEntity().getHandle().id, this.m_x, this.m_y, this.m_z, i);
+			this.getEntityHandle().world.g(this.getEntityHandle().id, this.m_x, this.m_y, this.m_z, i);
 			this.m_lastBreak = i;
 		}
 		
-		World w = this.getRemoteEntity().getHandle().world;
+		World w = this.getEntityHandle().world;
 		if(this.m_breakTick == 240 && w.difficulty == 3)
 		{
-			if (CraftEventFactory.callEntityBreakDoorEvent(this.getRemoteEntity().getHandle(), this.m_x, this.m_y, this.m_z).isCancelled()) {
+			if (CraftEventFactory.callEntityBreakDoorEvent(this.getEntityHandle(), this.m_x, this.m_y, this.m_z).isCancelled()) {
                 this.update();
                 return true;
             }

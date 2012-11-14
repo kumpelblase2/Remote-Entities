@@ -22,8 +22,8 @@ public class DesireEatGrass extends DesireBase
 	public void startExecuting()
 	{
 		this.m_eatTick = 40;
-		this.getRemoteEntity().getHandle().world.broadcastEntityEffect(this.getRemoteEntity().getHandle(), (byte)10);
-		this.getRemoteEntity().getHandle().getNavigation().g();
+		this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)10);
+		this.getEntityHandle().getNavigation().g();
 	}
 
 	@Override
@@ -35,11 +35,14 @@ public class DesireEatGrass extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().aA().nextInt(this.getRemoteEntity().getHandle().isBaby() ? 50 : 1000) != 0)
+		if(this.getEntityHandle() == null)
+			return false;
+		
+		if(this.getEntityHandle().aA().nextInt(this.getEntityHandle().isBaby() ? 50 : 1000) != 0)
 			return false;
 		else
 		{
-			EntityLiving entity = this.getRemoteEntity().getHandle();
+			EntityLiving entity = this.getEntityHandle();
 			int x = MathHelper.floor(entity.locX);
 			int y = MathHelper.floor(entity.locY);
 			int z = MathHelper.floor(entity.locZ);
@@ -65,14 +68,14 @@ public class DesireEatGrass extends DesireBase
 		this.m_eatTick = Math.max(0, this.m_eatTick - 1);
 		if(this.m_eatTick == 4)
 		{
-			EntityLiving entity = this.getRemoteEntity().getHandle();
+			EntityLiving entity = this.getEntityHandle();
 			int x = MathHelper.floor(entity.locX);
 			int y = MathHelper.floor(entity.locY);
 			int z = MathHelper.floor(entity.locZ);
 			
 			if(entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id)
 			{
-				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getRemoteEntity().getHandle().world.getWorld().getBlockAt(x, y, z), Material.AIR).isCancelled())
+				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getEntityHandle().world.getWorld().getBlockAt(x, y, z), Material.AIR).isCancelled())
 				{
 					entity.world.triggerEffect(2001, x, y, z, Block.LONG_GRASS.id + 4096);
 					entity.world.setTypeId(x, z, z, 0);
@@ -81,7 +84,7 @@ public class DesireEatGrass extends DesireBase
 			}
 			else if(entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id)
 			{
-				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getRemoteEntity().getHandle().world.getWorld().getBlockAt(x, y - 1, z), Material.DIRT).isCancelled())
+				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getEntityHandle().world.getWorld().getBlockAt(x, y - 1, z), Material.DIRT).isCancelled())
 				{
 					entity.world.triggerEffect(2001, x, y, z, Block.GRASS.id);
 					entity.world.setTypeId(x, y - 1, z, Block.DIRT.id);

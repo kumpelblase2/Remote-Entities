@@ -26,7 +26,7 @@ public class DesireWanderAroundArea extends DesireWanderAround
 			int tries = 0;
 			while(!WorldUtilities.isInCircle(this.m_xPos, this.m_zPos, this.m_midSpot.getX(), this.m_midSpot.getZ(), this.m_Radius) && tries <= 10)
 			{
-				Vec3D vector = RandomPositionGenerator.a(this.getRemoteEntity().getHandle(), 10, 7);
+				Vec3D vector = RandomPositionGenerator.a(this.getEntityHandle(), 10, 7);
 				if(vector != null)
 				{
 					this.m_xPos = vector.c;

@@ -28,13 +28,13 @@ public class DesireOfferFlower extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getRemoteEntity().getHandle().world.t())
+		if(this.getEntityHandle() == null || this.getEntityHandle().world.t())
 			return false;
-		else if(this.getRemoteEntity().getHandle().aA().nextInt(8000) != 0)
+		else if(this.getEntityHandle().aA().nextInt(8000) != 0)
 			return false;
 		else
 		{
-			this.m_nearestEntity = (EntityLiving)this.getRemoteEntity().getHandle().world.a(this.m_toOfffer, this.getRemoteEntity().getHandle().boundingBox.grow(6, 2, 6), this.getRemoteEntity().getHandle());
+			this.m_nearestEntity = (EntityLiving)this.getEntityHandle().world.a(this.m_toOfffer, this.getEntityHandle().boundingBox.grow(6, 2, 6), this.getEntityHandle());
 			return this.m_nearestEntity != null;
 		}
 	}
@@ -49,26 +49,26 @@ public class DesireOfferFlower extends DesireBase
 	public void startExecuting()
 	{
 		this.m_offerTick = 400;
-		if(this.getRemoteEntity().getHandle() instanceof EntityIronGolem)
-			((EntityIronGolem)this.getRemoteEntity().getHandle()).e(true);
+		if(this.getEntityHandle() instanceof EntityIronGolem)
+			((EntityIronGolem)this.getEntityHandle()).e(true);
 		else
-			this.getRemoteEntity().getHandle().world.broadcastEntityEffect(this.getRemoteEntity().getHandle(), (byte)11);
+			this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)11);
 	}
 	
 	@Override
 	public void stopExecuting()
 	{
 		this.m_nearestEntity = null;
-		if(this.getRemoteEntity().getHandle() instanceof EntityIronGolem)
-			((EntityIronGolem)this.getRemoteEntity().getHandle()).e(false);
+		if(this.getEntityHandle() instanceof EntityIronGolem)
+			((EntityIronGolem)this.getEntityHandle()).e(false);
 		else
-			this.getRemoteEntity().getHandle().world.broadcastEntityEffect(this.getRemoteEntity().getHandle(), (byte)11);
+			this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)11);
 	}
 	
 	@Override
 	public boolean update()
 	{
-		this.getRemoteEntity().getHandle().getControllerLook().a(this.m_nearestEntity, 30, 30);
+		this.getEntityHandle().getControllerLook().a(this.m_nearestEntity, 30, 30);
 		this.m_offerTick--;
 		return true;
 	}
