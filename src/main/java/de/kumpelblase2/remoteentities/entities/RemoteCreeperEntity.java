@@ -63,6 +63,22 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	}
 
 	@Override
+	public void g(double x, double y, double z)
+	{		
+		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
+			super.g(x, y, z);
+	}
+	
+	@Override
+	public void move(double d0, double d1, double d2)
+	{
+		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
+			return;
+		
+		super.move(d0, d1, d2);
+	}
+	
+	@Override
 	public void setupStandardGoals()
 	{
 		try
