@@ -29,7 +29,7 @@ public class DesireAcceptFlower extends DesireBase
 		
 		if(entity instanceof EntityAgeable && ((EntityAgeable)entity).getAge() >= 0)
 			return false;
-		else if(!entity.world.t())
+		else if(!entity.world.u())
 			return false;
 		else
 		{
@@ -63,7 +63,7 @@ public class DesireAcceptFlower extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_takeFlowerTick = this.getEntityHandle().aA().nextInt(320);
+		this.m_takeFlowerTick = this.getEntityHandle().aB().nextInt(320);
 		this.m_takeFlower = false;
 		this.m_nearestGolem.getNavigation().g();
 	}

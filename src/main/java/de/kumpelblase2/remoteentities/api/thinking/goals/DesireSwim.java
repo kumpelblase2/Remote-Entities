@@ -21,7 +21,7 @@ public class DesireSwim extends DesireBase
 	@Override
 	public boolean update()
 	{
-		if(this.getEntityHandle().aA().nextFloat() < 0.8F)
+		if(this.getEntityHandle().aB().nextFloat() < 0.8F)
 			this.getEntityHandle().getControllerJump().a();
 		return true;
 	}

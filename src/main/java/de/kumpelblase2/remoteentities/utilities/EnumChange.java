@@ -6,8 +6,10 @@ import sun.reflect.*;
 
 public final class EnumChange
 {
+	@SuppressWarnings("restriction")
 	private static ReflectionFactory reflectionFactory = ReflectionFactory.getReflectionFactory();
 
+	@SuppressWarnings("restriction")
 	private static void setFailsafeFieldValue(final Field field, final Object target, final Object value) throws NoSuchFieldException, IllegalAccessException
 	{
 		// let's make the field accessible
@@ -41,6 +43,7 @@ public final class EnumChange
 		blankField(enumClass, "enumConstantDirectory"); // Sun (Oracle?!?) JDK 1.5/6
 	}
 
+	@SuppressWarnings("restriction")
 	private static ConstructorAccessor getConstructorAccessor(final Class<?> enumClass, final Class<?>[] additionalParameterTypes) throws NoSuchMethodException
 	{
 		final Class<?>[] parameterTypes = new Class[additionalParameterTypes.length + 2];
@@ -50,6 +53,7 @@ public final class EnumChange
 		return reflectionFactory.newConstructorAccessor(enumClass.getDeclaredConstructor(parameterTypes));
 	}
 
+	@SuppressWarnings("restriction")
 	private static Object makeEnum(final Class<?> enumClass, final String value, final int ordinal, final Class<?>[] additionalTypes, final Object[] additionalValues) throws Exception
 	{
 		final Object[] parms = new Object[additionalValues.length + 2];

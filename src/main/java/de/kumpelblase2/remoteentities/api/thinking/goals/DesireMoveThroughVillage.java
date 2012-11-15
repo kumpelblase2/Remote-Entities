@@ -32,7 +32,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	{
 		this.cleanupDoors();
 		EntityLiving entity = this.getEntityHandle();		
-		if(entity == null || (this.m_onlyNight && entity.world.t()))
+		if(entity == null || (this.m_onlyNight && entity.world.u()))
 			return false;
 		else
 		{

@@ -83,7 +83,7 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!this.getEntityHandle().az().canSee(this.m_closestEntity))
+        if (!this.getEntityHandle().aA().canSee(this.m_closestEntity))
         {
             return false;
         }

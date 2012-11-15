@@ -120,24 +120,24 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
                 this.m_jumpDelay /= 3;
             }
 
-            this.bG = true;
+            this.bE = true;
             if (this.q()) {
                 this.world.makeSound(this, this.n(), this.aV(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = (float) (1 * this.getSize());
+            this.bB = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bC = (float) (1 * this.getSize());
         } else {
-            this.bG = false;
+            this.bE= false;
             if (this.onGround) {
-                this.bD = this.bE = 0.0F;
+                this.bB = this.bC = 0.0F;
             }
         }
 		// ---
 	}
 	
 	@Override
-	public void b_(EntityHuman entity)
+	public void c_(EntityHuman entity)
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
@@ -156,18 +156,18 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 				}
 			}
 		}
-		super.b_(entity);
+		super.c_(entity);
 	}
 	
 	@Override
-	public boolean c(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
 			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.c(entity);
+		return super.a(entity);
 	}
 	
 	@Override
@@ -179,7 +179,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	}
 	
 	@Override
-	public boolean bb()
+	public boolean be()
 	{
 		return true;
 	}

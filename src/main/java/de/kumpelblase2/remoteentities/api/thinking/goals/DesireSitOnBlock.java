@@ -33,7 +33,7 @@ public class DesireSitOnBlock extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aA().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
+		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aB().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class DesireSitOnBlock extends DesireBase
 		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 		this.m_currentSitTick = 0;
 		this.m_d = 0;
-		this.m_maxSitTicks = this.m_ocelot.aA().nextInt(this.m_ocelot.aA().nextInt(1200) + 1200) + 1200;
+		this.m_maxSitTicks = this.m_ocelot.aB().nextInt(this.m_ocelot.aB().nextInt(1200) + 1200) + 1200;
 		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
 			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
 	}
@@ -120,7 +120,7 @@ public class DesireSitOnBlock extends DesireBase
 			if(type == Block.BURNING_FURNACE.id)
 				return true;
 			
-			if(type == Block.BED.id && !BlockBed.b_(data)) //TODO
+			if(type == Block.BED.id && !BlockBed.b_(data))
 				return true;
 		}
 		

@@ -21,7 +21,7 @@ public class DesireOcelotAttack extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		EntityLiving target = this.getEntityHandle().aF();
+		EntityLiving target = this.getEntityHandle().aG();
 		if(target == null)
 			return false;
 		

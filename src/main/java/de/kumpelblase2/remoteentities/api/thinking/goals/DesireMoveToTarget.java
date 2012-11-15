@@ -28,7 +28,7 @@ public class DesireMoveToTarget extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		this.m_target = this.getEntityHandle().aF();
+		this.m_target = this.getEntityHandle().aG();
 		if(this.m_target == null)
 			return false;
 		else if(this.m_target.e(this.getEntityHandle()) > this.m_minDistance * this.m_minDistance)
