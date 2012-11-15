@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.kumpelblase2</groupId>
   <artifactId>remoteentities</artifactId>
-  <version>1.1</version>
+  <version>1.2-SNAPSHOT</version>
   <name>RemoteEntities</name>
   <description>Be able to control every entity in the game. Also you can create npcs if you want to!</description>
   <repositories>
