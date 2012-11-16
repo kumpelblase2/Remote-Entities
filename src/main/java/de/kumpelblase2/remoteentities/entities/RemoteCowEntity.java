@@ -117,7 +117,7 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 	public void j_()
 	{
 		super.j_();
-		if(this.getRemoteEntity() == null)
+		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 	
