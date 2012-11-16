@@ -98,7 +98,7 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 	public void j_()
 	{
 		super.j_();
-		if(this.getRemoteEntity() == null)
+		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 	

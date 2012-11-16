@@ -117,7 +117,7 @@ public class RemoteChickenEntity extends EntityChicken implements RemoteEntityHa
 	public void j_()
 	{
 		super.j_();
-		if(this.getRemoteEntity() == null)
+		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 	
