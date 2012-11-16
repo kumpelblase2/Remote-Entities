@@ -109,7 +109,8 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
             this.applyMovement();
         }
         
-        this.getRemoteEntity().getMind().tick();
+        if(this.getRemoteEntity() != null)
+        	this.getRemoteEntity().getMind().tick();
 	}
 	
 	public void applyMovement()
