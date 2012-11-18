@@ -59,6 +59,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void c_(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return;
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
 			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
@@ -82,6 +85,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public boolean a(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return super.a(entity);
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
 			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
