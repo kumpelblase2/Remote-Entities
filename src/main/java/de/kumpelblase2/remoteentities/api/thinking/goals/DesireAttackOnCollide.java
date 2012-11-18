@@ -90,7 +90,10 @@ public class DesireAttackOnCollide extends DesireBase
 			if(this.m_attackTick <= 0)
 			{
 				this.m_attackTick = 20;
-				entity.l(this.m_target);
+				if(entity.bD() != null)
+					entity.bH();
+				
+				entity.m(this.m_target);
 			}
 		}
 		return true;
