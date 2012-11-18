@@ -19,5 +19,3 @@ target/classes/de/kumpelblase2/removeentities/.DS_Store
 dependency-reduced-pom.xml
 
 target/*
-releases/*
-snapshots/*
