@@ -169,8 +169,11 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 	@Override
 	public void die(DamageSource damagesource)
 	{
-		this.getRemoteEntity().getMind().clearMovementDesires();
-		this.getRemoteEntity().getMind().clearActionDesires();
+		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
+		{
+			this.getRemoteEntity().getMind().clearMovementDesires();
+			this.getRemoteEntity().getMind().clearActionDesires();
+		}
 		super.die(damagesource);
 	}
 }

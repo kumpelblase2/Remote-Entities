@@ -173,8 +173,11 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	@Override
 	public void die(DamageSource damagesource)
 	{
-		this.getRemoteEntity().getMind().clearMovementDesires();
-		this.getRemoteEntity().getMind().clearActionDesires();
+		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
+		{
+			this.getRemoteEntity().getMind().clearMovementDesires();
+			this.getRemoteEntity().getMind().clearActionDesires();
+		}
 		super.die(damagesource);
 	}
 	
