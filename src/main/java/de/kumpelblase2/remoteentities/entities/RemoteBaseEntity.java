@@ -206,12 +206,12 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
-	public void despawn(DespawnReason inReason)
+	public boolean despawn(DespawnReason inReason)
 	{		
 		RemoteEntityDespawnEvent event = new RemoteEntityDespawnEvent(this, inReason);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
-			return;
+			return false;
 		
 		for(Behavior behaviour : this.getMind().getBehaviours())
 		{
@@ -221,6 +221,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
 		this.m_entity = null;
+		return true;
 	}
 	
 	@Override

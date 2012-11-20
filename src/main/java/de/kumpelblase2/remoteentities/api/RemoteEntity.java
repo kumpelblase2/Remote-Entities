@@ -109,7 +109,7 @@ public interface RemoteEntity
 	 * 
 	 * @param inReason	reason for despawning
 	 */
-	public void despawn(DespawnReason inReason);
+	public boolean despawn(DespawnReason inReason);
 	
 	/**
 	 * Checks if the entity is spawned
