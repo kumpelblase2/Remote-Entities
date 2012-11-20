@@ -187,7 +187,7 @@ public class EntityManager
 	 */
 	public void removeEntity(int inID)
 	{
-		this.remoteEntity(inID, true);
+		this.removeEntity(inID, true);
 	}
 	
 	/**
@@ -196,7 +196,7 @@ public class EntityManager
 	 * @param inID			ID of the entity to remove
 	 * @param inDespawn		Whether the entity should get despawned or not
 	 */
-	public void remoteEntity(int inID, boolean inDespawn)
+	public void removeEntity(int inID, boolean inDespawn)
 	{
 		if(this.m_entities.containsKey((Integer)inID) && inDespawn)
 			this.m_entities.get((Integer)inID).despawn(DespawnReason.CUSTOM);
