@@ -60,12 +60,30 @@ public interface RemoteEntity
 	public boolean move(Location inLocation);
 	
 	/**
-	 * Tries to move the entity towards an entity
+	 * Tries to move the entity to a location with given speed
+	 * 
+	 * @param inLocation	location to move to
+	 * @param inSpeed		speed of the entity
+	 * @return				true if it was possible, false if not
+	 */
+	public boolean move(Location inLocation, float inSpeed);
+	
+	/**
+	 * Tries to move the entity towards another entity
 	 * 
 	 * @param inEntity	entity to move to
 	 * @return			true if it was possible to move the entity, false if not
 	 */
 	public boolean move(LivingEntity inEntity);
+	
+	/**
+	 * Tries to move the entity towards another entity with given speed
+	 * 
+	 * @param inEntity	entity to move to
+	 * @param inSpeed	speed of the entity
+	 * @return			true if it was possible, false if not
+	 */
+	public boolean move(LivingEntity inEntity, float inSpeed);
 	
 	/**
 	 * Stops the current movement of the entity

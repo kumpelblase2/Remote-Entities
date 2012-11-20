@@ -116,15 +116,19 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation)
 	{
-		if(this.m_entity == null)
+		return this.move(inLocation, this.getSpeed());
+	}
+	
+	@Override
+	public boolean move(Location inLocation, float inSpeed)
+	{
+		if(this.m_entity == null || this.m_isStationary)
 			return false;
 		
-		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), this.getSpeed()))
+		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
 			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
-			if(this.m_entity instanceof EntityCreature)
-				((EntityCreature)this.m_entity).setPathEntity(path);
-			return this.m_entity.getNavigation().a(path, this.getSpeed());
+			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
 	}
@@ -132,17 +136,23 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(LivingEntity inEntity)
 	{
-		if(this.m_entity == null)
+		return this.move(inEntity, this.getSpeed());
+	}
+	
+	@Override
+	public boolean move(LivingEntity inEntity, float inSpeed)
+	{
+		if(this.m_entity == null || this.m_isStationary)
 			return false;
 		
 		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
-		if(!this.m_entity.getNavigation().a(handle, this.getSpeed()))
+		if(handle == this.m_entity)
+			return true;
+		
+		if(!this.m_entity.getNavigation().a(handle, inSpeed))
 		{
 			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, 20, true, false, false, true);
-			if(this.m_entity instanceof EntityCreature)
-				((EntityCreature)this.m_entity).setPathEntity(path);
-			
-			return this.m_entity.getNavigation().a(path, this.getSpeed());
+			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
 	}
@@ -247,5 +257,16 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	public int getMaxHealth()
 	{
 		return this.m_entity.getMaxHealth();
+	}
+	
+	public boolean moveWithPath(PathEntity inPath, float inSpeed)
+	{
+		if(this.m_entity == null || inPath == null || this.m_isStationary)
+			return false;
+		
+		if(this.m_entity instanceof EntityCreature)
+			((EntityCreature)this.m_entity).setPathEntity(inPath);
+		
+		return this.m_entity.getNavigation().a(inPath, inSpeed);
 	}
 }
