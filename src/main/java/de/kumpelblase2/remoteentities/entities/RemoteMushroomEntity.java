@@ -3,19 +3,13 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityMushroomCow;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.World;
+import net.minecraft.server.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 
 public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEntityHandle
 {
@@ -57,6 +51,22 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 	@Override
 	public void setupStandardGoals()
 	{
+		try
+		{
+			Mind mind = this.getRemoteEntity().getMind();
+			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
+			mind.addMovementDesire(new DesirePanic(this.getRemoteEntity()), 1);
+			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 2);
+			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.WHEAT.id, false), 3);
+			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 4);
+			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 6);
+			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override

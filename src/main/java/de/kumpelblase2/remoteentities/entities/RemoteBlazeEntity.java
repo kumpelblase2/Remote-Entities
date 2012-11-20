@@ -3,17 +3,12 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.EntityBlaze;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.World;
+import net.minecraft.server.*;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 {

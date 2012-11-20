@@ -8,24 +8,9 @@ import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.Mind;
-import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireRangedAttack;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwell;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityLiving;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.EntityWither;
-import net.minecraft.server.World;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.goals.*;
+import net.minecraft.server.*;
 
 public class RemoteWitherEntity extends EntityWither implements RemoteEntityHandle
 {
