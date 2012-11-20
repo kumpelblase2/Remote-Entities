@@ -6,6 +6,7 @@ import org.bukkit.inventory.Inventory;
 import net.minecraft.server.*;
 import net.minecraft.server.Navigation;
 import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
@@ -91,6 +92,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
+			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return super.a(entity);
+			
 			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
