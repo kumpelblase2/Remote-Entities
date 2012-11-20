@@ -32,7 +32,8 @@ public enum RemoteEntityType
 	Villager(RemoteVillager.class, RemoteVillagerEntity.class, false),
 	Wolf(RemoteWolf.class, RemoteWolfEntity.class, false),
 	Witch(RemoteWitch.class, RemoteWitchEntity.class, false),
-	Wither(RemoteWither.class, RemoteWitherEntity.class, false);
+	Wither(RemoteWither.class, RemoteWitherEntity.class, false),
+	Bat(RemoteBat.class, RemoteBatEntity.class, false);
 	
 	
 	private Class<? extends EntityLiving> m_entityClass;
