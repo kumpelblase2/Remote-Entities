@@ -34,11 +34,6 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteWitchEntity.class, "Witch", 66);
-	}
-	
 	public RemoteWitchEntity(World world)
 	{
 		this(world, null);

@@ -63,4 +63,10 @@ public class RemoteCaveSpider extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "CaveSpider";
+	}
 }

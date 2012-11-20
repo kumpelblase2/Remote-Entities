@@ -28,11 +28,6 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteCreeperEntity.class, "Creeper", 50);
-	}
-	
 	public RemoteCreeperEntity(World world)
 	{
 		this(world, null);

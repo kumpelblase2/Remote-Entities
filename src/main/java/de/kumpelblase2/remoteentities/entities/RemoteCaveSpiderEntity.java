@@ -27,11 +27,6 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteCaveSpiderEntity.class, "CaveSpider", 59);
-	}
-	
 	public RemoteCaveSpiderEntity(World world)
 	{
 		this(world, null);

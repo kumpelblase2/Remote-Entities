@@ -28,11 +28,6 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemotePigEntity.class, "Pig", 90);
-	}
-	
 	public RemotePigEntity(World world)
 	{
 		this(world, null);

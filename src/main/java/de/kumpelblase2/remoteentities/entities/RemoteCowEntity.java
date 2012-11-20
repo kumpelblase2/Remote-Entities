@@ -28,11 +28,6 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteCowEntity.class, "Cow", 92);
-	}
-	
 	public RemoteCowEntity(World world)
 	{
 		this(world, null);

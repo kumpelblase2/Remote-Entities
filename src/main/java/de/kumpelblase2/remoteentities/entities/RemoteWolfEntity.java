@@ -31,11 +31,6 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteWolfEntity.class, "Wolf", 95);
-	}
-	
 	public RemoteWolfEntity(World world)
 	{
 		this(world, null);

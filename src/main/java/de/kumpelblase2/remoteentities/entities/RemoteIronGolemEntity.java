@@ -28,11 +28,6 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteIronGolemEntity.class, "VillagerGolem", 99);
-	}
-	
 	public RemoteIronGolemEntity(World world)
 	{
 		this(world, null);

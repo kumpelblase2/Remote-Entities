@@ -28,11 +28,6 @@ public class RemoteChickenEntity extends EntityChicken implements RemoteEntityHa
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteChickenEntity.class, "Chicken", 93);
-	}
-	
 	public RemoteChickenEntity(World world)
 	{
 		this(world, null);

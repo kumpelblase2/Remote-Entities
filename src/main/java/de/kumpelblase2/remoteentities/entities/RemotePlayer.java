@@ -102,4 +102,10 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		
 		return null;
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Player";
+	}
 }

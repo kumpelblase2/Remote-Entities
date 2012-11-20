@@ -26,11 +26,6 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSlimeEntity.class, "Slime", 55);
-	}
-	
 	public RemoteSlimeEntity(World world)
 	{
 		this(world, null);

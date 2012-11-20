@@ -27,11 +27,6 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteGhastEntity.class, "Ghast", 56);
-	}
-	
 	public RemoteGhastEntity(World world)
 	{
 		this(world, null);

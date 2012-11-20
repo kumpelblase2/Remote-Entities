@@ -27,11 +27,6 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSpiderEntity.class, "Spider", 52);
-	}
-	
 	public RemoteSpiderEntity(World world)
 	{
 		super(world);

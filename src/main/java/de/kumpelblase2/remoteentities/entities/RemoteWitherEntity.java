@@ -34,11 +34,6 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 	public static int defaultMaxHealth = 300;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteWitchEntity.class, "Wither", 10);
-	}
 	
 	public RemoteWitherEntity(World world)
 	{

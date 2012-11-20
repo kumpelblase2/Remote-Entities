@@ -23,11 +23,6 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteBlazeEntity.class, "Blaze", 61);
-	}
-	
 	public RemoteBlazeEntity(World world)
 	{
 		this(world, null);

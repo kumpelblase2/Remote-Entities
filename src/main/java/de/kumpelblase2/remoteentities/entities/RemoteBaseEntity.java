@@ -23,6 +23,8 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class RemoteBaseEntity implements RemoteEntity
 {
@@ -178,11 +180,14 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		inLocation = event.getSpawnLocation();
 		
 		try
-		{			
+		{
+			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
+			ReflectionUtil.registerEntityType(this.getType().getEntityClass(), this.getNativeEntityName(), entry.getID());
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 			this.m_entity = (EntityLiving)this.m_type.getEntityClass().getConstructor(World.class, RemoteEntity.class).newInstance(worldServer, this);
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
+			entry.restore();
 		}
 		catch(Exception e)
 		{

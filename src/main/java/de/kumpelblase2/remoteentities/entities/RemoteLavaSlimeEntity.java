@@ -26,11 +26,6 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteLavaSlimeEntity.class, "LavaSlime", 62);
-	}
-	
 	public RemoteLavaSlimeEntity(World world)
 	{
 		this(world, null);

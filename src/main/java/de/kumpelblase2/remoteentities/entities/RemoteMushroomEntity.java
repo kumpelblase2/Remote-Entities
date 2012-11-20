@@ -25,11 +25,6 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteMushroomEntity.class, "MushroomCow", 96);
-	}
-	
 	public RemoteMushroomEntity(World world)
 	{
 		this(world, null);

@@ -25,11 +25,6 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteEndermanEntity.class, "Enderman", 58);
-	}
-	
 	public RemoteEndermanEntity(World world)
 	{
 		this(world, null);

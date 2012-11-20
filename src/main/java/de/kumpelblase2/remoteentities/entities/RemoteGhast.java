@@ -62,4 +62,10 @@ public class RemoteGhast extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Ghast";
+	}
 }

@@ -28,11 +28,6 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSheepEntity.class, "Sheep", 91);
-	}
-	
 	public RemoteSheepEntity(World world)
 	{
 		this(world, null);

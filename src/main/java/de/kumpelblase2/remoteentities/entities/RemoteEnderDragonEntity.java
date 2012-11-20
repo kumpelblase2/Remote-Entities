@@ -27,11 +27,6 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	protected long m_lastBouncedTime;
 	public static int defaultMaxHealth = 100;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteEnderDragonEntity.class, "EnderDragon", 63);
-	}
-	
 	public RemoteEnderDragonEntity(World world)
 	{
 		this(world, null);

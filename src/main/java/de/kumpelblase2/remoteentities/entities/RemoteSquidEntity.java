@@ -25,11 +25,6 @@ public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSquidEntity.class, "Squid", 94);
-	}
-	
 	public RemoteSquidEntity(World world)
 	{
 		this(world, null);

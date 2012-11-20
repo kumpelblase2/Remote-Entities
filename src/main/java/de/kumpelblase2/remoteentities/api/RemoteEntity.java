@@ -163,4 +163,11 @@ public interface RemoteEntity
 	 * @return EntityManager
 	 */
 	public EntityManager getManager();
+	
+	/**
+	 * The native name is the name that is used in the EntityTypes enum. This is used internally for automatically registering the entity to the enum.
+	 * 
+	 * @return native name
+	 */
+	public String getNativeEntityName();
 }

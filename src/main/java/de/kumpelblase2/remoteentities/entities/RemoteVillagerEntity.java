@@ -29,11 +29,6 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteVillagerEntity.class, "Villager", 120);
-	}
-	
 	public RemoteVillagerEntity(World world)
 	{
 		this(world, null);

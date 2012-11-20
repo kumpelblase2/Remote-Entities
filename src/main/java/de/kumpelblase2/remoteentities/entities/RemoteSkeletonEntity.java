@@ -30,11 +30,6 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSkeletonEntity.class, "Skeleton", 51);
-	}
-	
 	public RemoteSkeletonEntity(World world)
 	{
 		super(world);

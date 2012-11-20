@@ -8,6 +8,7 @@ import net.minecraft.server.Navigation;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
 import de.kumpelblase2.remoteentities.nms.*;
 
 public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHandle
@@ -101,13 +102,13 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		super.j_();
 		super.g();
-		
+
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
-		
+
         if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
             motX = motY = motZ = 0;
-		
+
 		Navigation navigation = getNavigation();
         if(!navigation.f())
         {
@@ -118,17 +119,17 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
         if(this.getRemoteEntity() != null)
         	this.getRemoteEntity().getMind().tick();
 	}
-	
+
 	public void applyMovement()
 	{
 		if(this.m_remoteEntity.isStationary())
 			return;
-		
+
 		getControllerMove().c();
 		getControllerLook().a();
 		getControllerJump().b();
 		e(this.getRemoteEntity().getSpeed());
-		
+
 		if (bE)
 		{
             boolean inLiquid = H() || J();
@@ -189,6 +190,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void setupStandardGoals()
 	{
+		this.getRemoteEntity().getMind().addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
 	}
 	
 	@Override

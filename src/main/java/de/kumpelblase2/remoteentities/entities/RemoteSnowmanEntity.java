@@ -29,11 +29,6 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSnowmanEntity.class, "SnowMan", 97);
-	}
-	
 	public RemoteSnowmanEntity(World world)
 	{
 		this(world, null);

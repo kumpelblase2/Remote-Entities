@@ -28,11 +28,6 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteZombieEntity.class, "Zombie", 54);
-	}
-	
 	public RemoteZombieEntity(World world)
 	{
 		this(world, null);

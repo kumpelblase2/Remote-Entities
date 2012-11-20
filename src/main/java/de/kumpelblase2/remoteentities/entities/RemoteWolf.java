@@ -63,4 +63,10 @@ public class RemoteWolf extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Wolf";
+	}
 }

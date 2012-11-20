@@ -31,11 +31,6 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteOceloteEntity.class, "Ozelote", 98);
-	}
-	
 	public RemoteOceloteEntity(World world)
 	{
 		this(world, null);

@@ -25,11 +25,6 @@ public class RemoteSilverfishEntity extends EntitySilverfish implements RemoteEn
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSilverfishEntity.class, "Silverfish", 60);
-	}
-	
 	public RemoteSilverfishEntity(World world)
 	{
 		this(world, null);

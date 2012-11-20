@@ -28,11 +28,6 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemotePigmenEntity.class, "PigZombie", 57);
-	}
-	
 	public RemotePigmenEntity(World world)
 	{
 		this(world, null);
