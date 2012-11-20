@@ -31,11 +31,17 @@ public class EntityManager
 				while(it.hasNext())
 				{
 					Entry<Integer, RemoteEntity> entry = it.next();
-					entry.getValue().getHandle().y();
-					if(entry.getValue().getHandle().dead)
-					{
-						entry.getValue().despawn(DespawnReason.DEATH);
+					RemoteEntity entity = entry.getValue();
+					if(entity.getHandle() == null)
 						it.remove();
+					else
+					{
+						entity.getHandle().y();
+						if(entity.getHandle().dead)
+						{
+							entity.despawn(DespawnReason.DEATH);
+							it.remove();
+						}
 					}
 				}
 			}
