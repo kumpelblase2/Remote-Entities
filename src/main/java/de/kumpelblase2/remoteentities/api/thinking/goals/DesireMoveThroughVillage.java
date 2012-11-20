@@ -87,7 +87,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().getNavigation().a(this.m_path, this.getRemoteEntity().getSpeed());
+		this.movePath(this.m_path, this.getRemoteEntity().getSpeed());
 	}
 	
 	@Override

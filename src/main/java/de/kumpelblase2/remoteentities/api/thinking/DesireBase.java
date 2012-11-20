@@ -1,7 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import net.minecraft.server.EntityLiving;
+import net.minecraft.server.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 
 public abstract class DesireBase implements Desire
 {
@@ -64,5 +66,13 @@ public abstract class DesireBase implements Desire
 	public void setType(int inType)
 	{
 		this.m_type = inType;
+	}
+	
+	public void movePath(PathEntity inPath, float inSpeed)
+	{
+		if(this.getRemoteEntity() instanceof RemoteBaseEntity)
+			((RemoteBaseEntity)this.getRemoteEntity()).moveWithPath(inPath, inSpeed);
+		else
+			this.getEntityHandle().getNavigation().a(inPath, inSpeed);
 	}
 }

@@ -33,7 +33,7 @@ public class DesireAvoidSpecific extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().getNavigation().a(this.m_path, this.m_farSpeed);
+		this.movePath(this.m_path, this.m_farSpeed);
 	}
 
 	@Override

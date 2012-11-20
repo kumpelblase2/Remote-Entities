@@ -67,7 +67,7 @@ public class DesireSitOnBlock extends DesireBase
 		if(this.m_ocelot.e((double)this.m_x, (double)this.m_y + 1, (double)this.m_z) > 1)
 		{
 			this.m_ocelot.setSitting(false);
-			this.m_ocelot.getNavigation().a(this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D);
+			this.getRemoteEntity().move(new Location(this.m_ocelot.world.getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 			this.m_d++;
 		}
 		else if(!this.m_ocelot.isSitting())
