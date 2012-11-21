@@ -50,6 +50,6 @@ public class DesireTradeWithPlayer extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.m_villager.a_(null);
+		this.m_villager.b_(null);
 	}
 }

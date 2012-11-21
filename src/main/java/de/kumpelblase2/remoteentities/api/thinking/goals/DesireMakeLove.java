@@ -33,7 +33,7 @@ public class DesireMakeLove extends DesireBase
 		
 		if(this.m_villager.getAge() != 0)
 			return false;
-		else if(this.m_villager.aA().nextInt(500) != 0)
+		else if(this.m_villager.aB().nextInt(500) != 0)
 			return false;
 		else
 		{
@@ -87,7 +87,7 @@ public class DesireMakeLove extends DesireBase
 		else if(this.m_loveTick == 0 && this.m_partner.o())
 			this.createBaby();
 		
-		if(this.m_villager.aA().nextInt(35) == 0)
+		if(this.m_villager.aB().nextInt(35) == 0)
 			this.m_villager.world.broadcastEntityEffect(this.m_villager, (byte)12);
 		
 		return true;
@@ -99,7 +99,7 @@ public class DesireMakeLove extends DesireBase
 		this.m_villager.setAge(6000);
 		this.m_villager.setAge(6000);
 		baby.setAge(-24000);
-		baby.setProfession(this.m_villager.aA().nextInt(5));
+		baby.setProfession(this.m_villager.aB().nextInt(5));
 		baby.setPositionRotation(this.m_villager.locX, this.m_villager.locY, this.m_villager.locZ, 0, 0);
 		this.m_villager.world.addEntity(baby);
 		this.m_villager.world.broadcastEntityEffect(baby, (byte)12);

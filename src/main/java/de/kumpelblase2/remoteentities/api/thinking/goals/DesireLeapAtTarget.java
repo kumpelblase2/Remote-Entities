@@ -23,13 +23,13 @@ public class DesireLeapAtTarget extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		this.m_target = this.getEntityHandle().aF();
+		this.m_target = this.getEntityHandle().aG();
 		if(this.m_target == null)
 			return false;
 		else
 		{
 			double dist = this.getEntityHandle().e(this.m_target);
-			return dist >= 4 && dist <= 16 ? (!this.getEntityHandle().onGround ? false : this.getEntityHandle().aA().nextInt(5) == 0) : false;
+			return dist >= 4 && dist <= 16 ? (!this.getEntityHandle().onGround ? false : this.getEntityHandle().aB().nextInt(5) == 0) : false;
 		}
 	}
 	

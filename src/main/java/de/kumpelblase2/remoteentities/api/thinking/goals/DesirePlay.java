@@ -36,7 +36,7 @@ public class DesirePlay extends DesireBase
 		
 		if(this.m_villager.getAge() >= 0)
 			return false;
-		else if(this.m_villager.aA().nextInt(400) != 0)
+		else if(this.m_villager.aB().nextInt(400) != 0)
 			return false;
 		else
 		{

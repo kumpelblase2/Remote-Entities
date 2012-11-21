@@ -33,7 +33,7 @@ public class DesireAvoidSpecific extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().getNavigation().a(this.m_path, this.m_farSpeed);
+		this.movePath(this.m_path, this.m_farSpeed);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!this.getEntityHandle().az().canSee(this.m_closestEntity))
+        if (!this.getEntityHandle().aA().canSee(this.m_closestEntity))
         {
             return false;
         }

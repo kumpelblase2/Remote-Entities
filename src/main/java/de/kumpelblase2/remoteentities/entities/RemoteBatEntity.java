@@ -8,24 +8,23 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
-import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.features.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 
-public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
+public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
 	protected int m_maxHealth;
-	public static int defaultMaxHealth = 8;
+	public static int defaultMaxHealth = 20;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	public RemoteSheepEntity(World world)
+	public RemoteBatEntity(World world)
 	{
 		this(world, null);
 	}
 	
-	public RemoteSheepEntity(World world, RemoteEntity inRemoteEntity)
+	public RemoteBatEntity(World world, RemoteEntity inRemoteEntity)
 	{
 		super(world);
 		this.m_remoteEntity = inRemoteEntity;
@@ -33,7 +32,7 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_maxHealth = defaultMaxHealth;
 	}
-	
+
 	@Override
 	public Inventory getInventory()
 	{
@@ -52,39 +51,7 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
-			mind.addMovementDesire(new DesirePanic(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.WHEAT.id, false), 3);
-			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 4);
-			mind.addMovementDesire(new DesireEatGrass(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6F), 7);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 8);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void g(double x, double y, double z)
-	{		
-		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
-			super.g(x, y, z);
-	}
-	
-	@Override
-	public void move(double d0, double d1, double d2)
-	{
-		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
-			return;
 		
-		super.move(d0, d1, d2);
 	}
 
 	@Override
@@ -107,6 +74,28 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 		super.j_();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
+	}
+	
+	@Override
+	public boolean be()
+	{
+		return true;
+	}
+	
+	@Override
+	public void g(double x, double y, double z)
+	{		
+		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
+			super.g(x, y, z);
+	}
+	
+	@Override
+	public void move(double d0, double d1, double d2)
+	{
+		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
+			return;
+		
+		super.move(d0, d1, d2);
 	}
 	
 	@Override

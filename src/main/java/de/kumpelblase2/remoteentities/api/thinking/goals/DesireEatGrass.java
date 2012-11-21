@@ -38,7 +38,7 @@ public class DesireEatGrass extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		if(this.getEntityHandle().aA().nextInt(this.getEntityHandle().isBaby() ? 50 : 1000) != 0)
+		if(this.getEntityHandle().aB().nextInt(this.getEntityHandle().isBaby() ? 50 : 1000) != 0)
 			return false;
 		else
 		{

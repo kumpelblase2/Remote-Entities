@@ -62,4 +62,10 @@ public class RemotePigmen extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "PigZombie";
+	}
 }

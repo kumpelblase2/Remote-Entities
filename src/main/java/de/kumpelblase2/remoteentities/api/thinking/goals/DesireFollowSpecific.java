@@ -61,7 +61,7 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_toFollow, 10, this.getEntityHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_toFollow, 10, this.getEntityHandle().bp());
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
@@ -77,7 +77,7 @@ public class DesireFollowSpecific extends DesireBase
 					{
 						for(int l = 0; l <= 4; l++)
 						{
-							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.t(x + i, y - 1, z + l) && ! this.getEntityHandle().world.s(x + i, y, z + l) && ! this.getEntityHandle().world.s(x + i, y + 1, z + l))
+							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.v(x + i, y - 1, z + l) && !this.getEntityHandle().world.t(x + i, y, z + l) && !this.getEntityHandle().world.t(x + i, y + 1, z + l))
 							{
 								this.getEntityHandle().setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.getEntityHandle().yaw, this.getEntityHandle().pitch);
 								this.getEntityHandle().getNavigation().g();

@@ -25,9 +25,9 @@ public class DesireWanderAround extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		if(this.getEntityHandle().aD() >= 100)
+		if(this.getEntityHandle().aE() >= 100)
 			return false;
-		else if(this.getEntityHandle().aA().nextInt(120) != 0)
+		else if(this.getEntityHandle().aB().nextInt(120) != 0)
 			return false;
 		else if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isSitting())
 			return false;

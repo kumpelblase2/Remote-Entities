@@ -38,9 +38,9 @@ public class DesireAttackNearest extends DesireTargetBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		if(this.m_onlyAtNight && this.getEntityHandle().world.t())
+		if(this.m_onlyAtNight && this.getEntityHandle().world.u())
 			return false;
-		else if(this.m_targetChance > 0 && this.getEntityHandle().aA().nextInt(this.m_targetChance) != 0)
+		else if(this.m_targetChance > 0 && this.getEntityHandle().aB().nextInt(this.m_targetChance) != 0)
 			return false;
 		else
 		{

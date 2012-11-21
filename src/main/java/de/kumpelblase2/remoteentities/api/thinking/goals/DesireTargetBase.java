@@ -54,7 +54,7 @@ public abstract class DesireTargetBase extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving target = this.getEntityHandle().aF();
+		EntityLiving target = this.getEntityHandle().aG();
 		
 		if(target == null)
 			return false;
@@ -66,7 +66,7 @@ public abstract class DesireTargetBase extends DesireBase
 		{
 			if(this.m_shouldCheckSight)
 			{
-				if(this.getEntityHandle().az().canSee(target))
+				if(this.getEntityHandle().aA().canSee(target))
 					this.m_notSeeingTarget = 0;
 				else if(++this.m_notSeeingTarget > 60)
 					return false;
@@ -102,7 +102,7 @@ public abstract class DesireTargetBase extends DesireBase
 					
 				if(!this.getEntityHandle().e(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
 					return false;
-				else if(this.m_shouldCheckSight && !this.getEntityHandle().az().canSee(inEntity))
+				else if(this.m_shouldCheckSight && !this.getEntityHandle().aA().canSee(inEntity))
 					return false;
 				else
 				{
@@ -158,7 +158,7 @@ public abstract class DesireTargetBase extends DesireBase
 	
 	protected boolean useAttack(EntityLiving inEntity)
 	{
-		this.m_lastAttackTick = 10 + this.getEntityHandle().aA().nextInt(5);
+		this.m_lastAttackTick = 10 + this.getEntityHandle().aB().nextInt(5);
 		PathEntity path = this.getEntityHandle().getNavigation().a(inEntity);
 		
 		if(path == null)

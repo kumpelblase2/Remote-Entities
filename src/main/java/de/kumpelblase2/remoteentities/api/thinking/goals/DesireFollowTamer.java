@@ -75,7 +75,7 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.m_animal.getControllerLook().a(this.m_owner, 10, this.m_animal.bm());
+		this.m_animal.getControllerLook().a(this.m_owner, 10, this.m_animal.bp());
 		if(!this.isSitting())
 		{
 			if(--this.m_moveTick <= 0)
@@ -93,7 +93,7 @@ public class DesireFollowTamer extends DesireBase
 						{
 							for(int l = 0; l <= 4; l++)
 							{
-								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.t(x + i, y - 1, z + l) && ! this.m_animal.world.s(x + i, y, z + l) && ! this.m_animal.world.s(x + i, y + 1, z + l))
+								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.v(x + i, y - 1, z + l) && !this.m_animal.world.t(x + i, y, z + l) && !this.m_animal.world.t(x + i, y + 1, z + l))
 								{
 									this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
 									this.m_animal.getNavigation().g();

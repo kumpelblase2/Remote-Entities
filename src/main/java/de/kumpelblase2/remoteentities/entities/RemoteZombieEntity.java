@@ -5,20 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.Mind;
-import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.EntityVillager;
-import net.minecraft.server.EntityZombie;
-import net.minecraft.server.World;
+import net.minecraft.server.*;
 
 public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHandle
 {
@@ -27,11 +19,6 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	public static int defaultMaxHealth = 20;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteZombieEntity.class, "Zombie", 54);
-	}
 	
 	public RemoteZombieEntity(World world)
 	{
@@ -102,7 +89,7 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	}
 	
 	@Override
-	public boolean bb()
+	public boolean be()
 	{
 		return true;
 	}
@@ -132,8 +119,11 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	}
 	
 	@Override
-	public void b_(EntityHuman entity)
+	public void c_(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return;
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
 			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
@@ -151,25 +141,36 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 				}
 			}
 		}
-		super.b_(entity);
+		super.c_(entity);
 	}
 	
 	@Override
-	public boolean c(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return super.a(entity);
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
+			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return super.a(entity);
+			
 			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.c(entity);
+		return super.a(entity);
 	}
 	
 	@Override
 	public void die(DamageSource damagesource)
 	{
-		this.getRemoteEntity().getMind().clearMovementDesires();
-		this.getRemoteEntity().getMind().clearActionDesires();
+		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
+		{
+			this.getRemoteEntity().getMind().clearMovementDesires();
+			this.getRemoteEntity().getMind().clearActionDesires();
+		}
 		super.die(damagesource);
 	}
 }

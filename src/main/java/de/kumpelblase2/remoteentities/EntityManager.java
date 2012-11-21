@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
@@ -17,11 +18,16 @@ public class EntityManager
 {
 	private Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
+	private boolean m_removeDespawned = false;
+	private final ChunkEntityLoader m_entityChunkLoader;
 	
-	protected EntityManager(final Plugin inPlugin)
+	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
 	{
 		this.m_plugin = inPlugin;
 		this.m_entities = new HashMap<Integer, RemoteEntity>();
+		this.m_removeDespawned = inRemoveDespawed;
+		this.m_entityChunkLoader = new ChunkEntityLoader(this);
+		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
 		{
 			@Override
@@ -31,11 +37,20 @@ public class EntityManager
 				while(it.hasNext())
 				{
 					Entry<Integer, RemoteEntity> entry = it.next();
-					entry.getValue().getHandle().y();
-					if(entry.getValue().getHandle().dead)
+					RemoteEntity entity = entry.getValue();
+					if(entity.getHandle() == null)
 					{
-						entry.getValue().despawn(DespawnReason.DEATH);
-						it.remove();
+						if(m_removeDespawned)
+							it.remove();
+					}
+					else
+					{
+						entity.getHandle().y();
+						if(entity.getHandle().dead)
+						{
+							if(entity.despawn(DespawnReason.DEATH))
+								it.remove();
+						}
 					}
 				}
 			}
@@ -181,7 +196,18 @@ public class EntityManager
 	 */
 	public void removeEntity(int inID)
 	{
-		if(this.m_entities.containsKey((Integer)inID))
+		this.removeEntity(inID, true);
+	}
+	
+	/**
+	 * Removes an entity from the list. When inDespawn is true, it'll also try to despawn it.
+	 * 
+	 * @param inID			ID of the entity to remove
+	 * @param inDespawn		Whether the entity should get despawned or not
+	 */
+	public void removeEntity(int inID, boolean inDespawn)
+	{
+		if(this.m_entities.containsKey((Integer)inID) && inDespawn)
 			this.m_entities.get((Integer)inID).despawn(DespawnReason.CUSTOM);
 		
 		this.m_entities.remove((Integer)inID);
@@ -295,5 +321,30 @@ public class EntityManager
 	public List<RemoteEntity> getAllEntities()
 	{
 		return new ArrayList<RemoteEntity>(this.m_entities.values());
+	}
+	
+	/**
+	 * Returns whether despawned entities will automatically get removed or not
+	 * 
+	 * @return	true when they get removed, false when not
+	 */
+	public boolean shouldRemoveDespawnedEntities()
+	{
+		return this.m_removeDespawned;
+	}
+	
+	/**
+	 * Sets if despawned entities should get automatically get removed
+	 * 
+	 * @param inState	True if they should, false if not
+	 */
+	public void setRemovingDespawned(boolean inState)
+	{
+		this.m_removeDespawned = inState;
+	}
+	
+	void unregisterEntityLoader()
+	{
+		ChunkLoadEvent.getHandlerList().unregister(this.m_entityChunkLoader);
 	}
 }

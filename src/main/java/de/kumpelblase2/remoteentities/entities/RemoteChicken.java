@@ -25,4 +25,10 @@ public class RemoteChicken extends RemoteBaseEntity
 		
 		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Chicken";
+	}
 }

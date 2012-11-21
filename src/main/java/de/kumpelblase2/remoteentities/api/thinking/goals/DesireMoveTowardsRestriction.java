@@ -22,11 +22,11 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().aH())
+		if(this.getEntityHandle() == null || this.getEntityHandle().aI())
 			return false;
 		else
 		{
-			ChunkCoordinates chunkCoords = this.getEntityHandle().aI();
+			ChunkCoordinates chunkCoords = this.getEntityHandle().aJ();
 			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, Vec3D.a.create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
 			if(vec == null)
 				return false;

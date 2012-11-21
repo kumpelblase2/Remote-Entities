@@ -20,7 +20,7 @@ public class DesireRestrictOpenDoor extends DesireBase
 	public boolean shouldExecute()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		if(entity == null || entity.world.t())
+		if(entity == null || entity.world.u())
 			return false;
 		else
 		{
@@ -39,7 +39,7 @@ public class DesireRestrictOpenDoor extends DesireBase
 	public boolean canContinue()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		return entity.world.t() ? false : !this.m_door.removed && this.m_door.a(MathHelper.floor(entity.locX), MathHelper.floor(entity.locZ));
+		return entity.world.u() ? false : !this.m_door.removed && this.m_door.a(MathHelper.floor(entity.locX), MathHelper.floor(entity.locZ));
 	}
 	
 	@Override

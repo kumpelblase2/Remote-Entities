@@ -4,20 +4,13 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.Entity;
-import net.minecraft.server.EntityGhast;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.World;
+import net.minecraft.server.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 
 public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 {
@@ -26,11 +19,6 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	public static int defaultMaxHealth = 10;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteGhastEntity.class, "Ghast", 56);
-	}
 	
 	public RemoteGhastEntity(World world)
 	{
@@ -131,8 +119,11 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	}
 	
 	@Override
-	public void b_(EntityHuman entity)
+	public void c_(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return;
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
 			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
@@ -150,30 +141,41 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 				}
 			}
 		}
-		super.b_(entity);
+		super.c_(entity);
 	}
 	
 	@Override
-	public boolean c(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return super.a(entity);
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 		{
+			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return super.a(entity);
+			
 			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.c(entity);
+		return super.a(entity);
 	}
 	
 	@Override
 	public void die(DamageSource damagesource)
 	{
-		this.getRemoteEntity().getMind().clearMovementDesires();
-		this.getRemoteEntity().getMind().clearActionDesires();
+		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
+		{
+			this.getRemoteEntity().getMind().clearMovementDesires();
+			this.getRemoteEntity().getMind().clearActionDesires();
+		}
 		super.die(damagesource);
 	}
 	
 	@Override
-	public boolean bb()
+	public boolean be()
 	{
 		return true;
 	}
