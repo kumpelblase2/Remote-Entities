@@ -111,7 +111,8 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
-
+		
+		//Taken from Citizens2#EntityHumanNPC.java#129 - #138
         if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
             motX = motY = motZ = 0;
 
@@ -121,6 +122,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
             navigation.e();
             this.applyMovement();
         }
+        //End Citizens
         
         if(this.getRemoteEntity() != null)
         	this.getRemoteEntity().getMind().tick();
@@ -131,11 +133,13 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		if(this.m_remoteEntity.isStationary())
 			return;
 
+		//Taken from Citizens2#NMS.java#259 - #262
 		getControllerMove().c();
 		getControllerLook().a();
 		getControllerJump().b();
 		e(this.getRemoteEntity().getSpeed());
-
+		//End Citizens
+		
 		if (bE)
 		{
             boolean inLiquid = H() || J();
