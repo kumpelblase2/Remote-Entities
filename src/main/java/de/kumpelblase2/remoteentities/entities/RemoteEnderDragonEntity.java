@@ -136,8 +136,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
                 d1 *= 0.05000000074505806D;
                 d0 *= (double) (1.0F - this.Z);
                 d1 *= (double) (1.0F - this.Z);
-                if(this.getRemoteEntity().isPushable()) // Added
-                	this.g(-d0, 0.0D, -d1);				// Added
+                this.g(-d0, 0.0D, -d1);
                 entity.g(d0, 0.0D, d1);
             }
         }
