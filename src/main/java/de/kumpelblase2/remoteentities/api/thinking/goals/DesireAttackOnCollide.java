@@ -9,7 +9,6 @@ import net.minecraft.server.MathHelper;
 import net.minecraft.server.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 
 public class DesireAttackOnCollide extends DesireBase
 {
