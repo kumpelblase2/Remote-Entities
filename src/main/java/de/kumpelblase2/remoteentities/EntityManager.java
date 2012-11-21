@@ -328,7 +328,7 @@ public class EntityManager
 	 * 
 	 * @return	true when they get removed, false when not
 	 */
-	public boolean shouldRemoteDespawnedEntities()
+	public boolean shouldRemoveDespawnedEntities()
 	{
 		return this.m_removeDespawned;
 	}
