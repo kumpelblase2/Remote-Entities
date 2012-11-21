@@ -175,14 +175,15 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return super.a(entity);
 		
-		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
 				return super.a(entity);
 			
-			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
+				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
 		return super.a(entity);
