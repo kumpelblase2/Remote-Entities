@@ -8,12 +8,13 @@ public class RemoteBat extends RemoteBaseEntity
 {
 	public RemoteBat(int inID, EntityManager inManager)
 	{
-		this(inID, RemoteEntityType.Bat, inManager);
+		super(inID, RemoteEntityType.Bat, inManager);
 	}
 	
-	public RemoteBat(int inID, RemoteEntityType inType, EntityManager inManager)
+	public RemoteBat(int inID, RemoteBatEntity inEntity, EntityManager inManager)
 	{
-		super(inID, inType, inManager);
+		this(inID, inManager);
+		this.m_entity = inEntity;
 	}
 
 	@Override
