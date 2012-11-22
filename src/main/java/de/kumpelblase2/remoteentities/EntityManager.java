@@ -67,15 +67,19 @@ public class EntityManager
 		return this.m_plugin;
 	}
 	
-	private Integer getNextFreeID()
+	Integer getNextFreeID()
+	{
+		return this.getNextFreeID(0);
+	}
+	
+	Integer getNextFreeID(int inStart)
 	{
 		Set<Integer> ids = this.m_entities.keySet();
-		Integer current = 0;
-		while(ids.contains(current))
+		while(ids.contains(inStart))
 		{
-			current++;
+			inStart++;
 		}
-		return current;
+		return inStart;
 	}
 	
 	/**
@@ -107,14 +111,22 @@ public class EntityManager
 			throw new NoNameException("Tried to spawn a named entity without name");
 
 		Integer id = this.getNextFreeID();
+		RemoteEntity entity = this.createEntity(inType, id);
+		if(entity == null)
+			return null;
+		entity.spawn(inLocation);
+		if(inSetupGoals)
+			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		return entity;
+	}
+	
+	RemoteEntity createEntity(RemoteEntityType inType, int inID)
+	{
 		try
 		{
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, EntityManager.class);
-			RemoteEntity entity = constructor.newInstance(id, this);
-			entity.spawn(inLocation);
-			if(inSetupGoals)
-				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
-			this.m_entities.put(id, entity);
+			RemoteEntity entity = constructor.newInstance(inID, this);
+			this.m_entities.put(inID, entity);
 			return entity;
 		}
 		catch(Exception e)
@@ -134,17 +146,6 @@ public class EntityManager
 	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName)
 	{
-		if(!inType.isNamed())
-		{
-			try
-			{
-				return this.createEntity(inType, inLocation);
-			}
-			catch(NoNameException e)
-			{
-				return null;
-			}
-		}
 		return this.createNamedEntity(inType, inLocation, inName, true);
 	}
 	
@@ -172,14 +173,22 @@ public class EntityManager
 		}
 		
 		Integer id = this.getNextFreeID();
+		RemoteEntity entity = this.createNamedEntity(inType, id, inName);
+		if(entity == null)
+			return null;
+		entity.spawn(inLocation);
+		if(inSetupGoals)
+			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		return entity;
+	}
+	
+	RemoteEntity createNamedEntity(RemoteEntityType inType, int inID, String inName)
+	{
 		try
 		{
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, String.class, EntityManager.class);
-			RemoteEntity entity = constructor.newInstance(id, inName, this);
-			entity.spawn(inLocation);
-			if(inSetupGoals)
-				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
-			this.m_entities.put(id, entity);
+			RemoteEntity entity = constructor.newInstance(inID, inName, this);
+			this.m_entities.put(inID, entity);
 			return entity;
 		}
 		catch(Exception e)
@@ -187,6 +196,17 @@ public class EntityManager
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * Creates a context that lets you specify more than using the normal methods
+	 * 
+	 * @param inType	Type of the entity
+	 * @return			Context that lets you specify the creation parameters
+	 */
+	public CreateEntityContext prepareEntity(RemoteEntityType inType)
+	{
+		return new CreateEntityContext(this).withType(inType);
 	}
 	
 	/**
