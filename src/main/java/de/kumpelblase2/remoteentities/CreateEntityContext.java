@@ -8,6 +8,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.features.Feature;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
 import de.kumpelblase2.remoteentities.exceptions.NoTypeException;
 
@@ -24,6 +25,8 @@ public class CreateEntityContext
 	private boolean m_pushable = true;
 	private float m_speed = -1;
 	private int m_maxHealth = -1;
+	private List<DesireItem> m_movementDesires;
+	private List<DesireItem> m_actionDesires;
 	
 	CreateEntityContext(EntityManager inManager)
 	{
@@ -31,6 +34,8 @@ public class CreateEntityContext
 		this.m_behaviors = new ArrayList<Behavior>();
 		this.m_manager = inManager;
 		this.m_id = inManager.getNextFreeID();
+		this.m_actionDesires = new ArrayList<DesireItem>();
+		this.m_movementDesires = new ArrayList<DesireItem>();
 	}
 	
 	/**
@@ -155,6 +160,32 @@ public class CreateEntityContext
 	}
 	
 	/**
+	 * Sets the initial movement desires
+	 * 
+	 * @param inDesires	movement desires
+	 * @return			Context
+	 */
+	public CreateEntityContext withMovementDesires(DesireItem... inDesires)
+	{
+		this.m_movementDesires.clear();
+		this.m_movementDesires.addAll(Arrays.asList(inDesires));
+		return this;
+	}
+	
+	/**
+	 * Sets the initial action desires
+	 * 
+	 * @param inDesires	action desires
+	 * @return			Context
+	 */
+	public CreateEntityContext withActionDesires(DesireItem... inDesires)
+	{
+		this.m_actionDesires.clear();
+		this.m_actionDesires.addAll(Arrays.asList(inDesires));
+		return this;
+	}
+	
+	/**
 	 * Creates the entity with the earlier specified parameters
 	 * 
 	 * @return					Created entity
@@ -191,6 +222,16 @@ public class CreateEntityContext
 		for(Behavior behavior : this.m_behaviors)
 		{
 			created.getMind().addBehaviour(behavior);
+		}
+		
+		for(DesireItem desire : this.m_movementDesires)
+		{
+			created.getMind().addMovementDesire(desire.getDesire(), desire.getPriority());
+		}
+		
+		for(DesireItem desire : this.m_actionDesires)
+		{
+			created.getMind().addActionDesire(desire.getDesire(), desire.getPriority());
 		}
 		
 		created.setStationary(this.m_stationary);
