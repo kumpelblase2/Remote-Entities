@@ -63,10 +63,16 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		if(this.m_entity == null)
 			return null;
 		
-		EntityLiving target = this.m_entity.aF();
+		EntityLiving target = this.m_entity.aG();
 		if(target != null)
 			return (LivingEntity)target.getBukkitEntity();
 		
 		return null;
+	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Enderman";
 	}
 }

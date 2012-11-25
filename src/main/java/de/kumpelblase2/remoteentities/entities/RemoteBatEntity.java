@@ -8,11 +8,10 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
-import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.features.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 
-public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHandle
+public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
 	protected int m_maxHealth;
@@ -20,12 +19,12 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
-	public RemoteCreeperEntity(World world)
+	public RemoteBatEntity(World world)
 	{
 		this(world, null);
 	}
 	
-	public RemoteCreeperEntity(World world, RemoteEntity inRemoteEntity)
+	public RemoteBatEntity(World world, RemoteEntity inRemoteEntity)
 	{
 		super(world);
 		this.m_remoteEntity = inRemoteEntity;
@@ -50,41 +49,9 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	}
 
 	@Override
-	public void g(double x, double y, double z)
-	{		
-		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
-			super.g(x, y, z);
-	}
-	
-	@Override
-	public void move(double d0, double d1, double d2)
-	{
-		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
-			return;
-		
-		super.move(d0, d1, d2);
-	}
-	
-	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireSwell(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireAvoidSpecific(this.getRemoteEntity(), 6f, 0.25f, 0.3f, EntityOcelot.class), 3);
-			mind.addMovementDesire(new DesireAttackOnCollide(this.getRemoteEntity(), null, false), 4);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 6);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
-			mind.addActionDesire(new DesireAttackNearest(this.getRemoteEntity(), EntityHuman.class, 16, true, 0), 1);
-			mind.addActionDesire(new DesireAttackTarget(this.getRemoteEntity(), 16, false, false), 2);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		
 	}
 
 	@Override
@@ -102,17 +69,33 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	}
 	
 	@Override
+	public void j_()
+	{
+		super.j_();
+		if(this.getRemoteEntity() != null)
+			this.getRemoteEntity().getMind().tick();
+	}
+	
+	@Override
 	public boolean be()
 	{
 		return true;
 	}
 	
 	@Override
-	public void j_()
+	public void g(double x, double y, double z)
+	{		
+		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
+			super.g(x, y, z);
+	}
+	
+	@Override
+	public void move(double d0, double d1, double d2)
 	{
-		super.j_();
-		if(this.getRemoteEntity() != null)
-			this.getRemoteEntity().getMind().tick();
+		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
+			return;
+		
+		super.move(d0, d1, d2);
 	}
 	
 	@Override

@@ -46,7 +46,7 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.bP();
+				ItemStack item = this.m_nearPlayer.bT();
 				return item == null ? false : item.id == this.m_itemId;
 			}
 		}
@@ -103,7 +103,7 @@ public class DesireTempt extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getEntityHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getEntityHandle().bp());
 		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
 			this.getEntityHandle().getNavigation().g();
 		else

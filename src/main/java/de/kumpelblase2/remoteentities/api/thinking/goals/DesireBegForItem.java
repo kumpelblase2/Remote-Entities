@@ -35,7 +35,7 @@ public class DesireBegForItem extends DesireBase
 		if(this.getEntityHandle() instanceof EntityWolf)
 			((EntityWolf)this.getEntityHandle()).j(true);
 		
-		this.m_ticks = 40 + this.getEntityHandle().aA().nextInt(40);
+		this.m_ticks = 40 + this.getEntityHandle().aB().nextInt(40);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class DesireBegForItem extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getEntityHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getEntityHandle().bp());
 		this.m_ticks--;
 		return true;
 	}

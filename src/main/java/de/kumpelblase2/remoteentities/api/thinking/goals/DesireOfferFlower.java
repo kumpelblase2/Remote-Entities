@@ -28,9 +28,9 @@ public class DesireOfferFlower extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().world.t())
+		if(this.getEntityHandle() == null || this.getEntityHandle().world.u())
 			return false;
-		else if(this.getEntityHandle().aA().nextInt(8000) != 0)
+		else if(this.getEntityHandle().aB().nextInt(8000) != 0)
 			return false;
 		else
 		{

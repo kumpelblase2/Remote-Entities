@@ -63,4 +63,10 @@ public class RemoteOcelote extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Ozelot";
+	}
 }

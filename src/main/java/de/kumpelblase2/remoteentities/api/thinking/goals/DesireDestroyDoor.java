@@ -45,7 +45,7 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	public boolean update()
 	{
 		super.update();
-		if(this.getEntityHandle().aA().nextInt(20) == 0)
+		if(this.getEntityHandle().aB().nextInt(20) == 0)
 			this.getEntityHandle().world.triggerEffect(1010, this.m_x, this.m_y, this.m_z, 0);
 		
 		this.m_breakTick++;

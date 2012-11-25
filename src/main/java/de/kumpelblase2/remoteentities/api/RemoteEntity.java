@@ -60,12 +60,30 @@ public interface RemoteEntity
 	public boolean move(Location inLocation);
 	
 	/**
-	 * Tries to move the entity towards an entity
+	 * Tries to move the entity to a location with given speed
+	 * 
+	 * @param inLocation	location to move to
+	 * @param inSpeed		speed of the entity
+	 * @return				true if it was possible, false if not
+	 */
+	public boolean move(Location inLocation, float inSpeed);
+	
+	/**
+	 * Tries to move the entity towards another entity
 	 * 
 	 * @param inEntity	entity to move to
 	 * @return			true if it was possible to move the entity, false if not
 	 */
 	public boolean move(LivingEntity inEntity);
+	
+	/**
+	 * Tries to move the entity towards another entity with given speed
+	 * 
+	 * @param inEntity	entity to move to
+	 * @param inSpeed	speed of the entity
+	 * @return			true if it was possible, false if not
+	 */
+	public boolean move(LivingEntity inEntity, float inSpeed);
 	
 	/**
 	 * Stops the current movement of the entity
@@ -91,7 +109,7 @@ public interface RemoteEntity
 	 * 
 	 * @param inReason	reason for despawning
 	 */
-	public void despawn(DespawnReason inReason);
+	public boolean despawn(DespawnReason inReason);
 	
 	/**
 	 * Checks if the entity is spawned
@@ -163,4 +181,11 @@ public interface RemoteEntity
 	 * @return EntityManager
 	 */
 	public EntityManager getManager();
+	
+	/**
+	 * The native name is the name that is used in the EntityTypes enum. This is used internally for automatically registering the entity to the enum.
+	 * 
+	 * @return native name
+	 */
+	public String getNativeEntityName();
 }

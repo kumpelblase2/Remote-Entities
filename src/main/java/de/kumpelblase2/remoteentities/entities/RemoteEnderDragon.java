@@ -85,4 +85,10 @@ public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "EnderDragon";
+	}
 }

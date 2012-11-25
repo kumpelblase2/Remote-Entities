@@ -61,4 +61,10 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Zombie";
+	}
 }

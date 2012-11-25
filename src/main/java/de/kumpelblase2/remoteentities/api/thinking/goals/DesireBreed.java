@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import net.minecraft.server.EntityAgeable;
 import net.minecraft.server.EntityAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -30,7 +31,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_mate, 10, this.getEntityHandle().bm());
+		this.getEntityHandle().getControllerLook().a(this.m_mate, 10, this.getEntityHandle().bp());
 		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
 		if(this.m_mateTicks == 60)
@@ -80,9 +81,9 @@ public class DesireBreed extends DesireBase
 		return nearest;
 	}
 	
-	protected EntityAnimal createChild()
+	protected EntityAgeable createChild()
 	{
-		EntityAnimal baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate);
+		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate);
 		
 		if(baby != null)
 		{
@@ -94,7 +95,7 @@ public class DesireBreed extends DesireBase
 			baby.setAge(-24000);
 			baby.setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
 			entity.world.addEntity(baby, SpawnReason.BREEDING);
-			Random r = entity.aA();
+			Random r = entity.aB();
 			for(int i = 0; i < 7; ++i)
 			{
 				double d0 = r.nextGaussian() * 0.02D;

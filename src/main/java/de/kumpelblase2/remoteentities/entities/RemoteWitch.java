@@ -57,4 +57,10 @@ public class RemoteWitch extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Witch";
+	}
 }

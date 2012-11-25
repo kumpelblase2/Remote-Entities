@@ -33,11 +33,11 @@ public class DesireAvoidSun extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity == null)
 			return false;
-		if(!entity.world.t())
+		if(!entity.world.u())
 			return false;
 		else if(!entity.isBurning())
 			return false;
-		else if(!entity.world.j(MathHelper.floor(entity.locX), (int)entity.boundingBox.b, MathHelper.floor(entity.locZ)))
+		else if(!entity.world.k(MathHelper.floor(entity.locX), (int)entity.boundingBox.b, MathHelper.floor(entity.locZ)))
 			return false;
 		else
 		{
@@ -64,7 +64,7 @@ public class DesireAvoidSun extends DesireBase
 	protected Vec3D getShadowPlace()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		Random r = entity.aA();
+		Random r = entity.aB();
 		
 		for(int i = 0; i < 10; i++)
 		{
@@ -75,12 +75,12 @@ public class DesireAvoidSun extends DesireBase
 			
 			if(entity instanceof EntityCreature)
 			{
-				if(!entity.world.j(x, y, z) && ((EntityCreature)entity).a(x, y,z) < 0.0F)
+				if(!entity.world.k(x, y, z) && ((EntityCreature)entity).a(x, y,z) < 0.0F)
 					return Vec3D.a.create(x, y, z);
 			}
 			else
 			{
-				if(!entity.world.j(x, y, z) && (0.5F - entity.world.o(x, y, z)) < 0.0F)
+				if(!entity.world.k(x, y, z) && (0.5F - entity.world.p(x, y, z)) < 0.0F)
 					return Vec3D.a.create(x, y, z);
 			}
 		}
