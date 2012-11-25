@@ -79,4 +79,10 @@ public class RemoteSkeleton extends RemoteBaseEntity implements Fightable
 		
 		((EntitySkeleton)this.m_entity).setSkeletonType((inState ? 1 : 0));
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Skeleton";
+	}
 }

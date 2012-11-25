@@ -21,8 +21,3 @@ dependency-reduced-pom.xml
 target/*
 releases/*
 snapshots/*
-releases/de/kumpelblase2/remoteentities/maven-metadata.xml
-
-releases/de/kumpelblase2/remoteentities/maven-metadata.xml.md5
-
-releases/de/kumpelblase2/remoteentities/maven-metadata.xml.sha1

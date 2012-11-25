@@ -38,7 +38,20 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static EntityManager createManager(Plugin inPlugin)
 	{
-		EntityManager manager = new EntityManager(inPlugin);
+		return createManager(inPlugin, false);
+	}
+	
+	/**
+	 * Creates a manager for your plugin
+	 * You can also specify whether despawned entities should be removed or not
+	 * 
+	 * @param inPlugin				plugin using that manager
+	 * @param inRemoveDespawned		automatically removed despawned entities
+	 * @return						instance of a manager
+	 */
+	public static EntityManager createManager(Plugin inPlugin, boolean inRemoveDespawned)
+	{
+		EntityManager manager = new EntityManager(inPlugin, inRemoveDespawned);
 		registerCustomManager(manager, inPlugin.getName());
 		return manager;
 	}
@@ -126,7 +139,10 @@ public class RemoteEntities extends JavaPlugin
 		{
 			EntityManager manager = RemoteEntities.getManagerOfPlugin(event.getPlugin().getName());
 			if(manager != null)
+			{
 				manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
+				manager.unregisterEntityLoader();
+			}
 		}
 	}
 }

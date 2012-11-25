@@ -3,33 +3,23 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.Entity;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.EntitySlime;
-import net.minecraft.server.World;
+import net.minecraft.server.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
-import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 
 public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
 	protected int m_jumpDelay = 0;
 	protected Entity m_target;
+	protected int m_maxHealth;
+	public static int defaultMaxHealth = 8;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	
-	static
-	{
-		ReflectionUtil.registerEntityType(RemoteSlimeEntity.class, "Slime", 55);
-	}
 	
 	public RemoteSlimeEntity(World world)
 	{
@@ -43,6 +33,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_jumpDelay = this.random.nextInt(20) + 10;
+		this.m_maxHealth = defaultMaxHealth;
 	}
 	
 	@Override
@@ -68,6 +59,15 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	@Override
 	public void setMaxHealth(int inHealth)
 	{
+		this.m_maxHealth = inHealth;
+	}
+	
+	@Override
+	public int getMaxHealth()
+	{
+		if(this.m_maxHealth == 0)
+			return defaultMaxHealth;
+		return this.m_maxHealth;
 	}
 	
 	@Override
@@ -105,9 +105,9 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 	
 	@Override
-	protected void bk()
+	protected void bn()
 	{
-		this.bh();
+		this.bk();
 		if(this.m_target != null)
 		{
 			this.a(this.m_target, 10.0F, 20.0F);
@@ -120,25 +120,28 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
                 this.m_jumpDelay /= 3;
             }
 
-            this.bG = true;
+            this.bE = true;
             if (this.q()) {
-                this.world.makeSound(this, this.n(), this.aV(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.world.makeSound(this, this.n(), this.aX(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = (float) (1 * this.getSize());
+            this.bB = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bC = (float) (1 * this.getSize());
         } else {
-            this.bG = false;
+            this.bE = false;
             if (this.onGround) {
-                this.bD = this.bE = 0.0F;
+                this.bB = this.bC = 0.0F;
             }
         }
 		// ---
 	}
 	
 	@Override
-	public void b_(EntityHuman entity)
+	public void c_(EntityHuman entity)
 	{
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return;
+		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
 			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
@@ -156,31 +159,42 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 				}
 			}
 		}
-		super.b_(entity);
+		super.c_(entity);
 	}
 	
 	@Override
-	public boolean c(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
-		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Interact"))
+		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+			return super.a(entity);
+		
+		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
-			((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
+			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return super.a(entity);
+			
+			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
+				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.c(entity);
+		return super.a(entity);
 	}
-	
 	
 	@Override
 	public void die(DamageSource damagesource)
 	{
-		this.getRemoteEntity().getMind().clearMovementDesires();
-		this.getRemoteEntity().getMind().clearActionDesires();
+		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
+		{
+			this.getRemoteEntity().getMind().clearMovementDesires();
+			this.getRemoteEntity().getMind().clearActionDesires();
+		}
 		super.die(damagesource);
 	}
 	
 	@Override
-	public boolean bb()
+	public boolean be()
 	{
 		return true;
 	}

@@ -25,13 +25,13 @@ public class DesireAttackTarget extends DesireTargetBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		return this.isSuitableTarget(this.getEntityHandle().aB(), true);
+		return this.isSuitableTarget(this.getEntityHandle().aC(), true);
 	}
 	
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getEntityHandle().aB();
+		EntityLiving entityTarget = this.getEntityHandle().aC();
 		return entityTarget != null && entityTarget != this.m_target; 
 	}
 	
@@ -39,8 +39,8 @@ public class DesireAttackTarget extends DesireTargetBase
 	public void startExecuting()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		entity.b(entity.aB());
-		this.m_target = entity.aB();
+		entity.b(entity.aC());
+		this.m_target = entity.aC();
 		
 		if(this.m_attackNearest)
 		{
@@ -52,8 +52,8 @@ public class DesireAttackTarget extends DesireTargetBase
 			{
 				EntityLiving target = it.next();
 				
-				if(this.getEntityHandle() != target && target.aF() == null)
-					target.b(entity.aB());
+				if(this.getEntityHandle() != target && target.aG() == null)
+					target.b(entity.aC());
 			}
 		}
 		super.startExecuting();

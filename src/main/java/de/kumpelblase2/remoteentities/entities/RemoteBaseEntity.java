@@ -23,6 +23,8 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class RemoteBaseEntity implements RemoteEntity
 {
@@ -114,15 +116,19 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation)
 	{
-		if(this.m_entity == null)
+		return this.move(inLocation, this.getSpeed());
+	}
+	
+	@Override
+	public boolean move(Location inLocation, float inSpeed)
+	{
+		if(this.m_entity == null || this.m_isStationary)
 			return false;
 		
-		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), this.getSpeed()))
+		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
 			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
-			if(this.m_entity instanceof EntityCreature)
-				((EntityCreature)this.m_entity).setPathEntity(path);
-			return this.m_entity.getNavigation().a(path, this.getSpeed());
+			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
 	}
@@ -130,17 +136,23 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(LivingEntity inEntity)
 	{
-		if(this.m_entity == null)
+		return this.move(inEntity, this.getSpeed());
+	}
+	
+	@Override
+	public boolean move(LivingEntity inEntity, float inSpeed)
+	{
+		if(this.m_entity == null || this.m_isStationary)
 			return false;
 		
 		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
-		if(!this.m_entity.getNavigation().a(handle, this.getSpeed()))
+		if(handle == this.m_entity)
+			return true;
+		
+		if(!this.m_entity.getNavigation().a(handle, inSpeed))
 		{
 			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, 20, true, false, false, true);
-			if(this.m_entity instanceof EntityCreature)
-				((EntityCreature)this.m_entity).setPathEntity(path);
-			
-			return this.m_entity.getNavigation().a(path, this.getSpeed());
+			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
 	}
@@ -178,11 +190,14 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		inLocation = event.getSpawnLocation();
 		
 		try
-		{			
+		{
+			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
+			ReflectionUtil.registerEntityType(this.getType().getEntityClass(), this.getNativeEntityName(), entry.getID());
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 			this.m_entity = (EntityLiving)this.m_type.getEntityClass().getConstructor(World.class, RemoteEntity.class).newInstance(worldServer, this);
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
+			entry.restore();
 		}
 		catch(Exception e)
 		{
@@ -191,12 +206,12 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
-	public void despawn(DespawnReason inReason)
+	public boolean despawn(DespawnReason inReason)
 	{		
 		RemoteEntityDespawnEvent event = new RemoteEntityDespawnEvent(this, inReason);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
-			return;
+			return false;
 		
 		for(Behavior behaviour : this.getMind().getBehaviours())
 		{
@@ -206,6 +221,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
 		this.m_entity = null;
+		return true;
 	}
 	
 	@Override
@@ -242,5 +258,16 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	public int getMaxHealth()
 	{
 		return this.m_entity.getMaxHealth();
+	}
+	
+	public boolean moveWithPath(PathEntity inPath, float inSpeed)
+	{
+		if(this.m_entity == null || inPath == null || this.m_isStationary)
+			return false;
+		
+		if(this.m_entity instanceof EntityCreature)
+			((EntityCreature)this.m_entity).setPathEntity(inPath);
+		
+		return this.m_entity.getNavigation().a(inPath, inSpeed);
 	}
 }

@@ -25,4 +25,10 @@ public class RemoteSheep extends RemoteBaseEntity
 		
 		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Sheep";
+	}
 }

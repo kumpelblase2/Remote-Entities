@@ -62,4 +62,10 @@ public class RemoteSnowman extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "SnowMan";
+	}
 }

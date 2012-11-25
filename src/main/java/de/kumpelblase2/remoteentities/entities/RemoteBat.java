@@ -4,16 +4,16 @@ import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
-public class RemoteCow extends RemoteBaseEntity
+public class RemoteBat extends RemoteBaseEntity
 {
-	public RemoteCow(int inID, EntityManager inManager)
+	public RemoteBat(int inID, EntityManager inManager)
 	{
-		this(inID, null, inManager);
+		super(inID, RemoteEntityType.Bat, inManager);
 	}
 	
-	public RemoteCow(int inID, RemoteCowEntity inEntity, EntityManager inManager)
+	public RemoteBat(int inID, RemoteBatEntity inEntity, EntityManager inManager)
 	{
-		super(inID, RemoteEntityType.Cow, inManager);
+		this(inID, inManager);
 		this.m_entity = inEntity;
 	}
 
@@ -29,6 +29,6 @@ public class RemoteCow extends RemoteBaseEntity
 	@Override
 	public String getNativeEntityName()
 	{
-		return "Cow";
+		return "Bat";
 	}
 }

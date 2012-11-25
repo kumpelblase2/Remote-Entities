@@ -61,4 +61,10 @@ public class RemoteSlime extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Slime";
+	}
 }

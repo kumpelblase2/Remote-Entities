@@ -25,4 +25,10 @@ public class RemoteSquid extends RemoteBaseEntity
 		
 		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Squid";
+	}
 }

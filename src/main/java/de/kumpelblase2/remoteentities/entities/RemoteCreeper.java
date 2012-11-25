@@ -76,4 +76,10 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
+
+	@Override
+	public String getNativeEntityName()
+	{
+		return "Creeper";
+	}
 }
