@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities;
 import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.server.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -24,7 +25,7 @@ public class EntityManager
 	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
 	{
 		this.m_plugin = inPlugin;
-		this.m_entities = new HashMap<Integer, RemoteEntity>();
+		this.m_entities = new ConcurrentHashMap<Integer, RemoteEntity>();
 		this.m_removeDespawned = inRemoveDespawed;
 		this.m_entityChunkLoader = new ChunkEntityLoader(this);
 		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
