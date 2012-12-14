@@ -11,6 +11,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
 
 public class RemoteEntities extends JavaPlugin
 {
@@ -36,8 +37,11 @@ public class RemoteEntities extends JavaPlugin
 	 * @param inPlugin	plugin using that manager
 	 * @return			instance of a manager
 	 */
-	public static EntityManager createManager(Plugin inPlugin)
+	public static EntityManager createManager(Plugin inPlugin) throws PluginNotEnabledException
 	{
+		if(RemoteEntities.getInstance() == null)
+			throw new PluginNotEnabledException();
+		
 		return createManager(inPlugin, false);
 	}
 	
@@ -49,8 +53,11 @@ public class RemoteEntities extends JavaPlugin
 	 * @param inRemoveDespawned		automatically removed despawned entities
 	 * @return						instance of a manager
 	 */
-	public static EntityManager createManager(Plugin inPlugin, boolean inRemoveDespawned)
+	public static EntityManager createManager(Plugin inPlugin, boolean inRemoveDespawned) throws PluginNotEnabledException
 	{
+		if(RemoteEntities.getInstance() == null)
+			throw new PluginNotEnabledException();
+		
 		EntityManager manager = new EntityManager(inPlugin, inRemoveDespawned);
 		registerCustomManager(manager, inPlugin.getName());
 		return manager;
@@ -64,6 +71,9 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static void registerCustomManager(EntityManager inManager, String inName)
 	{
+		if(getInstance() == null)
+			return;
+		
 		getInstance().m_managers.put(inName, inManager);
 	}
 	
@@ -75,6 +85,9 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static EntityManager getManagerOfPlugin(String inName)
 	{
+		if(getInstance() == null)
+			return null;
+		
 		return getInstance().m_managers.get(inName);
 	}
 	
@@ -86,6 +99,9 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static boolean hasManagerForPlugin(String inName)
 	{
+		if(getInstance() == null)
+			return false;
+		
 		return getInstance().m_managers.containsKey(inName);
 	}
 	
@@ -107,6 +123,9 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static boolean isRemoteEntity(LivingEntity inEntity)
 	{
+		if(getInstance() == null)
+			return false;
+		
 		for(EntityManager manager : getInstance().m_managers.values())
 		{
 			if(manager.isRemoteEntity(inEntity))
@@ -123,6 +142,9 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
 	{
+		if(getInstance() == null)
+			return null;
+		
 		for(EntityManager manager : getInstance().m_managers.values())
 		{
 			RemoteEntity entity = manager.getRemoteEntityFromEntity(inEntity);
