@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-import net.minecraft.server.EntityTypes;
+import net.minecraft.server.v1_4_5.EntityTypes;
 
 public class EntityTypesEntry
 {

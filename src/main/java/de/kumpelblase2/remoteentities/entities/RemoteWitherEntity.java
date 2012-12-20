@@ -11,7 +11,7 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
-import net.minecraft.server.*;
+import net.minecraft.server.v1_4_5.*;
 
 public class RemoteWitherEntity extends EntityWither implements RemoteEntityHandle
 {

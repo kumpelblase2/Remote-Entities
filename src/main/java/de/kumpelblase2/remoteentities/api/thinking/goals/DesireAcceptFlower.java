@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.EntityAgeable;
-import net.minecraft.server.EntityIronGolem;
-import net.minecraft.server.EntityLiving;
+import net.minecraft.server.v1_4_5.EntityAgeable;
+import net.minecraft.server.v1_4_5.EntityIronGolem;
+import net.minecraft.server.v1_4_5.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 

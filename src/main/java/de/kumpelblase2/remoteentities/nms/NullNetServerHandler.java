@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.*;
+import net.minecraft.server.v1_4_5.*;
 
 public class NullNetServerHandler extends NetServerHandler
 {

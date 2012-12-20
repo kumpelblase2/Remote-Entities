@@ -1,14 +1,14 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_4_5.entity.CraftEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.EntityCreature;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityLiving;
-import net.minecraft.server.EntityTameableAnimal;
-import net.minecraft.server.MathHelper;
-import net.minecraft.server.PathEntity;
-import net.minecraft.server.PathPoint;
+import net.minecraft.server.v1_4_5.EntityCreature;
+import net.minecraft.server.v1_4_5.EntityHuman;
+import net.minecraft.server.v1_4_5.EntityLiving;
+import net.minecraft.server.v1_4_5.EntityTameableAnimal;
+import net.minecraft.server.v1_4_5.MathHelper;
+import net.minecraft.server.v1_4_5.PathEntity;
+import net.minecraft.server.v1_4_5.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -135,7 +135,7 @@ public abstract class DesireTargetBase extends DesireBase
 	                    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
 	                }
 
-	                org.bukkit.event.entity.EntityTargetLivingEntityEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
+	                org.bukkit.event.entity.EntityTargetLivingEntityEvent event = org.bukkit.craftbukkit.v1_4_5.event.CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
 	                if (event.isCancelled() || event.getTarget() == null) {
 	                    if (this.getEntityHandle() instanceof EntityCreature) {
 	                        ((EntityCreature)this.getEntityHandle()).target = null;
@@ -145,7 +145,7 @@ public abstract class DesireTargetBase extends DesireBase
 	                    this.getEntityHandle().b((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
 	                }
 	                if (this.getEntityHandle() instanceof EntityCreature) {
-	                    ((EntityCreature) this.getEntityHandle()).target = ((org.bukkit.craftbukkit.entity.CraftEntity) event.getTarget()).getHandle();
+	                    ((EntityCreature) this.getEntityHandle()).target = ((org.bukkit.craftbukkit.v1_4_5.entity.CraftEntity) event.getTarget()).getHandle();
 	                }
 					
 					
