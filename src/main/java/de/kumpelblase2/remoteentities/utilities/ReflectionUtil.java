@@ -4,7 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
-import net.minecraft.server.v1_4_5.*;
+import net.minecraft.server.v1_4_6.EntityLiving;
+import net.minecraft.server.v1_4_6.PathfinderGoalSelector;
 
 public final class ReflectionUtil
 {
@@ -48,7 +49,7 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
  
-            Method a = net.minecraft.server.v1_4_5.EntityTypes.class.getDeclaredMethod("a", args);
+            Method a = net.minecraft.server.v1_4_6.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
  
             a.invoke(a, inClass, name, inID);

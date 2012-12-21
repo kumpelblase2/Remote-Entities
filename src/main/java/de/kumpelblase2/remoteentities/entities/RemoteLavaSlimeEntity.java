@@ -1,15 +1,17 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_5.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
+import de.kumpelblase2.remoteentities.api.thinking.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.api.thinking.TouchBehavior;
+import net.minecraft.server.v1_4_6.*;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEntityHandle
 {

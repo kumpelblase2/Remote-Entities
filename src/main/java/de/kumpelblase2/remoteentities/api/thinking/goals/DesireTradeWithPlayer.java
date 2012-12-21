@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_5.Container;
-import net.minecraft.server.v1_4_5.EntityHuman;
-import net.minecraft.server.v1_4_5.EntityVillager;
+import net.minecraft.server.v1_4_6.Container;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;

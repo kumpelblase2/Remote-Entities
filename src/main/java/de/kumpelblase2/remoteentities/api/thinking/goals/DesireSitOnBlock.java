@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Location;
-import net.minecraft.server.v1_4_5.Block;
-import net.minecraft.server.v1_4_5.BlockBed;
-import net.minecraft.server.v1_4_5.EntityOcelot;
-import net.minecraft.server.v1_4_5.TileEntityChest;
-import net.minecraft.server.v1_4_5.World;
+import net.minecraft.server.v1_4_6.Block;
+import net.minecraft.server.v1_4_6.BlockBed;
+import net.minecraft.server.v1_4_6.EntityOcelot;
+import net.minecraft.server.v1_4_6.TileEntityChest;
+import net.minecraft.server.v1_4_6.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotAnOcelotException;

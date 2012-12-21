@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities;
 
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_4_5.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
