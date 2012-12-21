@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_4_5.Entity;
-import net.minecraft.server.v1_4_5.MathHelper;
-import net.minecraft.server.v1_4_5.Village;
+import net.minecraft.server.v1_4_6.Entity;
+import net.minecraft.server.v1_4_6.MathHelper;
+import net.minecraft.server.v1_4_6.Village;
 
 public class WorldUtilities
 {

@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_5.*;
+import net.minecraft.server.v1_4_6.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
@@ -120,17 +120,17 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
                 this.m_jumpDelay /= 3;
             }
 
-            this.bE = true;
+            this.bF = true;
             if (this.q()) {
                 this.world.makeSound(this, this.n(), this.aX(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bB = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bC = (float) (1 * this.getSize());
+            this.bC = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bD = (float) (1 * this.getSize());
         } else {
-            this.bE = false;
+            this.bF = false;
             if (this.onGround) {
-                this.bB = this.bC = 0.0F;
+                this.bC = this.bD = 0.0F;
             }
         }
 		// ---

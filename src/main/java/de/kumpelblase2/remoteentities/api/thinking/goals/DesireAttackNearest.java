@@ -3,9 +3,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_4_5.DistanceComparator;
-import net.minecraft.server.v1_4_5.EntityHuman;
-import net.minecraft.server.v1_4_5.EntityLiving;
+import net.minecraft.server.v1_4_6.DistanceComparator;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class DesireAttackNearest extends DesireTargetBase

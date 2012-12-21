@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_4_5.*;
+import net.minecraft.server.v1_4_6.*;
 
-public class NullNetServerHandler extends NetServerHandler
+public class NullNetServerHandler extends PlayerConnection
 {
 	public NullNetServerHandler(MinecraftServer minecraftserver, INetworkManager inetworkmanager, EntityPlayer entityplayer)
 	{

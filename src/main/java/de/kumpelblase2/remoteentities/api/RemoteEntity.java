@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api;
 
-import net.minecraft.server.v1_4_5.EntityLiving;
+import net.minecraft.server.v1_4_6.EntityLiving;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;

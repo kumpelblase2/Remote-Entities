@@ -3,8 +3,8 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_5.*;
-import net.minecraft.server.v1_4_5.Navigation;
+import net.minecraft.server.v1_4_6.*;
+import net.minecraft.server.v1_4_6.Navigation;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
@@ -21,7 +21,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public static int defaultMaxHealth = 20;
 	protected EntityLiving m_target;
 	
-	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager)
+	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager)
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
@@ -33,15 +33,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.getNavigation().e(true);
 	}
 	
-	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, RemoteEntity inEntity)
+	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
 	{
 		this(minecraftserver, world, s, iteminworldmanager);
 		this.m_remoteEntity = inEntity;
 		try
 		{
 			NetworkManager manager = new RemoteEntityNetworkManager(minecraftserver);
-			this.netServerHandler = new NullNetServerHandler(minecraftserver, manager, this);
-			manager.a(netServerHandler);
+			this.playerConnection = new NullNetServerHandler(minecraftserver, manager, this);
+			manager.a(playerConnection);
 		}
 		catch(Exception e){}
 	}
@@ -141,7 +141,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		e(this.getRemoteEntity().getSpeed());
 		//End Citizens
 		
-		if (bE)
+		if (bF)
 		{
             boolean inLiquid = H() || J();
             if (inLiquid)
@@ -151,22 +151,22 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
             else if (onGround && bC == 0)
             {
                 motY = 0.6;
-                bC = 10;
+                bD = 10;
             }
         }
 		else
 		{
-            bC = 0;
+            bD = 0;
         }
-        bB *= 0.98F;
         bC *= 0.98F;
-        bD *= 0.9F;
+        bD *= 0.98F;
+        bE *= 0.9F;
 
-        float prev = aM;
-        aM *= bB() * this.getRemoteEntity().getSpeed();
-        e(bB, bC); 
-        aM = prev;
-        ay = yaw;
+        float prev = aN;
+        aN *= bB() * this.getRemoteEntity().getSpeed();
+        e(bC, bD); 
+        aN = prev;
+        az = yaw;
 	}
 	
 	@Override
