@@ -17,8 +17,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	protected int m_maxHealth;
-	public static int defaultMaxHealth = 20;
 	protected EntityLiving m_target;
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager)
@@ -26,7 +24,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		super(minecraftserver, world, s, iteminworldmanager);
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
-		this.m_maxHealth = defaultMaxHealth;
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 		this.W = 1;
@@ -183,19 +180,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 			return;
 		
 		super.move(d0, d1, d2);
-	}
-	
-	@Override
-	public int getMaxHealth()
-	{
-		if(this.m_maxHealth == 0) // otherwise the entity will die instantly
-			return 20;
-		return this.m_maxHealth;
-	}
-	
-	public void setMaxHealth(int inMax)
-	{
-		this.m_maxHealth = inMax;
 	}
 
 	@Override
