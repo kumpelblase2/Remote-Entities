@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api;
 
 import net.minecraft.server.v1_4_6.EntityLiving;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
@@ -84,6 +85,42 @@ public interface RemoteEntity
 	 * @return			true if it was possible, false if not
 	 */
 	public boolean move(LivingEntity inEntity, float inSpeed);
+	
+	/**
+	 * Sets that yaw of the entity
+	 * 
+	 * @param inYaw	new yaw
+	 */
+	public void setYaw(float inYaw);
+	
+	/**
+	 * When inRotate is true, it will smoothly rotate to the new yaw rotation
+	 * 
+	 * @param inYaw		new yaw
+	 * @param inRotate	If the entity should rotate or snap to the new value
+	 */
+	public void setYaw(float inYaw, boolean inRotate);
+	
+	/**
+	 * Sets the head pitch of the entity
+	 * 
+	 * @param inPitch	new pitch
+	 */
+	public void setPitch(float inPitch);
+	
+	/**
+	 * Lets the entity look at the given location
+	 * 
+	 * @param inLocation	location to look at
+	 */
+	public void lookAt(Location inLocation);
+	
+	/**
+	 * Lets the entity look at another entity
+	 * 
+	 * @param inEntity	entity to look at
+	 */
+	public void lookAt(Entity inEntity);
 	
 	/**
 	 * Stops the current movement of the entity

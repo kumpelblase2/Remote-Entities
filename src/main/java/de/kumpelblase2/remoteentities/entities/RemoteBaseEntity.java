@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_4_6.entity.CraftLivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import net.minecraft.server.v1_4_6.EntityCreature;
@@ -107,7 +109,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public LivingEntity getBukkitEntity()
 	{
-		if(this.m_entity != null)
+		if(this.isSpawned())
 			return (LivingEntity)this.m_entity.getBukkitEntity();
 		
 		return null;
@@ -122,7 +124,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation, float inSpeed)
 	{
-		if(this.m_entity == null || this.m_isStationary)
+		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 		
 		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
@@ -142,7 +144,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(LivingEntity inEntity, float inSpeed)
 	{
-		if(this.m_entity == null || this.m_isStationary)
+		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 		
 		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
@@ -155,6 +157,55 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
+	}
+	
+	@Override
+	public void setYaw(float inYaw)
+	{
+		this.setYaw(inYaw, false);
+	}
+	
+	@Override
+	public void setYaw(float inYaw, boolean inRotate)
+	{
+		if(!this.isSpawned())
+			return;
+		
+		Location newLoc = this.getBukkitEntity().getLocation();
+		newLoc.setYaw(inYaw);
+		if(inRotate)
+			this.move(newLoc);
+		else
+			this.teleport(newLoc);
+	}
+	
+	@Override
+	public void setPitch(float inPitch)
+	{
+		if(!this.isSpawned())
+			return;
+		
+		Location newLoc = this.getBukkitEntity().getLocation();
+		newLoc.setPitch(inPitch);
+		this.move(newLoc);
+	}
+	
+	@Override
+	public void lookAt(Location inLocation)
+	{
+		if(!this.isSpawned())
+			return;
+		
+		this.m_entity.getControllerLook().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), 10, this.m_entity.bp());
+	}
+	
+	@Override
+	public void lookAt(Entity inEntity)
+	{
+		if(!this.isSpawned())
+			return;
+		
+		this.m_entity.getControllerLook().a(((CraftEntity)inEntity).getHandle(), 10, this.m_entity.bp());
 	}
 	
 	@Override
