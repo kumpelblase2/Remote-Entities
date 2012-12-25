@@ -23,6 +23,9 @@ class ChunkEntityLoader implements Listener
 		Chunk c = event.getChunk();
 		for(RemoteEntity entity : this.m_manager.getAllEntities())
 		{
+			if(!entity.isSpawned())
+				continue;
+			
 			if(entity.getBukkitEntity().getLocation().getChunk() == c && entity.getHandle() != null)
 				((CraftWorld)c.getWorld()).getHandle().addEntity(entity.getHandle());				
 		}
