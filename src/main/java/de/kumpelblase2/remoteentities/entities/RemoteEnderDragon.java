@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
@@ -44,15 +43,6 @@ public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
 				}
 			},
 		this.m_manager.getPlugin());
-	}
-
-	@Override
-	public void setMaxHealth(int inMax)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
 	
 	public boolean shouldDestroyBlocks()

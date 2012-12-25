@@ -156,20 +156,6 @@ public interface RemoteEntity
 	public boolean isSpawned();
 	
 	/**
-	 * Sets the maximum health
-	 * 
-	 * @param inMax max health
-	 */
-	public void setMaxHealth(int inMax);
-	
-	/**
-	 * Gets the maximum health
-	 * 
-	 * @return max health
-	 */
-	public int getMaxHealth();
-	
-	/**
 	 * Sets the the stationary state of the entity.
 	 * While being stationary an entity is unable to move
 	 * 

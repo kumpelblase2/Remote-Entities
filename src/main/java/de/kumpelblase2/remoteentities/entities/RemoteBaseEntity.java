@@ -305,12 +305,6 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		this.m_speed = inSpeed;
 	}
 	
-	@Override
-	public int getMaxHealth()
-	{
-		return this.m_entity.getMaxHealth();
-	}
-	
 	public boolean moveWithPath(PathEntity inPath, float inSpeed)
 	{
 		if(this.m_entity == null || inPath == null || this.m_isStationary)

@@ -8,7 +8,6 @@ import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 
 public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 {
@@ -21,14 +20,6 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 	{
 		super(inID, RemoteEntityType.Creeper, inManager);
 		this.m_entity = inEntity;
-	}
-	@Override
-	public void setMaxHealth(int inMax)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((RemoteEntityHandle)this.getHandle()).setMaxHealth(inMax);
 	}
 
 	@Override

@@ -15,8 +15,6 @@ import net.minecraft.server.v1_4_6.*;
 public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected int m_maxHealth;
-	public static int defaultMaxHealth = 20;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
@@ -31,7 +29,6 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 		this.m_remoteEntity = inEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
-		this.m_maxHealth = defaultMaxHealth;
 	}
 
 	@Override
@@ -72,20 +69,6 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 		{
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void setMaxHealth(int inHealth)
-	{
-		this.m_maxHealth = inHealth;
-	}
-	
-	@Override
-	public int getMaxHealth()
-	{
-		if(this.m_maxHealth == 0)
-			return defaultMaxHealth;
-		return this.m_maxHealth;
 	}
 	
 	@Override

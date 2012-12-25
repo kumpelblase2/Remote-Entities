@@ -17,15 +17,6 @@ public class RemoteWither extends RemoteBaseEntity implements Fightable
 	}
 
 	@Override
-	public void setMaxHealth(int inMax)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((RemoteWitherEntity)this.m_entity).setMaxHealth(inMax);
-	}
-
-	@Override
 	public void attack(LivingEntity inTarget)
 	{
 		if(this.m_entity == null)

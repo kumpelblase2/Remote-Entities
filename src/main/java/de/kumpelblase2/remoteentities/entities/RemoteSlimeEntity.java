@@ -16,8 +16,6 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	private RemoteEntity m_remoteEntity;
 	protected int m_jumpDelay = 0;
 	protected Entity m_target;
-	protected int m_maxHealth;
-	public static int defaultMaxHealth = 8;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
@@ -33,7 +31,6 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_jumpDelay = this.random.nextInt(20) + 10;
-		this.m_maxHealth = defaultMaxHealth;
 	}
 	
 	@Override
@@ -54,20 +51,6 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-	}
-
-	@Override
-	public void setMaxHealth(int inHealth)
-	{
-		this.m_maxHealth = inHealth;
-	}
-	
-	@Override
-	public int getMaxHealth()
-	{
-		if(this.m_maxHealth == 0)
-			return defaultMaxHealth;
-		return this.m_maxHealth;
 	}
 	
 	@Override

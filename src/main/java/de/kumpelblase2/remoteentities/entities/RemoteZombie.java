@@ -22,15 +22,6 @@ public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Figh
 	}
 
 	@Override
-	public void setMaxHealth(int inMax)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((RemoteZombieEntity)this.m_entity).setMaxHealth(inMax);
-	}
-
-	@Override
 	public void attack(LivingEntity inTarget)
 	{
 		if(this.m_entity == null)

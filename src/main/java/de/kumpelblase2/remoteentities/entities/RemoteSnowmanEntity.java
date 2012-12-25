@@ -16,8 +16,6 @@ import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected int m_maxHealth;
-	public static int defaultMaxHealth = 4;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
@@ -32,7 +30,6 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 		this.m_remoteEntity = inRemoteEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
-		this.m_maxHealth = defaultMaxHealth;
 	}
 	
 	@Override
@@ -82,20 +79,6 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 			return;
 		
 		super.move(d0, d1, d2);
-	}
-
-	@Override
-	public void setMaxHealth(int inHealth)
-	{
-		this.m_maxHealth = inHealth;
-	}
-	
-	@Override
-	public int getMaxHealth()
-	{
-		if(this.m_maxHealth == 0)
-			return defaultMaxHealth;
-		return this.m_maxHealth;
 	}
 	
 	@Override

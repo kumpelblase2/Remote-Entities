@@ -6,7 +6,6 @@ import org.bukkit.craftbukkit.v1_4_6.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteGhast extends RemoteBaseEntity implements Fightable
@@ -20,15 +19,6 @@ public class RemoteGhast extends RemoteBaseEntity implements Fightable
 	{
 		super(inID, RemoteEntityType.Ghast, inManager);
 		this.m_entity = inEntity;
-	}
-
-	@Override
-	public void setMaxHealth(int inMax)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((RemoteEntityHandle)this.m_entity).setMaxHealth(inMax);
 	}
 
 	@Override

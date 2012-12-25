@@ -14,8 +14,6 @@ import de.kumpelblase2.remoteentities.api.thinking.*;
 public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected int m_maxHealth;
-	public static int defaultMaxHealth = 10;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
@@ -30,7 +28,6 @@ public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 		this.m_remoteEntity = inRemoteEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
-		this.m_maxHealth = defaultMaxHealth;
 	}
 	
 	@Override
@@ -52,12 +49,6 @@ public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 	public void setupStandardGoals()
 	{
 	}
-
-	@Override
-	public void setMaxHealth(int inHealth)
-	{
-		this.m_maxHealth = inHealth;
-	}
 	
 	@Override
 	public void g(double x, double y, double z)
@@ -73,14 +64,6 @@ public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 			return;
 		
 		super.move(d0, d1, d2);
-	}
-	
-	@Override
-	public int getMaxHealth()
-	{
-		if(this.m_maxHealth == 0)
-			return defaultMaxHealth;
-		return this.m_maxHealth;
 	}
 	
 	@Override

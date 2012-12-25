@@ -240,7 +240,7 @@ public class CreateEntityContext
 			created.setSpeed(this.m_speed);
 		
 		if(this.m_maxHealth != -1)
-			created.setMaxHealth(this.m_maxHealth);
+			created.getBukkitEntity().setMaxHealth(this.m_maxHealth);
 		
 		if(this.m_location != null)
 			created.spawn(this.m_location);

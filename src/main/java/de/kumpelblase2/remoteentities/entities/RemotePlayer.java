@@ -82,15 +82,6 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 	}
 
 	@Override
-	public void setMaxHealth(int inMax)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((RemoteEntityHandle)this.getHandle()).setMaxHealth(inMax);
-	}
-
-	@Override
 	public LivingEntity getTarget()
 	{
 		if(this.m_entity == null)

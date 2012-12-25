@@ -15,8 +15,6 @@ import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEntityHandle
 {
 	private RemoteEntity m_remoteEntity;
-	protected int m_maxHealth;
-	public static int defaultMaxHealth = 12;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
@@ -31,7 +29,6 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		this.m_remoteEntity = inRemoteEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
-		this.m_maxHealth = defaultMaxHealth;
 	}
 	
 	@Override
@@ -84,20 +81,6 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		{
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void setMaxHealth(int inHealth)
-	{
-		this.m_maxHealth = inHealth;
-	}
-	
-	@Override
-	public int getMaxHealth()
-	{
-		if(this.m_maxHealth == 0)
-			return defaultMaxHealth;
-		return this.m_maxHealth;
 	}
 	
 	@Override
