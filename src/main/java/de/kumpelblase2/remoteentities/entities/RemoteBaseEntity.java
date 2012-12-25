@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_6.entity.CraftEntity;
@@ -257,6 +258,22 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
+	public void spawn(Location inLocation, boolean inForce)
+	{
+		Chunk c = inLocation.getChunk();
+		if(c == null)
+			return;
+		
+		if(!c.isLoaded() && inForce)
+		{
+			if(!c.load())
+				return;
+		}
+		
+		this.spawn(inLocation);
+	}
+	
+	@Override
 	public boolean despawn(DespawnReason inReason)
 	{		
 		RemoteEntityDespawnEvent event = new RemoteEntityDespawnEvent(this, inReason);
@@ -268,6 +285,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		{
 			behaviour.onRemove();
 		}
+		
 		this.getMind().clearBehaviours();
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();

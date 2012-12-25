@@ -17,5 +17,9 @@ public enum DespawnReason
 	/**
 	 * When the name of the entitiy changed
 	 */
-	NAME_CHANGE
+	NAME_CHANGE,
+	/**
+	 * When, for what ever reason, the chunk the entity is in gets unloaded 
+	 */
+	CHUNK_UNLOAD
 }

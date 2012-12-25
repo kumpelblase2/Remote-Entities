@@ -142,6 +142,14 @@ public interface RemoteEntity
 	public void spawn(Location inLocation);
 	
 	/**
+	 * Spawns the entity at a location even when the chunk is not loaded
+	 * 
+	 * @param inLocation	location to spawn at
+	 * @param inForce		if the spawn should be forced on a non-loaded chunk or not
+	 */
+	public void spawn(Location inLocation, boolean inForce);
+	
+	/**
 	 * Despawns the entity with a specific reason
 	 * 
 	 * @param inReason	reason for despawning
