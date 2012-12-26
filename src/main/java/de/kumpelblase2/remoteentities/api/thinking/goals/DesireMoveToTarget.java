@@ -9,6 +9,7 @@ import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
 public class DesireMoveToTarget extends DesireBase
 {
+
 	protected float m_minDistance;
 	protected EntityLiving m_target;
 	protected double m_x;

@@ -199,8 +199,7 @@ public class CreateEntityContext
 		if(this.m_type == null)
 			throw new NoTypeException();
 		
-		if(this.m_manager.getRemoteEntityByID(this.m_id) != null)
-			this.m_id = this.m_manager.getNextFreeID(this.m_id);
+		this.m_id = this.m_manager.getNextFreeID(this.m_id);
 		
 		if(this.m_type.isNamed())
 		{
@@ -210,9 +209,7 @@ public class CreateEntityContext
 			created = this.m_manager.createNamedEntity(this.m_type, this.m_id, this.m_name);
 		}
 		else
-		{
 			created = this.m_manager.createEntity(this.m_type, this.m_id);
-		}
 		
 		for(Feature feature : this.m_features)
 		{
