@@ -118,6 +118,7 @@ public class EntityManager
 		entity.spawn(inLocation);
 		if(inSetupGoals)
 			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		
 		return entity;
 	}
 	
