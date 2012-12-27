@@ -177,7 +177,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(inRotate)
 			this.move(newLoc);
 		else
-			this.teleport(newLoc);
+		{
+			this.m_entity.yaw = inYaw;
+			this.m_entity.az = inYaw;
+		}
 	}
 	
 	@Override
@@ -186,9 +189,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned())
 			return;
 		
-		Location newLoc = this.getBukkitEntity().getLocation();
-		newLoc.setPitch(inPitch);
-		this.move(newLoc);
+		this.m_entity.pitch = inPitch;
 	}
 	
 	@Override
