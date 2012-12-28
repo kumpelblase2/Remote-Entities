@@ -195,6 +195,17 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
+	public boolean damageEntity(DamageSource damagesource, int i) {
+	        boolean result = super.damageEntity(damagesource, i);
+	        if (getRemoteEntity().getMind().hasBehaviour("Damage")) {
+	            //TODO: create a useful EntityDamageEvent
+	            ((DamageBehavior) getRemoteEntity().getMind()
+	                    .getBehaviour("Damage")).onDamage(null);
+	        }
+	        return result;
+	}
+	
+	@Override
 	public void die(DamageSource damagesource)
 	{
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
