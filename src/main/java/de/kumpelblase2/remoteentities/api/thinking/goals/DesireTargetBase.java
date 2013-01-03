@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.v1_4_6.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
 import org.bukkit.event.entity.EntityTargetEvent;
 import net.minecraft.server.v1_4_6.EntityCreature;
 import net.minecraft.server.v1_4_6.EntityHuman;
@@ -10,6 +11,7 @@ import net.minecraft.server.v1_4_6.MathHelper;
 import net.minecraft.server.v1_4_6.PathEntity;
 import net.minecraft.server.v1_4_6.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
 public abstract class DesireTargetBase extends DesireBase
@@ -95,6 +97,14 @@ public abstract class DesireTargetBase extends DesireBase
 						return false;
 				
 					if(inEntity == ((EntityTameableAnimal)this.getEntityHandle()).getOwner())
+						return false;
+				}
+				else if(this.m_entity.getFeatures().hasFeature(TamingFeature.class) && this.m_entity.getFeatures().getFeature(TamingFeature.class).isTamed())
+				{
+					if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
+						return false;
+					
+					if(inEntity == ((CraftPlayer)this.m_entity.getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle())
 						return false;
 				}
 				else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
