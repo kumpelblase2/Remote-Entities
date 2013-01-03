@@ -2,7 +2,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.v1_4_6.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import net.minecraft.server.v1_4_6.EntityCreature;
 import net.minecraft.server.v1_4_6.EntityHuman;
 import net.minecraft.server.v1_4_6.EntityLiving;
@@ -131,32 +133,33 @@ public abstract class DesireTargetBase extends DesireBase
 					
 					EntityTargetEvent.TargetReason reason = EntityTargetEvent.TargetReason.RANDOM_TARGET;
 
-	                if (this instanceof DesireDefendVillage) {
+	                if (this instanceof DesireDefendVillage)
 	                    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
-	                } else if (this instanceof DesireAttackTarget) {
+	               else if (this instanceof DesireAttackTarget)
 	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
-	                } else if (this instanceof DesireAttackNearest) {
-	                    if (inEntity instanceof EntityHuman) {
+	                else if (this instanceof DesireAttackNearest)
+	                {
+	                    if (inEntity instanceof EntityHuman)
 	                        reason = EntityTargetEvent.TargetReason.CLOSEST_PLAYER;
-	                    }
-	                } else if (this instanceof DesireProtectOwner) {
+	                }
+	                else if (this instanceof DesireProtectOwner)
 	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
-	                } else if (this instanceof DesireHelpAttacking) {
+	                else if (this instanceof DesireHelpAttacking)
 	                    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
-	                }
 
-	                org.bukkit.event.entity.EntityTargetLivingEntityEvent event = org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
-	                if (event.isCancelled() || event.getTarget() == null) {
-	                    if (this.getEntityHandle() instanceof EntityCreature) {
+	                EntityTargetLivingEntityEvent event = CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
+	                if (event.isCancelled() || event.getTarget() == null)
+	                {
+	                    if (this.getEntityHandle() instanceof EntityCreature)
 	                        ((EntityCreature)this.getEntityHandle()).target = null;
-	                    }
+	                    
 	                    return false;
-	                } else if (inEntity.getBukkitEntity() != event.getTarget()) {
+	                }
+	                else if (inEntity.getBukkitEntity() != event.getTarget())
 	                    this.getEntityHandle().b((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
-	                }
-	                if (this.getEntityHandle() instanceof EntityCreature) {
-	                    ((EntityCreature) this.getEntityHandle()).target = ((org.bukkit.craftbukkit.v1_4_6.entity.CraftEntity) event.getTarget()).getHandle();
-	                }
+
+	                if (this.getEntityHandle() instanceof EntityCreature)
+	                    ((EntityCreature)this.getEntityHandle()).target = ((CraftEntity) event.getTarget()).getHandle();
 					
 					
 					return true;
