@@ -11,4 +11,9 @@ public class DesireAttackNearestAtNight extends DesireAttackNearest
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMeele, inChance);
 		this.m_onlyAtNight = true;
 	}
+	
+	public DesireAttackNearestAtNight(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
+	}
 }
