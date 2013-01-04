@@ -21,6 +21,7 @@ public abstract class DesireTargetBase extends DesireBase
 	protected boolean m_shouldCheckSight;
 	protected boolean m_shouldMeleeAttack;
 	protected float m_distance;
+	protected float m_distanceSquared;
 	protected int m_useAttack;
 	protected int m_lastAttackTick;
 	protected int m_notSeeingTarget;
@@ -35,6 +36,7 @@ public abstract class DesireTargetBase extends DesireBase
 		super(inEntity);
 		this.m_shouldCheckSight = inShouldCheckSight;
 		this.m_distance = inDistance;
+		this.m_distanceSquared = this.m_distance * this.m_distance;
 		this.m_shouldMeleeAttack = inShouldMeele;
 		this.m_useAttack = 0;
 		this.m_lastAttackTick = 0;
@@ -64,7 +66,7 @@ public abstract class DesireTargetBase extends DesireBase
 			return false;
 		else if(!target.isAlive())
 			return false;
-		else if(this.getEntityHandle().e(target) > (this.m_distance * this.m_distance))
+		else if(this.getEntityHandle().e(target) > (this.m_distanceSquared))
 			return false;
 		else
 		{
@@ -135,7 +137,7 @@ public abstract class DesireTargetBase extends DesireBase
 
 	                if (this instanceof DesireDefendVillage)
 	                    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
-	               else if (this instanceof DesireAttackTarget)
+	                else if (this instanceof DesireAttackTarget)
 	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
 	                else if (this instanceof DesireAttackNearest)
 	                {

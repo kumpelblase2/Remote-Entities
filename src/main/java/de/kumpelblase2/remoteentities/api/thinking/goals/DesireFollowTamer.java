@@ -14,7 +14,9 @@ public class DesireFollowTamer extends DesireBase
 {
 	protected EntityLiving m_animal;
 	protected float m_minDistance;
+	protected float m_minDistanceSquared;
 	protected float m_maxDistance;
+	protected float m_maxDistanceSquared;
 	protected EntityLiving m_owner;
 	protected int m_moveTick;
 	protected boolean m_avoidWaterState;
@@ -27,8 +29,10 @@ public class DesireFollowTamer extends DesireBase
 		
 		this.m_animal = this.getEntityHandle();
 		this.m_type = 3;
-		this.m_maxDistance = inMaxDistance;
 		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
+		this.m_maxDistance = inMaxDistance;
+		this.m_maxDistanceSquared = this.m_maxDistance * this.m_maxDistance;
 	}
 
 	@Override
@@ -36,12 +40,13 @@ public class DesireFollowTamer extends DesireBase
 	{
 		if(this.m_animal == null)
 			return false;
+		
 		EntityLiving owner = this.getTamer();
 		if(owner == null)
 			return false;
 		else if(this.isSitting())
 			return false;
-		else if(this.m_animal.e(owner) < this.m_minDistance * this.m_minDistance)
+		else if(this.m_animal.e(owner) < this.m_minDistanceSquared)
 			return false;
 		else
 		{
@@ -53,7 +58,7 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_animal.getNavigation().f() && this.m_animal.e(this.m_owner) > this.m_maxDistance * this.m_maxDistance && !this.isSitting();
+		return !this.m_animal.getNavigation().f() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
 	}
 	
 	@Override
@@ -120,6 +125,7 @@ public class DesireFollowTamer extends DesireBase
 	{
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).isSitting();
+		
 		return false;
 	}
 }

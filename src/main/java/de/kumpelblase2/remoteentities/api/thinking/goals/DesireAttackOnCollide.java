@@ -85,7 +85,7 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entity = this.getEntityHandle();
 		entity.getControllerLook().a(this.m_target, 30, 30);
-		if((this.m_ignoreSight || entity.aA().canSee(this.m_target)) && --this.m_moveTick <= 0)
+		if(--this.m_moveTick <= 0 && (this.m_ignoreSight || entity.aA().canSee(this.m_target)))
 		{
 			this.m_moveTick = 4 + entity.aB().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)entity.getBukkitEntity(), this.m_speed);
@@ -93,16 +93,13 @@ public class DesireAttackOnCollide extends DesireBase
 		
 		this.m_attackTick = Math.max(this.m_attackTick - 1, 0);
 		double minDist = entity.width * 2 * entity.width * 2;
-		if(entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
+		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
-			if(this.m_attackTick <= 0)
-			{
-				this.m_attackTick = 20;
-				if(entity.bD() != null)
-					entity.bH();
-				
-				entity.m(this.m_target);
-			}
+			this.m_attackTick = 20;
+			if(entity.bD() != null)
+				entity.bH();
+			
+			entity.m(this.m_target);
 		}
 		return true;
 	}

@@ -33,11 +33,6 @@ public class DesireInteractDoor extends DesireBase
 		this.m_entityX = (float)(this.m_x + 0.5 - this.getEntityHandle().locX);
 		this.m_entityZ = (float)(this.m_z + 0.5 - this.getEntityHandle().locZ);
 	}
-
-	@Override
-	public void stopExecuting()
-	{	
-	}
 	
 	@Override
 	public boolean update()

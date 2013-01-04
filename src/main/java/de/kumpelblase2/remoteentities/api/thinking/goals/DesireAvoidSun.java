@@ -33,6 +33,7 @@ public class DesireAvoidSun extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity == null)
 			return false;
+		
 		if(!entity.world.u())
 			return false;
 		else if(!entity.isBurning())
@@ -71,7 +72,6 @@ public class DesireAvoidSun extends DesireBase
 			int x = MathHelper.floor(entity.locX + r.nextInt(20) - 10);
 			int y = MathHelper.floor(entity.boundingBox.b + r.nextInt(6) - 3);
 			int z = MathHelper.floor(entity.locZ + r.nextInt(20) - 10);
-			
 			
 			if(entity instanceof EntityCreature)
 			{

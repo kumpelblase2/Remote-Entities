@@ -35,9 +35,8 @@ public class DesireBreed extends DesireBase
 		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
 		if(this.m_mateTicks == 60)
-		{
 			this.createChild();
-		}
+
 		return true;
 	}
 
@@ -46,6 +45,7 @@ public class DesireBreed extends DesireBase
 	{
 		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			return false;
+		
 		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 		if(!entity.r())
 			return false;

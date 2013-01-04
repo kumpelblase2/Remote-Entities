@@ -23,6 +23,7 @@ public class DesireSwim extends DesireBase
 	{
 		if(this.getEntityHandle().aB().nextFloat() < 0.8F)
 			this.getEntityHandle().getControllerJump().a();
+		
 		return true;
 	}
 }

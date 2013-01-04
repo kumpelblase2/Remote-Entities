@@ -14,6 +14,7 @@ public class DesireBegForItem extends DesireBase
 	protected final Set<Material> m_toBeg;
 	protected EntityHuman m_nearestPlayer;
 	protected float m_minDistance;
+	protected float m_minDistanceSquared;
 	private int m_ticks;
 	
 	public DesireBegForItem(RemoteEntity inEntity, Material... inMaterial)
@@ -27,6 +28,7 @@ public class DesireBegForItem extends DesireBase
 		this.m_toBeg = EnumSet.copyOf(Arrays.asList(inMaterial));
 		this.m_type = 2;
 		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 	}
 	
 	@Override
@@ -70,7 +72,7 @@ public class DesireBegForItem extends DesireBase
 		if(!this.m_nearestPlayer.isAlive())
 			return false;
 		
-		if(this.getEntityHandle().e(this.m_nearestPlayer) > this.m_minDistance * this.m_minDistance)
+		if(this.getEntityHandle().e(this.m_nearestPlayer) > this.m_minDistanceSquared)
 			return false;
 		
 		return this.m_ticks > 0 && this.hasItemInHand(this.m_nearestPlayer);

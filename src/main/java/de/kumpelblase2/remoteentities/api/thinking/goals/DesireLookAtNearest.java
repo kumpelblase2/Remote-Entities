@@ -10,6 +10,7 @@ public class DesireLookAtNearest extends DesireBase
 	protected Class<? extends EntityLiving> m_toLookAt;
 	protected int m_lookTicks;
 	protected float m_minDist;
+	protected float m_minDistSquared;
 	protected float m_lookPossibility;
 	
 	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance)
@@ -22,6 +23,7 @@ public class DesireLookAtNearest extends DesireBase
 		super(inEntity);
 		this.m_toLookAt = inTarget;
 		this.m_minDist = inMinDistance;
+		this.m_minDistSquared = this.m_minDist * this.m_minDist;
 		this.m_lookPossibility = inPossibility;
 	}
 
@@ -68,6 +70,6 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_target.isAlive() ? false : (this.getEntityHandle().e(this.m_target) > (this.m_minDist * this.m_minDist) ? false : this.m_lookTicks > 0);
+		return !this.m_target.isAlive() ? false : (this.getEntityHandle().e(this.m_target) > this.m_minDistSquared ? false : this.m_lookTicks > 0);
 	}
 }

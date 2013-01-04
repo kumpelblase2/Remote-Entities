@@ -9,8 +9,8 @@ import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
 public class DesireMoveToTarget extends DesireBase
 {
-
 	protected float m_minDistance;
+	protected float m_minDistanceSquared;
 	protected EntityLiving m_target;
 	protected double m_x;
 	protected double m_y;
@@ -20,6 +20,7 @@ public class DesireMoveToTarget extends DesireBase
 	{
 		super(inEntity);
 		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_type = 1;
 	}
 
@@ -32,7 +33,7 @@ public class DesireMoveToTarget extends DesireBase
 		this.m_target = this.getEntityHandle().aG();
 		if(this.m_target == null)
 			return false;
-		else if(this.m_target.e(this.getEntityHandle()) > this.m_minDistance * this.m_minDistance)
+		else if(this.m_target.e(this.getEntityHandle()) > this.m_minDistanceSquared)
 			return false;
 		else
 		{
@@ -53,7 +54,7 @@ public class DesireMoveToTarget extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistance * this.m_minDistance;
+		return !this.getEntityHandle().getNavigation().f() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistanceSquared;
 	}
 	
 	@Override

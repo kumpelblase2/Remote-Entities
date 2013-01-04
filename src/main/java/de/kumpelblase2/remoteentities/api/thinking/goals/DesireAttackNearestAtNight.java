@@ -5,7 +5,6 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class DesireAttackNearestAtNight extends DesireAttackNearest
 {
-
 	public DesireAttackNearestAtNight(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
 	{
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMeele, inChance);

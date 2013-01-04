@@ -84,21 +84,15 @@ public class DesireAvoidSpecific extends DesireBase
         }
 
         if (!this.getEntityHandle().aA().canSee(this.m_closestEntity))
-        {
             return false;
-        }
         else
         {
             Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a.create(this.m_closestEntity.locX, this.m_closestEntity.locY, this.m_closestEntity.locZ));
 
             if (var2 == null)
-            {
                 return false;
-            }
             else if (this.m_closestEntity.e(var2.c, var2.d, var2.e) < this.m_closestEntity.e(this.getEntityHandle()))
-            {
                 return false;
-            }
             else
             {
                 this.m_path = this.getEntityHandle().getNavigation().a(var2.c, var2.d, var2.e);

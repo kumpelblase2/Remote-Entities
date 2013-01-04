@@ -10,7 +10,9 @@ public class DesireFollowSpecific extends DesireBase
 {
 	protected EntityLiving m_toFollow;
 	protected float m_minDistance;
+	protected float m_minDistanceSquared;
 	protected float m_maxDistance;
+	protected float m_maxDistanceSquared;
 	protected boolean m_avoidWaterState;
 	protected int m_moveTick;
 	
@@ -19,7 +21,9 @@ public class DesireFollowSpecific extends DesireBase
 		super(inEntity);
 		this.m_toFollow = inToFollow;
 		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_maxDistance = inMaxDistance;
+		this.m_maxDistanceSquared = this.m_maxDistance * this.m_maxDistance;
 	}
 
 	@Override
@@ -32,8 +36,9 @@ public class DesireFollowSpecific extends DesireBase
 			return false;
 		else if(!this.m_toFollow.isAlive())
 			return false;
-		else if(this.m_toFollow.e(this.getEntityHandle()) < this.m_minDistance * this.m_minDistance)
+		else if(this.m_toFollow.e(this.getEntityHandle()) < this.m_minDistanceSquared)
 			return false;
+		
 		return true;
 	}
 	
@@ -55,7 +60,7 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistance * this.m_maxDistance;
+		return !this.getEntityHandle().getNavigation().f() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
 	}
 	
 	@Override

@@ -157,13 +157,12 @@ public class DesireRangedAttack extends DesireBase
             double d2 = this.m_target.locZ + this.m_target.motZ - entity.locZ;
             float f = MathHelper.sqrt(d0 * d0 + d2 * d2);
 
-            if (f >= 8.0F && !this.m_target.hasEffect(MobEffectList.SLOWER_MOVEMENT)) {
+            if (f >= 8.0F && !this.m_target.hasEffect(MobEffectList.SLOWER_MOVEMENT))
                 potion.setPotionValue(32698);
-            } else if (this.m_target.getHealth() >= 8 && !this.m_target.hasEffect(MobEffectList.POISON)) {
+            else if (this.m_target.getHealth() >= 8 && !this.m_target.hasEffect(MobEffectList.POISON))
                 potion.setPotionValue(32660);
-            } else if (f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aB().nextFloat() < 0.25F) {
+            else if (f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aB().nextFloat() < 0.25F)
                 potion.setPotionValue(32696);
-            }
 
             potion.shoot(d0, d1 + (double) (f * 0.2F), d2, 0.75F, 8.0F);
             entity.world.addEntity(potion);
