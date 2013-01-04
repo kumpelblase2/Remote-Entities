@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public class BaseBehavior implements Behavior
+public abstract class BaseBehavior implements Behavior
 {
 	protected final String m_name;
 	protected RemoteEntity m_entity;
