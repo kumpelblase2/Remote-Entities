@@ -4,6 +4,7 @@ import java.lang.reflect.*;
 import java.util.*;
 import sun.reflect.*;
 
+//Made by JŽr™me Kehrli and modified by kumpelblase2. Original can be found at [http://www.niceideas.ch/roller2/badtrash/entry/java_create_enum_instances_dynamically]
 public final class EnumChange
 {
 	private static ReflectionFactory reflectionFactory = ReflectionFactory.getReflectionFactory();
@@ -28,12 +29,14 @@ public final class EnumChange
 	private static void blankField(final Class<?> enumClass, final String fieldName) throws NoSuchFieldException, IllegalAccessException
 	{
 		for(final Field field : Class.class.getDeclaredFields())
+		{
 			if(field.getName().contains(fieldName))
 			{
 				AccessibleObject.setAccessible(new Field[] { field }, true);
 				setFailsafeFieldValue(field, enumClass, null);
 				break;
 			}
+		}
 	}
 
 	private static void cleanEnumCache(final Class<?> enumClass) throws NoSuchFieldException, IllegalAccessException
@@ -75,6 +78,7 @@ public final class EnumChange
 		// 0. Sanity checks
 		if(!Enum.class.isAssignableFrom(enumType))
 			throw new RuntimeException("class " + enumType + " is not an instance of Enum");
+		
 		// 1. Lookup "$VALUES" holder in enum class and get previous enum instances
 		Field valuesField = null;
 		final Field[] fields = enumType.getDeclaredFields();
@@ -129,6 +133,7 @@ public final class EnumChange
 	{
 		if(!Enum.class.isAssignableFrom(enumType))
 			throw new RuntimeException("class " + enumType + " is not an instance of Enum");
+		
 		Field valuesField = null;
 		final Field[] fields = enumType.getDeclaredFields();
 		for(final Field field : fields)
@@ -141,6 +146,7 @@ public final class EnumChange
 		}
 		if(valuesField == null)
 			return;
+		
 		AccessibleObject.setAccessible(new Field[] { valuesField }, true);
 		try
 		{

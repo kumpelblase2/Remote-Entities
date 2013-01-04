@@ -134,9 +134,8 @@ public class Navigation
 			lowest.getDesire().stopExecuting();
 		}
 		else
-		{
 			temp.get(0).getDesire().stopExecuting();
-		}
+
 		this.m_desires.remove(temp.get(0));
 		this.m_executingDesires.remove(temp.get(0));
 		return true;

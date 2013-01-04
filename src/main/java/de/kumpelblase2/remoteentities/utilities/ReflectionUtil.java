@@ -25,7 +25,9 @@ public final class ReflectionUtil
 			goalSelectorField.setAccessible(true);
 			goalSelectorField.set(inEntity, inNewSelector);
 		}
-		catch(Exception e){}
+		catch(Exception e)
+		{
+		}
 	}
 	
 	/**

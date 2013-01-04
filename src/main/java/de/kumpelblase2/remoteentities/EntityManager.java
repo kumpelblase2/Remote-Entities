@@ -115,6 +115,7 @@ public class EntityManager
 		RemoteEntity entity = this.createEntity(inType, id);
 		if(entity == null)
 			return null;
+		
 		entity.spawn(inLocation);
 		if(inSetupGoals)
 			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
@@ -178,9 +179,11 @@ public class EntityManager
 		RemoteEntity entity = this.createNamedEntity(inType, id, inName);
 		if(entity == null)
 			return null;
+		
 		entity.spawn(inLocation);
 		if(inSetupGoals)
 			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		
 		return entity;
 	}
 	

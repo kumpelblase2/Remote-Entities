@@ -49,9 +49,8 @@ public abstract class EnterSightBehavior extends BaseBehavior
 			{
 				Player player = (Player)entity;
 				if(!this.m_inRange.contains(player.getName()))
-				{
 					this.onEnterSight(player);
-				}
+
 				temp.add(player.getName());
 			}
 		}
