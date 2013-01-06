@@ -76,7 +76,7 @@ public class RandomPositionGenerator
         }
 
         if (flag)
-            return Vec3D.a.create((double) k, (double) l, (double) i1);
+            return entitycreature.world.getVec3DPool().create((double) k, (double) l, (double) i1);
         else
             return null;
     }

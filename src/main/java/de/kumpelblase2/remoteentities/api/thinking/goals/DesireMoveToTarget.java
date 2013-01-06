@@ -37,7 +37,7 @@ public class DesireMoveToTarget extends DesireBase
 			return false;
 		else
 		{
-			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, Vec3D.a.create(this.m_target.locX, this.m_target.locY, this.m_target.locZ));
+			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, this.getEntityHandle().world.getVec3DPool().create(this.m_target.locX, this.m_target.locY, this.m_target.locZ));
 			
 			if(vec == null)
 				return false;

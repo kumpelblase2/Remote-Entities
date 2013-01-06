@@ -55,7 +55,7 @@ public class DesireMoveThroughVillage extends DesireBase
 						return true;
 					else
 					{
-						Vec3D vec = RandomPositionGenerator.a(entity, 10, 7, Vec3D.a.create(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ));
+						Vec3D vec = RandomPositionGenerator.a(entity, 10, 7, entity.world.getVec3DPool().create(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ));
 						
 						if(vec == null)
 							return false;

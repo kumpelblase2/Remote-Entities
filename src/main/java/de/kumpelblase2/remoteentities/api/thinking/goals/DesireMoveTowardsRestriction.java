@@ -27,7 +27,7 @@ public class DesireMoveTowardsRestriction extends DesireBase
 		else
 		{
 			ChunkCoordinates chunkCoords = this.getEntityHandle().aJ();
-			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, Vec3D.a.create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
+			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, this.getEntityHandle().world.getVec3DPool().create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
 			if(vec == null)
 				return false;
 			else

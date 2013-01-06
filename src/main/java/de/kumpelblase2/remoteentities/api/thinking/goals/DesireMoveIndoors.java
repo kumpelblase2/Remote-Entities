@@ -64,7 +64,7 @@ public class DesireMoveIndoors extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity.e(this.m_targetDoor.getIndoorsX(), entity.locY, this.m_targetDoor.getIndoorsZ()) > 256)
 		{
-			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, Vec3D.a.create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
+			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, entity.world.getVec3DPool().create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 			if(vec != null)
 				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
 		}
