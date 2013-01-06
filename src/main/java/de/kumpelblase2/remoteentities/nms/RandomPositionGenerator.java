@@ -41,7 +41,7 @@ public class RandomPositionGenerator
         if (entitycreature.aM())
         {
             double d0 = (double) (entitycreature.aJ().e(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0F);
-            double d1 = (double) (entitycreature.aE() + (float) i);
+            double d1 = (double) (entitycreature.aK() + (float) i);
 
             flag1 = d0 < d1 * d1;
         }
