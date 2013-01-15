@@ -181,6 +181,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.m_entity.yaw = inYaw;
 			this.m_entity.az = inYaw;
 		}
+		if(this.isStationary())
+			getMind().fixYaw(inYaw);
 	}
 	
 	@Override
@@ -190,6 +192,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			return;
 		
 		this.m_entity.pitch = inPitch;
+		if(this.isStationary())
+			getMind().fixYaw(inPitch);
 	}
 	
 	@Override
@@ -227,6 +231,11 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			return;
 		
 		this.getBukkitEntity().teleport(inLocation);
+		if(this.isStationary())
+		{
+			getMind().fixYaw(inLocation.getYaw());
+			getMind().fixPitch(inLocation.getPitch());
+		}
 	}
 	
 	@Override

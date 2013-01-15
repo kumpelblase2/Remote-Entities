@@ -10,6 +10,8 @@ public class Mind
 	private boolean m_canFeel = true;
 	private Navigation m_targetNavigation;
 	private Navigation m_movementNavigation;
+	private boolean changedYaw = false, changedPitch = false;
+	private float yaw, pitch;
 	
 	public Mind(RemoteEntity inEntity)
 	{
@@ -263,12 +265,45 @@ public class Mind
 	}
 	
 	/**
+	 * Fixes yaw rotation
+	 * 
+	 * @param yaw	yaw of the entity
+	 */
+	public void fixYaw(float yaw)
+	{
+		this.yaw = yaw;
+		this.changedYaw = true;
+	}
+	
+	/**
+	 * Fixes pitch rotation
+	 * 
+	 * @param pitch	pitch of the entity
+	 */
+	public void fixPitch(float pitch)
+	{
+		this.pitch = pitch;
+		this.changedPitch = true;
+	}
+	
+	/**
 	 * Updates the mind
 	 */
 	public void tick()
 	{
 		if(this.m_entity.getHandle() == null)
 			return;
+		
+		if(this.changedYaw)
+		{
+			this.m_entity.getHandle().yaw = yaw;
+			this.m_entity.getHandle().az = yaw;
+		}
+		
+		if(this.changedPitch)
+		{
+			this.m_entity.getHandle().pitch = pitch;
+		}
 		
 		if(this.canFeel())
 		{
