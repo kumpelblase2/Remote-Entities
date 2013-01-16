@@ -193,7 +193,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		
 		this.m_entity.pitch = inPitch;
 		if(this.isStationary())
-			getMind().fixYaw(inPitch);
+			getMind().fixPitch(inPitch);
 	}
 	
 	@Override

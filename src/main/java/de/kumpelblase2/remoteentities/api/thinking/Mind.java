@@ -294,13 +294,13 @@ public class Mind
 		if(this.m_entity.getHandle() == null)
 			return;
 		
-		if(this.changedYaw)
+		if(this.changedYaw && this.m_entity.isStationary())
 		{
 			this.m_entity.getHandle().yaw = yaw;
 			this.m_entity.getHandle().az = yaw;
 		}
 		
-		if(this.changedPitch)
+		if(this.changedPitch && this.m_entity.isStationary())
 		{
 			this.m_entity.getHandle().pitch = pitch;
 		}
