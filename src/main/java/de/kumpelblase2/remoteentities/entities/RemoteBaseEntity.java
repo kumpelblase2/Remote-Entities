@@ -86,7 +86,18 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public void setStationary(boolean inState)
 	{
+		this.setStationary(inState, false);
+	}
+	
+	@Override
+	public void setStationary(boolean inState, boolean inKeepHeadFixed)
+	{
 		this.m_isStationary = inState;
+		if(!inKeepHeadFixed)
+		{
+			this.getMind().resetFixedYaw();
+			this.getMind().resetFixedPitch();
+		}
 	}
 
 	@Override
@@ -178,6 +189,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.move(newLoc);
 		else
 		{
+			if(this.isStationary())
+				this.getMind().fixYawAt(inYaw);
+			
 			this.m_entity.yaw = inYaw;
 			this.m_entity.az = inYaw;
 		}
@@ -188,6 +202,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		if(!this.isSpawned())
 			return;
+		
+		if(this.isStationary())
+			this.getMind().fixPitchAt(inPitch);
 		
 		this.m_entity.pitch = inPitch;
 	}

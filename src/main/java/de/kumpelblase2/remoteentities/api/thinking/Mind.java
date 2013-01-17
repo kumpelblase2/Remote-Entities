@@ -10,6 +10,10 @@ public class Mind
 	private boolean m_canFeel = true;
 	private Navigation m_targetNavigation;
 	private Navigation m_movementNavigation;
+	private boolean m_hasFixedYaw = false;
+	private boolean m_hasFixedPitch = false;
+	private float m_fixedYaw;
+	private float m_fixedPitch;
 	
 	public Mind(RemoteEntity inEntity)
 	{
@@ -263,12 +267,56 @@ public class Mind
 	}
 	
 	/**
+	 * Fixes the yaw of an entity to a specific value.
+	 * 
+	 * @param inYaw	Fixed yaw value
+	 */
+	public void fixYawAt(float inYaw)
+	{
+		this.m_hasFixedYaw = true;
+		this.m_fixedYaw = inYaw;
+	}
+	
+	/**
+	 * Removes the fix of the yaw value
+	 */
+	public void resetFixedYaw()
+	{
+		this.m_hasFixedYaw = false;
+	}
+	
+	/**
+	 * Fixes the pitch of an entity to a specific value.
+	 * 
+	 * @param inPitch	Fixed yaw value
+	 */
+	public void fixPitchAt(float inPitch)
+	{
+		this.m_hasFixedPitch = true;
+		this.m_fixedPitch = inPitch;
+	}
+	
+	/**
+	 * Removes the fix of the pitch value 
+	 */
+	public void resetFixedPitch()
+	{
+		this.m_hasFixedPitch = false;
+	}
+	
+	/**
 	 * Updates the mind
 	 */
 	public void tick()
 	{
 		if(this.m_entity.getHandle() == null)
 			return;
+		
+		if(this.m_hasFixedYaw)
+			this.m_entity.setYaw(this.m_fixedYaw);
+		
+		if(this.m_hasFixedPitch)
+			this.m_entity.setPitch(this.m_fixedPitch);
 		
 		if(this.canFeel())
 		{

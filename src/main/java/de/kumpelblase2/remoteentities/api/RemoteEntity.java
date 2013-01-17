@@ -88,13 +88,16 @@ public interface RemoteEntity
 	
 	/**
 	 * Sets that yaw of the entity
+	 * When the entity is stationary, the yaw value will be fixed to the new value.
 	 * 
 	 * @param inYaw	new yaw
 	 */
 	public void setYaw(float inYaw);
 	
 	/**
-	 * When inRotate is true, it will smoothly rotate to the new yaw rotation
+	 * When inRotate is true, it will smoothly rotate to the new yaw rotation.
+	 * Otherwise it will just set the new value.
+	 * When the entity is stationary, the yaw value will be fixed to the new value.
 	 * 
 	 * @param inYaw		new yaw
 	 * @param inRotate	If the entity should rotate or snap to the new value
@@ -103,6 +106,7 @@ public interface RemoteEntity
 	
 	/**
 	 * Sets the head pitch of the entity
+	 * When the entity is stationary, the pitch value will be fixed to the new value.
 	 * 
 	 * @param inPitch	new pitch
 	 */
@@ -165,11 +169,21 @@ public interface RemoteEntity
 	
 	/**
 	 * Sets the the stationary state of the entity.
-	 * While being stationary an entity is unable to move
+	 * While being stationary an entity is unable to move.
+	 * This will also reset the fixed yaw and pitch rotation
 	 * 
 	 * @param inState	stationary state
 	 */
 	public void setStationary(boolean inState);
+	
+	/**
+	 * Sets the stationary state of the entity.
+	 * While being stationary an entity is unable to move.
+	 * 
+	 * @param inState			stationary state
+	 * @param inKeepHeadFixed	Determines whether the entity should keep its fixed yaw and pitch when changing its state
+	 */
+	public void setStationary(boolean inState, boolean inKeepHeadFixed);
 	
 	/**
 	 * Gets if the entity is stationary
