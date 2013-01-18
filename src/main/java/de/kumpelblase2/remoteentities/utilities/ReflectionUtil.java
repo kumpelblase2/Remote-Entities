@@ -67,14 +67,12 @@ public final class ReflectionUtil
 	 * 
 	 * @param inEntity	entity
 	 * @return			speed
-	 * @Deprecated 		field is wrong
 	 */
-	@Deprecated
 	public static float getSpeed(EntityLiving inEntity)
 	{
 		try
 		{
-			Field speed = inEntity.getClass().getDeclaredField("bw");
+			Field speed = inEntity.getClass().getDeclaredField("bH");
 			return speed.getFloat(inEntity);
 		}
 		catch(Exception e)
@@ -88,14 +86,12 @@ public final class ReflectionUtil
 	 * 
 	 * @param inEntity	entity
 	 * @return			modifier
-	 * @Deprecated		field is wrong
 	 */
-	@Deprecated
 	public static float getSpeedModifier(EntityLiving inEntity)
 	{
 		try
 		{
-			Field speed = inEntity.getClass().getDeclaredField("bB");
+			Field speed = inEntity.getClass().getDeclaredField("bP");
 			return speed.getFloat(inEntity);
 		}
 		catch(Exception e)
