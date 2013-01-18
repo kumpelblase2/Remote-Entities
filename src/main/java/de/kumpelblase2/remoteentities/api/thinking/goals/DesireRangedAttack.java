@@ -1,20 +1,20 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_4_6.Entity;
-import net.minecraft.server.v1_4_6.EntityArrow;
-import net.minecraft.server.v1_4_6.EntityFireball;
-import net.minecraft.server.v1_4_6.EntityHuman;
-import net.minecraft.server.v1_4_6.EntityLargeFireball;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.EntityPotion;
-import net.minecraft.server.v1_4_6.EntitySmallFireball;
-import net.minecraft.server.v1_4_6.EntitySnowball;
-import net.minecraft.server.v1_4_6.MathHelper;
-import net.minecraft.server.v1_4_6.MobEffectList;
-import net.minecraft.server.v1_4_6.Vec3D;
+import net.minecraft.server.v1_4_R1.Entity;
+import net.minecraft.server.v1_4_R1.EntityArrow;
+import net.minecraft.server.v1_4_R1.EntityFireball;
+import net.minecraft.server.v1_4_R1.EntityHuman;
+import net.minecraft.server.v1_4_R1.EntityLargeFireball;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.EntityPotion;
+import net.minecraft.server.v1_4_R1.EntitySmallFireball;
+import net.minecraft.server.v1_4_R1.EntitySnowball;
+import net.minecraft.server.v1_4_R1.MathHelper;
+import net.minecraft.server.v1_4_R1.MobEffectList;
+import net.minecraft.server.v1_4_R1.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -86,7 +86,7 @@ public class DesireRangedAttack extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		EntityLiving target = this.getEntityHandle().aG();
+		EntityLiving target = this.getEntityHandle().getGoalTarget();
 		
 		if(target == null)
 			return false;

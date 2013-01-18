@@ -1,12 +1,12 @@
 
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.MathHelper;
-import net.minecraft.server.v1_4_6.PathEntity;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.MathHelper;
+import net.minecraft.server.v1_4_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -41,7 +41,7 @@ public class DesireAttackOnCollide extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		EntityLiving entityTarget = this.getEntityHandle().aG();
+		EntityLiving entityTarget = this.getEntityHandle().getGoalTarget();
 		
 		if(entityTarget == null)
 			return false;
@@ -58,7 +58,7 @@ public class DesireAttackOnCollide extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getEntityHandle().aG();
+		EntityLiving entityTarget = this.getEntityHandle().getGoalTarget();
 		EntityLiving entity = this.getEntityHandle();
 		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.e(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
 	}

@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_6.EntityLiving;
+import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -21,7 +21,7 @@ public class DesireOcelotAttack extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		EntityLiving target = this.getEntityHandle().aG();
+		EntityLiving target = this.getEntityHandle().getGoalTarget();
 		if(target == null)
 			return false;
 		

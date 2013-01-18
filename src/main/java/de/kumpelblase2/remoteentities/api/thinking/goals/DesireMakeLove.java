@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.entity.LivingEntity;
-import net.minecraft.server.v1_4_6.EntityVillager;
-import net.minecraft.server.v1_4_6.MathHelper;
-import net.minecraft.server.v1_4_6.Village;
+import net.minecraft.server.v1_4_R1.EntityVillager;
+import net.minecraft.server.v1_4_R1.MathHelper;
+import net.minecraft.server.v1_4_R1.Village;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;

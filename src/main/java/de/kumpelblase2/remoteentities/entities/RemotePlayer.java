@@ -1,12 +1,12 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.PlayerInteractManager;
-import net.minecraft.server.v1_4_6.WorldServer;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.PlayerInteractManager;
+import net.minecraft.server.v1_4_R1.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
@@ -34,7 +34,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		if(this.m_entity == null)
 			return;
 		
-		this.m_entity.b(((CraftLivingEntity)inTarget).getHandle());
+		this.m_entity.setGoalTarget(((CraftLivingEntity)inTarget).getHandle());
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		if(this.m_entity == null)
 			return;
 		
-		this.m_entity.b((EntityLiving)null);
+		this.m_entity.setGoalTarget((EntityLiving)null);
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Name
 		if(this.m_entity == null)
 			return null;
 		
-		EntityLiving target = this.m_entity.aG();
+		EntityLiving target = this.m_entity.getGoalTarget();
 		if(target != null)
 			return (LivingEntity)target.getBukkitEntity();
 		
