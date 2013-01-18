@@ -1,17 +1,17 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
-import net.minecraft.server.v1_4_6.EntityCreature;
-import net.minecraft.server.v1_4_6.EntityHuman;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.EntityTameableAnimal;
-import net.minecraft.server.v1_4_6.MathHelper;
-import net.minecraft.server.v1_4_6.PathEntity;
-import net.minecraft.server.v1_4_6.PathPoint;
+import net.minecraft.server.v1_4_R1.EntityCreature;
+import net.minecraft.server.v1_4_R1.EntityHuman;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.EntityTameableAnimal;
+import net.minecraft.server.v1_4_R1.MathHelper;
+import net.minecraft.server.v1_4_R1.PathEntity;
+import net.minecraft.server.v1_4_R1.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -54,13 +54,13 @@ public abstract class DesireTargetBase extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().b((EntityLiving)null);
+		this.getEntityHandle().setGoalTarget((EntityLiving)null);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving target = this.getEntityHandle().aG();
+		EntityLiving target = this.getEntityHandle().getGoalTarget();
 		
 		if(target == null)
 			return false;
@@ -158,7 +158,7 @@ public abstract class DesireTargetBase extends DesireBase
 	                    return false;
 	                }
 	                else if (inEntity.getBukkitEntity() != event.getTarget())
-	                    this.getEntityHandle().b((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
+	                    this.getEntityHandle().setGoalTarget((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
 
 	                if (this.getEntityHandle() instanceof EntityCreature)
 	                    ((EntityCreature)this.getEntityHandle()).target = ((CraftEntity) event.getTarget()).getHandle();

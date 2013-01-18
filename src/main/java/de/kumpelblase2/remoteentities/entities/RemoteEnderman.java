@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_4_6.EntityLiving;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftLivingEntity;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
@@ -33,7 +33,7 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		if(!this.m_hadAttackDesire)
 			this.getMind().addActionDesire(new DesireAttackTarget(this, 16, false, false), this.getMind().getHighestActionPriority() + 1);
 		
-		this.getHandle().b(((CraftLivingEntity)inTarget).getHandle());
+		this.getHandle().setGoalTarget(((CraftLivingEntity)inTarget).getHandle());
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		if(this.m_entity == null)
 			return;
 		
-		this.getHandle().b((EntityLiving)null);
+		this.getHandle().setGoalTarget((EntityLiving)null);
 		if(!this.m_hadAttackDesire)
 			this.getMind().removeActionDesire(DesireAttackTarget.class);
 	}
@@ -53,7 +53,7 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		if(this.m_entity == null)
 			return null;
 		
-		EntityLiving target = this.m_entity.aG();
+		EntityLiving target = this.m_entity.getGoalTarget();
 		if(target != null)
 			return (LivingEntity)target.getBukkitEntity();
 		

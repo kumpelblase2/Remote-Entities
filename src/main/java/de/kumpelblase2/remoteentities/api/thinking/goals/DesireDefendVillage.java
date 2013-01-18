@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_6.EntityIronGolem;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.Village;
+import net.minecraft.server.v1_4_R1.EntityIronGolem;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.Village;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
@@ -45,7 +45,7 @@ public class DesireDefendVillage extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().b(this.m_nextTarget);
+		this.getEntityHandle().setGoalTarget(this.m_nextTarget);
 		super.startExecuting();
 	}
 }

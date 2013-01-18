@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import net.minecraft.server.v1_4_6.PathfinderGoal;
-import net.minecraft.server.v1_4_6.PathfinderGoalSelector;
+import net.minecraft.server.v1_4_R1.PathfinderGoal;
+import net.minecraft.server.v1_4_R1.PathfinderGoalSelector;
 
 public class PathfinderGoalSelectorHelper
 {

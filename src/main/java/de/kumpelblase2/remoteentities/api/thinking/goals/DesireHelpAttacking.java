@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.EntityTameableAnimal;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
@@ -46,7 +46,7 @@ public class DesireHelpAttacking extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().b(this.m_ownerTarget);
+		this.getEntityHandle().setGoalTarget(this.m_ownerTarget);
 		super.startExecuting();
 	}
 	

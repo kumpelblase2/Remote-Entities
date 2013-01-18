@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Location;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.Vec3D;
+import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
@@ -30,7 +30,7 @@ public class DesireMoveToTarget extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		this.m_target = this.getEntityHandle().aG();
+		this.m_target = this.getEntityHandle().getGoalTarget();
 		if(this.m_target == null)
 			return false;
 		else if(this.m_target.e(this.getEntityHandle()) > this.m_minDistanceSquared)

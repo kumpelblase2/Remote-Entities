@@ -3,8 +3,8 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_6.*;
-import net.minecraft.server.v1_4_6.Navigation;
+import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_4_R1.Navigation;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
@@ -206,13 +206,13 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
-	public EntityLiving aG()
+	public EntityLiving getGoalTarget()
 	{
 		return this.m_target;
 	}
 	
 	@Override
-	public void b(EntityLiving inEntity)
+	public void setGoalTarget(EntityLiving inEntity)
 	{
 		this.m_target = inEntity;
 	}
