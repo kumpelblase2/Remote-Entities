@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import net.minecraft.server.v1_4_6.PathfinderGoalSit;
+import net.minecraft.server.v1_4_R1.PathfinderGoalSit;
 
 public class DesireSitTemp extends PathfinderGoalSit
 {
@@ -14,7 +14,7 @@ public class DesireSitTemp extends PathfinderGoalSit
 	}
 	
 	@Override
-	public void a(boolean flag)
+	public void setSitting(boolean flag)
 	{
 		if(this.m_entity.getMind().getMovementDesire(DesireSit.class) == null)
 			return;

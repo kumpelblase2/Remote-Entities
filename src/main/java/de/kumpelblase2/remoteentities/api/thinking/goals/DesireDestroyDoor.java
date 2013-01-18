@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory;
-import net.minecraft.server.v1_4_6.World;
+import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
+import net.minecraft.server.v1_4_R1.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class DesireDestroyDoor extends DesireInteractDoor

@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_4_6.AxisAlignedBB;
-import net.minecraft.server.v1_4_6.EntityLiving;
+import net.minecraft.server.v1_4_R1.AxisAlignedBB;
+import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class DesireAttackTarget extends DesireTargetBase
@@ -39,7 +39,7 @@ public class DesireAttackTarget extends DesireTargetBase
 	public void startExecuting()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		entity.b(entity.aC());
+		entity.setGoalTarget(entity.aC());
 		this.m_target = entity.aC();
 		
 		if(this.m_attackNearest)
@@ -52,8 +52,8 @@ public class DesireAttackTarget extends DesireTargetBase
 			{
 				EntityLiving target = it.next();
 				
-				if(this.getEntityHandle() != target && target.aG() == null)
-					target.b(entity.aC());
+				if(this.getEntityHandle() != target && target.getGoalTarget() == null)
+					target.setGoalTarget(entity.aC());
 			}
 		}
 		super.startExecuting();

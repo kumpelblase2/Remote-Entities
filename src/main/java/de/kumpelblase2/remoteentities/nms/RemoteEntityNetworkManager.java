@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.io.IOException;
-import net.minecraft.server.v1_4_6.*;
+import net.minecraft.server.v1_4_R1.*;
 
 public class RemoteEntityNetworkManager extends NetworkManager
 {
