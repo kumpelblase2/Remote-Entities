@@ -26,6 +26,7 @@ public class DesireSit extends DesireBase
 	{
 		if(this.m_animal == null)
 			return false;
+		
 		if(!this.m_animal.isTamed())
 			return false;
 		else if(this.m_animal.H())

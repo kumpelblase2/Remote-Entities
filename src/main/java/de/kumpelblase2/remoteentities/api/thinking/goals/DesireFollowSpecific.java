@@ -31,10 +31,12 @@ public class DesireFollowSpecific extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+			
 		if(this.m_toFollow == null)
 			return false;
 		else if(!this.m_toFollow.isAlive())
+			return false;
+		else if(this.m_toFollow == this.getEntityHandle())
 			return false;
 		else if(this.m_toFollow.e(this.getEntityHandle()) < this.m_minDistanceSquared)
 			return false;

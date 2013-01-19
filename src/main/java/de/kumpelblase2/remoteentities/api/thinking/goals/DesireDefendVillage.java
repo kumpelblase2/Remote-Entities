@@ -38,7 +38,17 @@ public class DesireDefendVillage extends DesireTargetBase
 		else
 		{
 			this.m_nextTarget = nextVillage.b(this.getEntityHandle());
-			return this.isSuitableTarget(this.m_nextTarget, false);
+			if(!this.isSuitableTarget(this.m_nextTarget, false))
+			{
+				if(this.getEntityHandle().aB().nextInt(20) == 0)
+				{
+					this.m_nextTarget = nextVillage.c(this.getEntityHandle());
+					return this.isSuitableTarget(this.m_nextTarget, false);
+				}
+				else
+					return false;
+			}
+			return true;
 		}
 	}
 	

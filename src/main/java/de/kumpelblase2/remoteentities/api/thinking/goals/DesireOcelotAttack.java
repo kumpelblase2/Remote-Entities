@@ -47,7 +47,7 @@ public class DesireOcelotAttack extends DesireBase
 	{
 		EntityLiving entity = this.getEntityHandle();
 		this.getEntityHandle().getControllerLook().a(this.m_target, 30, 30);
-		double minDist = entity.width * 2 * entity.width * 2;
+		double minDist = entity.width * entity.width * 4;
 		double dist = entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
 		float speed = 0.23F;
 		
@@ -63,7 +63,7 @@ public class DesireOcelotAttack extends DesireBase
 			if(this.m_attackTick <= 0)
 			{
 				this.m_attackTick = 20;
-				entity.k(this.m_target);
+				entity.m(this.m_target);
 			}
 		}
 		return true;

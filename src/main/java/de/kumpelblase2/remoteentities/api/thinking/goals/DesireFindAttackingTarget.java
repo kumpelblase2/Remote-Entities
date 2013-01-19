@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import java.util.Iterator;
 import java.util.List;
 import net.minecraft.server.v1_4_R1.AxisAlignedBB;
+import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
@@ -57,5 +58,12 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 			}
 		}
 		super.startExecuting();
+	}
+	
+	@Override
+	public void stopExecuting()
+	{
+		if(this.getEntityHandle().getGoalTarget() != null && this.getEntityHandle().getGoalTarget() instanceof EntityHuman && ((EntityHuman)this.getEntityHandle().getGoalTarget()).abilities.isInvulnerable)
+			super.stopExecuting();
 	}
 }

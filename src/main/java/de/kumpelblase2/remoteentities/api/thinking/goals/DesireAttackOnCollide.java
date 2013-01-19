@@ -85,7 +85,7 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entity = this.getEntityHandle();
 		entity.getControllerLook().a(this.m_target, 30, 30);
-		if(--this.m_moveTick <= 0 && (this.m_ignoreSight || entity.aA().canSee(this.m_target)))
+		if((this.m_ignoreSight || entity.aA().canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 4 + entity.aB().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)entity.getBukkitEntity(), this.m_speed);

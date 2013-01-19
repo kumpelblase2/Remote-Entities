@@ -17,7 +17,7 @@ public class DesireSitOnBlock extends DesireBase
 	protected int m_y = 0;
 	protected int m_z = 0;
 	protected int m_currentSitTick = 0;
-	protected int m_d = 0;
+	protected int m_actionTicks = 0;
 	protected int m_maxSitTicks = 0;
 	
 	public DesireSitOnBlock(RemoteEntity inEntity) throws Exception
@@ -39,7 +39,7 @@ public class DesireSitOnBlock extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_currentSitTick <= this.m_maxSitTicks && this.m_d <= 60 && this.isSitableBlock(this.m_ocelot.world, this.m_x, this.m_y, this.m_z);
+		return this.m_currentSitTick <= this.m_maxSitTicks && this.m_actionTicks <= 60 && this.isSitableBlock(this.m_ocelot.world, this.m_x, this.m_y, this.m_z);
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class DesireSitOnBlock extends DesireBase
 	{
 		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 		this.m_currentSitTick = 0;
-		this.m_d = 0;
+		this.m_actionTicks = 0;
 		this.m_maxSitTicks = this.m_ocelot.aB().nextInt(this.m_ocelot.aB().nextInt(1200) + 1200) + 1200;
 		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
 			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
@@ -68,12 +68,12 @@ public class DesireSitOnBlock extends DesireBase
 		{
 			this.m_ocelot.setSitting(false);
 			this.getRemoteEntity().move(new Location(this.m_ocelot.world.getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
-			this.m_d++;
+			this.m_actionTicks++;
 		}
 		else if(!this.m_ocelot.isSitting())
 			this.m_ocelot.setSitting(true);
 		else
-			this.m_d--;
+			this.m_actionTicks--;
 		
 		return true;
 	}

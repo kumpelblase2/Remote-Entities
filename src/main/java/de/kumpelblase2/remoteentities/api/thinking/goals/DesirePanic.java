@@ -21,7 +21,7 @@ public class DesirePanic extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().aC() == null)
+		if(this.getEntityHandle() == null || (this.getEntityHandle().aC() == null && !this.getEntityHandle().isBurning()))
 			return false;
 		else
 		{
