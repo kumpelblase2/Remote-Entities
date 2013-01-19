@@ -6,5 +6,6 @@ public enum RemoteProjectileType
 	SNOWBALL,
 	FIREBALL,
 	SMALL_FIREBALL,
-	POTION
+	POTION,
+	ENTITY_DEFAULT
 }

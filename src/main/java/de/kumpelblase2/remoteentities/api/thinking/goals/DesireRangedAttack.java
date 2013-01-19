@@ -26,7 +26,8 @@ public class DesireRangedAttack extends DesireBase
 	protected int m_inRangeTick;
 	protected int m_shootTicks;
 	protected int m_shootDelay;
-	
+	protected float m_minDistanceSquared;
+
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType)
 	{
 		this(inEntity, inProjectileType, 60);
@@ -34,9 +35,15 @@ public class DesireRangedAttack extends DesireBase
 	
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay)
 	{
+		this(inEntity, inProjectileType, inDelay, 8);
+	}
+	
+	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay, float inMinDistance)
+	{
 		super(inEntity);
 		this.m_projeProjectileType = inProjectileType;
 		this.m_shootDelay = inDelay;
+		this.m_minDistanceSquared = inMinDistance * inMinDistance;
 		this.m_type = 3;
 	}
 
@@ -52,7 +59,6 @@ public class DesireRangedAttack extends DesireBase
 	@Override
 	public boolean update()
 	{
-		double maxDist = 100;
 		double dist = this.getEntityHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
 		boolean canSee = this.getEntityHandle().aA().canSee(this.m_target);
 		
@@ -61,7 +67,7 @@ public class DesireRangedAttack extends DesireBase
 		else
 			this.m_inRangeTick = 0;
 		
-		if(dist <= maxDist && this.m_inRangeTick >= 20)
+		if(dist <= this.m_minDistanceSquared && this.m_inRangeTick >= 20)
 			this.getEntityHandle().getNavigation().g();
 		else
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity());
@@ -70,7 +76,7 @@ public class DesireRangedAttack extends DesireBase
 		this.m_shootTicks = Math.max(this.m_shootTicks - 1, 0);
 		if(this.m_shootTicks <= 0)
 		{
-			if(dist <= maxDist && canSee)
+			if(dist <= this.m_minDistanceSquared && canSee)
 			{
 				this.shoot();
 				this.m_shootTicks = this.m_shootDelay;
@@ -148,7 +154,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locZ = entity.locZ + vec.e * d;
 			entity.world.addEntity(fireball);
 		}
-		else
+		else if(this.m_projeProjectileType == RemoteProjectileType.POTION)
 		{
 			EntityPotion potion = new EntityPotion(entity.world, this.getEntityHandle(), 32732);
 			potion.pitch -= 20;
@@ -167,5 +173,7 @@ public class DesireRangedAttack extends DesireBase
             potion.shoot(d0, d1 + (double) (f * 0.2F), d2, 0.75F, 8.0F);
             entity.world.addEntity(potion);
 		}
+		else
+			entity.d(this.m_target);
 	}
 }
