@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.MathHelper;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -16,10 +17,10 @@ public class DesireFollowSpecific extends DesireBase
 	protected boolean m_avoidWaterState;
 	protected int m_moveTick;
 	
-	public DesireFollowSpecific(RemoteEntity inEntity, EntityLiving inToFollow, float inMinDistance, float inMaxDistance)
+	public DesireFollowSpecific(RemoteEntity inEntity, LivingEntity inToFollow, float inMinDistance, float inMaxDistance)
 	{
 		super(inEntity);
-		this.m_toFollow = inToFollow;
+		this.m_toFollow = ((CraftLivingEntity)inToFollow).getHandle();
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_maxDistance = inMaxDistance;
