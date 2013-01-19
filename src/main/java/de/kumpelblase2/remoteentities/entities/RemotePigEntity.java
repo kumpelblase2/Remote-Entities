@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -29,6 +30,15 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 		this.m_remoteEntity = inRemoteEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
+		try
+		{
+			Field temptField = EntityPig.class.getDeclaredField("d");
+			temptField.setAccessible(true);
+			temptField.set(this, new DesireFollowCarrotStickTemp(this.getRemoteEntity()));
+		}
+		catch(Exception e)
+		{
+		}
 	}
 	
 	@Override
@@ -54,12 +64,14 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 			Mind mind = this.getRemoteEntity().getMind();
 			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
 			mind.addMovementDesire(new DesirePanic(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.WHEAT.id, false), 3);
-			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 4);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 6);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
+			mind.addMovementDesire(new DesireFollowCarrotStick(this.getRemoteEntity(), 0.34f), 2);
+			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 3);
+			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.CARROT.id, false), 4);
+			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.CARROT_STICK.id, false), 4);
+			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 5);
+			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 7);
+			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 8);
 		}
 		catch(Exception e)
 		{

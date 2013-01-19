@@ -57,7 +57,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
 			mind.addMovementDesire(new DesireRestrictSun(this.getRemoteEntity()), 2);
 			mind.addMovementDesire(new DesireAvoidSun(this.getRemoteEntity()), 3);
-			mind.addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.ARROW, 60), 4);
+			mind.addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.ENTITY_DEFAULT, 60), 4);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 6);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
