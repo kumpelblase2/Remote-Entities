@@ -61,7 +61,7 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 7);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 8);
 			mind.addActionDesire(new DesireDefendVillage(this.getRemoteEntity()), 1);
-			mind.addActionDesire(new DesireFindTarget(this.getRemoteEntity(), 16, false, false), 2);
+			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 2);
 			mind.addActionDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityMonster.class, 16, false, true, 0), 3);
 		}
 		catch(Exception e)

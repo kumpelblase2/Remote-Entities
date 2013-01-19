@@ -137,7 +137,7 @@ public abstract class DesireTargetBase extends DesireBase
 
 	                if (this instanceof DesireDefendVillage)
 	                    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
-	                else if (this instanceof DesireFindTarget)
+	                else if (this instanceof DesireFindAttackingTarget)
 	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
 	                else if (this instanceof DesireFindNearestTarget)
 	                {
