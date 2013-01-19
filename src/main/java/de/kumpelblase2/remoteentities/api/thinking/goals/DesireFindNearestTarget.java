@@ -8,7 +8,7 @@ import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public class DesireAttackNearest extends DesireTargetBase
+public class DesireFindNearestTarget extends DesireTargetBase
 {
 	protected int m_targetChance;
 	protected Class<? extends EntityLiving> m_targetClass;
@@ -16,12 +16,12 @@ public class DesireAttackNearest extends DesireTargetBase
 	protected EntityLiving m_target;
 	protected boolean m_onlyAtNight;
 	
-	public DesireAttackNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
+	public DesireFindNearestTarget(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
 	}	
 	
-	public DesireAttackNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
+	public DesireFindNearestTarget(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
 		this.m_comparator = new DistanceComparator(null, this.getEntityHandle());

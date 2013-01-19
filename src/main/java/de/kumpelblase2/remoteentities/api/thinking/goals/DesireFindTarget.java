@@ -6,13 +6,13 @@ import net.minecraft.server.v1_4_R1.AxisAlignedBB;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public class DesireAttackTarget extends DesireTargetBase
+public class DesireFindTarget extends DesireTargetBase
 {
 	protected boolean m_attackNearest;
 	protected EntityLiving m_target;
 	
 	
-	public DesireAttackTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
+	public DesireFindTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
 		this.m_attackNearest = inAttackNearest;

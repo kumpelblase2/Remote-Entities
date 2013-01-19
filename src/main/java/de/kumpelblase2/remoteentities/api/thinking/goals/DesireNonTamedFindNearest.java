@@ -6,11 +6,11 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
-public class DesireNonTamedAttackNearest extends DesireAttackNearest
+public class DesireNonTamedFindNearest extends DesireFindNearestTarget
 {
 	protected EntityLiving m_animal;
 
-	public DesireNonTamedAttackNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance) throws Exception
+	public DesireNonTamedFindNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance) throws Exception
 	{
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMeele, inChance);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
