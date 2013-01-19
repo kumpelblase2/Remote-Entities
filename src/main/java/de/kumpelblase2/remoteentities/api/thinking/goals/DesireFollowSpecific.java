@@ -19,8 +19,13 @@ public class DesireFollowSpecific extends DesireBase
 	
 	public DesireFollowSpecific(RemoteEntity inEntity, LivingEntity inToFollow, float inMinDistance, float inMaxDistance)
 	{
+		this(inEntity, ((CraftLivingEntity)inToFollow).getHandle(), inMinDistance, inMaxDistance);
+	}
+	
+	public DesireFollowSpecific(RemoteEntity inEntity, EntityLiving inToFollow, float inMinDistance, float inMaxDistance)
+	{
 		super(inEntity);
-		this.m_toFollow = ((CraftLivingEntity)inToFollow).getHandle();
+		this.m_toFollow = inToFollow;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_maxDistance = inMaxDistance;
