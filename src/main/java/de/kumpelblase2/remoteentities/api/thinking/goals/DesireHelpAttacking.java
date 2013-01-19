@@ -1,15 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
-public class DesireHelpAttacking extends DesireTargetBase
+public class DesireHelpAttacking extends DesireTamedBase
 {
-	protected EntityLiving m_animal;
 	protected EntityLiving m_ownerTarget;
 	
 	public DesireHelpAttacking(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight) throws Exception
@@ -48,21 +46,5 @@ public class DesireHelpAttacking extends DesireTargetBase
 	{
 		this.getEntityHandle().setGoalTarget(this.m_ownerTarget);
 		super.startExecuting();
-	}
-	
-	protected boolean isTamed()
-	{
-		if(this.m_animal instanceof EntityTameableAnimal)
-			return ((EntityTameableAnimal)this.m_animal).isTamed();
-		else
-			return this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).isTamed();
-	}
-	
-	protected EntityLiving getTamer()
-	{
-		if(this.m_animal instanceof EntityTameableAnimal)
-			return ((EntityTameableAnimal)this.m_animal).getOwner();
-		else
-			return ((CraftPlayer)this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle();
 	}
 }

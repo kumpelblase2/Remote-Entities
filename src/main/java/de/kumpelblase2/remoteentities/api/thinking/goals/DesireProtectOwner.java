@@ -1,16 +1,14 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
-public class DesireProtectOwner extends DesireTargetBase
+public class DesireProtectOwner extends DesireTamedBase
 {
-	protected EntityLiving m_animal;
-	protected EntityLiving m_ownerTarget;
+	protected EntityLiving m_ownerAttacker;
 	
 	public DesireProtectOwner(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight) throws Exception
 	{
@@ -37,8 +35,8 @@ public class DesireProtectOwner extends DesireTargetBase
 				return false;
 			else
 			{
-				this.m_ownerTarget = owner.getGoalTarget();
-				return this.isSuitableTarget(this.m_ownerTarget, false);
+				this.m_ownerAttacker = owner.aC();
+				return this.isSuitableTarget(this.m_ownerAttacker, false);
 			}
 		}
 	}
@@ -46,23 +44,7 @@ public class DesireProtectOwner extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().setGoalTarget(this.m_ownerTarget);
+		this.getEntityHandle().setGoalTarget(this.m_ownerAttacker);
 		super.startExecuting();
-	}
-	
-	protected boolean isTamed()
-	{
-		if(this.m_animal instanceof EntityTameableAnimal)
-			return ((EntityTameableAnimal)this.m_animal).isTamed();
-		else
-			return this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).isTamed();
-	}
-	
-	protected EntityLiving getTamer()
-	{
-		if(this.m_animal instanceof EntityTameableAnimal)
-			return ((EntityTameableAnimal)this.m_animal).getOwner();
-		else
-			return ((CraftPlayer)this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle();
 	}
 }
