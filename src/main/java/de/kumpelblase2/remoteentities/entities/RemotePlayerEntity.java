@@ -216,4 +216,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		this.m_target = inEntity;
 	}
+	
+	@Override
+	public boolean m(Entity inEntity)
+	{
+		this.attack(inEntity);
+		return super.m(inEntity);
+	}
 }
