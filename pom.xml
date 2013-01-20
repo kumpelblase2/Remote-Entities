@@ -23,12 +23,12 @@
   
   <distributionManagement>
 	<repository>
-		<id>repo</id>
-		<url>https://github.com/kumpelblase2/Remote-Entities/raw/master/releases</url>
+		<id>remoteenetities-ftp</id>
+		<url>ftp://ftp.infinityblade.de/httpdocs/remoteentities/releases</url>
 	</repository>
 	<snapshotRepository>
-		<id>snapshot-repo</id>
-		<url>https://github.com/kumpelblase2/Remote-Entities/raw/master/snapshots</url>
+		<id>remoteentities-ftp</id>
+		<url>ftp://ftp.infinityblade.de/httpdocs/remoteentities/snapshots</url>
 	</snapshotRepository>
   </distributionManagement>
   
@@ -85,5 +85,12 @@
 		</includes>
       </resource>
     </resources>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
 	</build>
 </project>
