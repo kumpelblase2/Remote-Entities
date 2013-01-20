@@ -78,7 +78,7 @@ public class DesireFollowSpecific extends DesireBase
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
-			if(!this.getRemoteEntity().move((LivingEntity)this.m_toFollow))
+			if(!this.getRemoteEntity().move((LivingEntity)this.m_toFollow.getBukkitEntity()))
 			{
 				if(this.getEntityHandle().e(this.m_toFollow) >= 144)
 				{
