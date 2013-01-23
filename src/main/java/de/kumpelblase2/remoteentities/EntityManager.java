@@ -106,19 +106,22 @@ public class EntityManager
 	 * @return					the created entity
 	 * @throws NoNameException	when trying to create a named entity. Use {@link EntityManager#createNamedEntity(RemoteEntityType, Location, String, boolean)} instead
 	 */
-	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation, boolean inSetupGoals) throws NoNameException
+	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation, boolean inSetupGoals)
 	{
 		if(inType.isNamed())
 			throw new NoNameException("Tried to spawn a named entity without name");
-
+		
 		Integer id = this.getNextFreeID();
 		RemoteEntity entity = this.createEntity(inType, id);
 		if(entity == null)
 			return null;
 		
-		entity.spawn(inLocation);
-		if(inSetupGoals)
-			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		if(inLocation != null)
+		{
+			entity.spawn(inLocation);
+			if(inSetupGoals)
+				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		}
 		
 		return entity;
 	}
@@ -165,14 +168,7 @@ public class EntityManager
 	{
 		if(!inType.isNamed())
 		{
-			try
-			{
-				return this.createEntity(inType, inLocation, inSetupGoals);
-			}
-			catch(NoNameException e)
-			{
-				return null;
-			}
+			return this.createEntity(inType, inLocation, inSetupGoals);
 		}
 		
 		Integer id = this.getNextFreeID();
@@ -180,9 +176,12 @@ public class EntityManager
 		if(entity == null)
 			return null;
 		
-		entity.spawn(inLocation);
-		if(inSetupGoals)
-			((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		if(inLocation != null)
+		{
+			entity.spawn(inLocation);
+			if(inSetupGoals)
+				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
+		}
 		
 		return entity;
 	}
