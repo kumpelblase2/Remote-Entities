@@ -112,4 +112,9 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 	{
 		((EntityHuman)this.getHandle()).a(true, true, false);
 	}
+
+	public boolean isSleeping()
+	{
+		return ((EntityHuman)this.getHandle()).isSleeping();
+	}
 }
