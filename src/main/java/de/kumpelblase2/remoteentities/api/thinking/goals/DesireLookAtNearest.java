@@ -42,7 +42,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_target, 10, this.getEntityHandle().bp());
+		this.getEntityHandle().getControllerLook().a(this.m_target.locX, this.m_target.locY + this.m_target.getHeadHeight(), this.m_target.locZ, 10, this.getEntityHandle().bp());
 		this.m_lookTicks--;
 		return true;
 	}

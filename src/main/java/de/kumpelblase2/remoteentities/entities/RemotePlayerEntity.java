@@ -104,6 +104,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void j_()
 	{
+		this.yaw = this.az;
 		super.j_();
 		super.g();
 
