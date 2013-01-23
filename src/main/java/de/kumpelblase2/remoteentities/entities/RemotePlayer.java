@@ -1,6 +1,8 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.EnumBedResult;
 import net.minecraft.server.v1_4_R1.PlayerInteractManager;
 import net.minecraft.server.v1_4_R1.WorldServer;
 import org.bukkit.Bukkit;
@@ -98,5 +100,16 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 	public String getNativeEntityName()
 	{
 		return "Player";
+	}
+	
+	public boolean enterBed(Location inLocation)
+	{
+		this.teleport(inLocation);
+		return ((EntityHuman)this.getHandle()).a((int)inLocation.getX(), (int)inLocation.getY(), (int)inLocation.getZ()) == EnumBedResult.OK;
+	}
+	
+	public void leaveBed()
+	{
+		((EntityHuman)this.getHandle()).a(true, true, false);
 	}
 }

@@ -28,6 +28,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.noDamageTicks = 1;
 		this.W = 1;
 		this.getNavigation().e(true);
+		this.fauxSleeping = true;
 	}
 	
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
