@@ -12,7 +12,7 @@ import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 
-public class RemotePlayer extends RemoteBaseEntity implements RemoteEntity, Nameable, Fightable
+public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightable
 {
 	protected String m_name;
 	
