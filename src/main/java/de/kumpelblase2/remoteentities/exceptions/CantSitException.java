@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.exceptions;
 
 @SuppressWarnings("serial")
-public class CantSitException extends Exception
+public class CantSitException extends RuntimeException
 {
 	public CantSitException()
 	{

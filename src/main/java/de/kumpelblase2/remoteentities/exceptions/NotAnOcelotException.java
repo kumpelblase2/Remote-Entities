@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.exceptions;
 
 @SuppressWarnings("serial")
-public class NotAnOcelotException extends Exception
+public class NotAnOcelotException extends RuntimeException
 {
 	public NotAnOcelotException()
 	{

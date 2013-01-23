@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.exceptions;
 
 @SuppressWarnings("serial")
-public class NotACreeperException extends Exception
+public class NotACreeperException extends RuntimeException
 {
 	public NotACreeperException()
 	{

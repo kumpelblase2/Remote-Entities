@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.exceptions;
 
 @SuppressWarnings("serial")
-public class PluginNotEnabledException extends Exception
+public class PluginNotEnabledException extends RuntimeException
 {
 	public PluginNotEnabledException()
 	{

@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.exceptions;
 
 @SuppressWarnings("serial")
-public class NotTameableException extends Exception
+public class NotTameableException extends RuntimeException
 {
 	public NotTameableException()
 	{

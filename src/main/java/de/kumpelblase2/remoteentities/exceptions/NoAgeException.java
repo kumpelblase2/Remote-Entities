@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.exceptions;
 
 @SuppressWarnings("serial")
-public class NoAgeException extends Exception
+public class NoAgeException extends RuntimeException
 {
 	public NoAgeException()
 	{

@@ -192,7 +192,7 @@ public class CreateEntityContext
 	 * @throws NoTypeException	When no type is specified
 	 * @throws NoNameException	When no name is specified while trying to spawn a named entity
 	 */
-	public RemoteEntity create() throws Exception
+	public RemoteEntity create()
 	{
 		RemoteEntity created = null;
 		
