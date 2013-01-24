@@ -57,7 +57,7 @@ public class JSONSerializer extends PreparationSerializer
 			File fileFolder = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName());
 			if(!fileFolder.exists())
 			{
-				if(!fileFolder.mkdir())
+				if(!fileFolder.mkdirs())
 					return false;
 			}
 			
