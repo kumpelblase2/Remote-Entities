@@ -9,9 +9,14 @@ import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.PlayerInventory;
 import net.minecraft.server.v1_4_R1.EntityCreature;
 import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_4_R1.EntityPlayer;
 import net.minecraft.server.v1_4_R1.MathHelper;
 import net.minecraft.server.v1_4_R1.PathEntity;
 import net.minecraft.server.v1_4_R1.World;
@@ -20,10 +25,12 @@ import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.DefaultEntitySpeed;
 import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
+import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
@@ -350,5 +357,30 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			((EntityCreature)this.m_entity).setPathEntity(inPath);
 		
 		return this.m_entity.getNavigation().a(inPath, inSpeed);
+	}
+	
+	public void copyInventory(Player inPlayer)
+	{
+		this.copyInventory(inPlayer.getInventory());
+		EntityEquipment equip = this.getBukkitEntity().getEquipment();
+		equip.setItemInHand(inPlayer.getItemInHand());
+		equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+	}
+	
+	public void copyInventory(Inventory inInventory)
+	{
+		if(this.getInventory() != null)
+			this.getInventory().setContents(inInventory.getContents());
+	}
+	
+	public Inventory getInventory()
+	{
+		if(this.getHandle() instanceof RemoteEntityHandle)
+			return ((RemoteEntityHandle)this.getHandle()).getInventory();
+		
+		if(!this.getFeatures().hasFeature(InventoryFeature.class))
+			return null;
+		
+		return this.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 }
