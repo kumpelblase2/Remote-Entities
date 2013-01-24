@@ -1,9 +1,12 @@
 package de.kumpelblase2.remoteentities.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-public class LocationData
+public class LocationData implements ConfigurationSerializable
 {
 	public String world;
 	public int x;
@@ -26,8 +29,31 @@ public class LocationData
 		this.pitch = inLocation.getPitch();
 	}
 	
+	public LocationData(Map<String, Object> inData)
+	{
+		this.world = (String)inData.get("world");
+		this.x = (Integer)inData.get("x");
+		this.y = (Integer)inData.get("y");
+		this.z = (Integer)inData.get("z");
+		this.yaw = ((Double)inData.get("yaw")).floatValue();
+		this.pitch = ((Double)inData.get("pitch")).floatValue();
+	}
+	
 	public Location toBukkitLocation()
 	{
 		return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
+	}
+
+	@Override
+	public Map<String, Object> serialize()
+	{
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("world", this.world);
+		data.put("x", this.x);
+		data.put("y", this.y);
+		data.put("z", this.z);
+		data.put("yaw", this.yaw);
+		data.put("pitch", this.pitch);
+		return data;
 	}
 }
