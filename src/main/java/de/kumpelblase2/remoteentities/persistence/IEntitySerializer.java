@@ -6,7 +6,7 @@ public interface IEntitySerializer
 {
 	public EntityData prepare(RemoteEntity inEntity);
 	
-	public boolean save(EntityData inData);
+	public boolean save(EntityData[] inData);
 	
 	public EntityData[] loadData();
 	
