@@ -407,6 +407,6 @@ public class EntityManager
 		
 		EntityData[] data = this.m_serializer.loadData();
 		for(EntityData entity : data)
-			this.m_serializer.create(entity);
+			this.addRemoteEntity(0, this.m_serializer.create(entity));
 	}
 }
