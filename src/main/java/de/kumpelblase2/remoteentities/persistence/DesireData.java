@@ -17,7 +17,7 @@ public class DesireData implements ConfigurationSerializable
     }
 
     public DesireData(Desire desire) {
-        this.desireName = desire.getClass().toString();
+        this.desireName = desire.getClass().getSimpleName();
         this.type = desire.getType();
     }
 
