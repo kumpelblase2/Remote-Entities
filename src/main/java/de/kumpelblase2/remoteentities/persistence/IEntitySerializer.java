@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.persistence;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.Desire;
 
 public interface IEntitySerializer
 {
@@ -11,4 +12,6 @@ public interface IEntitySerializer
 	public EntityData[] loadData();
 	
 	public RemoteEntity create(EntityData inData);
+
+    public Desire create(DesireData inData);
 }

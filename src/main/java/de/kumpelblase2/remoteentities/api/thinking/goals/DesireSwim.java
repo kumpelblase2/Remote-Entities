@@ -17,8 +17,8 @@ public class DesireSwim extends DesireBase
 	{
 		return this.getEntityHandle() != null && (this.getEntityHandle().H() || this.getEntityHandle().J());
 	}
-	
-	@Override
+
+    @Override
 	public boolean update()
 	{
 		if(this.getEntityHandle().aB().nextFloat() < 0.8F)
@@ -26,4 +26,13 @@ public class DesireSwim extends DesireBase
 		
 		return true;
 	}
+
+    @Override
+    public String[] getConstructionData()
+    {
+        String[] constructionData = new String[1];
+        constructionData[0] = "EntityID = " + this.getRemoteEntity().getID();
+
+        return constructionData;
+    }
 }

@@ -3,6 +3,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import org.bukkit.ChatColor;
+
+import java.util.ArrayList;
 
 public class DesireLookRandomly extends DesireBase
 {
@@ -49,4 +52,13 @@ public class DesireLookRandomly extends DesireBase
 		entity.getControllerLook().a(entity.locX + this.m_xDiff, entity.locY + entity.getHeadHeight(), entity.locZ + this.m_zDiff, 10, entity.bp());
 		return true;
 	}
+
+    @Override
+    public String[] getConstructionData()
+    {
+        String[] constructionData = new String[1];
+        constructionData[0] = "EntityID = " + this.getRemoteEntity().getID();
+
+        return constructionData;
+    }
 }

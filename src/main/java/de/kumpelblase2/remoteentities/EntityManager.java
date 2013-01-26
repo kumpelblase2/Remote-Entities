@@ -4,6 +4,9 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+
+import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.persistence.DesireData;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -406,7 +409,15 @@ public class EntityManager
 			return;
 		
 		EntityData[] data = this.m_serializer.loadData();
-		for(EntityData entity : data)
-		    this.m_serializer.create(entity);
+		for (EntityData entityData : data) {
+            RemoteEntity entity = this.m_serializer.create(entityData);
+            for (DesireData desireData : entityData.desires) {
+                Desire desire = this.m_serializer.create(desireData);
+//                System.out.println(desire);
+                entity.getMind().addMovementDesire(desire, desireData.priority);
+            }
+        }
+
+
 	}
 }

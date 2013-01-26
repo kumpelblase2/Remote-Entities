@@ -26,6 +26,7 @@ public class EntityData implements ConfigurationSerializable
 	
 	public EntityData()
 	{
+
 	}
 	
 	public EntityData(RemoteEntity inEntity)
@@ -73,6 +74,7 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = (Boolean)inData.get("stationary");
 		this.pushable = (Boolean)inData.get("pushable");
 		this.speed = ((Double)inData.get("speed")).floatValue();
+
         //TODO: behaviors and desires
 	}
 
