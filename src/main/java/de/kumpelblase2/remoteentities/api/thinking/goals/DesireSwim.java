@@ -28,11 +28,11 @@ public class DesireSwim extends DesireBase
 	}
 
     @Override
-    public String[] getConstructionData()
+    public Object[] getConstructionals()
     {
-        String[] constructionData = new String[1];
-        constructionData[0] = "EntityID = " + this.getRemoteEntity().getID();
+        Object[] constructionals = new Object[1];
+        constructionals[0] = this.getRemoteEntity();
 
-        return constructionData;
+        return constructionals;
     }
 }

@@ -3,7 +3,6 @@ package de.kumpelblase2.remoteentities.persistence;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +10,7 @@ public class DesireData implements ConfigurationSerializable
 {
     public String name;
     public int priority;
-    public String[] constructionData;
+    public ParameterData[] constructionData;
 
     public DesireData() {
 
@@ -20,7 +19,7 @@ public class DesireData implements ConfigurationSerializable
     public DesireData(Desire desire)
     {
         this.name = desire.getClass().getCanonicalName();
-        this.constructionData = desire.getConstructionData();
+        this.constructionData = ConstructorSerializer.serializedConstructor(desire.getConstructionals());
     }
 
     @Override
@@ -41,6 +40,6 @@ public class DesireData implements ConfigurationSerializable
     {
         this.name = (String)inData.get("name");
         this.priority = ((Integer)inData.get("priority")).intValue();
-        this.constructionData = (String[])inData.get("constructionData");
+        this.constructionData = (ParameterData[])inData.get("constructionData");
     }
 }

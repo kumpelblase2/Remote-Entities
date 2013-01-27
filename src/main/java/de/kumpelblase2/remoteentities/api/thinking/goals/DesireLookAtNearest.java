@@ -4,6 +4,8 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import net.minecraft.server.v1_4_R1.*;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class DesireLookAtNearest extends DesireBase
 {
 	protected EntityLiving m_target;
@@ -72,4 +74,23 @@ public class DesireLookAtNearest extends DesireBase
 	{
 		return !this.m_target.isAlive() ? false : (this.getEntityHandle().e(this.m_target) > this.m_minDistSquared ? false : this.m_lookTicks > 0);
 	}
+
+    @Override
+    public Object[] getConstructionals()
+    {
+       Object[] constructionals = new Object[4];
+        constructionals[0] = this.getRemoteEntity();
+
+        Object[] classArray = new Object[2];
+        classArray[0] = this.m_toLookAt;
+
+//        Class extension = ? extends EntityLiving;
+//        classArray[1] = extension;
+
+        constructionals[1] = classArray;
+        constructionals[2] = this.m_minDist;
+        constructionals[3] = this.m_lookPossibility;
+
+        return constructionals;
+    }
 }

@@ -13,5 +13,5 @@ public interface IEntitySerializer
 	
 	public RemoteEntity create(EntityData inData);
 
-    public Desire create(DesireData inData);
+    public Desire createDesireForEntity(DesireData inData, RemoteEntity entity);
 }

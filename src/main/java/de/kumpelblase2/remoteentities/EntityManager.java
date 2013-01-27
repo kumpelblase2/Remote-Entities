@@ -412,7 +412,7 @@ public class EntityManager
 		for (EntityData entityData : data) {
             RemoteEntity entity = this.m_serializer.create(entityData);
             for (DesireData desireData : entityData.desires) {
-                Desire desire = this.m_serializer.create(desireData);
+                Desire desire = this.m_serializer.createDesireForEntity(desireData, entity);
 //                System.out.println(desire);
                 entity.getMind().addMovementDesire(desire, desireData.priority);
             }

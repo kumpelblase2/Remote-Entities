@@ -70,5 +70,5 @@ public interface Desire
      *
      * @return Array of strings to be used as basis for deserialized constructors.
      */
-    public String[] getConstructionData();
+    public Object[] getConstructionals();
 }

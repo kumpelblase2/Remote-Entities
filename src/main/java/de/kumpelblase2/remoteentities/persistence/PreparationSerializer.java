@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.persistence;
 
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.CreateEntityContext;
@@ -9,6 +10,7 @@ import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 
 public abstract class PreparationSerializer implements IEntitySerializer
 {
@@ -39,48 +41,43 @@ public abstract class PreparationSerializer implements IEntitySerializer
 	}
 
     @Override
-    public Desire create(DesireData inData)
+    public Desire createDesireForEntity(DesireData inData, RemoteEntity entity)
     {
         Class desireClass = null;
+
         try {
             desireClass = Class.forName(inData.name);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("Logging 0");
 
         EntityManager manager = RemoteEntities.getManagerOfPlugin(this.m_plugin.getName());
         Object[] constructors = new Object[inData.constructionData.length];
         int index = 0;
 
-        for (Object object : inData.constructionData) {
-            Object result = object;
+        System.out.println("Logging 1");
+        ParameterData constructionals[] = ConstructorSerializer.constructionalsFromArrayForEntity(inData.constructionData, entity);
 
-            if (object instanceof String) {
-                String string = (String)object;
-                String entityKeyword = "EntityID = ";
-                if (string.startsWith(entityKeyword)) {
-                    int id = Integer.parseInt(string.substring(entityKeyword.length()));
-                    RemoteEntity entity = manager.getRemoteEntityByID(id);
-                    System.out.println(entity);
-                    result = entity;
-                }
+        Class[] classCorrespondence = new Class[constructionals.length];
 
-            }
+        System.out.println("Logging 2");
 
-            constructors[index] = result;
+        for (ParameterData parameterData : constructionals) {
+             classCorrespondence[index] = (Class)constructionals[index].type;
+
             index++;
         }
 
-        Class[] classCorrespondence = new Class[constructors.length];
-        index = 0;
+        System.out.println("Logging 3");
 
-        for (Object object : constructors) {
-            if (object instanceof RemoteEntity)
-                classCorrespondence[index] = RemoteEntity.class;
-            else
-                classCorrespondence[index] = object.getClass();
+        Constructor[] constructors1 = DesireLookAtNearest.class.getConstructors();
 
-            index++;
+        System.out.println("Logging");
+        System.out.println(constructors1);
+        for (Constructor construct : constructors1) {
+            System.out.println(construct);
+            System.out.println(construct.getGenericParameterTypes());
         }
 
         Constructor desireConstructor = null;
