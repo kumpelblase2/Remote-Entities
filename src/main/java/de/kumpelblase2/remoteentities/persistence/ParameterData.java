@@ -17,7 +17,8 @@ public class ParameterData implements ConfigurationSerializable {
 
     public ParameterData(Object type, Object value)
     {
-
+        this.type = type;
+        this.value = value;
     }
 
     public ParameterData(Object object) {
@@ -27,13 +28,7 @@ public class ParameterData implements ConfigurationSerializable {
         if (object instanceof RemoteEntity) {
             this.type = "predefined_reference";
             this.value = "entity";
-        } else if (object instanceof Class) {
-            Class castedClass = (Class)object;
-            this.type = "class";
-            this.value = castedClass.getCanonicalName();
         }
-
-
     }
 
     public ParameterData(Map<String, Object> inData)
@@ -59,11 +54,9 @@ public class ParameterData implements ConfigurationSerializable {
 
         if (this.type.equals("predefined_reference")) {
             if (this.value.equals("entity")) {
-                replacementType = entity.getClass().getCanonicalName();
+                replacementType = RemoteEntity.class.getCanonicalName();
                 replacementValue = entity;
             }
-        } else if (this.type.equals("class")) {
-//            replacementType = Cl
         }
 
         if (replacementType == null) {

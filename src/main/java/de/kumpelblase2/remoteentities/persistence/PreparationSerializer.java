@@ -50,35 +50,22 @@ public abstract class PreparationSerializer implements IEntitySerializer
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("Logging 0");
 
         EntityManager manager = RemoteEntities.getManagerOfPlugin(this.m_plugin.getName());
-        Object[] constructors = new Object[inData.constructionData.length];
+        Object[] parameters = new Object[inData.constructionData.length];
         int index = 0;
 
-        System.out.println("Logging 1");
-        ParameterData constructionals[] = ConstructorSerializer.constructionalsFromArrayForEntity(inData.constructionData, entity);
+        ParameterData parameterData[] = ConstructorSerializer.constructionalsFromArrayForEntity(inData.constructionData, entity);
 
-        Class[] classCorrespondence = new Class[constructionals.length];
+        Class[] classCorrespondence = new Class[parameterData.length];
 
-        System.out.println("Logging 2");
-
-        for (ParameterData parameterData : constructionals) {
-             classCorrespondence[index] = (Class)constructionals[index].type;
-
+        for (ParameterData pData : parameterData) {
+            classCorrespondence[index] = (Class)pData.type;
+            parameters[index] = pData.value;
             index++;
         }
 
-        System.out.println("Logging 3");
-
-        Constructor[] constructors1 = DesireLookAtNearest.class.getConstructors();
-
-        System.out.println("Logging");
-        System.out.println(constructors1);
-        for (Constructor construct : constructors1) {
-            System.out.println(construct);
-            System.out.println(construct.getGenericParameterTypes());
-        }
+        System.out.println(DesireLookAtNearest.class.getConstructors()[1].getGenericParameterTypes());
 
         Constructor desireConstructor = null;
         try {
@@ -88,7 +75,7 @@ public abstract class PreparationSerializer implements IEntitySerializer
         }
 
         try {
-            return (Desire)desireConstructor.newInstance(constructors);
+            return (Desire)desireConstructor.newInstance(parameters);
         } catch (Exception e) {
             e.printStackTrace();
         }
