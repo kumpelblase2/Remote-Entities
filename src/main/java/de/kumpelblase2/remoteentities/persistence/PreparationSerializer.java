@@ -2,6 +2,8 @@ package de.kumpelblase2.remoteentities.persistence;
 
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
+import net.minecraft.server.v1_4_R1.EntityHuman;
+import net.minecraft.server.v1_4_R1.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.CreateEntityContext;
@@ -51,34 +53,24 @@ public abstract class PreparationSerializer implements IEntitySerializer
             e.printStackTrace();
         }
 
-        EntityManager manager = RemoteEntities.getManagerOfPlugin(this.m_plugin.getName());
-        Object[] parameters = new Object[inData.constructionData.length];
-        int index = 0;
-
         ParameterData parameterData[] = ConstructorSerializer.constructionalsFromArrayForEntity(inData.constructionData, entity);
+        Class[] classes = new Class[1];
+        classes[0] = ParameterData[].class;
 
-        Class[] classCorrespondence = new Class[parameterData.length];
-
-        for (ParameterData pData : parameterData) {
-            classCorrespondence[index] = (Class)pData.type;
-            parameters[index] = pData.value;
-            index++;
-        }
-
-        System.out.println(DesireLookAtNearest.class.getConstructors()[1].getGenericParameterTypes());
-
-        Constructor desireConstructor = null;
-        try {
-            desireConstructor = desireClass.getConstructor(classCorrespondence);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (desireClass.getCanonicalName().equals(DesireLookAtNearest.class.getCanonicalName())) {
+            for (ParameterData pdata : parameterData) {
+                System.out.println(pdata.value.getClass());
+            }
         }
 
         try {
-            return (Desire)desireConstructor.newInstance(parameters);
+            Constructor constructor = desireClass.getConstructor(classes);
+            return (Desire)constructor.newInstance((Object)parameterData);
         } catch (Exception e) {
+            System.out.println("Failed for: " + desireClass.getCanonicalName());
             e.printStackTrace();
         }
+
 
         return null;
     }

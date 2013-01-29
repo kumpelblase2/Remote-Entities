@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 
 public class DesireSwim extends DesireBase
 {
@@ -11,6 +12,11 @@ public class DesireSwim extends DesireBase
 		this.m_type = 4;
 		this.getEntityHandle().getNavigation().e(true);
 	}
+
+    public DesireSwim(ParameterData[] parameters)
+    {
+        this(((RemoteEntity)parameters[0].value));
+    }
 
 	@Override
 	public boolean shouldExecute()

@@ -3,12 +3,14 @@ package de.kumpelblase2.remoteentities.persistence;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ParameterData implements ConfigurationSerializable {
     public Object type;
     public Object value;
+    public Object requirement;
 
     public ParameterData()
     {
@@ -25,9 +27,17 @@ public class ParameterData implements ConfigurationSerializable {
         this.type = object.getClass().getCanonicalName();
         this.value = object;
 
+        System.out.println(this.type);
+        System.out.println(this.value);
+
         if (object instanceof RemoteEntity) {
             this.type = "predefined_reference";
             this.value = "entity";
+        } else if (object instanceof Class[]) {
+            Class[] classes = (Class[])object;
+            this.type = "class";
+            this.value = classes[0].getCanonicalName();
+            this.requirement = classes[1].getCanonicalName();
         }
     }
 
@@ -40,8 +50,22 @@ public class ParameterData implements ConfigurationSerializable {
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> data = new HashMap<String, Object>();
+
         data.put("type", this.type);
-        data.put("value", this.value);
+
+//        if (this.value instanceof Class) {
+//            data.put("value", "invalid");
+////            this.requirement("")
+////            System.out.println(data.get("value"));
+//
+//        } else {
+            data.put("value", this.value);
+//        }
+
+
+        if (requirement != null) {
+            data.put("requirement", this.requirement);
+        }
 
         return data;
     }
@@ -57,6 +81,15 @@ public class ParameterData implements ConfigurationSerializable {
                 replacementType = RemoteEntity.class.getCanonicalName();
                 replacementValue = entity;
             }
+        } else if (this.type.equals("class")) {
+            replacementType = (String)this.requirement;
+            try {
+                replacementValue = Class.forName((String)this.value);
+            } catch (Exception e) {
+
+            }
+        } else if (this.type.equals(Float.class.getCanonicalName()) && this.value.getClass() != float.class) {
+            replacementValue = ((Double)this.value).floatValue();
         }
 
         if (replacementType == null) {

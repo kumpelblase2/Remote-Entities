@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import net.minecraft.server.v1_4_R1.*;
 
 public class DesireLookAtNearest extends DesireBase
@@ -27,7 +28,13 @@ public class DesireLookAtNearest extends DesireBase
 		this.m_lookPossibility = inPossibility;
 	}
 
-	@Override
+    public DesireLookAtNearest(ParameterData[] parameters)
+    {
+        this(((RemoteEntity)parameters[0].value), (Class<? extends EntityLiving>)parameters[1].value, (Float)parameters[2].value, (Float)parameters[3].value);
+    }
+
+
+    @Override
 	public void startExecuting()
 	{
 		this.m_lookTicks = 40 + this.getEntityHandle().aB().nextInt(40);
@@ -78,7 +85,13 @@ public class DesireLookAtNearest extends DesireBase
     {
         Object[] constructionals = new Object[4];
         constructionals[0] = this.getRemoteEntity();
-        constructionals[1] = this.m_toLookAt;
+
+        Class<? extends EntityLiving> target = EntityLiving.class;
+        Class[] lookAt = new Class[2];
+        lookAt[0] = this.m_toLookAt;
+        lookAt[1] = target;
+
+        constructionals[1] = lookAt;
         constructionals[2] = this.m_minDist;
         constructionals[3] = this.m_lookPossibility;
 
