@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 
 public interface Desire
 {
@@ -62,4 +63,6 @@ public interface Desire
 	 * @return true if it can continue, false if not
 	 */
 	public boolean canContinue();
+	
+	public ParameterData[] getSerializeableData();
 }
