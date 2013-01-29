@@ -2,6 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
+import java.util.ArrayList;
+
 public interface Desire
 {
 	/**
@@ -62,4 +64,11 @@ public interface Desire
 	 * @return true if it can continue, false if not
 	 */
 	public boolean canContinue();
+
+    /**
+     * Returns private data used for persistence re-instantiation
+     *
+     * @return Array of strings to be used as basis for deserialized constructors.
+     */
+    public Object[] getConstructionals();
 }

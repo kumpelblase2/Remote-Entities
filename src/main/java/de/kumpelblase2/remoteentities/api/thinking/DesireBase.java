@@ -5,6 +5,8 @@ import net.minecraft.server.v1_4_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 
+import java.util.ArrayList;
+
 public abstract class DesireBase implements Desire
 {
 	protected final RemoteEntity m_entity;

@@ -28,7 +28,7 @@ public class JSONSerializer extends PreparationSerializer
 	@Override
 	public boolean save(EntityData[] inData)
 	{
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 		String json = gson.toJson(inData);
 		return this.writeToFile(json);
 	}

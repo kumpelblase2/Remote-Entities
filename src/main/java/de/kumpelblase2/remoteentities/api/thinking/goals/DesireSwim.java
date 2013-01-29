@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 
 public class DesireSwim extends DesireBase
 {
@@ -12,13 +13,18 @@ public class DesireSwim extends DesireBase
 		this.getEntityHandle().getNavigation().e(true);
 	}
 
+    public DesireSwim(ParameterData[] parameters)
+    {
+        this(((RemoteEntity)parameters[0].value));
+    }
+
 	@Override
 	public boolean shouldExecute()
 	{
 		return this.getEntityHandle() != null && (this.getEntityHandle().H() || this.getEntityHandle().J());
 	}
-	
-	@Override
+
+    @Override
 	public boolean update()
 	{
 		if(this.getEntityHandle().aB().nextFloat() < 0.8F)
@@ -26,4 +32,13 @@ public class DesireSwim extends DesireBase
 		
 		return true;
 	}
+
+    @Override
+    public Object[] getConstructionals()
+    {
+        Object[] constructionals = new Object[1];
+        constructionals[0] = this.getRemoteEntity();
+
+        return constructionals;
+    }
 }

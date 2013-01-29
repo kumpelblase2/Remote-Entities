@@ -1,7 +1,13 @@
 package de.kumpelblase2.remoteentities.persistence;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.api.Nameable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -21,6 +27,7 @@ public class EntityData implements ConfigurationSerializable
 	
 	public EntityData()
 	{
+
 	}
 	
 	public EntityData(RemoteEntity inEntity)
@@ -32,7 +39,37 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = inEntity.isStationary();
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
-		//TODO: behaviors and desires
+
+        int totalDesires = inEntity.getMind().getActionDesires().size() + inEntity.getMind().getMovementDesires().size();
+        int endLength = 0;
+        this.desires = new DesireData[totalDesires];
+
+        if (inEntity.getMind().getActionDesires().size() > 0) {
+            List<Desire> actionDesires = inEntity.getMind().getActionDesires();
+
+            for (int actionDesireIndex = 0; actionDesireIndex < actionDesires.size(); actionDesireIndex++) {
+                Desire desire = actionDesires.get(actionDesireIndex);
+                this.desires[actionDesireIndex] = new DesireData(desire);
+                endLength++;
+            }
+        }
+
+        if (inEntity.getMind().getMovementDesires().size() > 0) {
+            List<Desire> movementDesires = inEntity.getMind().getMovementDesires();
+            for (int movementDesireIndex = 0; movementDesireIndex < movementDesires.size(); movementDesireIndex++) {
+                Desire desire = movementDesires.get(movementDesireIndex);
+                this.desires[movementDesireIndex + endLength] = new DesireData(desire);
+            }
+        }
+
+        int index = 0;
+        this.behaviors = new BehaviorData[inEntity.getMind().getBehaviours().size()];
+
+        for (Behavior behavior : inEntity.getMind().getBehaviours()) {
+            this.behaviors[index] = new BehaviorData(behavior);
+            System.out.println(this.behaviors[index]);
+            index++;
+        }
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -45,6 +82,8 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = (Boolean)inData.get("stationary");
 		this.pushable = (Boolean)inData.get("pushable");
 		this.speed = ((Double)inData.get("speed")).floatValue();
+
+        //TODO: behaviors and desires
 	}
 
 	@Override
@@ -58,7 +97,24 @@ public class EntityData implements ConfigurationSerializable
 		data.put("stationary", this.stationary);
 		data.put("pushable", this.pushable);
 		data.put("speed", this.speed);
-		//TODO: behaviors and desires
+
+        ArrayList<Map<String, Object>> serializedDesires = new ArrayList();
+        for (DesireData desireData: this.desires) {
+            serializedDesires.add(desireData.serialize());
+        }
+
+        data.put("desires", serializedDesires);
+
+        Map<String, Object>[] behaviorData = new HashMap[this.behaviors.length];
+
+        int index = 0;
+        for (BehaviorData bData : this.behaviors) {
+            behaviorData[index] = bData.serialize();
+            index++;
+        }
+
+        data.put("behaviors", behaviorData);
+
 		return data;
 	}
 }

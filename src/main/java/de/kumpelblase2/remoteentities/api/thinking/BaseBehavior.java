@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import org.bukkit.plugin.Plugin;
 
 public abstract class BaseBehavior implements Behavior
 {
@@ -12,8 +13,13 @@ public abstract class BaseBehavior implements Behavior
 		this.m_name = inName;
 		this.m_entity = inEntity;
 	}
-	
-	@Override
+
+//    public BaseBehavior(RemoteEntity entity, Plugin plugin)
+//    {
+//
+//    }
+
+    @Override
 	public void run()
 	{
 	}
