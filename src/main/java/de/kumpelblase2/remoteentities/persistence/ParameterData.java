@@ -2,6 +2,8 @@ package de.kumpelblase2.remoteentities.persistence;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.plugin.Plugin;
+import sun.tools.tree.ThisExpression;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -38,6 +40,9 @@ public class ParameterData implements ConfigurationSerializable {
             this.type = "class";
             this.value = classes[0].getCanonicalName();
             this.requirement = classes[1].getCanonicalName();
+        } else if (object instanceof Plugin) {
+            this.type = "predefined_reference";
+            this.value = "plugin";
         }
     }
 
@@ -80,6 +85,9 @@ public class ParameterData implements ConfigurationSerializable {
             if (this.value.equals("entity")) {
                 replacementType = RemoteEntity.class.getCanonicalName();
                 replacementValue = entity;
+            } else if (this.value.equals("plugin")) {
+                replacementType = Plugin.class.getCanonicalName();
+                replacementValue = entity.getManager().getPlugin();
             }
         } else if (this.type.equals("class")) {
             replacementType = (String)this.requirement;

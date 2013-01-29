@@ -28,4 +28,11 @@ public interface Behavior extends Listener, Runnable
 	 * @return entity
 	 */
 	public RemoteEntity getRemoteEntity();
+
+    /**
+     * Returns private data used for persistence re-instantiation
+     *
+     * @return Array of strings to be used as basis for deserialized constructors.
+     */
+    public Object[] getConstructionals();
 }

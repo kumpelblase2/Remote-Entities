@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -61,7 +62,14 @@ public class EntityData implements ConfigurationSerializable
             }
         }
 
-		//TODO: behaviors
+        int index = 0;
+        this.behaviors = new BehaviorData[inEntity.getMind().getBehaviours().size()];
+
+        for (Behavior behavior : inEntity.getMind().getBehaviours()) {
+            this.behaviors[index] = new BehaviorData(behavior);
+            System.out.println(this.behaviors[index]);
+            index++;
+        }
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -97,7 +105,16 @@ public class EntityData implements ConfigurationSerializable
 
         data.put("desires", serializedDesires);
 
-		//TODO: behaviors and desires
+        Map<String, Object>[] behaviorData = new HashMap[this.behaviors.length];
+
+        int index = 0;
+        for (BehaviorData bData : this.behaviors) {
+            behaviorData[index] = bData.serialize();
+            index++;
+        }
+
+        data.put("behaviors", behaviorData);
+
 		return data;
 	}
 }

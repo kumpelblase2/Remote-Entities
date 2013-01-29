@@ -9,6 +9,7 @@ import java.util.Map;
 public class BehaviorData implements ConfigurationSerializable
 {
     public String canonicallyWrittenClass;
+    public ParameterData[] parameterData;
 
     public BehaviorData()
     {
@@ -18,6 +19,7 @@ public class BehaviorData implements ConfigurationSerializable
     public BehaviorData(Behavior behavior)
     {
         this.canonicallyWrittenClass = behavior.getClass().getCanonicalName();
+        this.parameterData = ConstructorSerializer.serializedConstructor(behavior.getConstructionals());
     }
 
     public BehaviorData(Map<String, Object> inData)
@@ -41,6 +43,16 @@ public class BehaviorData implements ConfigurationSerializable
         Map<String, Object> data = new HashMap<String, Object>();
 
         data.put("canonicallyWrittenClass", this.canonicallyWrittenClass);
+
+        Map<String, Object>[] serializedParameters = new HashMap[this.parameterData.length];
+
+        int index = 0;
+        for (ParameterData pData : this.parameterData) {
+            serializedParameters[index] = pData.serialize();
+            index++;
+        }
+
+        data.put("parameters", serializedParameters);
 
         return data;
     }
