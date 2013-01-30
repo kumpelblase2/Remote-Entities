@@ -125,10 +125,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
-	public LivingEntity getBukkitEntity()
+	public CraftLivingEntity getBukkitEntity()
 	{
 		if(this.isSpawned())
-			return (LivingEntity)this.m_entity.getBukkitEntity();
+			return (CraftLivingEntity)this.m_entity.getBukkitEntity();
 		
 		return null;
 	}

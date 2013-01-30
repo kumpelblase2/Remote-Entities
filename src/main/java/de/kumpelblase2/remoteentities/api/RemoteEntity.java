@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api;
 
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
@@ -36,7 +37,7 @@ public interface RemoteEntity
 	 * 
 	 * @return	bukkit entity
 	 */
-	public LivingEntity getBukkitEntity();
+	public CraftLivingEntity getBukkitEntity();
 	
 	/**
 	 * Gets the native minecraft entity
