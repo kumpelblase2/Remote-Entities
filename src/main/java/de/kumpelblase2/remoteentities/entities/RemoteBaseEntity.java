@@ -362,12 +362,20 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	
 	public void copyInventory(Player inPlayer)
 	{
+		this.copyInventory(inPlayer, false);
+	}
+	
+	public void copyInventory(Player inPlayer, boolean inIgnoreArmor)
+	{
 		this.copyInventory(inPlayer.getInventory());
 		EntityEquipment equip = this.getBukkitEntity().getEquipment();
 		equip.setItemInHand(inPlayer.getItemInHand());
-		equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		if(!inIgnoreArmor)
+			equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		
 		if(this.getInventory() instanceof CraftInventoryPlayer)
 			((CraftInventoryPlayer)this.getInventory()).getInventory().itemInHandIndex = inPlayer.getInventory().getHeldItemSlot();
+		
 	}
 	
 	public void copyInventory(Inventory inInventory)
