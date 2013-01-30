@@ -7,12 +7,14 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.PlayerInventory;
 import net.minecraft.server.v1_4_R1.EntityCreature;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.MathHelper;
@@ -364,6 +366,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		EntityEquipment equip = this.getBukkitEntity().getEquipment();
 		equip.setItemInHand(inPlayer.getItemInHand());
 		equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		if(this.getInventory() instanceof CraftInventoryPlayer)
+			((CraftInventoryPlayer)this.getInventory()).getInventory().itemInHandIndex = inPlayer.getInventory().getHeldItemSlot();
 	}
 	
 	public void copyInventory(Inventory inInventory)
