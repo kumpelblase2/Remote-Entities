@@ -13,8 +13,9 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFindNearestTarget extends DesireTargetBase
 {
+	@SerializeAs(pos = 5)
 	protected int m_targetChance;
-	@SerializeAs(pos = 1)
+	@SerializeAs(pos = 4)
 	protected Class<? extends EntityLiving> m_targetClass;
 	protected DistanceComparator m_comparator;
 	protected EntityLiving m_target;
@@ -33,6 +34,11 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		this.m_targetClass = inTargetClass;
 		this.m_onlyAtNight = false;
 		this.m_type = 1;
+	}
+	
+	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
 	}
 
 	@SuppressWarnings("unchecked")

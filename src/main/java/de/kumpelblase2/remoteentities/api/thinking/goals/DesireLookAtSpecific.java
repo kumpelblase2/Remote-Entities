@@ -9,15 +9,22 @@ public class DesireLookAtSpecific extends DesireLookAtNearest
 {
 	private final EntityLiving m_specificTarget;
 	
-	public DesireLookAtSpecific(RemoteEntity inEntity, EntityLiving inTarget, float inDelay)
+	public DesireLookAtSpecific(RemoteEntity inEntity, EntityLiving inTarget, float inMinDistance)
 	{
-		super(inEntity, inTarget.getClass(), inDelay);
+		super(inEntity, inTarget.getClass(), inMinDistance);
 		this.m_specificTarget = inTarget;
 	}
 	
-	public DesireLookAtSpecific(RemoteEntity inEntity, LivingEntity inTarget, float inDelay)
+	public DesireLookAtSpecific(RemoteEntity inEntity, LivingEntity inTarget, float inMinDistance)
 	{
-		this(inEntity, ((CraftLivingEntity)inTarget).getHandle(), inDelay);
+		this(inEntity, ((CraftLivingEntity)inTarget).getHandle(), inMinDistance);
+	}
+	
+	@Deprecated
+	public DesireLookAtSpecific(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance, float inPossibility, EntityLiving inTargetEntity)
+	{
+		this(inEntity, inTargetEntity, inMinDistance);
+		this.m_lookPossibility = inPossibility;
 	}
 	
 	@Override

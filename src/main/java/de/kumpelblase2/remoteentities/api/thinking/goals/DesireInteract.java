@@ -10,4 +10,10 @@ public class DesireInteract extends DesireLookAtNearest
 		super(inEntity, inTarget, inMinDistance);
 		this.m_type = 3;
 	}
+	
+	public DesireInteract(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance, float inPossibility)
+	{
+		super(inEntity, inTarget, inMinDistance, inPossibility);
+		this.m_type = 3;
+	}
 }

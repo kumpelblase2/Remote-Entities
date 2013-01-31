@@ -12,7 +12,7 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFindAttackingTarget extends DesireTargetBase
 {
-	@SerializeAs(pos = 3)
+	@SerializeAs(pos = 4)
 	protected boolean m_attackNearest;
 	protected EntityLiving m_target;
 	
@@ -20,6 +20,13 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
+		this.m_attackNearest = inAttackNearest;
+		this.m_type = 1;
+	}
+	
+	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, boolean inAttackNearest)
+	{
+		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_attackNearest = inAttackNearest;
 		this.m_type = 1;
 	}
