@@ -10,32 +10,84 @@ import org.bukkit.entity.LivingEntity;
 
 public class ObjectParser
 {
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("rawtypes")
 	public Object deserialize(ParameterData inData)
 	{
 		Class typeClass = this.getClass(inData.type);
-		if(typeClass.isAssignableFrom(Class.class))
-			return this.getClass(inData.value.toString());
-		else if(typeClass.isAssignableFrom(int.class) || typeClass.isAssignableFrom(Integer.class))
-			return this.getInt(inData.value);
-		else if(typeClass.isAssignableFrom(boolean.class) || typeClass.isAssignableFrom(Boolean.class))
-			return this.getBoolean(inData.value);
-		else if(typeClass.isAssignableFrom(Enum.class))
-			return Enum.valueOf(typeClass, inData.value.toString());
-		else if(typeClass.isAssignableFrom(float.class) || typeClass.isAssignableFrom(Float.class))
-			return this.getFloat(inData.value);
-		else if(typeClass.isAssignableFrom(double.class) || typeClass.isAssignableFrom(Double.class))
-			return this.getDouble(inData.value);
-		else if(typeClass.isAssignableFrom(EntityLiving.class))
-			return this.getNMSEntity(inData.value);
-		else if(typeClass.isAssignableFrom(LivingEntity.class))
-			return this.getEntity(inData.value);
+		if(typeClass.isArray())
+		{
+			String valueString = inData.value.toString();
+			valueString = valueString.substring(1, valueString.length() - 1);
+			String[] values = valueString.split(",");
+			Object[] data = new Object[values.length];
+			int pos = 0;
+			for(String value : values)
+			{
+				data[pos] = this.getDeserializedObject(typeClass, value);
+				pos++;
+			}
+			return data;
+		}
 		else
-			return inData.value.toString();
+		{
+			return this.getDeserializedObject(typeClass, inData.value);
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected Object getDeserializedObject(Class inType, Object inObject)
+	{
+		if(inType.isAssignableFrom(Class.class))
+			return this.getClass(inObject.toString());
+		else if(inType.isAssignableFrom(int.class) || inType.isAssignableFrom(Integer.class))
+			return this.getInt(inObject);
+		else if(inType.isAssignableFrom(boolean.class) || inType.isAssignableFrom(Boolean.class))
+			return this.getBoolean(inObject);
+		else if(inType.isAssignableFrom(Enum.class))
+			return Enum.valueOf(inType, inObject.toString());
+		else if(inType.isAssignableFrom(float.class) || inType.isAssignableFrom(Float.class))
+			return this.getFloat(inObject);
+		else if(inType.isAssignableFrom(double.class) || inType.isAssignableFrom(Double.class))
+			return this.getDouble(inObject);
+		else if(inType.isAssignableFrom(EntityLiving.class))
+			return this.getNMSEntity(inObject);
+		else if(inType.isAssignableFrom(LivingEntity.class))
+			return this.getEntity(inObject);
+		else
+			return inObject.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Object serialize(Object inObject)
+	{
+		if(inObject.getClass().isArray())
+		{
+			Object[] data = (Object[])inObject;
+			Object[] values = new String[data.length];
+			int pos = 0;
+			for(Object value : data)
+			{
+				values[pos] = this.getSerializedObject(value);
+				pos++;
+			}
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			for(Object o : values)
+			{
+				sb.append(o.toString());
+				sb.append(",");
+			}
+			sb.setCharAt(sb.length(), ']');
+			return sb.toString();
+		}
+		else
+		{
+			return this.getSerializedObject(inObject);
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected Object getSerializedObject(Object inObject)
 	{
 		if(inObject instanceof Location)
 			return new LocationData((Location)inObject).serialize();

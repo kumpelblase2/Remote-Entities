@@ -1,18 +1,18 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.Set;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityWolf;
 import org.bukkit.Material;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireBegForItem extends DesireBase
 {
-	protected final Set<Material> m_toBeg;
+	@SerializeAs(pos = 2)
+	protected final Material[] m_toBeg;
 	protected EntityHuman m_nearestPlayer;
+	@SerializeAs(pos = 1)
 	protected float m_minDistance;
 	protected float m_minDistanceSquared;
 	private int m_ticks;
@@ -25,7 +25,7 @@ public class DesireBegForItem extends DesireBase
 	public DesireBegForItem(RemoteEntity inEntity, float inMinDistance, Material... inMaterial)
 	{
 		super(inEntity);
-		this.m_toBeg = EnumSet.copyOf(Arrays.asList(inMaterial));
+		this.m_toBeg = inMaterial;
 		this.m_type = 2;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
@@ -83,6 +83,12 @@ public class DesireBegForItem extends DesireBase
 		if(inPlayer.getBukkitEntity().getItemInHand() == null)
 			return false;
 		
-		return this.m_toBeg.contains(inPlayer.getBukkitEntity().getItemInHand().getType());
+		Material inHand = inPlayer.getBukkitEntity().getItemInHand().getType();
+		for(Material m : this.m_toBeg)
+		{
+			if(m == inHand)
+				return true;
+		}
+		return false;
 	}
 }
