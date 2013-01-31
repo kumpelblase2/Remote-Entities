@@ -77,4 +77,10 @@ public abstract class DesireBase implements Desire
 		else
 			this.getEntityHandle().getNavigation().a(inPath, inSpeed);
 	}
+
+    @Override
+    public Object[] getConstructionals()
+    {
+        return null;
+    }
 }
