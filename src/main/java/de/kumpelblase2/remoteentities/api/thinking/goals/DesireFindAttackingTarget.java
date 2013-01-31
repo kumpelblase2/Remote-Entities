@@ -6,9 +6,13 @@ import net.minecraft.server.v1_4_R1.AxisAlignedBB;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFindAttackingTarget extends DesireTargetBase
 {
+	@SerializeAs(pos = 3)
 	protected boolean m_attackNearest;
 	protected EntityLiving m_target;
 	
@@ -65,5 +69,11 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	{
 		if(this.getEntityHandle().getGoalTarget() != null && this.getEntityHandle().getGoalTarget() instanceof EntityHuman && ((EntityHuman)this.getEntityHandle().getGoalTarget()).abilities.isInvulnerable)
 			super.stopExecuting();
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

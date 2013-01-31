@@ -13,7 +13,6 @@ public class DesireData implements ConfigurationSerializable
 {
 	public String type;
 	public ParameterData[] parameters;
-	public static ObjectParser objectParser = new ObjectParser();
 	
 	public DesireData()
 	{
@@ -22,7 +21,7 @@ public class DesireData implements ConfigurationSerializable
 	public DesireData(Desire inDesire)
 	{
 		this.type = inDesire.getClass().getName();
-		
+		this.parameters = inDesire.getSerializeableData();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -67,7 +66,7 @@ public class DesireData implements ConfigurationSerializable
 			int pos = 0;
 			for(ParameterData data : this.parameters)
 			{
-				values[pos] = objectParser.parse(data);
+				values[pos] = EntityData.objectParser.deserialize(data);
 			}
 			return con.newInstance(values);
 		}

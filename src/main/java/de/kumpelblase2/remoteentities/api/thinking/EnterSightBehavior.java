@@ -4,19 +4,24 @@ import java.util.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public abstract class EnterSightBehavior extends BaseBehavior
 {
 	protected int m_tick = 0;
 	protected int m_defaultInterval = 10;
 	protected Set<String> m_inRange;
+	@SerializeAs(pos = 1)
 	protected double m_xRange = 10;
+	@SerializeAs(pos = 2)
 	protected double m_yRange = 5;
+	@SerializeAs(pos = 3)
 	protected double m_zRange = 10;
 	
 	public EnterSightBehavior(RemoteEntity inEntity)
 	{
-		super(inEntity, "EnterSight");
+		super(inEntity);
+		this.m_name = "EnterSight";
 		this.m_inRange = new HashSet<String>();
 	}
 	

@@ -4,9 +4,8 @@ import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
 
-public class DesireLookAtSpecific extends DesireLookAtNearest implements Desire
+public class DesireLookAtSpecific extends DesireLookAtNearest
 {
 	private final EntityLiving m_specificTarget;
 	

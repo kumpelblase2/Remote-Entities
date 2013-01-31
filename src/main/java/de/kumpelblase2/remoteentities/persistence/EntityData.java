@@ -8,6 +8,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.api.Nameable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 
 public class EntityData implements ConfigurationSerializable
@@ -22,6 +23,7 @@ public class EntityData implements ConfigurationSerializable
 	public DesireData[] actionDesires;
 	public DesireData[] movementDesires;
 	public BehaviorData[] behaviors;
+	public static ObjectParser objectParser = new ObjectParser();
 	
 	public EntityData()
 	{
@@ -50,7 +52,12 @@ public class EntityData implements ConfigurationSerializable
 			this.movementDesires[pos] = new DesireData(desire);
 			pos++;
 		}
-		//TODO behaviors
+		this.behaviors = new BehaviorData[inEntity.getMind().getBehaviours().size()];
+		pos = 0;
+		for(Behavior behavior : inEntity.getMind().getBehaviours())
+		{
+			this.behaviors[pos] = new BehaviorData(behavior);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -79,7 +86,14 @@ public class EntityData implements ConfigurationSerializable
 			this.movementDesires[pos] = new DesireData(desiredata);
 			pos++;
 		}
-		//TODO behaviors
+		List<Map<String, Object>> behaviorData = (List<Map<String, Object>>)inData.get("behaviors");
+		pos = 0;
+		this.behaviors = new BehaviorData[behaviorData.size()];
+		for(Map<String, Object> behavior : behaviorData)
+		{
+			this.behaviors[pos] = new BehaviorData(behavior);
+			pos++;
+		}
 	}
 
 	@Override
@@ -105,7 +119,12 @@ public class EntityData implements ConfigurationSerializable
 			actiondesirelist.add(dd.serialize());
 		}
 		data.put("actionDesires", actiondesirelist);
-		//TODO: behaviors
+		List<Map<String, Object>> behaviorList = new ArrayList<Map<String, Object>>();
+		for(BehaviorData bd : this.behaviors)
+		{
+			behaviorList.add(bd.serialize());
+		}
+		data.put("behaviors", behaviorList);
 		return data;
 	}
 }

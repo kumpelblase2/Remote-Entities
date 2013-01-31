@@ -1,15 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.PathEntity;
-import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class DesireBase implements Desire
 {
@@ -85,23 +82,6 @@ public abstract class DesireBase implements Desire
 	
 	public ParameterData[] getSerializeableData()
 	{
-		Class<? extends DesireBase> clazz = this.getClass();
-		List<ParameterData> parameters = new ArrayList<ParameterData>();
-		for(Field field : clazz.getDeclaredFields())
-		{
-			SerializeAs an = field.getAnnotation(SerializeAs.class);
-			if(an == null)
-				continue;
-			
-			try
-			{
-				parameters.add(new ParameterData(an.pos(), field.getClass().getName(), field.get(this), an.special()));
-			}
-			catch(Exception e)
-			{
-				RemoteEntities.getInstance().getLogger().warning("Unable to add desire parameter. " + e.getMessage());
-			}
-		}
-		return parameters.toArray(new ParameterData[0]);
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

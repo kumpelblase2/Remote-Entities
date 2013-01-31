@@ -4,12 +4,15 @@ import net.minecraft.server.v1_4_R1.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public class DesireWanderAroundArea extends DesireWanderAround
 {
-	private int m_Radius;
-	private Location m_midSpot;
+	@SerializeAs(pos = 1)
+	protected int m_Radius;
+	@SerializeAs(pos = 2)
+	protected Location m_midSpot;
 	
 	public DesireWanderAroundArea(RemoteEntity inEntity, int inRadius, Location inMidPoint)
 	{

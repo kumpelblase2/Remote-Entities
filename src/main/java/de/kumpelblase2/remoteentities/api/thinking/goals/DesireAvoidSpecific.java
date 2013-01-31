@@ -4,7 +4,9 @@ import java.util.List;
 import net.minecraft.server.v1_4_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireAvoidSpecific extends DesireBase
 {
@@ -110,5 +112,11 @@ public class DesireAvoidSpecific extends DesireBase
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().getNavigation().f();
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

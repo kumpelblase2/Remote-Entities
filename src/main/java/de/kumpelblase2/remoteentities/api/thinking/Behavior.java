@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking;
 
 import org.bukkit.event.Listener;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 
 public interface Behavior extends Listener, Runnable
 {
@@ -28,4 +29,6 @@ public interface Behavior extends Listener, Runnable
 	 * @return entity
 	 */
 	public RemoteEntity getRemoteEntity();
+	
+	public ParameterData[] getSerializeableData();
 }
