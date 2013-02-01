@@ -7,7 +7,6 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.PreparationSerializer;
 
 public class YMLSerializer extends PreparationSerializer
 {

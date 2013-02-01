@@ -1,10 +1,12 @@
-package de.kumpelblase2.remoteentities.persistence;
+package de.kumpelblase2.remoteentities.persistence.serializers;
 
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.CreateEntityContext;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
 
 public abstract class PreparationSerializer implements IEntitySerializer
 {

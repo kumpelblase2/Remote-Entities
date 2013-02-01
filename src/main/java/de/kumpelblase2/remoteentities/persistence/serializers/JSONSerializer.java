@@ -8,7 +8,6 @@ import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.PreparationSerializer;
 
 public class JSONSerializer extends PreparationSerializer
 {
