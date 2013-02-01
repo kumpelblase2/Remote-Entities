@@ -9,7 +9,7 @@ import de.kumpelblase2.remoteentities.api.Nameable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 
 public class EntityData implements ConfigurationSerializable
 {
@@ -40,14 +40,14 @@ public class EntityData implements ConfigurationSerializable
 		this.speed = inEntity.getSpeed();
 		this.actionDesires = new DesireData[inEntity.getMind().getActionDesires().size()];
 		int pos = 0;
-		for(Desire desire : inEntity.getMind().getActionDesires())
+		for(DesireItem desire : inEntity.getMind().getActionDesires())
 		{
 			this.actionDesires[pos] = new DesireData(desire);
 			pos++;
 		}
 		this.movementDesires = new DesireData[inEntity.getMind().getMovementDesires().size()];
 		pos = 0;
-		for(Desire desire : inEntity.getMind().getMovementDesires())
+		for(DesireItem desire : inEntity.getMind().getMovementDesires())
 		{
 			this.movementDesires[pos] = new DesireData(desire);
 			pos++;

@@ -8,20 +8,28 @@ import java.util.Map;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 
 public class DesireData implements ConfigurationSerializable
 {
 	public String type;
 	public ParameterData[] parameters;
+	public int priority;
 	
 	public DesireData()
 	{
 	}
 	
-	public DesireData(Desire inDesire)
+	public DesireData(Desire inDesire, int inPriotity)
 	{
 		this.type = inDesire.getClass().getName();
 		this.parameters = inDesire.getSerializeableData();
+		this.priority = inPriotity;
+	}
+	
+	public DesireData(DesireItem item)
+	{
+		this(item.getDesire(), item.getPriority());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -36,6 +44,7 @@ public class DesireData implements ConfigurationSerializable
 			this.parameters[pos] = new ParameterData(param);
 			pos++;
 		}
+		this.priority = (Integer)inData.get("priority");
 	}
 
 	@Override
@@ -49,11 +58,12 @@ public class DesireData implements ConfigurationSerializable
 			parameterData.add(param.serialize());
 		}
 		data.put("parameters", parameterData);
+		data.put("priority", this.priority);
 		return data;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Desire create(RemoteEntity inEntity)
+	public DesireItem create(RemoteEntity inEntity)
 	{
 		try
 		{
@@ -68,7 +78,8 @@ public class DesireData implements ConfigurationSerializable
 			{
 				values[pos] = EntityData.objectParser.deserialize(data);
 			}
-			return con.newInstance(values);
+			Desire d = con.newInstance(values);
+			return new DesireItem(d, this.priority);
 		}
 		catch(Exception e)
 		{
