@@ -74,7 +74,7 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.WHEAT.id, false), 3);
 			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 4);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 6);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6f), 6);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
 		}
 		catch(Exception e)

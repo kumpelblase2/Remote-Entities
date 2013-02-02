@@ -12,10 +12,10 @@ public class DesireDefendVillage extends DesireTargetBase
 	
 	public DesireDefendVillage(RemoteEntity inEntity)
 	{
-		this(inEntity, 16, false, true);
+		this(inEntity, 16f, false, true);
 	}
 	
-	public DesireDefendVillage(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele)
+	public DesireDefendVillage(RemoteEntity inEntity, Float inDistance, Boolean inShouldCheckSight, Boolean inShouldMeele)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
 		this.m_type = 1;

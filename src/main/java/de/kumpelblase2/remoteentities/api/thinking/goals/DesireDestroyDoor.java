@@ -9,7 +9,7 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	protected int m_breakTick;
 	protected int m_lastBreak = -1;
 	
-	public DesireDestroyDoor(RemoteEntity inEntity, boolean inIronDoor)
+	public DesireDestroyDoor(RemoteEntity inEntity, Boolean inIronDoor)
 	{
 		super(inEntity, inIronDoor);
 	}

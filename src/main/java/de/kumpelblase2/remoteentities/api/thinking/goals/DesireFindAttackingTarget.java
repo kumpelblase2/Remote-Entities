@@ -17,14 +17,14 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	protected EntityLiving m_target;
 	
 	
-	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
+	public DesireFindAttackingTarget(RemoteEntity inEntity, Float inDistance, Boolean inShouldCheckSight, Boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
 		this.m_attackNearest = inAttackNearest;
 		this.m_type = 1;
 	}
 	
-	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, boolean inAttackNearest)
+	public DesireFindAttackingTarget(RemoteEntity inEntity, Float inDistance, Boolean inShouldCheckSight, Boolean inShouldMelee, Boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_attackNearest = inAttackNearest;

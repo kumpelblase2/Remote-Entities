@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
@@ -82,6 +81,8 @@ public class DesireData implements ConfigurationSerializable
 					values[pos] = inEntity.getManager();
 				else				
 					values[pos] = EntityData.objectParser.deserialize(data);
+				
+				System.out.println(values[pos].getClass().getName());
 			}
 			Desire d = con.newInstance(values);
 			return new DesireItem(d, this.priority);
@@ -101,11 +102,9 @@ public class DesireData implements ConfigurationSerializable
 		{
 			try
 			{
-				Class c = ClassUtils.getClass(this.getClass().getClassLoader(), this.parameters[i].type);
-				if(ClassUtils.wrapperToPrimitive(c) != null)
-					c = ClassUtils.wrapperToPrimitive(c);
-				
+				Class c = Class.forName(this.parameters[i].type);		
 				classes[i] = c;
+				System.out.println(c.getName());
 			}
 			catch(Exception e)
 			{

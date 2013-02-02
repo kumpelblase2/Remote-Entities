@@ -31,7 +31,7 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		
 		this.m_hadAttackDesire = this.getMind().getActionDesire(DesireFindAttackingTarget.class) != null;
 		if(!this.m_hadAttackDesire)
-			this.getMind().addActionDesire(new DesireFindAttackingTarget(this, 16, false, false), this.getMind().getHighestActionPriority() + 1);
+			this.getMind().addActionDesire(new DesireFindAttackingTarget(this, 16f, false, false), this.getMind().getHighestActionPriority() + 1);
 		
 		this.getHandle().setGoalTarget(((CraftLivingEntity)inTarget).getHandle());
 	}

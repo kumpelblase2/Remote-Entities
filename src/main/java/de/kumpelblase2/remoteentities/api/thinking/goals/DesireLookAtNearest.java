@@ -20,12 +20,12 @@ public class DesireLookAtNearest extends DesireBase
 	@SerializeAs(pos = 3)
 	protected float m_lookPossibility;
 	
-	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance)
+	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, Float inMinDistance)
 	{
 		this(inEntity, inTarget, inMinDistance, 0.02F);
 	}
 	
-	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance, float inPossibility)
+	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, Float inMinDistance, Float inPossibility)
 	{
 		super(inEntity);
 		this.m_toLookAt = inTarget;

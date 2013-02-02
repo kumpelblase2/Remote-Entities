@@ -19,10 +19,10 @@ public class DesireBegForItem extends DesireBase
 	
 	public DesireBegForItem(RemoteEntity inEntity, Material... inMaterial)
 	{
-		this(inEntity, 5, inMaterial);
+		this(inEntity, 5f, inMaterial);
 	}
 	
-	public DesireBegForItem(RemoteEntity inEntity, float inMinDistance, Material... inMaterial)
+	public DesireBegForItem(RemoteEntity inEntity, Float inMinDistance, Material... inMaterial)
 	{
 		super(inEntity);
 		this.m_toBeg = inMaterial;

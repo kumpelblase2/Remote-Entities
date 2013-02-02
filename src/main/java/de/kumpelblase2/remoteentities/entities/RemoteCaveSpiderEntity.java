@@ -71,9 +71,9 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
 			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 4);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 7);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8f), 7);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
+			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, false, false), 1);
 			mind.addActionDesire(new DesireFindNearestTargetAtNight(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
 			mind.addActionDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 2), 3);
 		}
