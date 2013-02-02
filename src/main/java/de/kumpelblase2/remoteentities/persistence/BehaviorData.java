@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
@@ -62,10 +63,9 @@ public class BehaviorData implements ConfigurationSerializable
 				return null;
 			
 			Object[] values = new Object[this.parameters.length];
-			int pos = 0;
-			for(ParameterData data : this.parameters)
+			for(int i = 0; i < values.length; i++)
 			{
-				values[pos] = EntityData.objectParser.deserialize(data);
+				values[i] = EntityData.objectParser.deserialize(this.parameters[i]);
 			}
 			return con.newInstance(values);
 		}
@@ -83,7 +83,11 @@ public class BehaviorData implements ConfigurationSerializable
 		{
 			try
 			{
-				classes[i] = Class.forName(this.parameters[i].type);
+				Class c = ClassUtils.getClass(this.getClass().getClassLoader(), this.parameters[i].type);
+				if(ClassUtils.wrapperToPrimitive(c) != null)	
+					c = ClassUtils.wrapperToPrimitive(c);
+				
+				classes[i] = c;
 			}
 			catch(Exception e)
 			{

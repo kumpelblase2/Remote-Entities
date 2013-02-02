@@ -9,7 +9,6 @@ import de.kumpelblase2.remoteentities.api.Nameable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
-import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 
 public class EntityData implements ConfigurationSerializable
 {
@@ -39,24 +38,21 @@ public class EntityData implements ConfigurationSerializable
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
 		this.actionDesires = new DesireData[inEntity.getMind().getActionDesires().size()];
-		int pos = 0;
-		for(DesireItem desire : inEntity.getMind().getActionDesires())
+		for(int i = 0; i < this.actionDesires.length; i++)
 		{
-			this.actionDesires[pos] = new DesireData(desire);
-			pos++;
+			this.actionDesires[i] = new DesireData(inEntity.getMind().getActionDesires().get(i));
 		}
 		this.movementDesires = new DesireData[inEntity.getMind().getMovementDesires().size()];
-		pos = 0;
-		for(DesireItem desire : inEntity.getMind().getMovementDesires())
+		for(int i = 0; i < this.movementDesires.length; i++)
 		{
-			this.movementDesires[pos] = new DesireData(desire);
-			pos++;
+			this.movementDesires[i] = new DesireData(inEntity.getMind().getMovementDesires().get(i));
 		}
 		this.behaviors = new BehaviorData[inEntity.getMind().getBehaviours().size()];
-		pos = 0;
+		int pos = 0;
 		for(Behavior behavior : inEntity.getMind().getBehaviours())
 		{
 			this.behaviors[pos] = new BehaviorData(behavior);
+			pos++;
 		}
 	}
 	
@@ -70,29 +66,23 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = (Boolean)inData.get("stationary");
 		this.pushable = (Boolean)inData.get("pushable");
 		this.speed = ((Double)inData.get("speed")).floatValue();
-		List<Map<String, Object>> desireList = (List<Map<String, Object>>)inData.get("actionDesires");
-		this.actionDesires = new DesireData[desireList.size()];
-		int pos = 0;
-		for(Map<String, Object> desireData : desireList)
+		List<Map<String, Object>> dataList = (List<Map<String, Object>>)inData.get("actionDesires");
+		this.actionDesires = new DesireData[dataList.size()];
+		for(int i = 0; i < this.actionDesires.length; i++)
 		{
-			this.actionDesires[pos] = new DesireData(desireData);
-			pos++;
+			this.actionDesires[i] = new DesireData(dataList.get(i));
 		}
-		pos = 0;
-		desireList = (List<Map<String, Object>>)inData.get("movementDesires");
-		this.movementDesires = new DesireData[desireList.size()];
-		for(Map<String, Object> desiredata : desireList)
+		dataList = (List<Map<String, Object>>)inData.get("movementDesires");
+		this.movementDesires = new DesireData[dataList.size()];
+		for(int i = 0; i < this.movementDesires.length; i++)
 		{
-			this.movementDesires[pos] = new DesireData(desiredata);
-			pos++;
+			this.movementDesires[i] = new DesireData(dataList.get(i));
 		}
-		List<Map<String, Object>> behaviorData = (List<Map<String, Object>>)inData.get("behaviors");
-		pos = 0;
-		this.behaviors = new BehaviorData[behaviorData.size()];
-		for(Map<String, Object> behavior : behaviorData)
+		dataList = (List<Map<String, Object>>)inData.get("behaviors");
+		this.behaviors = new BehaviorData[dataList.size()];
+		for(int i = 0; i < behaviors.length; i++)
 		{
-			this.behaviors[pos] = new BehaviorData(behavior);
-			pos++;
+			this.behaviors[i] = new BehaviorData(dataList.get(i));
 		}
 	}
 

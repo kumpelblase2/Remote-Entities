@@ -24,12 +24,12 @@ public class DesireAttackOnCollide extends DesireBase
 	@SerializeAs(pos = 3)
 	protected float m_speed;
 	
-	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, Boolean inIgnoreSight)
+	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, boolean inIgnoreSight)
 	{
 		this(inEntity, inToAttack, inIgnoreSight, inEntity.getSpeed());
 	}
 	
-	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, Boolean inIgnoreSight, Float inSpeed)
+	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, boolean inIgnoreSight, float inSpeed)
 	{
 		super(inEntity);
 		this.m_speed = inSpeed;

@@ -20,11 +20,9 @@ public class ObjectParser
 			valueString = valueString.substring(1, valueString.length() - 1);
 			String[] values = valueString.split(",");
 			Object[] data = new Object[values.length];
-			int pos = 0;
-			for(String value : values)
+			for(int i = 0; i < values.length; i++)
 			{
-				data[pos] = this.getDeserializedObject(typeClass, value);
-				pos++;
+				data[i] = this.getDeserializedObject(typeClass, values[i]);
 			}
 			return data;
 		}
@@ -63,11 +61,9 @@ public class ObjectParser
 		{
 			Object[] data = (Object[])inObject;
 			Object[] values = new String[data.length];
-			int pos = 0;
-			for(Object value : data)
+			for(int i = 0; i < values.length; i++)
 			{
-				values[pos] = this.getSerializedObject(value);
-				pos++;
+				values[i] = this.getSerializedObject(values[i]);
 			}
 			
 			StringBuilder sb = new StringBuilder();

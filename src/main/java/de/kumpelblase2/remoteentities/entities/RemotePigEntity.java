@@ -70,7 +70,7 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.CARROT_STICK.id, false), 4);
 			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 5);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6f), 7);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 7);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 8);
 		}
 		catch(Exception e)

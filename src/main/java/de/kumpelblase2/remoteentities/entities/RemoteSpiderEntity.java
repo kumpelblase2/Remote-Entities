@@ -56,9 +56,9 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 			mind.addMovementDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 0.4F), 2);
 			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 3);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 4);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8f), 5);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 5);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, false, false), 1);
+			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
 			mind.addActionDesire(new DesireFindNearestTargetAtNight(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
 		}
 		catch(Exception e)

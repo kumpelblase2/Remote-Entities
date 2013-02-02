@@ -71,11 +71,11 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 6);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 7);
 			mind.addMovementDesire(new DesireBegForItem(this.getRemoteEntity(), 8f, Material.BONE), 8);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8F), 9);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 9);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 9);
 			mind.addActionDesire(new DesireProtectOwner(this.getRemoteEntity(), 32, false), 1);
 			mind.addActionDesire(new DesireHelpAttacking(this.getRemoteEntity(), 32, false), 2);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, true, true), 3);
+			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, true, true), 3);
 			mind.addActionDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntitySheep.class, 16, false, true, 200), 4);
 		}
 		catch(Exception e)

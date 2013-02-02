@@ -21,7 +21,7 @@ public class DesireAvoidSpecific extends DesireBase
 	protected Entity m_closestEntity;
 	protected PathEntity m_path;
 	
-	public DesireAvoidSpecific(RemoteEntity inEntity, Float inMinDistance, Float inCloseSpeed, Float inFarSpeed, Class<? extends Entity> inToAvoid)
+	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<? extends Entity> inToAvoid)
 	{
 		super(inEntity);
 		this.m_toAvoid = inToAvoid;
