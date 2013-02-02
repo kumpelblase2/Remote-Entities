@@ -132,7 +132,7 @@ public final class ReflectionUtil
 						{
 							System.out.println("Added field: " + field.getName());
 							Object value = field.get(inClass);
-							parameters.add(new ParameterData(sas.pos(), value.getClass().getName(), value, sas.special()));
+							parameters.add(new ParameterData(sas.pos(), field.getType().getName(), value, sas.special()));
 						}
 						catch(Exception e)
 						{

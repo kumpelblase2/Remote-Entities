@@ -36,7 +36,7 @@ public class ObjectParser
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Object getDeserializedObject(Class inType, Object inObject)
-	{
+	{		
 		if(inType.isAssignableFrom(Class.class))
 			return this.getClass(inObject.toString());
 		else if(inType.isAssignableFrom(int.class) || inType.isAssignableFrom(Integer.class))
@@ -126,7 +126,7 @@ public class ObjectParser
 		}
 	}
 	
-	protected Boolean getBoolean(Object inValue)
+	protected boolean getBoolean(Object inValue)
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class ObjectParser
 		}
 	}
 	
-	protected Float getFloat(Object inValue)
+	protected float getFloat(Object inValue)
 	{
 		try
 		{
@@ -150,7 +150,7 @@ public class ObjectParser
 		}
 	}
 	
-	protected Double getDouble(Object inValue)
+	protected double getDouble(Object inValue)
 	{
 		try
 		{

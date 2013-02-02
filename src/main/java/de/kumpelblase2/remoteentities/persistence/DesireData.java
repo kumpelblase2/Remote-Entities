@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
@@ -38,11 +39,10 @@ public class DesireData implements ConfigurationSerializable
 		this.type = (String)inData.get("type");
 		List<Map<String, Object>> parameterData = (List<Map<String, Object>>)inData.get("parameters");
 		this.parameters = new ParameterData[parameterData.size()];
-		int pos = 0;
 		for(Map<String, Object> param : parameterData)
 		{
-			this.parameters[pos] = new ParameterData(param);
-			pos++;
+			ParameterData paramData = new ParameterData(param);
+			this.parameters[paramData.pos] = paramData;
 		}
 		this.priority = (Integer)inData.get("priority");
 	}
@@ -76,13 +76,19 @@ public class DesireData implements ConfigurationSerializable
 			int pos = 0;
 			for(ParameterData data : this.parameters)
 			{
-				values[pos] = EntityData.objectParser.deserialize(data);
+				if(data.special.equals("entity"))
+					values[pos] = (RemoteEntity)inEntity;
+				else if(data.special.equals("manager"))
+					values[pos] = inEntity.getManager();
+				else				
+					values[pos] = EntityData.objectParser.deserialize(data);
 			}
 			Desire d = con.newInstance(values);
 			return new DesireItem(d, this.priority);
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -95,10 +101,15 @@ public class DesireData implements ConfigurationSerializable
 		{
 			try
 			{
-				classes[i] = Class.forName(this.parameters[i].type);
+				Class c = ClassUtils.getClass(this.getClass().getClassLoader(), this.parameters[i].type);
+				if(ClassUtils.wrapperToPrimitive(c) != null)
+					c = ClassUtils.wrapperToPrimitive(c);
+				
+				classes[i] = c;
 			}
 			catch(Exception e)
 			{
+				e.printStackTrace();
 				continue;
 			}
 		}

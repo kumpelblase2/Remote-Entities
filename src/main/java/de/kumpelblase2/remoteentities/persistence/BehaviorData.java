@@ -30,11 +30,10 @@ public class BehaviorData implements ConfigurationSerializable
 		this.type = (String)inData.get("type");
 		List<Map<String, Object>> parameterData = (List<Map<String, Object>>)inData.get("parameters");
 		this.parameters = new ParameterData[parameterData.size()];
-		int pos = 0;
 		for(Map<String, Object> param : parameterData)
 		{
-			this.parameters[pos] = new ParameterData(param);
-			pos++;
+			ParameterData paramData = new ParameterData(param);
+			this.parameters[paramData.pos] = paramData;
 		}
 	}
 
