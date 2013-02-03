@@ -41,7 +41,10 @@ public class LocationData implements ConfigurationSerializable
 	
 	public Location toBukkitLocation()
 	{
-		return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
+		if(Bukkit.getWorld(world) != null){
+			return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
+		}
+		return null;
 	}
 
 	@Override
