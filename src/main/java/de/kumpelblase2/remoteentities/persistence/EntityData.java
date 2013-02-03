@@ -30,10 +30,17 @@ public class EntityData implements ConfigurationSerializable
 	
 	public EntityData(RemoteEntity inEntity)
 	{
+		if(inEntity == null)
+			return;
+		
 		this.id = inEntity.getID();
 		this.type = inEntity.getType();
 		this.name = (inEntity instanceof Nameable ? ((Nameable)inEntity).getName() : "");
-		this.location = new LocationData(inEntity.getBukkitEntity().getLocation());
+		if(inEntity.isSpawned())
+			this.location = new LocationData(inEntity.getBukkitEntity().getLocation());
+		else
+			this.location = new LocationData();
+		
 		this.stationary = inEntity.isStationary();
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();

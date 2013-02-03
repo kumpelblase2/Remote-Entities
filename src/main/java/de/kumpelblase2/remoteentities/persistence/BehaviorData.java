@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 
@@ -30,6 +31,12 @@ public class BehaviorData implements ConfigurationSerializable
 	{
 		this.type = (String)inData.get("type");
 		List<Map<String, Object>> parameterData = (List<Map<String, Object>>)inData.get("parameters");
+		if(parameterData == null || parameterData.size() == 0)
+		{
+			this.parameters = new ParameterData[0];
+			return;
+		}
+		
 		this.parameters = new ParameterData[parameterData.size()];
 		for(Map<String, Object> param : parameterData)
 		{
@@ -65,12 +72,19 @@ public class BehaviorData implements ConfigurationSerializable
 			Object[] values = new Object[this.parameters.length];
 			for(int i = 0; i < values.length; i++)
 			{
-				values[i] = EntityData.objectParser.deserialize(this.parameters[i]);
+				if(this.parameters[i].special.equals("entity"))
+					values[i] = inEntity;
+				else if(this.parameters[i].special.equals("manager"))
+					values[i] = inEntity.getManager();
+				else				
+					values[i] = EntityData.objectParser.deserialize(this.parameters[i]);
 			}
 			return con.newInstance(values);
 		}
 		catch(Exception e)
 		{
+			RemoteEntities.getInstance().getLogger().warning("Error when trying to deserialize behavior with type " + this.type + ": ");
+			RemoteEntities.getInstance().getLogger().warning(e.getMessage());
 			return null;
 		}
 	}

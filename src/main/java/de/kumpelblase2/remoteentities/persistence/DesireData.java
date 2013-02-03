@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
@@ -38,6 +39,12 @@ public class DesireData implements ConfigurationSerializable
 	{
 		this.type = (String)inData.get("type");
 		List<Map<String, Object>> parameterData = (List<Map<String, Object>>)inData.get("parameters");
+		if(parameterData == null || parameterData.size() == 0)
+		{
+			this.parameters = new ParameterData[0];
+			return;
+		}
+		
 		this.parameters = new ParameterData[parameterData.size()];
 		for(Map<String, Object> param : parameterData)
 		{
@@ -87,7 +94,8 @@ public class DesireData implements ConfigurationSerializable
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			RemoteEntities.getInstance().getLogger().warning("Error when trying to deserialize desire with type " + this.type + ": ");
+			RemoteEntities.getInstance().getLogger().warning(e.getMessage());
 			return null;
 		}
 	}
