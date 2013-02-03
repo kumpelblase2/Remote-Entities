@@ -5,10 +5,13 @@ import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireTempt extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	protected int m_itemId;
+	@SerializeAs(pos = 2)
 	protected boolean m_scaredByMovement;
 	protected double m_x;
 	protected double m_y;

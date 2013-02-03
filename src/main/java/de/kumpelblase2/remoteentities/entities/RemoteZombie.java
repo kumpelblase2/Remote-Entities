@@ -8,7 +8,7 @@ import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 
-public class RemoteZombie extends RemoteBaseEntity implements RemoteEntity, Fightable
+public class RemoteZombie extends RemoteBaseEntity implements Fightable
 {	
 	public RemoteZombie(int inID, EntityManager inManager)
 	{

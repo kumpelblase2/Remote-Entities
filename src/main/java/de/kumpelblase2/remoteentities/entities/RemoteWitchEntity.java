@@ -56,7 +56,7 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 			mind.addMovementDesire(new DesireSwell(this.m_remoteEntity), 1);
 			mind.addMovementDesire(new DesireRangedAttack(this.m_remoteEntity, RemoteProjectileType.ENTITY_DEFAULT), 2);
 			mind.addMovementDesire(new DesireWanderAround(this.m_remoteEntity), 3);
-			mind.addMovementDesire(new DesireLookAtNearest(this.m_remoteEntity, EntityHuman.class, 8F), 4);
+			mind.addMovementDesire(new DesireLookAtNearest(this.m_remoteEntity, EntityHuman.class, 8), 4);
 			mind.addMovementDesire(new DesireLookRandomly(this.m_remoteEntity), 5);
 			mind.addActionDesire(new DesireFindAttackingTarget(this.m_remoteEntity, 16, true, false), 1);
 			mind.addActionDesire(new DesireFindNearestTarget(this.m_remoteEntity, EntityHuman.class, 16, true, 0), 2);

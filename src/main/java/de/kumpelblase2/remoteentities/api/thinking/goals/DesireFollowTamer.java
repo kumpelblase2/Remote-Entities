@@ -9,12 +9,17 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFollowTamer extends DesireBase
 {
 	protected EntityLiving m_animal;
+	@SerializeAs(pos = 1)
 	protected float m_minDistance;
 	protected float m_minDistanceSquared;
+	@SerializeAs(pos = 2)
 	protected float m_maxDistance;
 	protected float m_maxDistanceSquared;
 	protected EntityLiving m_owner;
@@ -127,5 +132,11 @@ public class DesireFollowTamer extends DesireBase
 			return ((EntityTameableAnimal)this.m_animal).isSitting();
 		
 		return false;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

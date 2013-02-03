@@ -12,9 +12,13 @@ import net.minecraft.server.v1_4_R1.VillageDoor;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireMoveThroughVillage extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	protected boolean m_onlyNight;
 	protected PathEntity m_path;
 	protected VillageDoor m_nextDoor;
@@ -142,5 +146,11 @@ public class DesireMoveThroughVillage extends DesireBase
 		}
 		
 		return nearest;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

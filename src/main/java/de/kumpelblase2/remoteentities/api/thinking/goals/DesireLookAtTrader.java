@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityVillager;
@@ -10,6 +11,12 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 	public DesireLookAtTrader(RemoteEntity inEntity, float inMinDistance)
 	{
 		super(inEntity, EntityHuman.class, inMinDistance);
+	}
+	
+	@Deprecated
+	public DesireLookAtTrader(RemoteEntity inEntity, Class<? extends LivingEntity> inTarget, float inMinDistance)
+	{
+		this(inEntity, inMinDistance);
 	}
 	
 	@Override

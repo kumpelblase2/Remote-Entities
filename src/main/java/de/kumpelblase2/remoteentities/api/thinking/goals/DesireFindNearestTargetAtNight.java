@@ -15,4 +15,9 @@ public class DesireFindNearestTargetAtNight extends DesireFindNearestTarget
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
 	}
+	
+	public DesireFindNearestTargetAtNight(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
+	}
 }

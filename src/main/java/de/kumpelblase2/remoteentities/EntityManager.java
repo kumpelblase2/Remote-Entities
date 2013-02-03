@@ -14,13 +14,16 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
 
 public class EntityManager
 {
 	private Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
-	private boolean m_removeDespawned = false;
+	protected boolean m_removeDespawned = false;
 	private final ChunkEntityLoader m_entityChunkLoader;
+	protected IEntitySerializer m_serializer;
 	
 	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
 	{
@@ -370,5 +373,40 @@ public class EntityManager
 	void unregisterEntityLoader()
 	{
 		ChunkLoadEvent.getHandlerList().unregister(this.m_entityChunkLoader);
+	}
+	
+	public void setEntitySerializer(IEntitySerializer inSerializer)
+	{
+		this.m_serializer = inSerializer;
+	}
+	
+	public IEntitySerializer getSerializer()
+	{
+		return this.m_serializer;
+	}
+	
+	public void saveEntities()
+	{
+		if(this.m_serializer == null)
+			return;
+		
+		EntityData[] data = new EntityData[this.m_entities.size()];
+		int pos = 0;
+		for(RemoteEntity entity : this.m_entities.values())
+		{
+			data[pos] = this.m_serializer.prepare(entity);
+			pos++;
+		}
+		this.m_serializer.save(data);
+	}
+	
+	public void loadEntities()
+	{
+		if(this.m_serializer == null)
+			return;
+		
+		EntityData[] data = this.m_serializer.loadData();
+		for(EntityData entity : data)
+			this.m_serializer.create(entity);
 	}
 }

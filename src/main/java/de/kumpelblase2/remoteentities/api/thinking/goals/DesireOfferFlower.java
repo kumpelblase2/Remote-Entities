@@ -5,11 +5,13 @@ import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireOfferFlower extends DesireBase
 {
 	protected int m_offerTick;
 	protected EntityLiving m_nearestEntity;
+	@SerializeAs(pos = 1)
 	protected Class<? extends EntityLiving> m_toOfffer;
 	
 	public DesireOfferFlower(RemoteEntity inEntity)

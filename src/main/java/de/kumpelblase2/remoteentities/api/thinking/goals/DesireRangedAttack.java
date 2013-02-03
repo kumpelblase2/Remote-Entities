@@ -18,14 +18,19 @@ import net.minecraft.server.v1_4_R1.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireRangedAttack extends DesireBase
 {
 	protected EntityLiving m_target;
+	@SerializeAs(pos = 1)
 	protected RemoteProjectileType m_projeProjectileType;
 	protected int m_inRangeTick;
 	protected int m_shootTicks;
+	@SerializeAs(pos = 2)
 	protected int m_shootDelay;
+	@SerializeAs(pos = 3)
+	protected float m_minDistance;
 	protected float m_minDistanceSquared;
 
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType)
@@ -43,6 +48,7 @@ public class DesireRangedAttack extends DesireBase
 		super(inEntity);
 		this.m_projeProjectileType = inProjectileType;
 		this.m_shootDelay = inDelay;
+		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = inMinDistance * inMinDistance;
 		this.m_type = 3;
 	}

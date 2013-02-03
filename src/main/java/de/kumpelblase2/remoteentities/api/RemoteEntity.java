@@ -233,4 +233,6 @@ public interface RemoteEntity
 	 * @return native name
 	 */
 	public String getNativeEntityName();
+	
+	public boolean save();
 }

@@ -1,13 +1,17 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireOpenDoor extends DesireInteractDoor
 {
+	@SerializeAs(pos = 2)
 	protected boolean m_closeDoor;
 	protected int m_closeTick;
 	
-	public DesireOpenDoor(RemoteEntity inEntity, boolean inCloseDoor, boolean inIronDoor)
+	public DesireOpenDoor(RemoteEntity inEntity, boolean inIronDoor, boolean inCloseDoor)
 	{
 		super(inEntity, inIronDoor);
 		this.m_closeDoor = inCloseDoor;
@@ -38,5 +42,11 @@ public class DesireOpenDoor extends DesireInteractDoor
 	{
 		this.m_closeTick--;
 		return super.update();
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

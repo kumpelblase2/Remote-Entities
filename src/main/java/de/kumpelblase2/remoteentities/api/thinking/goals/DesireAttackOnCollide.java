@@ -9,15 +9,19 @@ import net.minecraft.server.v1_4_R1.MathHelper;
 import net.minecraft.server.v1_4_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireAttackOnCollide extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	protected Class<? extends EntityLiving> m_toAttack;
 	protected EntityLiving m_target;
 	protected int m_attackTick;
 	protected int m_moveTick;
 	protected PathEntity m_path;
+	@SerializeAs(pos = 2)
 	protected boolean m_ignoreSight;
+	@SerializeAs(pos = 3)
 	protected float m_speed;
 	
 	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, boolean inIgnoreSight)

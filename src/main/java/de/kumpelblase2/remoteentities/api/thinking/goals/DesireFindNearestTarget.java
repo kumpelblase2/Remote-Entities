@@ -7,10 +7,15 @@ import net.minecraft.server.v1_4_R1.DistanceComparator;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFindNearestTarget extends DesireTargetBase
 {
+	@SerializeAs(pos = 5)
 	protected int m_targetChance;
+	@SerializeAs(pos = 4)
 	protected Class<? extends EntityLiving> m_targetClass;
 	protected DistanceComparator m_comparator;
 	protected EntityLiving m_target;
@@ -29,6 +34,11 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		this.m_targetClass = inTargetClass;
 		this.m_onlyAtNight = false;
 		this.m_type = 1;
+	}
+	
+	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -78,5 +88,11 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	{
 		this.getEntityHandle().setGoalTarget(this.m_target);
 		super.startExecuting();
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

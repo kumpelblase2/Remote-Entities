@@ -7,16 +7,15 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.PlayerInventory;
 import net.minecraft.server.v1_4_R1.EntityCreature;
 import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityPlayer;
 import net.minecraft.server.v1_4_R1.MathHelper;
 import net.minecraft.server.v1_4_R1.PathEntity;
 import net.minecraft.server.v1_4_R1.World;
@@ -33,6 +32,7 @@ import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
@@ -361,10 +361,20 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	
 	public void copyInventory(Player inPlayer)
 	{
+		this.copyInventory(inPlayer, false);
+	}
+	
+	public void copyInventory(Player inPlayer, boolean inIgnoreArmor)
+	{
 		this.copyInventory(inPlayer.getInventory());
 		EntityEquipment equip = this.getBukkitEntity().getEquipment();
 		equip.setItemInHand(inPlayer.getItemInHand());
-		equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		if(!inIgnoreArmor)
+			equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		
+		if(this.getInventory() instanceof CraftInventoryPlayer)
+			((CraftInventoryPlayer)this.getInventory()).getInventory().itemInHandIndex = inPlayer.getInventory().getHeldItemSlot();
+		
 	}
 	
 	public void copyInventory(Inventory inInventory)
@@ -382,5 +392,17 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			return null;
 		
 		return this.getFeatures().getFeature(InventoryFeature.class).getInventory();
+	}
+	
+	public boolean save()
+	{
+		if(this.getManager().getSerializer() instanceof ISingleEntitySerializer)
+		{
+			ISingleEntitySerializer serializer = (ISingleEntitySerializer)this.getManager().getSerializer();
+			serializer.save(serializer.prepare(this));
+			return true;
+		}
+		
+		return false;
 	}
 }

@@ -8,9 +8,11 @@ import net.minecraft.server.v1_4_R1.PathEntity;
 import net.minecraft.server.v1_4_R1.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireInteractDoor extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	protected boolean m_ironDoor;
 	protected int m_x;
 	protected int m_y;
