@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EnumBedResult;
@@ -81,7 +82,11 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
-	}
+
+        for (Behavior behavior : this.getMind().getBehaviours()) {
+            behavior.onEntityUpdate();
+        }
+    }
 
 	@Override
 	public LivingEntity getTarget()

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
@@ -26,29 +28,25 @@ class ChunkEntityLoader implements Listener
 	{
 		this.m_manager = inManager;
 		this.m_toSpawn = new HashMap<RemoteEntity, Location>();
+
+        this.populateSpawns();
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkLoad(ChunkLoadEvent event)
 	{
 		Chunk c = event.getChunk();
-		for(RemoteEntity entity : this.m_manager.getAllEntities())
-		{
-			if(!entity.isSpawned())
-				continue;
-			
-			if(entity.getBukkitEntity().getLocation().getChunk() == c && entity.getHandle() != null)
-				((CraftWorld)c.getWorld()).getHandle().addEntity(entity.getHandle());				
-		}
-		
+
+        this.populateSpawns();
+
 		Iterator<Entry<RemoteEntity, Location>> it = this.m_toSpawn.entrySet().iterator();
-		while(it.hasNext())
-		{
+
+		while (it.hasNext()) {
 			Entry<RemoteEntity, Location> toSpawn = it.next();
+
 			Location loc = toSpawn.getValue();
-			if(loc.getChunk() == c)
-			{
-				toSpawn.getKey().spawn(loc);
+			if (c == loc.getChunk()) {
+                toSpawn.getKey().spawn(loc);
 				it.remove();
 			}
 		}
@@ -74,4 +72,16 @@ class ChunkEntityLoader implements Listener
 			}
 		}
 	}
+
+    public void populateSpawns()
+    {
+        for(RemoteEntity entity : this.m_manager.getAllEntities())
+        {
+            if(!entity.isSpawned())
+                continue;
+
+
+            this.m_toSpawn.put(entity, entity.getBukkitEntity().getLocation());
+        }
+    }
 }

@@ -257,14 +257,14 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		if(this.isSpawned())
 			return;
-		
+
 		RemoteEntitySpawnEvent event = new RemoteEntitySpawnEvent(this, inLocation);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled())
 			return;
 		
 		inLocation = event.getSpawnLocation();
-		
+
 		try
 		{
 			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
@@ -274,6 +274,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
+
+            for (Behavior behavior : this.getMind().getBehaviours()) {
+                behavior.onEntityUpdate();
+            }
 		}
 		catch(Exception e)
 		{
@@ -304,16 +308,12 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
 			return false;
-		
-		for(Behavior behaviour : this.getMind().getBehaviours())
-		{
-			behaviour.onRemove();
-		}
-		
-		this.getMind().clearBehaviours();
+
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
-		this.m_entity = null;
+
+        this.m_entity = null;
+
 		return true;
 	}
 	

@@ -35,4 +35,6 @@ public interface Behavior extends Listener, Runnable
      * @return Array of strings to be used as basis for deserialized constructors.
      */
     public Object[] getConstructionals();
+
+    public void onEntityUpdate();
 }

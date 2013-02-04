@@ -39,10 +39,22 @@ public abstract class PreparationSerializer implements IEntitySerializer
 		contex.withName(inData.name).atLocation(inData.location.toBukkitLocation()).asPushable(inData.pushable).asStationary(inData.stationary).withID(inData.id);
 		contex.withSpeed(inData.speed);
 
+//        Behavior[] behaviors = new Behavior[inData.behaviors.length];
+//
+//        int index = 0;
+//        for (BehaviorData behaviorData : inData.behaviors) {
+//            behaviors[index] = this.createBehaviorForEntity(behaviorData, entity);
+//
+//            index++;
+//        }
+//
+//        contex.withBehaviors(behaviors);
+
         RemoteEntity entity = contex.create();
         for (BehaviorData behaviorData : inData.behaviors) {
             entity.getMind().addBehaviour(this.createBehaviorForEntity(behaviorData, entity));
         }
+
 
 		return entity;
 	}
