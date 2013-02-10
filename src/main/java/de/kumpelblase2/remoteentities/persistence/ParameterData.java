@@ -29,9 +29,6 @@ public class ParameterData implements ConfigurationSerializable {
         this.type = object.getClass().getCanonicalName();
         this.value = object;
 
-        System.out.println(this.type);
-        System.out.println(this.value);
-
         if (object instanceof RemoteEntity) {
             this.type = "predefined_reference";
             this.value = "entity";

@@ -93,7 +93,6 @@ public abstract class PreparationSerializer implements IEntitySerializer
             Class behaviorClass = Class.forName(inData.canonicallyWrittenClass);
 
             ParameterData parameterData[] = ConstructorSerializer.constructionalsFromArrayForEntity(inData.parameterData, entity);
-            System.out.println("Parameter info" + parameterData[0].value.getClass());
             Constructor constructor = behaviorClass.getConstructor(ParameterData[].class);
             return (Behavior)constructor.newInstance((Object)parameterData);
         } catch (ClassNotFoundException e) {

@@ -67,7 +67,6 @@ public class EntityData implements ConfigurationSerializable
 
         for (Behavior behavior : inEntity.getMind().getBehaviours()) {
             this.behaviors[index] = new BehaviorData(behavior);
-            System.out.println(this.behaviors[index]);
             index++;
         }
 	}

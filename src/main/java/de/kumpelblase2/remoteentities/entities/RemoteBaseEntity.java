@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
