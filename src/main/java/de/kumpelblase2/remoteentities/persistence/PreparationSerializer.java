@@ -1,8 +1,10 @@
 package de.kumpelblase2.remoteentities.persistence;
 
+import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
+import de.kumpelblase2.remoteentities.entities.RemotePlayer;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import org.bukkit.Bukkit;
@@ -35,7 +37,11 @@ public abstract class PreparationSerializer implements IEntitySerializer
 	public RemoteEntity create(EntityData inData)
 	{
 		EntityManager manager = RemoteEntities.getManagerOfPlugin(this.m_plugin.getName());
+
 		CreateEntityContext contex = manager.prepareEntity(inData.type);
+
+
+
 		contex.withName(inData.name).atLocation(inData.location.toBukkitLocation()).asPushable(inData.pushable).asStationary(inData.stationary).withID(inData.id);
 		contex.withSpeed(inData.speed);
 
@@ -51,10 +57,10 @@ public abstract class PreparationSerializer implements IEntitySerializer
 //        contex.withBehaviors(behaviors);
 
         RemoteEntity entity = contex.create();
+
         for (BehaviorData behaviorData : inData.behaviors) {
             entity.getMind().addBehaviour(this.createBehaviorForEntity(behaviorData, entity));
         }
-
 
 		return entity;
 	}

@@ -10,7 +10,9 @@ public class DesireSwim extends DesireBase
 	{
 		super(inEntity);
 		this.m_type = 4;
-		this.getEntityHandle().getNavigation().e(true);
+
+
+
 	}
 
     public DesireSwim(ParameterData[] parameters)
@@ -27,6 +29,11 @@ public class DesireSwim extends DesireBase
     @Override
 	public boolean update()
 	{
+        if (this.getEntityHandle() == null)
+            return false;
+
+        this.getEntityHandle().getNavigation().e(true);
+
 		if(this.getEntityHandle().aB().nextFloat() < 0.8F)
 			this.getEntityHandle().getControllerJump().a();
 		

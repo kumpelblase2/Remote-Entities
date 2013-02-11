@@ -34,7 +34,6 @@ public class EntityManager
 		this.m_entities = new ConcurrentHashMap<Integer, RemoteEntity>();
 		this.m_removeDespawned = inRemoveDespawed;
 		this.m_entityChunkLoader = new ChunkEntityLoader(this);
-		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
 		{
 			@Override
@@ -418,6 +417,6 @@ public class EntityManager
             }
         }
 
-
+             this.m_entityChunkLoader.populateSpawns();
 	}
 }

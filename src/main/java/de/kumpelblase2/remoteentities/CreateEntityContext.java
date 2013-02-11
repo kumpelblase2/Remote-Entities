@@ -3,6 +3,8 @@ package de.kumpelblase2.remoteentities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import net.minecraft.server.v1_4_R1.Chunk;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
@@ -238,9 +240,19 @@ public class CreateEntityContext
 		
 		if(this.m_maxHealth != -1)
 			created.getBukkitEntity().setMaxHealth(this.m_maxHealth);
-		
-		if(this.m_location != null)
-			created.spawn(this.m_location);
+
+        boolean isLoaded = false;
+
+        for (org.bukkit.Chunk chunk : this.m_location.getWorld().getLoadedChunks()) {
+            if (chunk == this.m_location.getChunk())
+                isLoaded = true;
+        }
+
+		if(this.m_location != null && isLoaded) {
+            created.spawn(this.m_location);
+            System.out.println("SPAWNED");
+        }
+
 		
 		return created;
 	}

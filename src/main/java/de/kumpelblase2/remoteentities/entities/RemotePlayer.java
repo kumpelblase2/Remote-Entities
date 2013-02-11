@@ -18,6 +18,8 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightable
 {
 	protected String m_name;
+    public Location intendedLocation;
+
 	
 	public RemotePlayer(int inID, String inName, EntityManager inManager)
 	{
