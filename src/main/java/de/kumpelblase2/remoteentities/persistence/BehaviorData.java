@@ -105,6 +105,7 @@ public class BehaviorData implements ConfigurationSerializable
 			}
 			catch(Exception e)
 			{
+				e.printStackTrace();
 				continue;
 			}
 		}
