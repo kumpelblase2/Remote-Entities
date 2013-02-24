@@ -21,7 +21,7 @@ public class DesireLookAtSpecific extends DesireLookAtNearest
 	}
 	
 	@Deprecated
-	public DesireLookAtSpecific(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance, float inPossibility, EntityLiving inTargetEntity)
+	public DesireLookAtSpecific(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance, float inPossibility, EntityLiving inTargetEntity)
 	{
 		this(inEntity, inTargetEntity, inMinDistance);
 		this.m_lookPossibility = inPossibility;

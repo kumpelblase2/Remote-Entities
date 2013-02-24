@@ -6,6 +6,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireAvoidSpecific extends DesireBase
@@ -21,10 +22,15 @@ public class DesireAvoidSpecific extends DesireBase
 	protected Entity m_closestEntity;
 	protected PathEntity m_path;
 	
-	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<? extends Entity> inToAvoid)
+	@SuppressWarnings("unchecked")
+	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
 	{
 		super(inEntity);
-		this.m_toAvoid = inToAvoid;
+		if(inToAvoid.isAssignableFrom(Entity.class))
+			this.m_toAvoid = (Class<? extends Entity>)inToAvoid;
+		else
+			this.m_toAvoid = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAvoid);
+		
 		this.m_minDistance = inMinDistance;
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;

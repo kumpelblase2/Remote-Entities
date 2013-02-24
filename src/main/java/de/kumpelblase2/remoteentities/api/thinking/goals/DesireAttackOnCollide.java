@@ -1,20 +1,21 @@
-
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
+import net.minecraft.server.v1_4_R1.Entity;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.MathHelper;
 import net.minecraft.server.v1_4_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 
 public class DesireAttackOnCollide extends DesireBase
 {
 	@SerializeAs(pos = 1)
-	protected Class<? extends EntityLiving> m_toAttack;
+	protected Class<? extends Entity> m_toAttack;
 	protected EntityLiving m_target;
 	protected int m_attackTick;
 	protected int m_moveTick;
@@ -24,17 +25,22 @@ public class DesireAttackOnCollide extends DesireBase
 	@SerializeAs(pos = 3)
 	protected float m_speed;
 	
-	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, boolean inIgnoreSight)
+	public DesireAttackOnCollide(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight)
 	{
 		this(inEntity, inToAttack, inIgnoreSight, inEntity.getSpeed());
 	}
 	
-	public DesireAttackOnCollide(RemoteEntity inEntity, Class<? extends EntityLiving> inToAttack, boolean inIgnoreSight, float inSpeed)
+	@SuppressWarnings("unchecked")
+	public DesireAttackOnCollide(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight, float inSpeed)
 	{
 		super(inEntity);
 		this.m_speed = inSpeed;
 		this.m_ignoreSight = inIgnoreSight;
-		this.m_toAttack = inToAttack;
+		if(inToAttack.isAssignableFrom(Entity.class))
+			this.m_toAttack = (Class<? extends Entity>)inToAttack;
+		else
+			this.m_toAttack = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAttack);
+		
 		this.m_attackTick = 0;
 		this.m_type = 3;
 	}

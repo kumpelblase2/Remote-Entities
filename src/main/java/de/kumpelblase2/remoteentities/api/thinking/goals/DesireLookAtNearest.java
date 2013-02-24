@@ -5,6 +5,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 import net.minecraft.server.v1_4_R1.*;
 
@@ -12,7 +13,7 @@ public class DesireLookAtNearest extends DesireBase
 {
 	protected EntityLiving m_target;
 	@SerializeAs(pos = 1)
-	protected Class<? extends EntityLiving> m_toLookAt;
+	protected Class<? extends Entity> m_toLookAt;
 	protected int m_lookTicks;
 	@SerializeAs(pos = 2)
 	protected float m_minDist;
@@ -20,15 +21,19 @@ public class DesireLookAtNearest extends DesireBase
 	@SerializeAs(pos = 3)
 	protected float m_lookPossibility;
 	
-	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance)
+	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
 	{
 		this(inEntity, inTarget, inMinDistance, 0.02F);
 	}
 	
-	public DesireLookAtNearest(RemoteEntity inEntity, Class<? extends EntityLiving> inTarget, float inMinDistance, float inPossibility)
+	@SuppressWarnings("unchecked")
+	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance, float inPossibility)
 	{
 		super(inEntity);
-		this.m_toLookAt = inTarget;
+		if(inTarget.isAssignableFrom(Entity.class))
+			this.m_toLookAt = (Class<? extends Entity>)inTarget;
+		else
+			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);
 		this.m_minDist = inMinDistance;
 		this.m_minDistSquared = this.m_minDist * this.m_minDist;
 		this.m_lookPossibility = inPossibility;

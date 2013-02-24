@@ -1,10 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.entity.LivingEntity;
+import net.minecraft.server.v1_4_R1.Entity;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 
 public class DesireLookAtTrader extends DesireLookAtNearest
 {
@@ -13,10 +14,15 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 		super(inEntity, EntityHuman.class, inMinDistance);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Deprecated
-	public DesireLookAtTrader(RemoteEntity inEntity, Class<? extends LivingEntity> inTarget, float inMinDistance)
+	public DesireLookAtTrader(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
 	{
 		this(inEntity, inMinDistance);
+		if(inTarget.isAssignableFrom(Entity.class))
+			this.m_toLookAt = (Class<? extends Entity>)inTarget;
+		else
+			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);
 	}
 	
 	@Override

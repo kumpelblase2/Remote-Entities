@@ -4,11 +4,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import net.minecraft.server.v1_4_R1.DistanceComparator;
+import net.minecraft.server.v1_4_R1.Entity;
 import net.minecraft.server.v1_4_R1.EntityHuman;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFindNearestTarget extends DesireTargetBase
@@ -16,22 +18,27 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	@SerializeAs(pos = 5)
 	protected int m_targetChance;
 	@SerializeAs(pos = 4)
-	protected Class<? extends EntityLiving> m_targetClass;
+	protected Class<? extends Entity> m_targetClass;
 	protected DistanceComparator m_comparator;
 	protected EntityLiving m_target;
 	protected boolean m_onlyAtNight;
 	
-	public DesireFindNearestTarget(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
+	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
 	}	
 	
-	public DesireFindNearestTarget(RemoteEntity inEntity, Class<? extends EntityLiving> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
+	@SuppressWarnings("unchecked")
+	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
 		this.m_comparator = new DistanceComparator(null, this.getEntityHandle());
 		this.m_targetChance = inChance;
-		this.m_targetClass = inTargetClass;
+		if(inTargetClass.isAssignableFrom(Entity.class))
+			this.m_targetClass = (Class<? extends Entity>)inTargetClass;
+		else
+			this.m_targetClass = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTargetClass);
+		
 		this.m_onlyAtNight = false;
 		this.m_type = 1;
 	}
