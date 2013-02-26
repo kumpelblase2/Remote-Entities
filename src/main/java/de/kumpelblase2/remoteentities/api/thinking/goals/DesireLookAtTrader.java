@@ -19,7 +19,7 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 	public DesireLookAtTrader(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
 	{
 		this(inEntity, inMinDistance);
-		if(inTarget.isAssignableFrom(Entity.class))
+		if(Entity.class.isAssignableFrom(inTarget))
 			this.m_toLookAt = (Class<? extends Entity>)inTarget;
 		else
 			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);

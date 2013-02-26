@@ -30,7 +30,7 @@ public class DesireLookAtNearest extends DesireBase
 	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance, float inPossibility)
 	{
 		super(inEntity);
-		if(inTarget.isAssignableFrom(Entity.class))
+		if(Entity.class.isAssignableFrom(inTarget))
 			this.m_toLookAt = (Class<? extends Entity>)inTarget;
 		else
 			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);

@@ -27,7 +27,7 @@ public class DesireOfferFlower extends DesireBase
 	public DesireOfferFlower(RemoteEntity inEntity, Class<?> inToOffer)
 	{
 		this(inEntity);
-		if(inToOffer.isAssignableFrom(Entity.class))
+		if(Entity.class.isAssignableFrom(inToOffer))
 			this.m_toOfffer = (Class<? extends Entity>)inToOffer;
 		else
 			this.m_toOfffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);

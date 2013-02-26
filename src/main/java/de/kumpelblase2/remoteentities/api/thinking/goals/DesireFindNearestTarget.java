@@ -34,7 +34,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
 		this.m_comparator = new DistanceComparator(null, this.getEntityHandle());
 		this.m_targetChance = inChance;
-		if(inTargetClass.isAssignableFrom(Entity.class))
+		if(Entity.class.isAssignableFrom(inTargetClass))
 			this.m_targetClass = (Class<? extends Entity>)inTargetClass;
 		else
 			this.m_targetClass = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTargetClass);

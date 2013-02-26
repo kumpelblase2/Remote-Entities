@@ -26,7 +26,7 @@ public class DesireAvoidSpecific extends DesireBase
 	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
 	{
 		super(inEntity);
-		if(inToAvoid.isAssignableFrom(Entity.class))
+		if(Entity.class.isAssignableFrom(inToAvoid))
 			this.m_toAvoid = (Class<? extends Entity>)inToAvoid;
 		else
 			this.m_toAvoid = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAvoid);
