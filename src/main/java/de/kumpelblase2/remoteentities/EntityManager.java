@@ -311,9 +311,9 @@ public class EntityManager
 		try
 		{
 			if(name == null)
-				return this.createEntity(type, originalSpot);
+				return this.createEntity(type, originalSpot, true);
 			else
-				return this.createNamedEntity(type, originalSpot, name);
+				return this.createNamedEntity(type, originalSpot, name, true);
 		}
 		catch(Exception e)
 		{
