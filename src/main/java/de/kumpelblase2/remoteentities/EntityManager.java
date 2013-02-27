@@ -379,16 +379,29 @@ public class EntityManager
 		ChunkLoadEvent.getHandlerList().unregister(this.m_entityChunkLoader);
 	}
 	
+	/**
+	 * Sets the serializer which should be used when saving the entities
+	 * 
+	 * @param inSerializer	serializer to use
+	 */
 	public void setEntitySerializer(IEntitySerializer inSerializer)
 	{
 		this.m_serializer = inSerializer;
 	}
 	
+	/**
+	 * Gets the currently used serializer
+	 * 
+	 * @return	serializer
+	 */
 	public IEntitySerializer getSerializer()
 	{
 		return this.m_serializer;
 	}
 	
+	/**
+	 * Saves all currently available entities
+	 */
 	public void saveEntities()
 	{
 		if(this.m_serializer == null)
@@ -404,6 +417,9 @@ public class EntityManager
 		this.m_serializer.save(data);
 	}
 	
+	/**
+	 * Loads all saved entities
+	 */
 	public void loadEntities()
 	{
 		if(this.m_serializer == null)
