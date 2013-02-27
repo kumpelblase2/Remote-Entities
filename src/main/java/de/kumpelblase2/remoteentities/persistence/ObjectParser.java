@@ -59,18 +59,12 @@ public class ObjectParser
 	{
 		if(inObject.getClass().isArray())
 		{
-			Object[] data = (Object[])inObject;
-			Object[] values = new String[data.length];
-			for(int i = 0; i < values.length; i++)
-			{
-				values[i] = this.getSerializedObject(values[i]);
-			}
-			
+			Object[] data = (Object[])inObject;			
 			StringBuilder sb = new StringBuilder();
 			sb.append("[");
-			for(Object o : values)
+			for(int i = 0; i < data.length; i++)
 			{
-				sb.append(o.toString());
+				sb.append(this.getSerializedObject(data[i]).toString());
 				sb.append(",");
 			}
 			sb.setCharAt(sb.length(), ']');

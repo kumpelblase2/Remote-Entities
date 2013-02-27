@@ -118,7 +118,6 @@ public final class ReflectionUtil
 			for(Field field : clazz.getDeclaredFields())
 			{
 				field.setAccessible(true);
-				System.out.println("current field: " + field.getName() + "_:_" + field.isAnnotationPresent(SerializeAs.class));
 				if(membersLooked.contains(field.getName()))
 					continue;
 				
@@ -130,7 +129,6 @@ public final class ReflectionUtil
 						SerializeAs sas = (SerializeAs)an;
 						try
 						{
-							System.out.println("Added field: " + field.getName());
 							Object value = field.get(inClass);
 							parameters.add(new ParameterData(sas.pos(), field.getType().getName(), value, sas.special()));
 						}
