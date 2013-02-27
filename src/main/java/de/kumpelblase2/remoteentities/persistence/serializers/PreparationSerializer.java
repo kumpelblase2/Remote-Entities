@@ -30,10 +30,13 @@ public abstract class PreparationSerializer implements IEntitySerializer
 	public RemoteEntity create(EntityData inData)
 	{
 		EntityManager manager = RemoteEntities.getManagerOfPlugin(this.m_plugin.getName());
-		CreateEntityContext contex = manager.prepareEntity(inData.type);
-		contex.withName(inData.name).atLocation(inData.location.toBukkitLocation()).asPushable(inData.pushable).asStationary(inData.stationary).withID(inData.id);
-		contex.withSpeed(inData.speed);
-		RemoteEntity entity = contex.create();
+		CreateEntityContext context = manager.prepareEntity(inData.type);
+		context.withName(inData.name).asPushable(inData.pushable).asStationary(inData.stationary).withID(inData.id);
+		context.withSpeed(inData.speed);
+		if(inData.location != null)
+			context.atLocation(inData.location.toBukkitLocation());
+		
+		RemoteEntity entity = context.create();
 		for(DesireData data : inData.movementDesires)
 		{
 			DesireItem item = data.create(entity);
