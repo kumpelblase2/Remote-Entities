@@ -132,11 +132,7 @@ public class EntityManager
 			return null;
 		
 		if(inLocation != null)
-		{
-			entity.spawn(inLocation);
-			if(inSetupGoals)
-				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
-		}
+			this.m_entityChunkLoader.queueSpawn(entity, inLocation, inSetupGoals);
 		
 		return entity;
 	}
@@ -192,11 +188,7 @@ public class EntityManager
 			return null;
 		
 		if(inLocation != null)
-		{
-			entity.spawn(inLocation);
-			if(inSetupGoals)
-				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
-		}
+			this.m_entityChunkLoader.queueSpawn(entity, inLocation, inSetupGoals);
 		
 		return entity;
 	}
