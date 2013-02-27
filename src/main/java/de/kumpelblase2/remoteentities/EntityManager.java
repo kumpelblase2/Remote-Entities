@@ -71,12 +71,24 @@ public class EntityManager
 		return this.m_plugin;
 	}
 	
-	Integer getNextFreeID()
+	/**
+	 * Gets the next free id starting from 0
+	 * 
+	 * @return	next free id
+	 */
+	protected Integer getNextFreeID()
 	{
 		return this.getNextFreeID(0);
 	}
 	
-	Integer getNextFreeID(int inStart)
+	/**
+	 * Gets the next free id starting from the id provided.
+	 * If the give it is free, it will get returned as well.
+	 * 
+	 * @param inStart	starting id
+	 * @return			next free id
+	 */
+	protected Integer getNextFreeID(int inStart)
 	{
 		Set<Integer> ids = this.m_entities.keySet();
 		while(ids.contains(inStart))
