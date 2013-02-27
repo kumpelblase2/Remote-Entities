@@ -38,6 +38,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected boolean m_isPushable = true;
 	protected float m_speed;
 	protected final EntityManager m_manager;
+	protected Location m_unloadedLocation;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -271,6 +272,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		{
 			e.printStackTrace();
 		}
+		this.m_unloadedLocation = null;
 	}
 	
 	@Override
@@ -297,12 +299,18 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
 			return false;
 		
-		for(Behavior behaviour : this.getMind().getBehaviours())
+		if(inReason != DespawnReason.CHUNK_UNLOAD)
 		{
-			behaviour.onRemove();
+			for(Behavior behaviour : this.getMind().getBehaviours())
+			{
+				behaviour.onRemove();
+			}
+			
+			this.getMind().clearBehaviours();
 		}
+		else
+			this.m_unloadedLocation = (this.getBukkitEntity() != null ? this.getBukkitEntity().getLocation() : null);
 		
-		this.getMind().clearBehaviours();
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
 		this.m_entity = null;
@@ -395,5 +403,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		}
 		
 		return false;
+	}
+	
+	public Location getUnloadedLocation()
+	{
+		return this.m_unloadedLocation;
 	}
 }

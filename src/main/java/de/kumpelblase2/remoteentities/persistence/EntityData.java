@@ -9,6 +9,7 @@ import de.kumpelblase2.remoteentities.api.Nameable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 
 public class EntityData implements ConfigurationSerializable
 {
@@ -39,8 +40,19 @@ public class EntityData implements ConfigurationSerializable
 		if(inEntity.isSpawned())
 			this.location = new LocationData(inEntity.getBukkitEntity().getLocation());
 		else
-			this.location = new LocationData();
-		
+		{
+			if(inEntity instanceof RemoteBaseEntity)
+			{
+				RemoteBaseEntity base = (RemoteBaseEntity)inEntity;
+				if(base.getUnloadedLocation() != null)
+					this.location = new LocationData(base.getUnloadedLocation());
+				else
+					this.location = new LocationData();
+			}
+			else
+				this.location = new LocationData();
+		}
+			
 		this.stationary = inEntity.isStationary();
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
