@@ -1,15 +1,20 @@
 package de.kumpelblase2.remoteentities.persistence.serializers;
 
 import java.io.File;
+import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 
-public class YMLSerializer extends PreparationSerializer
+public class YMLSerializer extends PreparationSerializer implements ISingleEntitySerializer
 {
+	protected FileConfiguration m_config;
+	protected File m_configFile;
+	
 	public YMLSerializer(Plugin inPlugin)
 	{
 		super(inPlugin);
@@ -21,23 +26,14 @@ public class YMLSerializer extends PreparationSerializer
 	{
 		try
 		{
-			File fileFolder = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName());
-			if(!fileFolder.exists())
+			if(this.m_config == null || this.m_configFile == null)
 			{
-				if(!fileFolder.mkdirs())
+				if(!this.loadConfig())
 					return false;
 			}
 			
-			File ymlFile = new File(fileFolder, "entities.yml");
-			if(!ymlFile.exists())
-			{
-				if(!ymlFile.createNewFile())
-					return false;
-			}
-		
-			FileConfiguration conf = YamlConfiguration.loadConfiguration(ymlFile);
-			conf.set("entities", inData);
-			conf.save(ymlFile);
+			this.m_config.set("entities", inData);
+			this.m_config.save(this.m_configFile);
 			
 			return true;
 		}
@@ -50,12 +46,81 @@ public class YMLSerializer extends PreparationSerializer
 	@Override
 	public EntityData[] loadData()
 	{
-		File ymlFile = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName() + File.separator + "entities.yml");
-		if(!ymlFile.exists())
-			return new EntityData[0];
-
-		FileConfiguration conf = YamlConfiguration.loadConfiguration(ymlFile);
+		if(this.m_configFile == null || this.m_config == null)
+		{
+			if(!this.loadConfig())
+				return new EntityData[0];
+		}
 		
-		return conf.getList("entities").toArray(new EntityData[0]);
+		return this.m_config.getList("entities").toArray(new EntityData[0]);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void save(EntityData inData)
+	{
+		try
+		{
+			if(this.m_config == null || this.m_configFile == null)
+			{
+				if(!this.loadConfig())
+					return;
+			}
+			
+			((List<EntityData>)this.m_config.getList("entities")).add(inData);
+			this.m_config.save(this.m_configFile);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public EntityData load(Object inParameter)
+	{
+		EntityData[] data = this.loadData();
+		for(EntityData entity : data)
+		{
+			if(inParameter instanceof String)
+			{
+				if(inParameter.equals(entity.name))
+					return entity;
+			}
+			else if(inParameter instanceof Integer)
+			{
+				if(inParameter.equals((Integer)entity.id))
+					return entity;
+			}
+		}
+		return null;
+	}
+	
+	protected boolean loadConfig()
+	{
+		try
+		{
+			File fileFolder = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName());
+			if(!fileFolder.exists())
+			{
+				if(!fileFolder.mkdirs())
+					return false;
+			}
+			
+			this.m_configFile = new File(fileFolder, "entities.yml");
+			if(!this.m_configFile.exists())
+			{
+				if(!this.m_configFile.createNewFile())
+					return false;
+			}
+		
+			this.m_config = YamlConfiguration.loadConfiguration(this.m_configFile);
+			return true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
