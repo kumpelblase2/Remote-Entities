@@ -6,12 +6,18 @@ import net.minecraft.server.v1_4_R1.MathHelper;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFollowSpecific extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	protected EntityLiving m_toFollow;
+	@SerializeAs(pos = 2)
 	protected float m_minDistance;
 	protected float m_minDistanceSquared;
+	@SerializeAs(pos = 3)
 	protected float m_maxDistance;
 	protected float m_maxDistanceSquared;
 	protected boolean m_avoidWaterState;
@@ -102,5 +108,11 @@ public class DesireFollowSpecific extends DesireBase
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

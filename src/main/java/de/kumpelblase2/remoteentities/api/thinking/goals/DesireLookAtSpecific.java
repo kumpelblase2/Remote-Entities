@@ -4,21 +4,27 @@ import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
 
-public class DesireLookAtSpecific extends DesireLookAtNearest implements Desire
+public class DesireLookAtSpecific extends DesireLookAtNearest
 {
 	private final EntityLiving m_specificTarget;
 	
-	public DesireLookAtSpecific(RemoteEntity inEntity, EntityLiving inTarget, float inDelay)
+	public DesireLookAtSpecific(RemoteEntity inEntity, EntityLiving inTarget, float inMinDistance)
 	{
-		super(inEntity, inTarget.getClass(), inDelay);
+		super(inEntity, inTarget.getClass(), inMinDistance);
 		this.m_specificTarget = inTarget;
 	}
 	
-	public DesireLookAtSpecific(RemoteEntity inEntity, LivingEntity inTarget, float inDelay)
+	public DesireLookAtSpecific(RemoteEntity inEntity, LivingEntity inTarget, float inMinDistance)
 	{
-		this(inEntity, ((CraftLivingEntity)inTarget).getHandle(), inDelay);
+		this(inEntity, ((CraftLivingEntity)inTarget).getHandle(), inMinDistance);
+	}
+	
+	@Deprecated
+	public DesireLookAtSpecific(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance, float inPossibility, EntityLiving inTargetEntity)
+	{
+		this(inEntity, inTargetEntity, inMinDistance);
+		this.m_lookPossibility = inPossibility;
 	}
 	
 	@Override

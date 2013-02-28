@@ -7,7 +7,8 @@ public abstract class TouchBehavior extends BaseBehavior
 {	
 	public TouchBehavior(RemoteEntity inEntity)
 	{
-		super(inEntity, "Touch");
+		super(inEntity);
+		this.m_name = "Touch";
 	}
 	
 	/**

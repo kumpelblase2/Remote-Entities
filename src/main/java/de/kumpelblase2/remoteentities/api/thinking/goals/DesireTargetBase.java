@@ -15,11 +15,15 @@ import net.minecraft.server.v1_4_R1.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public abstract class DesireTargetBase extends DesireBase
 {
+	@SerializeAs(pos = 2)
 	protected boolean m_shouldCheckSight;
+	@SerializeAs(pos = 3)
 	protected boolean m_shouldMeleeAttack;
+	@SerializeAs(pos = 1)
 	protected float m_distance;
 	protected float m_distanceSquared;
 	protected int m_useAttack;
@@ -31,13 +35,13 @@ public abstract class DesireTargetBase extends DesireBase
 		this(inEntity, inDistance, inShouldCheckSight, false);
 	}
 	
-	public DesireTargetBase(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele)
+	public DesireTargetBase(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
 	{
 		super(inEntity);
 		this.m_shouldCheckSight = inShouldCheckSight;
 		this.m_distance = inDistance;
 		this.m_distanceSquared = this.m_distance * this.m_distance;
-		this.m_shouldMeleeAttack = inShouldMeele;
+		this.m_shouldMeleeAttack = inShouldMelee;
 		this.m_useAttack = 0;
 		this.m_lastAttackTick = 0;
 		this.m_notSeeingTarget = 0;

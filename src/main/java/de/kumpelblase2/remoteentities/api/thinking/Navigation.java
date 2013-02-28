@@ -97,13 +97,9 @@ public class Navigation
 		return inFirstDesire.getType() != inSecondDesire.getType();
 	}
 	
-	public List<Desire> getDesires()
+	public List<DesireItem> getDesires()
 	{
-		List<Desire> tempDesires = new ArrayList<Desire>();
-		for(DesireItem item : this.m_desires)
-			tempDesires.add(item.getDesire());
-		
-		return tempDesires;
+		return this.m_desires;
 	}
 	
 	public boolean removeDesireByType(Class<? extends Desire> inType)

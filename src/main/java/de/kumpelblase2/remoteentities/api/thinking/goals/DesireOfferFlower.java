@@ -1,16 +1,20 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import net.minecraft.server.v1_4_R1.Entity;
 import net.minecraft.server.v1_4_R1.EntityIronGolem;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 
 public class DesireOfferFlower extends DesireBase
 {
 	protected int m_offerTick;
 	protected EntityLiving m_nearestEntity;
-	protected Class<? extends EntityLiving> m_toOfffer;
+	@SerializeAs(pos = 1)
+	protected Class<? extends Entity> m_toOfffer;
 	
 	public DesireOfferFlower(RemoteEntity inEntity)
 	{
@@ -19,10 +23,14 @@ public class DesireOfferFlower extends DesireBase
 		this.m_type = 3;
 	}
 	
-	public DesireOfferFlower(RemoteEntity inEntity, Class<? extends EntityLiving> inToOffer)
+	@SuppressWarnings("unchecked")
+	public DesireOfferFlower(RemoteEntity inEntity, Class<?> inToOffer)
 	{
 		this(inEntity);
-		this.m_toOfffer = inToOffer;
+		if(Entity.class.isAssignableFrom(inToOffer))
+			this.m_toOfffer = (Class<? extends Entity>)inToOffer;
+		else
+			this.m_toOfffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);
 	}
 
 	@Override

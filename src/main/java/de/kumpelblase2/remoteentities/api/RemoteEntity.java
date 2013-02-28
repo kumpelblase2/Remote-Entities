@@ -233,4 +233,11 @@ public interface RemoteEntity
 	 * @return native name
 	 */
 	public String getNativeEntityName();
+	
+	/**
+	 * If a ISingleEntitySerializer is present, this entity will be saved alone.
+	 * 
+	 * @return	true if the entity could get saved, false if not
+	 */
+	public boolean save();
 }

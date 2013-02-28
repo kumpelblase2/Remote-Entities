@@ -14,13 +14,16 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
 
 public class EntityManager
 {
 	private Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
-	private boolean m_removeDespawned = false;
+	protected boolean m_removeDespawned = false;
 	private final ChunkEntityLoader m_entityChunkLoader;
+	protected IEntitySerializer m_serializer;
 	
 	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
 	{
@@ -68,12 +71,24 @@ public class EntityManager
 		return this.m_plugin;
 	}
 	
-	Integer getNextFreeID()
+	/**
+	 * Gets the next free id starting from 0
+	 * 
+	 * @return	next free id
+	 */
+	protected Integer getNextFreeID()
 	{
 		return this.getNextFreeID(0);
 	}
 	
-	Integer getNextFreeID(int inStart)
+	/**
+	 * Gets the next free id starting from the id provided.
+	 * If the give it is free, it will get returned as well.
+	 * 
+	 * @param inStart	starting id
+	 * @return			next free id
+	 */
+	protected Integer getNextFreeID(int inStart)
 	{
 		Set<Integer> ids = this.m_entities.keySet();
 		while(ids.contains(inStart))
@@ -117,11 +132,7 @@ public class EntityManager
 			return null;
 		
 		if(inLocation != null)
-		{
-			entity.spawn(inLocation);
-			if(inSetupGoals)
-				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
-		}
+			this.m_entityChunkLoader.queueSpawn(entity, inLocation, inSetupGoals);
 		
 		return entity;
 	}
@@ -177,11 +188,7 @@ public class EntityManager
 			return null;
 		
 		if(inLocation != null)
-		{
-			entity.spawn(inLocation);
-			if(inSetupGoals)
-				((RemoteEntityHandle)entity.getHandle()).setupStandardGoals();
-		}
+			this.m_entityChunkLoader.queueSpawn(entity, inLocation, inSetupGoals);
 		
 		return entity;
 	}
@@ -304,9 +311,9 @@ public class EntityManager
 		try
 		{
 			if(name == null)
-				return this.createEntity(type, originalSpot);
+				return this.createEntity(type, originalSpot, true);
 			else
-				return this.createNamedEntity(type, originalSpot, name);
+				return this.createNamedEntity(type, originalSpot, name, true);
 		}
 		catch(Exception e)
 		{
@@ -370,5 +377,56 @@ public class EntityManager
 	void unregisterEntityLoader()
 	{
 		ChunkLoadEvent.getHandlerList().unregister(this.m_entityChunkLoader);
+	}
+	
+	/**
+	 * Sets the serializer which should be used when saving the entities
+	 * 
+	 * @param inSerializer	serializer to use
+	 */
+	public void setEntitySerializer(IEntitySerializer inSerializer)
+	{
+		this.m_serializer = inSerializer;
+	}
+	
+	/**
+	 * Gets the currently used serializer
+	 * 
+	 * @return	serializer
+	 */
+	public IEntitySerializer getSerializer()
+	{
+		return this.m_serializer;
+	}
+	
+	/**
+	 * Saves all currently available entities
+	 */
+	public void saveEntities()
+	{
+		if(this.m_serializer == null)
+			return;
+		
+		EntityData[] data = new EntityData[this.m_entities.size()];
+		int pos = 0;
+		for(RemoteEntity entity : this.m_entities.values())
+		{
+			data[pos] = this.m_serializer.prepare(entity);
+			pos++;
+		}
+		this.m_serializer.save(data);
+	}
+	
+	/**
+	 * Loads all saved entities
+	 */
+	public void loadEntities()
+	{
+		if(this.m_serializer == null)
+			return;
+		
+		EntityData[] data = this.m_serializer.loadData();
+		for(EntityData entity : data)
+			this.m_serializer.create(entity);
 	}
 }
