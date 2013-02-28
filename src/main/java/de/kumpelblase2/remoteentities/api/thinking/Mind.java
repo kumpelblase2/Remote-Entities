@@ -119,7 +119,7 @@ public class Mind
 	 * 
 	 * @return movement desires
 	 */
-	public List<Desire> getMovementDesires()
+	public List<DesireItem> getMovementDesires()
 	{
 		return this.m_movementNavigation.getDesires();
 	}
@@ -149,7 +149,7 @@ public class Mind
 	 * 
 	 * @return action desires
 	 */
-	public List<Desire> getActionDesires()
+	public List<DesireItem> getActionDesires()
 	{
 		return this.m_targetNavigation.getDesires();
 	}
@@ -162,10 +162,10 @@ public class Mind
 	 */
 	public<T extends Desire> T getMovementDesire(Class<T> inClass)
 	{
-		for(Desire desire : this.getMovementDesires())
+		for(DesireItem desire : this.getMovementDesires())
 		{
-			if(desire.getClass().equals(inClass) || desire.getClass().getSuperclass().equals(inClass))
-				return inClass.cast(desire);
+			if(desire.getDesire().getClass().equals(inClass) || desire.getDesire().getClass().getSuperclass().equals(inClass))
+				return inClass.cast(desire.getDesire());
 		}
 		return null;
 	}
@@ -178,10 +178,10 @@ public class Mind
 	 */
 	public<T extends Desire> T getActionDesire(Class<T> inClass)
 	{
-		for(Desire desire : this.getActionDesires())
+		for(DesireItem desire : this.getActionDesires())
 		{
-			if(desire.getClass().equals(inClass) || desire.getClass().getSuperclass().equals(inClass))
-				return inClass.cast(desire);
+			if(desire.getDesire().getClass().equals(inClass) || desire.getDesire().getClass().getSuperclass().equals(inClass))
+				return inClass.cast(desire.getDesire());
 		}
 		return null;
 	}

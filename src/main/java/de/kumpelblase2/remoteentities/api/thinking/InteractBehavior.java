@@ -7,7 +7,8 @@ public abstract class InteractBehavior extends BaseBehavior
 {	
 	public InteractBehavior(RemoteEntity inEntity)
 	{
-		super(inEntity, "Interact");
+		super(inEntity);
+		this.m_name = "Interact";
 	}
 
 	/**

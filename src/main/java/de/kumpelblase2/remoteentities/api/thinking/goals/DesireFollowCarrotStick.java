@@ -10,9 +10,13 @@ import net.minecraft.server.v1_4_R1.PathPoint;
 import net.minecraft.server.v1_4_R1.Pathfinder;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireFollowCarrotStick extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	protected float m_maxSpeed;
 	protected float m_currentSpeed = 0;
 	protected boolean m_speedBoosted = false;
@@ -168,5 +172,11 @@ public class DesireFollowCarrotStick extends DesireBase
 	public boolean isControlledByPlayer()
 	{
 		return !this.isSpeedBoosted() && this.m_currentSpeed > this.m_maxSpeed * 0.3;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

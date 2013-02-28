@@ -6,13 +6,16 @@ import org.bukkit.Location;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public abstract class DesireFindBlockBase extends DesireBase
 {
+	@SerializeAs(pos = 1)
 	private int m_blockID;
 	protected int m_locX;
 	protected int m_locY;
 	protected int m_locZ;
+	@SerializeAs(pos = 2)
 	private int m_range;
 	
 	public DesireFindBlockBase(RemoteEntity inEntity, int inBlockID)

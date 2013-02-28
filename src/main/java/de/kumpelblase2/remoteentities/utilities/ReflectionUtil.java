@@ -1,9 +1,16 @@
 package de.kumpelblase2.remoteentities.utilities;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import de.kumpelblase2.remoteentities.RemoteEntities;
+import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import net.minecraft.server.v1_4_R1.*;
 
 public final class ReflectionUtil
@@ -98,5 +105,42 @@ public final class ReflectionUtil
 		{
 			return 0F;
 		}
+	}
+	
+	public static List<ParameterData> getParameterDataForClass(Object inClass)
+	{
+		Class<?> clazz = inClass.getClass();
+		System.out.println(clazz.toString());
+		List<ParameterData> parameters = new ArrayList<ParameterData>();
+		Set<String> membersLooked = new HashSet<String>();
+		while(clazz != Object.class && clazz != Desire.class)
+		{
+			for(Field field : clazz.getDeclaredFields())
+			{
+				field.setAccessible(true);
+				if(membersLooked.contains(field.getName()))
+					continue;
+				
+				membersLooked.add(field.getName());
+				for(Annotation an : field.getAnnotations())
+				{
+					if(an instanceof SerializeAs)
+					{
+						SerializeAs sas = (SerializeAs)an;
+						try
+						{
+							Object value = field.get(inClass);
+							parameters.add(new ParameterData(sas.pos(), field.getType().getName(), value, sas.special()));
+						}
+						catch(Exception e)
+						{
+							RemoteEntities.getInstance().getLogger().warning("Unable to add desire parameter. " + e.getMessage());
+						}
+					}
+				}
+			}
+			clazz = clazz.getSuperclass();
+		}
+		return parameters;
 	}
 }

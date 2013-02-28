@@ -4,20 +4,33 @@ import java.util.List;
 import net.minecraft.server.v1_4_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireAvoidSpecific extends DesireBase
 {
+	@SerializeAs(pos = 4)
 	protected final Class<? extends Entity> m_toAvoid;
+	@SerializeAs(pos = 1)
 	protected float m_minDistance;
+	@SerializeAs(pos = 3)
 	protected float m_farSpeed;
+	@SerializeAs(pos = 2)
 	protected float m_closeSpeed;
 	protected Entity m_closestEntity;
 	protected PathEntity m_path;
 	
-	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<? extends Entity> inToAvoid)
+	@SuppressWarnings("unchecked")
+	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
 	{
 		super(inEntity);
-		this.m_toAvoid = inToAvoid;
+		if(Entity.class.isAssignableFrom(inToAvoid))
+			this.m_toAvoid = (Class<? extends Entity>)inToAvoid;
+		else
+			this.m_toAvoid = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAvoid);
+		
 		this.m_minDistance = inMinDistance;
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;
@@ -105,5 +118,11 @@ public class DesireAvoidSpecific extends DesireBase
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().getNavigation().f();
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

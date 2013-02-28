@@ -7,32 +7,23 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.PlayerInventory;
-import net.minecraft.server.v1_4_R1.EntityCreature;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityPlayer;
-import net.minecraft.server.v1_4_R1.MathHelper;
-import net.minecraft.server.v1_4_R1.PathEntity;
-import net.minecraft.server.v1_4_R1.World;
-import net.minecraft.server.v1_4_R1.WorldServer;
+import net.minecraft.server.v1_4_R1.*;
 import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.DefaultEntitySpeed;
-import de.kumpelblase2.remoteentities.api.DespawnReason;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
@@ -47,6 +38,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected boolean m_isPushable = true;
 	protected float m_speed;
 	protected final EntityManager m_manager;
+	protected Location m_unloadedLocation;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -280,6 +272,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		{
 			e.printStackTrace();
 		}
+		this.m_unloadedLocation = null;
 	}
 	
 	@Override
@@ -306,12 +299,18 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
 			return false;
 		
-		for(Behavior behaviour : this.getMind().getBehaviours())
+		if(inReason != DespawnReason.CHUNK_UNLOAD)
 		{
-			behaviour.onRemove();
+			for(Behavior behaviour : this.getMind().getBehaviours())
+			{
+				behaviour.onRemove();
+			}
+			
+			this.getMind().clearBehaviours();
 		}
+		else
+			this.m_unloadedLocation = (this.getBukkitEntity() != null ? this.getBukkitEntity().getLocation() : null);
 		
-		this.getMind().clearBehaviours();
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
 		this.m_entity = null;
@@ -361,10 +360,20 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	
 	public void copyInventory(Player inPlayer)
 	{
+		this.copyInventory(inPlayer, false);
+	}
+	
+	public void copyInventory(Player inPlayer, boolean inIgnoreArmor)
+	{
 		this.copyInventory(inPlayer.getInventory());
 		EntityEquipment equip = this.getBukkitEntity().getEquipment();
-		equip.setItemInHand(inPlayer.getItemInHand());
-		equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		if(!inIgnoreArmor)
+			equip.setArmorContents(inPlayer.getInventory().getArmorContents());
+		
+		if(this.getInventory() instanceof CraftInventoryPlayer)
+			((CraftInventoryPlayer)this.getInventory()).getInventory().itemInHandIndex = inPlayer.getInventory().getHeldItemSlot();
+		else
+			equip.setItemInHand(inPlayer.getItemInHand());		
 	}
 	
 	public void copyInventory(Inventory inInventory)
@@ -382,5 +391,22 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			return null;
 		
 		return this.getFeatures().getFeature(InventoryFeature.class).getInventory();
+	}
+	
+	public boolean save()
+	{
+		if(this.getManager().getSerializer() instanceof ISingleEntitySerializer)
+		{
+			ISingleEntitySerializer serializer = (ISingleEntitySerializer)this.getManager().getSerializer();
+			serializer.save(serializer.prepare(this));
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public Location getUnloadedLocation()
+	{
+		return this.m_unloadedLocation;
 	}
 }

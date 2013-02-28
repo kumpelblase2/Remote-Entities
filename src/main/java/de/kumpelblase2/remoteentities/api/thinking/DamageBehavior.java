@@ -10,7 +10,8 @@ public abstract class DamageBehavior extends BaseBehavior
 {	
 	public DamageBehavior(RemoteEntity inEntity)
 	{
-		super(inEntity, "Damage");
+		super(inEntity);
+		this.m_name = "Damage";
 	}
 	
 	@Override
