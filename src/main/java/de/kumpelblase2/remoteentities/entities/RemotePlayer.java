@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
@@ -81,6 +82,7 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
+		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 	}
 
 	@Override
