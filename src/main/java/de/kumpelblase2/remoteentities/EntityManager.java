@@ -355,6 +355,16 @@ public class EntityManager
 	}
 	
 	/**
+	 * Returns the amount of entities registered
+	 * 
+	 * @return	entity count
+	 */
+	public int getEntityCount()
+	{
+		return this.m_entities.size();
+	}
+	
+	/**
 	 * Returns whether despawned entities will automatically get removed or not
 	 * 
 	 * @return	true when they get removed, false when not
