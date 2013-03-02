@@ -8,8 +8,8 @@ public class Mind
 	private Map<String, Behavior> m_behaviours;
 	private RemoteEntity m_entity;
 	private boolean m_canFeel = true;
-	private Navigation m_targetNavigation;
-	private Navigation m_movementNavigation;
+	private DesireSelector m_targetNavigation;
+	private DesireSelector m_movementNavigation;
 	private boolean m_hasFixedYaw = false;
 	private boolean m_hasFixedPitch = false;
 	private float m_fixedYaw;
@@ -19,8 +19,8 @@ public class Mind
 	{
 		this.m_entity = inEntity;
 		this.m_behaviours = new HashMap<String, Behavior>();
-		this.m_targetNavigation = new Navigation();
-		this.m_movementNavigation = new Navigation();
+		this.m_targetNavigation = new DesireSelector();
+		this.m_movementNavigation = new DesireSelector();
 	}
 	
 	/**

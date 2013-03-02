@@ -6,13 +6,13 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import de.kumpelblase2.remoteentities.api.events.RemoteDesireAddEvent;
 
-public class Navigation
+public class DesireSelector
 {
 	private List<DesireItem> m_desires;
 	private List<DesireItem> m_executingDesires;
 	private int m_delay = 0;
 	
-	public Navigation()
+	public DesireSelector()
 	{
 		this.m_desires = new ArrayList<DesireItem>();
 		this.m_executingDesires = new ArrayList<DesireItem>();
