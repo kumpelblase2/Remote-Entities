@@ -15,8 +15,6 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.Plugin;
 import net.minecraft.server.v1_4_R1.*;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
