@@ -283,6 +283,28 @@ public class EntityManager
 	}
 	
 	/**
+	 * Returns all entities with the specified name
+	 * 
+	 * @param inName	Name to look for
+	 * @return			Entities with that name
+	 */
+	public RemoteEntity[] getRemoteEntitiesByName(String inName)
+	{
+		List<RemoteEntity> entities = new ArrayList<RemoteEntity>();
+		
+		for(RemoteEntity entity : this.getAllEntities())
+		{
+			if(entity instanceof Nameable)
+			{
+				if(((Nameable)entity).getName().equals(inName))
+					entities.add(entity);
+			}
+		}
+		
+		return entities.toArray(new RemoteEntity[0]);
+	}
+	
+	/**
 	 * Adds an already existing RemoteEntity to the manager
 	 * 
 	 * @param inID		ID of the entity
