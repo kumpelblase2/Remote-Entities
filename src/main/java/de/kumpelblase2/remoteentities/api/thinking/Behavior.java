@@ -30,5 +30,10 @@ public interface Behavior extends Listener, Runnable
 	 */
 	public RemoteEntity getRemoteEntity();
 	
+	/**
+	 * Returns all the parameters that can be serialized
+	 * 
+	 * @return Serializeable parameters
+	 */
 	public ParameterData[] getSerializeableData();
 }
