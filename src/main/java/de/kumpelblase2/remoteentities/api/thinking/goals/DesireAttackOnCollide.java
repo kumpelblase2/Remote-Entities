@@ -9,8 +9,10 @@ import net.minecraft.server.v1_4_R1.MathHelper;
 import net.minecraft.server.v1_4_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireAttackOnCollide extends DesireBase
 {
@@ -107,10 +109,21 @@ public class DesireAttackOnCollide extends DesireBase
 		{
 			this.m_attackTick = 20;
 			if(entity.bD() != null)
-				entity.bH();
+				this.getEntityHandle().bH();
 			
-			entity.m(this.m_target);
+			this.attack(this.m_target.getBukkitEntity());
 		}
 		return true;
+	}
+	
+	public void attack(org.bukkit.entity.Entity inEntity)
+	{
+		this.getEntityHandle().m(this.m_target);
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

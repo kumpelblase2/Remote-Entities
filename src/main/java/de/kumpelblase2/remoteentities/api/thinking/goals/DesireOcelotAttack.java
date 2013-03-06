@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import org.bukkit.entity.Entity;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -63,9 +64,14 @@ public class DesireOcelotAttack extends DesireBase
 			if(this.m_attackTick <= 0)
 			{
 				this.m_attackTick = 20;
-				entity.m(this.m_target);
+				this.attack(this.m_target.getBukkitEntity());
 			}
 		}
 		return true;
+	}
+	
+	public void attack(Entity inEntity)
+	{
+		this.getEntityHandle().m(this.m_target);
 	}
 }
