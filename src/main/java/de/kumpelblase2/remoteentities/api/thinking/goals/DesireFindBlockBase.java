@@ -6,7 +6,9 @@ import org.bukkit.Location;
 import net.minecraft.server.v1_4_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class DesireFindBlockBase extends DesireBase
 {
@@ -64,5 +66,11 @@ public abstract class DesireFindBlockBase extends DesireBase
 		this.m_locY = shortest.getBlockY();
 		this.m_locZ = shortest.getBlockZ();
 		return true;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

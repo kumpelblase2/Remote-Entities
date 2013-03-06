@@ -4,7 +4,9 @@ import java.util.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class EnterSightBehavior extends BaseBehavior
 {
@@ -103,5 +105,11 @@ public abstract class EnterSightBehavior extends BaseBehavior
 	public double getZRange()
 	{
 		return this.m_zRange;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

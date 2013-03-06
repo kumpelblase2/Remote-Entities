@@ -15,7 +15,9 @@ import net.minecraft.server.v1_4_R1.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class DesireTargetBase extends DesireBase
 {
@@ -196,5 +198,11 @@ public abstract class DesireTargetBase extends DesireBase
 				return (distX * distX + distY * distY) <= 2.25D;
 			}
 		}
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

@@ -6,8 +6,10 @@ import net.minecraft.server.v1_4_R1.EntityLiving;
 import net.minecraft.server.v1_4_R1.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireOfferFlower extends DesireBase
 {
@@ -79,5 +81,11 @@ public class DesireOfferFlower extends DesireBase
 		this.getEntityHandle().getControllerLook().a(this.m_nearestEntity, 30, 30);
 		this.m_offerTick--;
 		return true;
+	}
+	
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }
