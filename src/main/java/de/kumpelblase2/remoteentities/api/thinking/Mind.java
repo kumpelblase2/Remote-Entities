@@ -135,11 +135,11 @@ public class Mind
 	}
 	
 	/**
-	 * Gets the currently highest priority from the movement desires
+	 * Gets the currently highest priority from the targeting desires
 	 * 
 	 * @return priorities
 	 */
-	public int getHighestActionPriority()
+	public int getHighestTargetingPriority()
 	{
 		return this.m_targetNavigation.getHighestPriority();
 	}
@@ -149,7 +149,7 @@ public class Mind
 	 * 
 	 * @return action desires
 	 */
-	public List<DesireItem> getActionDesires()
+	public List<DesireItem> getTargetingDesires()
 	{
 		return this.m_targetNavigation.getDesires();
 	}
@@ -176,9 +176,9 @@ public class Mind
 	 * @param inClass	type
 	 * @return			desire
 	 */
-	public<T extends Desire> T getActionDesire(Class<T> inClass)
+	public<T extends Desire> T getTargetingDesire(Class<T> inClass)
 	{
-		for(DesireItem desire : this.getActionDesires())
+		for(DesireItem desire : this.getTargetingDesires())
 		{
 			if(desire.getDesire().getClass().equals(inClass) || desire.getDesire().getClass().getSuperclass().equals(inClass))
 				return inClass.cast(desire.getDesire());
@@ -198,12 +198,12 @@ public class Mind
 	}
 	
 	/**
-	 * Adds a action desire with given priority
+	 * Adds a targeting desire with given priority
 	 * 
 	 * @param inDesire		desire
 	 * @param inPriority	priority
 	 */
-	public void addActionDesire(Desire inDesire, int inPriority)
+	public void addTargetingDesire(Desire inDesire, int inPriority)
 	{
 		this.m_targetNavigation.addDesire(inDesire, inPriority);
 	}
@@ -217,9 +217,9 @@ public class Mind
 	}
 	
 	/**
-	 * Removes all action desires 
+	 * Removes all targeting desires 
 	 */
-	public void clearActionDesires()
+	public void clearTargetingDesires()
 	{
 		this.m_targetNavigation.clearDesires();
 	}
@@ -246,24 +246,24 @@ public class Mind
 	}
 	
 	/**
-	 * Removes the action desire with given type and the lowest priority of his type
+	 * Removes the targeting desire with given type and the lowest priority of his type
 	 * 
 	 * @param inToRemove	type
 	 * @return				true if it got removed, false if not
 	 */
-	public boolean removeActionDesire(Class<? extends Desire> inToRemove)
+	public boolean removeTargetingDesire(Class<? extends Desire> inToRemove)
 	{
 		return this.m_movementNavigation.removeDesireByType(inToRemove);
 	}
 	
 	/**
-	 * Removes all action desires with given type
+	 * Removes all targeting desires with given type
 	 * 
 	 * @param inToRemove type
 	 */
-	public void removeActionDesires(Class<? extends Desire> inToRemove)
+	public void removeTargetingDesires(Class<? extends Desire> inToRemove)
 	{
-		while(this.removeActionDesire(inToRemove)){}
+		while(this.removeTargetingDesire(inToRemove)){}
 	}
 	
 	/**
