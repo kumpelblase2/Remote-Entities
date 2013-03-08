@@ -56,10 +56,10 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = inEntity.isStationary();
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
-		this.actionDesires = new DesireData[inEntity.getMind().getActionDesires().size()];
+		this.actionDesires = new DesireData[inEntity.getMind().getTargetingDesires().size()];
 		for(int i = 0; i < this.actionDesires.length; i++)
 		{
-			this.actionDesires[i] = new DesireData(inEntity.getMind().getActionDesires().get(i));
+			this.actionDesires[i] = new DesireData(inEntity.getMind().getTargetingDesires().get(i));
 		}
 		this.movementDesires = new DesireData[inEntity.getMind().getMovementDesires().size()];
 		for(int i = 0; i < this.movementDesires.length; i++)

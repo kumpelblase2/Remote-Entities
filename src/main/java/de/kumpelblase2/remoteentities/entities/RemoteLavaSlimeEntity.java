@@ -172,7 +172,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

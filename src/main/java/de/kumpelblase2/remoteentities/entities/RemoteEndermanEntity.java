@@ -127,7 +127,7 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

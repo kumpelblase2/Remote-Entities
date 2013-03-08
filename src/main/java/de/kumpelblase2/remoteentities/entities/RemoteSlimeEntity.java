@@ -172,7 +172,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

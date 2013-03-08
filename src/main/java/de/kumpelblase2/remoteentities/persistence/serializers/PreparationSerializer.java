@@ -46,7 +46,7 @@ public abstract class PreparationSerializer implements IEntitySerializer
 		for(DesireData data : inData.actionDesires)
 		{
 			DesireItem item = data.create(entity);
-			entity.getMind().addActionDesire(item.getDesire(), item.getPriority());
+			entity.getMind().addTargetingDesire(item.getDesire(), item.getPriority());
 		}
 		
 		for(BehaviorData data : inData.behaviors)

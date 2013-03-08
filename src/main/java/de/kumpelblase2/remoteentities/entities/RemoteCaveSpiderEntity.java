@@ -74,9 +74,9 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 7);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
-			mind.addActionDesire(new DesireFindNearestTargetAtNight(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
-			mind.addActionDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 2), 3);
+			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
+			mind.addTargetingDesire(new DesireFindNearestTargetAtNight(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
+			mind.addTargetingDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 2), 3);
 		}
 		catch(Exception e)
 		{
@@ -150,7 +150,7 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

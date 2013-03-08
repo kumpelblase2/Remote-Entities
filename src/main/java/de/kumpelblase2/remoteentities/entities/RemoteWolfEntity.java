@@ -74,10 +74,10 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 			mind.addMovementDesire(new DesireBegForItem(this.getRemoteEntity(), 8f, Material.BONE), 8);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 9);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 9);
-			mind.addActionDesire(new DesireProtectOwner(this.getRemoteEntity(), 32, false), 1);
-			mind.addActionDesire(new DesireHelpAttacking(this.getRemoteEntity(), 32, false), 2);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, true, true), 3);
-			mind.addActionDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntitySheep.class, 16, false, true, 200), 4);
+			mind.addTargetingDesire(new DesireProtectOwner(this.getRemoteEntity(), 32, false), 1);
+			mind.addTargetingDesire(new DesireHelpAttacking(this.getRemoteEntity(), 32, false), 2);
+			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, true, true), 3);
+			mind.addTargetingDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntitySheep.class, 16, false, true, 200), 4);
 		}
 		catch(Exception e)
 		{
@@ -161,7 +161,7 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

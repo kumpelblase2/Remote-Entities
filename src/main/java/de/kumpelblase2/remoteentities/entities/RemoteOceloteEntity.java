@@ -93,7 +93,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 9);
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 10);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 10F), 11);
-			mind.addActionDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntityChicken.class, 14, false, true, 750), 1);
+			mind.addTargetingDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntityChicken.class, 14, false, true, 750), 1);
 		}
 		catch(Exception e)
 		{
@@ -161,7 +161,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

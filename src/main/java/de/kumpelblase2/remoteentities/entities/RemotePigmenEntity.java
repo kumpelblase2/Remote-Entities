@@ -62,9 +62,9 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 7);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
-			mind.addActionDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
-			mind.addActionDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityVillager.class, 16, false, true, 0), 2);
+			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
+			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
+			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityVillager.class, 16, false, true, 0), 2);
 		}
 		catch(Exception e)
 		{
@@ -148,7 +148,7 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

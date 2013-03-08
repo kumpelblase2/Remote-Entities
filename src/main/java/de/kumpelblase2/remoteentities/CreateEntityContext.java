@@ -228,7 +228,7 @@ public class CreateEntityContext
 		
 		for(DesireItem desire : this.m_actionDesires)
 		{
-			created.getMind().addActionDesire(desire.getDesire(), desire.getPriority());
+			created.getMind().addTargetingDesire(desire.getDesire(), desire.getPriority());
 		}
 		
 		created.setStationary(this.m_stationary);

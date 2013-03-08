@@ -59,8 +59,8 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 			mind.addMovementDesire(new DesireWanderAround(this.m_remoteEntity), 3);
 			mind.addMovementDesire(new DesireLookAtNearest(this.m_remoteEntity, EntityHuman.class, 8), 4);
 			mind.addMovementDesire(new DesireLookRandomly(this.m_remoteEntity), 5);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.m_remoteEntity, 16, true, false), 1);
-			mind.addActionDesire(new DesireFindNearestTarget(this.m_remoteEntity, EntityHuman.class, 16, true, 0), 2);
+			mind.addTargetingDesire(new DesireFindAttackingTarget(this.m_remoteEntity, 16, true, false), 1);
+			mind.addTargetingDesire(new DesireFindNearestTarget(this.m_remoteEntity, EntityHuman.class, 16, true, 0), 2);
 		}
 		catch(Exception e)
 		{
@@ -149,7 +149,7 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

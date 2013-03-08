@@ -53,8 +53,8 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8F), 6);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, false, false), 1);
-			mind.addActionDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityLiving.class, 30F, false, 0), 2);
+			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, false, false), 1);
+			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityLiving.class, 30F, false, 0), 2);
 		}
 		catch(Exception e)
 		{
@@ -149,7 +149,7 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}

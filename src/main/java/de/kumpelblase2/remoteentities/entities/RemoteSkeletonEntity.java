@@ -62,8 +62,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
 			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 6);
 			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
-			mind.addActionDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, false, false), 2);
-			mind.addActionDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 3);
+			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16f, false, false), 2);
+			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 3);
 		}
 		catch(Exception e)
 		{
@@ -147,7 +147,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
 		{
 			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearActionDesires();
+			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
 	}
