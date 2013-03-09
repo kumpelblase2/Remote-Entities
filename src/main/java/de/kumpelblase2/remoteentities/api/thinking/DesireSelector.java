@@ -30,6 +30,9 @@ public class DesireSelector
 						continue;
 					
 					item.getDesire().stopExecuting();
+					if(item.getDesire() instanceof OneTimeDesire)
+						this.m_desires.remove(item);
+					
 					this.m_executingDesires.remove(item);
 				}
 							 
@@ -50,6 +53,9 @@ public class DesireSelector
 				if(!item.getDesire().canContinue())
 				{
 					item.getDesire().stopExecuting();
+					if(item.getDesire() instanceof OneTimeDesire)
+						this.m_desires.remove(item);
+					
 					it.remove();
 				}
 			}
@@ -60,7 +66,12 @@ public class DesireSelector
 		{
 			DesireItem item = it.next();
 			if(!item.getDesire().update())
+			{
+				if(item.getDesire() instanceof OneTimeDesire)
+					this.m_desires.remove(item);
+				
 				it.remove();
+			}
 		}
 	}
 	 
