@@ -9,6 +9,7 @@ import de.kumpelblase2.remoteentities.api.Nameable;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 
 public class EntityData implements ConfigurationSerializable
@@ -56,16 +57,22 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = inEntity.isStationary();
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
-		this.actionDesires = new DesireData[inEntity.getMind().getTargetingDesires().size()];
+		List<DesireData> action = new ArrayList<DesireData>();
 		for(int i = 0; i < this.actionDesires.length; i++)
 		{
-			this.actionDesires[i] = new DesireData(inEntity.getMind().getTargetingDesires().get(i));
+			DesireItem desire = inEntity.getMind().getTargetingDesires().get(i);
+			if(!desire.getDesire().getClass().isAnnotationPresent(IgnoreSerialization.class))
+				action.add(new DesireData(desire));
 		}
-		this.movementDesires = new DesireData[inEntity.getMind().getMovementDesires().size()];
+		this.actionDesires = action.toArray(new DesireData[0]);
+		List<DesireData> movement = new ArrayList<DesireData>();
 		for(int i = 0; i < this.movementDesires.length; i++)
 		{
-			this.movementDesires[i] = new DesireData(inEntity.getMind().getMovementDesires().get(i));
+			DesireItem desire = inEntity.getMind().getMovementDesires().get(i);
+			if(!desire.getDesire().getClass().isAnnotationPresent(IgnoreSerialization.class))
+				movement.add(new DesireData(desire));
 		}
+		this.movementDesires = movement.toArray(new DesireData[0]);
 		this.behaviors = new BehaviorData[inEntity.getMind().getBehaviours().size()];
 		int pos = 0;
 		for(Behavior behavior : inEntity.getMind().getBehaviours())

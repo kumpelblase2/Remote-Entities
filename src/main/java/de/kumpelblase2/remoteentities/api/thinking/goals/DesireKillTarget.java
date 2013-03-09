@@ -7,7 +7,9 @@ import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.OneTimeDesire;
+import de.kumpelblase2.remoteentities.persistence.IgnoreSerialization;
 
+@IgnoreSerialization
 public class DesireKillTarget extends DesireBase implements OneTimeDesire
 {
 	protected EntityLiving m_target;
