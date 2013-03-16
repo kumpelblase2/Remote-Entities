@@ -3,10 +3,10 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_4_R1.DistanceComparator;
-import net.minecraft.server.v1_4_R1.Entity;
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.DistanceComparator;
+import net.minecraft.server.v1_5_R1.Entity;
+import net.minecraft.server.v1_5_R1.EntityHuman;
+import net.minecraft.server.v1_5_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -57,7 +57,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		
 		if(this.m_onlyAtNight && this.getEntityHandle().world.u())
 			return false;
-		else if(this.m_targetChance > 0 && this.getEntityHandle().aB().nextInt(this.m_targetChance) != 0)
+		else if(this.m_targetChance > 0 && this.getEntityHandle().aE().nextInt(this.m_targetChance) != 0)
 			return false;
 		else
 		{

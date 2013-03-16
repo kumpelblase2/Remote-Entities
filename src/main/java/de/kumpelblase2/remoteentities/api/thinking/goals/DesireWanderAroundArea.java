@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.Vec3D;
+import net.minecraft.server.v1_5_R1.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;

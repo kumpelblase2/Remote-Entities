@@ -1,12 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R1.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_4_R1.Entity;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.MathHelper;
-import net.minecraft.server.v1_4_R1.PathEntity;
+import net.minecraft.server.v1_5_R1.Entity;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.MathHelper;
+import net.minecraft.server.v1_5_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -72,7 +72,7 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entityTarget = this.getEntityHandle().getGoalTarget();
 		EntityLiving entity = this.getEntityHandle();
-		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.e(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
+		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.d(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
 	}
 	
 	@Override
@@ -97,9 +97,9 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entity = this.getEntityHandle();
 		entity.getControllerLook().a(this.m_target, 30, 30);
-		if((this.m_ignoreSight || entity.aA().canSee(this.m_target)) && --this.m_moveTick <= 0)
+		if((this.m_ignoreSight || entity.aD().canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.aB().nextInt(7);
+			this.m_moveTick = 4 + entity.aE().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)entity.getBukkitEntity(), this.m_speed);
 		}
 		
@@ -108,8 +108,8 @@ public class DesireAttackOnCollide extends DesireBase
 		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
 			this.m_attackTick = 20;
-			if(entity.bD() != null)
-				this.getEntityHandle().bH();
+			if(entity.bG() != null)
+				this.getEntityHandle().bK();
 			
 			this.attack(this.m_target.getBukkitEntity());
 		}

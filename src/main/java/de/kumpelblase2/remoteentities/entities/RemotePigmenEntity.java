@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
@@ -89,15 +89,15 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 	}
 	
 	@Override
-	public void j_()
+	public void l_()
 	{
-		super.j_();
+		super.l_();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 	
 	@Override
-	public void c_(EntityHuman entity)
+	public void b_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return;
@@ -119,27 +119,27 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 				}
 			}
 		}
-		super.c_(entity);
+		super.b_(entity);
 	}
 	
 	@Override
-	public boolean a(EntityHuman entity)
+	public boolean a_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
-			return super.a(entity);
+			return super.a_(entity);
 		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
-				return super.a(entity);
+				return super.a_(entity);
 			
 			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.a(entity);
+		return super.a_(entity);
 	}
 	
 	@Override

@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
@@ -68,9 +68,9 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	}
 	
 	@Override
-	public void j_()
+	public void l_()
 	{
-		super.j_();
+		super.l_();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -118,8 +118,8 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
                 d1 *= d3;
                 d0 *= 0.05000000074505806D;
                 d1 *= 0.05000000074505806D;
-                d0 *= (double) (1.0F - this.Z);
-                d1 *= (double) (1.0F - this.Z);
+                d0 *= (double) (1.0F - this.aa);
+                d1 *= (double) (1.0F - this.aa);
                 this.g(-d0, 0.0D, -d1);
                 entity.g(d0, 0.0D, d1);
             }
@@ -128,7 +128,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	}
 	
 	@Override
-	public void c_(EntityHuman entity)
+	public void b_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return;
@@ -150,27 +150,27 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 				}
 			}
 		}
-		super.c_(entity);
+		super.b_(entity);
 	}
 	
 	@Override
-	public boolean a(EntityHuman entity)
+	public boolean a_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
-			return super.a(entity);
+			return super.a_(entity);
 		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
-				return super.a(entity);
+				return super.a_(entity);
 			
 			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.a(entity);
+		return super.a_(entity);
 	}
 	
 	@Override
@@ -185,7 +185,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	}
 	
 	@Override
-	public boolean be()
+	public boolean bh()
 	{
 		return true;
 	}

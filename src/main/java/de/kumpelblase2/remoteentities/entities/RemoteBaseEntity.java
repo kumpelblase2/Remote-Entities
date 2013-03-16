@@ -4,10 +4,10 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_5_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_5_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
@@ -215,7 +215,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned())
 			return;
 		
-		this.m_entity.getControllerLook().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), 10, this.m_entity.bp());
+		this.m_entity.getControllerLook().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), 10, this.m_entity.bs());
 	}
 	
 	@Override
@@ -224,7 +224,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned())
 			return;
 		
-		this.m_entity.getControllerLook().a(((CraftEntity)inEntity).getHandle(), 10, this.m_entity.bp());
+		this.m_entity.getControllerLook().a(((CraftEntity)inEntity).getHandle(), 10, this.m_entity.bs());
 	}
 	
 	@Override

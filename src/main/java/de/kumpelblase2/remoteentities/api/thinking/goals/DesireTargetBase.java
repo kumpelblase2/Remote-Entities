@@ -1,17 +1,17 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R1.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
-import net.minecraft.server.v1_4_R1.EntityCreature;
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityTameableAnimal;
-import net.minecraft.server.v1_4_R1.MathHelper;
-import net.minecraft.server.v1_4_R1.PathEntity;
-import net.minecraft.server.v1_4_R1.PathPoint;
+import net.minecraft.server.v1_5_R1.EntityCreature;
+import net.minecraft.server.v1_5_R1.EntityHuman;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityTameableAnimal;
+import net.minecraft.server.v1_5_R1.MathHelper;
+import net.minecraft.server.v1_5_R1.PathEntity;
+import net.minecraft.server.v1_5_R1.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -78,7 +78,7 @@ public abstract class DesireTargetBase extends DesireBase
 		{
 			if(this.m_shouldCheckSight)
 			{
-				if(this.getEntityHandle().aA().canSee(target))
+				if(this.getEntityHandle().aD().canSee(target))
 					this.m_notSeeingTarget = 0;
 				else if(++this.m_notSeeingTarget > 60)
 					return false;
@@ -120,9 +120,9 @@ public abstract class DesireTargetBase extends DesireBase
 				else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
 					return false;
 					
-				if(!this.getEntityHandle().e(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
+				if(!this.getEntityHandle().d(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
 					return false;
-				else if(this.m_shouldCheckSight && !this.getEntityHandle().aA().canSee(inEntity))
+				else if(this.m_shouldCheckSight && !this.getEntityHandle().aD().canSee(inEntity))
 					return false;
 				else
 				{
@@ -179,7 +179,7 @@ public abstract class DesireTargetBase extends DesireBase
 	
 	protected boolean useAttack(EntityLiving inEntity)
 	{
-		this.m_lastAttackTick = 10 + this.getEntityHandle().aB().nextInt(5);
+		this.m_lastAttackTick = 10 + this.getEntityHandle().aE().nextInt(5);
 		PathEntity path = this.getEntityHandle().getNavigation().a(inEntity);
 		
 		if(path == null)

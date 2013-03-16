@@ -1,20 +1,20 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_4_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R1.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_4_R1.Entity;
-import net.minecraft.server.v1_4_R1.EntityArrow;
-import net.minecraft.server.v1_4_R1.EntityFireball;
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.EntityLargeFireball;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityPotion;
-import net.minecraft.server.v1_4_R1.EntitySmallFireball;
-import net.minecraft.server.v1_4_R1.EntitySnowball;
-import net.minecraft.server.v1_4_R1.MathHelper;
-import net.minecraft.server.v1_4_R1.MobEffectList;
-import net.minecraft.server.v1_4_R1.Vec3D;
+import net.minecraft.server.v1_5_R1.Entity;
+import net.minecraft.server.v1_5_R1.EntityArrow;
+import net.minecraft.server.v1_5_R1.EntityFireball;
+import net.minecraft.server.v1_5_R1.EntityHuman;
+import net.minecraft.server.v1_5_R1.EntityLargeFireball;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityPotion;
+import net.minecraft.server.v1_5_R1.EntitySmallFireball;
+import net.minecraft.server.v1_5_R1.EntitySnowball;
+import net.minecraft.server.v1_5_R1.MathHelper;
+import net.minecraft.server.v1_5_R1.MobEffectList;
+import net.minecraft.server.v1_5_R1.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -68,7 +68,7 @@ public class DesireRangedAttack extends DesireBase
 	public boolean update()
 	{
 		double dist = this.getEntityHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
-		boolean canSee = this.getEntityHandle().aA().canSee(this.m_target);
+		boolean canSee = this.getEntityHandle().aD().canSee(this.m_target);
 		
 		if(canSee)
 			this.m_inRangeTick++;
@@ -123,7 +123,7 @@ public class DesireRangedAttack extends DesireBase
 		if(this.m_projeProjectileType == RemoteProjectileType.ARROW)
 		{
 			EntityArrow arrow = new EntityArrow(this.getEntityHandle().world, this.getEntityHandle(), this.m_target, 1.6F, 12);
-			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aB().nextFloat() * 0.4F + 0.8F));
+			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 			entity.world.addEntity(arrow);
 		}
 		else if(this.m_projeProjectileType == RemoteProjectileType.SNOWBALL)
@@ -135,7 +135,7 @@ public class DesireRangedAttack extends DesireBase
 			float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff) * 0.2F;
 			
 			snowball.shoot(xDiff, yDiff + dist, zDiff, 1.6F, 12);
-			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aB().nextFloat() * 0.4F + 0.8F));
+			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 		}
 		else if(this.m_projeProjectileType == RemoteProjectileType.SMALL_FIREBALL)
 		{
@@ -144,7 +144,7 @@ public class DesireRangedAttack extends DesireBase
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
 			double zDiff = this.m_target.locZ - entity.locZ;
 			float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff) * 0.2F;
-			EntitySmallFireball fireball = new EntitySmallFireball(entity.world, entity, xDiff + entity.aB().nextGaussian() * dist, yDiff, zDiff + entity.aB().nextGaussian() * dist);
+			EntitySmallFireball fireball = new EntitySmallFireball(entity.world, entity, xDiff + entity.aE().nextGaussian() * dist, yDiff, zDiff + entity.aE().nextGaussian() * dist);
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			entity.world.addEntity(fireball);
 		}
@@ -175,7 +175,7 @@ public class DesireRangedAttack extends DesireBase
                 potion.setPotionValue(32698);
             else if (this.m_target.getHealth() >= 8 && !this.m_target.hasEffect(MobEffectList.POISON))
                 potion.setPotionValue(32660);
-            else if (f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aB().nextFloat() < 0.25F)
+            else if (f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aE().nextFloat() < 0.25F)
                 potion.setPotionValue(32696);
 
             potion.shoot(d0, d1 + (double) (f * 0.2F), d2, 0.75F, 8.0F);

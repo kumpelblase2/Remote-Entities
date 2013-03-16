@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.Entity;
-import net.minecraft.server.v1_4_R1.EntityIronGolem;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityVillager;
+import net.minecraft.server.v1_5_R1.Entity;
+import net.minecraft.server.v1_5_R1.EntityIronGolem;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -40,7 +40,7 @@ public class DesireOfferFlower extends DesireBase
 	{
 		if(this.getEntityHandle() == null || this.getEntityHandle().world.u())
 			return false;
-		else if(this.getEntityHandle().aB().nextInt(8000) != 0)
+		else if(this.getEntityHandle().aE().nextInt(8000) != 0)
 			return false;
 		else
 		{

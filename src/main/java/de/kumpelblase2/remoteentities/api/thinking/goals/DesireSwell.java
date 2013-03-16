@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.EntityCreeper;
-import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityCreeper;
+import net.minecraft.server.v1_5_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.NotACreeperException;
@@ -69,7 +69,7 @@ public class DesireSwell extends DesireBase
 			this.m_creeper.a(-1);
 		else if(this.m_creeper.e(this.m_target) > this.m_maxDistnaceSqr)
 			this.m_creeper.a(-1);
-		else if(!this.m_creeper.aA().canSee(this.m_target))
+		else if(!this.m_creeper.aD().canSee(this.m_target))
 			this.m_creeper.a(-1);
 		else
 			this.m_creeper.a(1);

@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.List;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -96,7 +96,7 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!this.getEntityHandle().aA().canSee(this.m_closestEntity))
+        if (!this.getEntityHandle().aD().canSee(this.m_closestEntity))
             return false;
         else
         {

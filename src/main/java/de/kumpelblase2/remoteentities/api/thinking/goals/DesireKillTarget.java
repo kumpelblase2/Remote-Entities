@@ -1,17 +1,17 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.PathEntity;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.PathEntity;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.OneTimeDesire;
-import de.kumpelblase2.remoteentities.persistence.IgnoreSerialization;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
-@IgnoreSerialization
 public class DesireKillTarget extends DesireBase implements OneTimeDesire
 {
+	@SerializeAs(pos = 1)
 	protected EntityLiving m_target;
 	protected PathEntity m_path;
 	protected int m_moveTick;
@@ -24,10 +24,10 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		this.m_type = 3;
 	}
 	
-	@Deprecated
-	public DesireKillTarget(RemoteEntity inEntity)
+	public DesireKillTarget(RemoteEntity inEntity, EntityLiving inTarget)
 	{
 		super(inEntity);
+		this.m_target = inTarget;
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		entity.getControllerLook().a(this.m_target, 30, 30);
 		if(--this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.aB().nextInt(7);
+			this.m_moveTick = 4 + entity.aE().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)entity.getBukkitEntity(), this.getRemoteEntity().getSpeed());
 		}
 		
@@ -81,8 +81,8 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
 			this.m_attackTick = 20;
-			if(entity.bD() != null)
-				this.getEntityHandle().bH();
+			if(entity.bG() != null)
+				this.getEntityHandle().bK();
 			
 			this.attack((LivingEntity)this.m_target.getBukkitEntity());
 		}

@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityTameableAnimal;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
@@ -35,7 +35,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 				return false;
 			else
 			{
-				this.m_ownerTarget = owner.aD();
+				this.m_ownerTarget = owner.aF();
 				return this.isSuitableTarget(this.m_ownerTarget, false);
 			}
 		}

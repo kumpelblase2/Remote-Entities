@@ -7,7 +7,7 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 
 public class DesireLookAtNearest extends DesireBase
 {
@@ -42,7 +42,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_lookTicks = 40 + this.getEntityHandle().aB().nextInt(40);
+		this.m_lookTicks = 40 + this.getEntityHandle().aE().nextInt(40);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_target.locX, this.m_target.locY + this.m_target.getHeadHeight(), this.m_target.locZ, 10, this.getEntityHandle().bp());
+		this.getEntityHandle().getControllerLook().a(this.m_target.locX, this.m_target.locY + this.m_target.getHeadHeight(), this.m_target.locZ, 10, this.getEntityHandle().bs());
 		this.m_lookTicks--;
 		return true;
 	}
@@ -66,7 +66,7 @@ public class DesireLookAtNearest extends DesireBase
 		if(entity == null)
 			return false;
 		
-		if(entity.aB().nextFloat() >= this.m_lookPossibility)
+		if(entity.aE().nextFloat() >= this.m_lookPossibility)
 			return false;
 		else
 		{

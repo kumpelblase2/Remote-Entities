@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Location;
-import net.minecraft.server.v1_4_R1.Block;
+import net.minecraft.server.v1_5_R1.Block;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemotePlayer;
 

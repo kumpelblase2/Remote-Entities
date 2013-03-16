@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_4_R1.EntityAgeable;
-import net.minecraft.server.v1_4_R1.EntityIronGolem;
-import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityAgeable;
+import net.minecraft.server.v1_5_R1.EntityIronGolem;
+import net.minecraft.server.v1_5_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -63,7 +63,7 @@ public class DesireAcceptFlower extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_takeFlowerTick = this.getEntityHandle().aB().nextInt(320);
+		this.m_takeFlowerTick = this.getEntityHandle().aE().nextInt(320);
 		this.m_takeFlower = false;
 		this.m_nearestGolem.getNavigation().g();
 	}

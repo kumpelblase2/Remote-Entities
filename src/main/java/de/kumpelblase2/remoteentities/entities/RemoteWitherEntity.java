@@ -12,7 +12,7 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 
 public class RemoteWitherEntity extends EntityWither implements RemoteEntityHandle
 {
@@ -84,21 +84,21 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 	}
 	
 	@Override
-	public boolean be()
+	public boolean bh()
 	{
 		return true;
 	}
 	
 	@Override
-	public void j_()
+	public void l_()
 	{
-		super.j_();
+		super.l_();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 	
 	@Override
-	public void c_(EntityHuman entity)
+	public void b_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return;
@@ -120,27 +120,27 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 				}
 			}
 		}
-		super.c_(entity);
+		super.b_(entity);
 	}
 	
 	@Override
-	public boolean a(EntityHuman entity)
+	public boolean a_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
-			return super.a(entity);
+			return super.a_(entity);
 		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
-				return super.a(entity);
+				return super.a_(entity);
 			
 			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.a(entity);
+		return super.a_(entity);
 	}
 	
 	@Override

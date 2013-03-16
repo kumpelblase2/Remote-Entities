@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.util.Random;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 
 public class RandomPositionGenerator
 {
@@ -30,7 +30,7 @@ public class RandomPositionGenerator
 
     private static Vec3D c(EntityLiving entitycreature, int i, int j, Vec3D vec3d)
     {
-        Random random = entitycreature.aB();
+        Random random = entitycreature.aE();
         boolean flag = false;
         int k = 0;
         int l = 0;
@@ -38,10 +38,10 @@ public class RandomPositionGenerator
         float f = -99999.0F;
         boolean flag1;
 
-        if (entitycreature.aM())
+        if (entitycreature.aP())
         {
-            double d0 = (double) (entitycreature.aJ().e(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0F);
-            double d1 = (double) (entitycreature.aK() + (float) i);
+            double d0 = (double) (entitycreature.aM().e(MathHelper.floor(entitycreature.locX), MathHelper.floor(entitycreature.locY), MathHelper.floor(entitycreature.locZ)) + 4.0F);
+            double d1 = (double) (entitycreature.aN() + (float) i);
 
             flag1 = d0 < d1 * d1;
         }
@@ -59,9 +59,9 @@ public class RandomPositionGenerator
                 k1 += MathHelper.floor(entitycreature.locX);
                 l1 += MathHelper.floor(entitycreature.locY);
                 i2 += MathHelper.floor(entitycreature.locZ);
-                if (!flag1 || entitycreature.e(k1, l1, i2))
+                if (!flag1 || entitycreature.d(k1, l1, i2))
                 {
-                    float f1 = 0.5F - entitycreature.world.p(k1, l1, i2);
+                    float f1 = 0.5F - entitycreature.world.q(k1, l1, i2);
 
                     if (f1 > f)
                     {

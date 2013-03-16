@@ -1,10 +1,10 @@
 package de.kumpelblase2.remoteentities.persistence;
 
-import net.minecraft.server.v1_4_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 

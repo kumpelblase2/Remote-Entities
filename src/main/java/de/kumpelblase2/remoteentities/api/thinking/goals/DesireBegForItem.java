@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.EntityWolf;
+import net.minecraft.server.v1_5_R1.EntityHuman;
+import net.minecraft.server.v1_5_R1.EntityWolf;
 import org.bukkit.Material;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -37,9 +37,9 @@ public class DesireBegForItem extends DesireBase
 	public void startExecuting()
 	{
 		if(this.getEntityHandle() instanceof EntityWolf)
-			((EntityWolf)this.getEntityHandle()).j(true);
+			((EntityWolf)this.getEntityHandle()).m(true);
 		
-		this.m_ticks = 40 + this.getEntityHandle().aB().nextInt(40);
+		this.m_ticks = 40 + this.getEntityHandle().aE().nextInt(40);
 	}
 
 	@Override
@@ -47,13 +47,13 @@ public class DesireBegForItem extends DesireBase
 	{
 		this.m_nearestPlayer = null;
 		if(this.getEntityHandle() instanceof EntityWolf)
-			((EntityWolf)this.getEntityHandle()).j(false);
+			((EntityWolf)this.getEntityHandle()).m(false);
 	}
 	
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getEntityHandle().bp());
+		this.getEntityHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getEntityHandle().bs());
 		this.m_ticks--;
 		return true;
 	}

@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
@@ -56,7 +56,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
-	public void c_(EntityHuman entity)
+	public void b_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return;
@@ -78,34 +78,34 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 				}
 			}
 		}
-		super.c_(entity);
+		super.b_(entity);
 	}
 	
 	@Override
-	public boolean a(EntityHuman entity)
+	public boolean a_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
-			return super.a(entity);
+			return super.a_(entity);
 		
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
-				return super.a(entity);
+				return super.a_(entity);
 			
 			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
 		
-		return super.a(entity);
+		return super.a_(entity);
 	}
 	
 	@Override
-	public void j_()
+	public void l_()
 	{
 		this.yaw = this.az;
-		super.j_();
+		super.l_();
 		super.g();
 
 		if(this.noDamageTicks > 0)
@@ -139,9 +139,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		e(this.getRemoteEntity().getSpeed());
 		//End Citizens
 		
-		if (bF)
+		if (bG)
 		{
-            boolean inLiquid = H() || J();
+            boolean inLiquid = G() || I();
             if (inLiquid)
             {
                 motY += 0.04;
@@ -161,7 +161,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
         bE *= 0.9F;
 
         float prev = aN;
-        aN *= bB() * this.getRemoteEntity().getSpeed();
+        aN *= bE() * this.getRemoteEntity().getSpeed();
         e(bC, bD); 
         aN = prev;
         az = yaw;
@@ -190,7 +190,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 	
 	@Override
-	public boolean be()
+	public boolean bh()
 	{
 		return true;
 	}

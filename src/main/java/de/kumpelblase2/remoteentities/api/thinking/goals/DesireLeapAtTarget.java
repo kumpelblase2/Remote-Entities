@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.MathHelper;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -33,7 +33,7 @@ public class DesireLeapAtTarget extends DesireBase
 		else
 		{
 			double dist = this.getEntityHandle().e(this.m_target);
-			return dist >= 4 && dist <= 16 ? (!this.getEntityHandle().onGround ? false : this.getEntityHandle().aB().nextInt(5) == 0) : false;
+			return dist >= 4 && dist <= 16 ? (!this.getEntityHandle().onGround ? false : this.getEntityHandle().aE().nextInt(5) == 0) : false;
 		}
 	}
 	

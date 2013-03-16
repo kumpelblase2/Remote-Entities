@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Location;
-import net.minecraft.server.v1_4_R1.Vec3D;
+import net.minecraft.server.v1_5_R1.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
@@ -21,7 +21,7 @@ public class DesirePanic extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || (this.getEntityHandle().aC() == null && !this.getEntityHandle().isBurning()))
+		if(this.getEntityHandle() == null || (this.getEntityHandle().aF() == null && !this.getEntityHandle().isBurning()))
 			return false;
 		else
 		{

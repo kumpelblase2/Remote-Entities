@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.entity.LivingEntity;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.MathHelper;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftLivingEntity;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.MathHelper;
+import org.bukkit.craftbukkit.v1_5_R1.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -80,7 +80,7 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_toFollow, 10, this.getEntityHandle().bp());
+		this.getEntityHandle().getControllerLook().a(this.m_toFollow, 10, this.getEntityHandle().bs());
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;

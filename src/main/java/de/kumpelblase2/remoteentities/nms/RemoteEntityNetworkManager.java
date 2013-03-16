@@ -1,14 +1,14 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.io.IOException;
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R1.*;
 
 public class RemoteEntityNetworkManager extends NetworkManager
 {
 
 	public RemoteEntityNetworkManager(MinecraftServer server) throws IOException
 	{
-		super(new NullSocket(), "remoteentitiymanager", new Connection()
+		super(MinecraftServer.getServer().getLogger(), new NullSocket(), "remoteentitiymanager", new Connection()
 		{
 			@Override
 			public boolean a()

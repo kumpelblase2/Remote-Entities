@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.PathEntity;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;

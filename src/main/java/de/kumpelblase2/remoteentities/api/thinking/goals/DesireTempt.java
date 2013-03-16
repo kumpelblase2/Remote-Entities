@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.entity.LivingEntity;
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.ItemStack;
+import net.minecraft.server.v1_5_R1.EntityHuman;
+import net.minecraft.server.v1_5_R1.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -51,7 +51,7 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.bS();
+				ItemStack item = this.m_nearPlayer.cb();
 				return item == null ? false : item.id == this.m_itemId;
 			}
 		}
@@ -108,7 +108,7 @@ public class DesireTempt extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getEntityHandle().bp());
+		this.getEntityHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getEntityHandle().bs());
 		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
 			this.getEntityHandle().getNavigation().g();
 		else

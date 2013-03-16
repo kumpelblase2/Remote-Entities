@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Location;
-import net.minecraft.server.v1_4_R1.ChunkCoordinates;
-import net.minecraft.server.v1_4_R1.Vec3D;
+import net.minecraft.server.v1_5_R1.ChunkCoordinates;
+import net.minecraft.server.v1_5_R1.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
@@ -22,11 +22,11 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().aI())
+		if(this.getEntityHandle() == null || this.getEntityHandle().aL())
 			return false;
 		else
 		{
-			ChunkCoordinates chunkCoords = this.getEntityHandle().aJ();
+			ChunkCoordinates chunkCoords = this.getEntityHandle().aM();
 			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, this.getEntityHandle().world.getVec3DPool().create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
 			if(vec == null)
 				return false;

@@ -1,13 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_4_R1.Block;
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.Item;
-import net.minecraft.server.v1_4_R1.ItemStack;
-import net.minecraft.server.v1_4_R1.MathHelper;
-import net.minecraft.server.v1_4_R1.PathPoint;
-import net.minecraft.server.v1_4_R1.Pathfinder;
+import net.minecraft.server.v1_5_R1.Block;
+import net.minecraft.server.v1_5_R1.EntityHuman;
+import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R1.Item;
+import net.minecraft.server.v1_5_R1.ItemStack;
+import net.minecraft.server.v1_5_R1.MathHelper;
+import net.minecraft.server.v1_5_R1.PathPoint;
+import net.minecraft.server.v1_5_R1.Pathfinder;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -40,7 +40,7 @@ public class DesireFollowCarrotStick extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		return this.getEntityHandle().isAlive() && this.getEntityHandle().passenger != null && this.getEntityHandle().passenger instanceof EntityHuman && (this.m_speedBoosted || this.getEntityHandle().bI());
+		return this.getEntityHandle().isAlive() && this.getEntityHandle().passenger != null && this.getEntityHandle().passenger instanceof EntityHuman && (this.m_speedBoosted || this.getEntityHandle().bL());
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ public class DesireFollowCarrotStick extends DesireBase
 		float f3 = 0.16277136F / (f2 * f2 * f2);
         float f4 = MathHelper.sin(entity.yaw * 3.1415927F / 180.0F);
         float f5 = MathHelper.cos(entity.yaw * 3.1415927F / 180.0F);
-        float f6 = entity.aF() * f3;
+        float f6 = entity.aI() * f3;
         float f7 = Math.max(speed, 1.0F);
 
         f7 = f6 / f7;
@@ -137,9 +137,9 @@ public class DesireFollowCarrotStick extends DesireBase
         if((x != nextX || z != nextZ) && Pathfinder.a(entity, nextX, y, nextZ, point, false, false, true) == 0 && Pathfinder.a(entity, x, y + 1, z, point, false, false, true) == 1 && Pathfinder.a(entity, nextX, y + 1, nextZ, point, false, false, true) == 1)
         	entity.getControllerJump().a();
         
-        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aB().nextFloat() < 0.006f && !this.m_speedBoosted)
+        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aE().nextFloat() < 0.006f && !this.m_speedBoosted)
         {
-        	ItemStack item = passenger.bD();
+        	ItemStack item = passenger.bG();
         	
         	if(item != null && item.id == Item.CARROT_STICK.id)
         	{
@@ -166,7 +166,7 @@ public class DesireFollowCarrotStick extends DesireBase
 	{
 		this.m_speedBoosted = true;
 		this.m_speedBoostTime = 0;
-		this.m_maxSpeedBoostTime = this.getEntityHandle().aB().nextInt(841) + 140;
+		this.m_maxSpeedBoostTime = this.getEntityHandle().aE().nextInt(841) + 140;
 	}
 	
 	public boolean isControlledByPlayer()
