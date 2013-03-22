@@ -21,9 +21,9 @@ public class EntityData implements ConfigurationSerializable
 	public boolean stationary;
 	public boolean pushable;
 	public float speed;
-	public DesireData[] actionDesires;
-	public DesireData[] movementDesires;
-	public BehaviorData[] behaviors;
+	public DesireData[] actionDesires = new DesireData[0];
+	public DesireData[] movementDesires = new DesireData[0];
+	public BehaviorData[] behaviors = new BehaviorData[0];
 	public static ObjectParser objectParser = new ObjectParser();
 	
 	public EntityData()
@@ -58,7 +58,7 @@ public class EntityData implements ConfigurationSerializable
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
 		List<DesireData> action = new ArrayList<DesireData>();
-		for(int i = 0; i < this.actionDesires.length; i++)
+		for(int i = 0; i < inEntity.getMind().getTargetingDesires().size(); i++)
 		{
 			DesireItem desire = inEntity.getMind().getTargetingDesires().get(i);
 			if(!desire.getDesire().getClass().isAnnotationPresent(IgnoreSerialization.class))
@@ -66,7 +66,7 @@ public class EntityData implements ConfigurationSerializable
 		}
 		this.actionDesires = action.toArray(new DesireData[0]);
 		List<DesireData> movement = new ArrayList<DesireData>();
-		for(int i = 0; i < this.movementDesires.length; i++)
+		for(int i = 0; i < inEntity.getMind().getMovementDesires().size(); i++)
 		{
 			DesireItem desire = inEntity.getMind().getMovementDesires().get(i);
 			if(!desire.getDesire().getClass().isAnnotationPresent(IgnoreSerialization.class))
