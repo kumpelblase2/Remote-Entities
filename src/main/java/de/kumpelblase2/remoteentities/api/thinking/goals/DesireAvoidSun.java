@@ -2,10 +2,10 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Random;
 import org.bukkit.Location;
-import net.minecraft.server.v1_5_R1.EntityCreature;
-import net.minecraft.server.v1_5_R1.EntityLiving;
-import net.minecraft.server.v1_5_R1.MathHelper;
-import net.minecraft.server.v1_5_R1.Vec3D;
+import net.minecraft.server.v1_5_R2.EntityCreature;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.MathHelper;
+import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 

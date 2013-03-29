@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R1.EntityLiving;
-import net.minecraft.server.v1_5_R1.MathHelper;
-import net.minecraft.server.v1_5_R1.Village;
-import net.minecraft.server.v1_5_R1.VillageDoor;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.MathHelper;
+import net.minecraft.server.v1_5_R2.Village;
+import net.minecraft.server.v1_5_R2.VillageDoor;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 

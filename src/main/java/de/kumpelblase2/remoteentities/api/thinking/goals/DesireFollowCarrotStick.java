@@ -1,13 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R1.Block;
-import net.minecraft.server.v1_5_R1.EntityHuman;
-import net.minecraft.server.v1_5_R1.EntityLiving;
-import net.minecraft.server.v1_5_R1.Item;
-import net.minecraft.server.v1_5_R1.ItemStack;
-import net.minecraft.server.v1_5_R1.MathHelper;
-import net.minecraft.server.v1_5_R1.PathPoint;
-import net.minecraft.server.v1_5_R1.Pathfinder;
+import net.minecraft.server.v1_5_R2.Block;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.Item;
+import net.minecraft.server.v1_5_R2.ItemStack;
+import net.minecraft.server.v1_5_R2.MathHelper;
+import net.minecraft.server.v1_5_R2.PathPoint;
+import net.minecraft.server.v1_5_R2.Pathfinder;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;

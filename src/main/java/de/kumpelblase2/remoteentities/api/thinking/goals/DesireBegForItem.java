@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R1.EntityHuman;
-import net.minecraft.server.v1_5_R1.EntityWolf;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityWolf;
 import org.bukkit.Material;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;

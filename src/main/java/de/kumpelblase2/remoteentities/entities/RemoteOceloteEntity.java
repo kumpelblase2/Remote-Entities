@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_5_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;

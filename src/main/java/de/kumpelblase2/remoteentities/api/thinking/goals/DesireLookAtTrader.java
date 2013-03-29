@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R1.Entity;
-import net.minecraft.server.v1_5_R1.EntityHuman;
-import net.minecraft.server.v1_5_R1.EntityLiving;
-import net.minecraft.server.v1_5_R1.EntityVillager;
+import net.minecraft.server.v1_5_R2.Entity;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 

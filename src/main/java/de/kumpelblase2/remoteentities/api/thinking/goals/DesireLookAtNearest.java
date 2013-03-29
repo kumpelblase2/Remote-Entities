@@ -7,7 +7,7 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.v1_5_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
 public class DesireLookAtNearest extends DesireBase
 {

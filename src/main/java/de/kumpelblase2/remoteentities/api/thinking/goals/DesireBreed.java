@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-import net.minecraft.server.v1_5_R1.EntityAgeable;
-import net.minecraft.server.v1_5_R1.EntityAnimal;
+import net.minecraft.server.v1_5_R2.EntityAgeable;
+import net.minecraft.server.v1_5_R2.EntityAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 

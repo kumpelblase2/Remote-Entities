@@ -11,7 +11,7 @@ import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import net.minecraft.server.v1_5_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
 public final class ReflectionUtil
 {
@@ -57,7 +57,7 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
  
-            Method a = net.minecraft.server.v1_5_R1.EntityTypes.class.getDeclaredMethod("a", args);
+            Method a = net.minecraft.server.v1_5_R2.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
  
             a.invoke(a, inClass, name, inID);

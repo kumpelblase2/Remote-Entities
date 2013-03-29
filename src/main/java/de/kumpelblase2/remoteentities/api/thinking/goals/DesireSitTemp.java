@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import net.minecraft.server.v1_5_R1.PathfinderGoalSit;
+import net.minecraft.server.v1_5_R2.PathfinderGoalSit;
 
 public class DesireSitTemp extends PathfinderGoalSit
 {

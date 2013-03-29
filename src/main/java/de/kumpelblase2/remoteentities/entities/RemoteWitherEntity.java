@@ -12,7 +12,7 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
-import net.minecraft.server.v1_5_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
 public class RemoteWitherEntity extends EntityWither implements RemoteEntityHandle
 {

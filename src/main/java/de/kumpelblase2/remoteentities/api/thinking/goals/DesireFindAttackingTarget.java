@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_5_R1.AxisAlignedBB;
-import net.minecraft.server.v1_5_R1.EntityHuman;
-import net.minecraft.server.v1_5_R1.EntityLiving;
+import net.minecraft.server.v1_5_R2.AxisAlignedBB;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;

@@ -1,10 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
-import net.minecraft.server.v1_5_R1.EntityLiving;
-import net.minecraft.server.v1_5_R1.EntityTameableAnimal;
-import net.minecraft.server.v1_5_R1.MathHelper;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
+import net.minecraft.server.v1_5_R2.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;

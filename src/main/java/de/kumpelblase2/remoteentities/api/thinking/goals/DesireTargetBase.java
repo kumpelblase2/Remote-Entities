@@ -1,17 +1,17 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_5_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
-import net.minecraft.server.v1_5_R1.EntityCreature;
-import net.minecraft.server.v1_5_R1.EntityHuman;
-import net.minecraft.server.v1_5_R1.EntityLiving;
-import net.minecraft.server.v1_5_R1.EntityTameableAnimal;
-import net.minecraft.server.v1_5_R1.MathHelper;
-import net.minecraft.server.v1_5_R1.PathEntity;
-import net.minecraft.server.v1_5_R1.PathPoint;
+import net.minecraft.server.v1_5_R2.EntityCreature;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
+import net.minecraft.server.v1_5_R2.MathHelper;
+import net.minecraft.server.v1_5_R2.PathEntity;
+import net.minecraft.server.v1_5_R2.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;

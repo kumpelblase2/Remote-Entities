@@ -3,8 +3,8 @@ package de.kumpelblase2.remoteentities.nms;
 import java.lang.reflect.Field;
 import java.util.List;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import net.minecraft.server.v1_5_R1.PathfinderGoal;
-import net.minecraft.server.v1_5_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_5_R2.PathfinderGoal;
+import net.minecraft.server.v1_5_R2.PathfinderGoalSelector;
 
 public class PathfinderGoalSelectorHelper
 {
