@@ -105,34 +105,41 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		return "Player";
 	}
 
+	/**
+	 * Tries to place the npc in a bed at given location.
+	 * 
+	 * @param inLocation	Location the bed is present.
+	 * @return				True if it was possible, false if not
+	 */
 	public boolean enterBed(Location inLocation)
 	{
 		this.teleport(inLocation);
 		return ((EntityHuman)this.getHandle()).a((int)inLocation.getX(), (int)inLocation.getY(), (int)inLocation.getZ()) == EnumBedResult.OK;
 	}
 
+	/**
+	 * Leaves the bed the npc currently is in. 
+	 */
 	public void leaveBed()
 	{
 		((EntityHuman)this.getHandle()).a(true, true, false);
 	}
 
+	/**
+	 * Checks if the npc is currently in a bed.
+	 * 
+	 * @return	true if he is, false if not
+	 */
 	public boolean isSleeping()
 	{
 		return ((EntityHuman)this.getHandle()).isSleeping();
 	}
 	
+	/**
+	 * Send the arm swing animation to nearby players. 
+	 */
 	public void doArmSwing()
 	{
 		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 1));
-	}
-	
-	public void crouch()
-	{
-		((EntityHuman)this.getHandle()).setSneaking(true);
-	}
-	
-	public void standUp()
-	{
-		((EntityHuman)this.getHandle()).setSneaking(false);
 	}
 }
