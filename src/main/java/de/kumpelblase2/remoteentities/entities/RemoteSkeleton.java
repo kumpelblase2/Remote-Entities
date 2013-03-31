@@ -54,22 +54,6 @@ public class RemoteSkeleton extends RemoteBaseEntity implements Fightable
 		
 		return null;	
 	}
-	
-	public boolean isWitherSkeleton()
-	{
-		if(this.m_entity == null)
-			return false;
-		
-		return ((EntitySkeleton)this.m_entity).getSkeletonType() == 1;
-	}
-	
-	public void setWithSkeleton(boolean inState)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		((EntitySkeleton)this.m_entity).setSkeletonType((inState ? 1 : 0));
-	}
 
 	@Override
 	public String getNativeEntityName()
