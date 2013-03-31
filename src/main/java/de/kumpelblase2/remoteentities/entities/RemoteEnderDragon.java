@@ -45,11 +45,21 @@ public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
 		this.m_manager.getPlugin());
 	}
 	
+	/**
+	 * Checks whether it should destroy blocks or not.
+	 * 
+	 * @return	True if it should, false if not
+	 */
 	public boolean shouldDestroyBlocks()
 	{
 		return this.m_shouldDestroyBlocks;
 	}
 	
+	/**
+	 * Sets whether it should destroy blocks or not.
+	 * 
+	 * @param inState 	destroy blocks
+	 */
 	public void shouldDestroyBlocks(boolean inState)
 	{
 		this.m_shouldDestroyBlocks = inState;

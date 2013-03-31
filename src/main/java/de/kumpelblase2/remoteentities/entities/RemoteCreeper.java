@@ -41,11 +41,19 @@ public class RemoteCreeper extends RemoteBaseEntity implements Fightable
 		((EntityCreature)this.m_entity).setTarget(null);
 	}
 	
+	/**
+	 * Lets the creeper explode at the current position with the default explosion radius. 
+	 */
 	public void explode()
 	{
 		this.explode(1);
 	}
 	
+	/**
+	 * Lets the creeper explode at the current position with a given explosion modifier.
+	 * 
+	 * @param inModifier	Modifier for explosion radius
+	 */
 	public void explode(int inModifier)
 	{
 		if(this.m_entity == null)
