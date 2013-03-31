@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import net.minecraft.server.v1_5_R2.EntityHuman;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.EnumBedResult;
+import net.minecraft.server.v1_5_R2.Packet18ArmAnimation;
 import net.minecraft.server.v1_5_R2.PlayerInteractManager;
 import net.minecraft.server.v1_5_R2.WorldServer;
 import org.bukkit.Bukkit;
@@ -103,13 +104,13 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 	{
 		return "Player";
 	}
-	
+
 	public boolean enterBed(Location inLocation)
 	{
 		this.teleport(inLocation);
 		return ((EntityHuman)this.getHandle()).a((int)inLocation.getX(), (int)inLocation.getY(), (int)inLocation.getZ()) == EnumBedResult.OK;
 	}
-	
+
 	public void leaveBed()
 	{
 		((EntityHuman)this.getHandle()).a(true, true, false);
@@ -118,5 +119,20 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 	public boolean isSleeping()
 	{
 		return ((EntityHuman)this.getHandle()).isSleeping();
+	}
+	
+	public void doArmSwing()
+	{
+		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 1));
+	}
+	
+	public void crouch()
+	{
+		((EntityHuman)this.getHandle()).setSneaking(true);
+	}
+	
+	public void standUp()
+	{
+		((EntityHuman)this.getHandle()).setSneaking(false);
 	}
 }
