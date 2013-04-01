@@ -38,7 +38,9 @@ public class DesireAttackOnCollide extends DesireBase
 		super(inEntity);
 		this.m_speed = inSpeed;
 		this.m_ignoreSight = inIgnoreSight;
-		if(Entity.class.isAssignableFrom(inToAttack))
+		if(inToAttack == null)
+			this.m_toAttack = Entity.class;
+		else if(Entity.class.isAssignableFrom(inToAttack))
 			this.m_toAttack = (Class<? extends Entity>)inToAttack;
 		else
 			this.m_toAttack = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAttack);
