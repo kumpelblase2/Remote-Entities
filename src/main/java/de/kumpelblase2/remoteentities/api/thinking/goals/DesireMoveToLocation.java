@@ -39,8 +39,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	@Override
 	public boolean update()
 	{
-		this.m_entity.move(this.m_targetLocation);
-		return true;
+		return this.m_entity.move(this.m_targetLocation);
 	}
 	
 	@Override
