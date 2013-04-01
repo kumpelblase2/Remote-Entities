@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import org.bukkit.Bukkit;
 import de.kumpelblase2.remoteentities.api.events.RemoteDesireAddEvent;
+import de.kumpelblase2.remoteentities.api.events.RemoteDesireStartEvent;
+import de.kumpelblase2.remoteentities.api.events.RemoteDesireStopEvent;
 
 public class DesireSelector
 {
@@ -30,17 +32,27 @@ public class DesireSelector
 					if(this.hasHighestPriority(item) && item.getDesire().canContinue())
 						continue;
 					
-					item.getDesire().stopExecuting();
-					if(item.getDesire() instanceof OneTimeDesire)
-						this.m_desires.remove(item);
+					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+					Bukkit.getPluginManager().callEvent(event);
+					if(event.isCancelled())
+						continue;
+						
+					event.getDesire().stopExecuting();
+					if(event.getDesire() instanceof OneTimeDesire)
+						this.m_desires.remove(event.getDesireItem());
 					
-					this.m_executingDesires.remove(item);
+					this.m_executingDesires.remove(event.getDesireItem());
 				}
 							 
 				if(this.hasHighestPriority(item) && item.getDesire().shouldExecute())
 				{
-					item.getDesire().startExecuting();
-					this.m_executingDesires.add(item);
+					RemoteDesireStartEvent event = new RemoteDesireStartEvent(item.getDesire().getRemoteEntity(), item);
+					Bukkit.getPluginManager().callEvent(event);
+					if(event.isCancelled())
+						continue;
+					
+					event.getDesire().startExecuting();
+					this.m_executingDesires.add(event.getDesireItem());
 				}
 			}
 			this.m_delay = 0;
@@ -53,6 +65,8 @@ public class DesireSelector
 				DesireItem item = it.next();
 				if(!item.getDesire().canContinue())
 				{
+					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+					Bukkit.getPluginManager().callEvent(event);
 					item.getDesire().stopExecuting();
 					if(item.getDesire() instanceof OneTimeDesire)
 						this.m_desires.remove(item);
@@ -68,6 +82,8 @@ public class DesireSelector
 			DesireItem item = it.next();
 			if(!item.getDesire().update())
 			{
+				RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+				Bukkit.getPluginManager().callEvent(event);
 				if(item.getDesire() instanceof OneTimeDesire)
 					this.m_desires.remove(item);
 				
@@ -139,10 +155,17 @@ public class DesireSelector
 			}
 			temp.clear();
 			temp.add(lowest);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(lowest.getDesire().getRemoteEntity(), lowest);
+			Bukkit.getPluginManager().callEvent(event);
 			lowest.getDesire().stopExecuting();
 		}
 		else
-			temp.get(0).getDesire().stopExecuting();
+		{
+			DesireItem t = temp.get(0);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(t.getDesire().getRemoteEntity(), t);
+			Bukkit.getPluginManager().callEvent(event);
+			t.getDesire().stopExecuting();
+		}
 
 		this.m_desires.remove(temp.get(0));
 		this.m_executingDesires.remove(temp.get(0));
@@ -153,6 +176,8 @@ public class DesireSelector
 	{
 		for(DesireItem item : this.m_executingDesires)
 		{
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+			Bukkit.getPluginManager().callEvent(event);
 			item.getDesire().stopExecuting();
 		}
 		this.m_desires.clear();
