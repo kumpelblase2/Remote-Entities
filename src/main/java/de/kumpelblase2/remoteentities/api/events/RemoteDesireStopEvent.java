@@ -16,11 +16,21 @@ public class RemoteDesireStopEvent extends RemoteEvent
 		this.m_desire = inDesire;
 	}
 	
+	/**
+	 * Gets the desire that is about to get stopped.
+	 * 
+	 * @return	Stopping desire
+	 */
 	public Desire getDesire()
 	{
 		return this.m_desire.getDesire();
 	}
 	
+	/**
+	 * Gets the priority of the desire.
+	 * 
+	 * @return	Desire priority
+	 */
 	public int getPriority()
 	{
 		return this.m_desire.getPriority();
