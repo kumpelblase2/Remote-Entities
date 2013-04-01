@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
@@ -248,12 +249,35 @@ public class EntityManager
 	 * Checks whether the provided entity is a RemoteEntity created by this manager
 	 * 
 	 * @param inEntity	entity to check
-	 * @return			true if the entity is a RemoteEntity, false if not
+	 * @return			true if the entity is a RemoteEntity and from this manager, false if not
 	 */
 	public boolean isRemoteEntity(LivingEntity inEntity)
 	{
-		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
-		return handle instanceof RemoteEntityHandle;
+		if(inEntity.hasMetadata("remoteentity"))
+		{
+			for(MetadataValue value : inEntity.getMetadata("remoteentity"))
+			{
+				if(value.getOwningPlugin() == this.m_plugin)
+				{
+					if(!(value.value() instanceof RemoteEntity))
+						continue;
+					
+					RemoteEntity e = (RemoteEntity)value.value();
+					if(e.getManager() == this)
+						return true;
+				}
+			}
+			return false;
+		}
+		else
+		{
+			EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
+			if(!(handle instanceof RemoteEntityHandle))
+				return false;
+		
+			RemoteEntityHandle h = (RemoteEntityHandle)handle;
+			return h.getRemoteEntity().getManager() == this;
+		}
 	}
 	
 	/**
@@ -266,6 +290,20 @@ public class EntityManager
 	{
 		if(!this.isRemoteEntity(inEntity))
 			return null;
+		
+		if(inEntity.hasMetadata("remoteentity"))
+		{
+			for(MetadataValue value : inEntity.getMetadata("remoteentity"))
+			{
+				if(value.getOwningPlugin() == this.m_plugin)
+				{
+					if(!(value.value() instanceof RemoteEntity))
+						continue;
+					
+					return (RemoteEntity)value.value();
+				}
+			}
+		}
 		
 		EntityLiving entityHandle = ((CraftLivingEntity)inEntity).getHandle();
 		return ((RemoteEntityHandle)entityHandle).getRemoteEntity();
