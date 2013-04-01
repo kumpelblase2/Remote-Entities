@@ -1,7 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import org.bukkit.Bukkit;
@@ -17,16 +16,18 @@ public class DesireSelector
 	
 	public DesireSelector()
 	{
-		this.m_desires = Collections.synchronizedList(new ArrayList<DesireItem>());
-		this.m_executingDesires = Collections.synchronizedList(new ArrayList<DesireItem>());
+		this.m_desires = new ArrayList<DesireItem>();
+		this.m_executingDesires = new ArrayList<DesireItem>();
 	}
 	
 	public void onUpdate()
 	{
 		if(++this.m_delay % 3 == 0)
 		{
-			for(DesireItem item : this.m_desires)
+			Iterator<DesireItem> it = this.m_desires.iterator();
+			while(it.hasNext())
 			{
+				DesireItem item = it.next();				
 				if(this.m_executingDesires.contains(item))
 				{
 					if(this.hasHighestPriority(item) && item.getDesire().canContinue())
