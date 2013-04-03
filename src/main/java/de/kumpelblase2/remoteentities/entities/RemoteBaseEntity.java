@@ -349,6 +349,13 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		this.m_speed = inSpeed;
 	}
 	
+	/**
+	 * Sets the path of the entity with a given speed.
+	 * 
+	 * @param inPath	Path to follow
+	 * @param inSpeed	Speed to walk with
+	 * @return			true if it could use the path, false if not
+	 */
 	public boolean moveWithPath(PathEntity inPath, float inSpeed)
 	{
 		if(this.m_entity == null || inPath == null || this.m_isStationary)
@@ -360,11 +367,22 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		return this.m_entity.getNavigation().a(inPath, inSpeed);
 	}
 	
+	/**
+	 * Copies the inventory from the given player to the inventory of this entity.
+	 * 
+	 * @param inPlayer	Player to copy inventory from
+	 */
 	public void copyInventory(Player inPlayer)
 	{
 		this.copyInventory(inPlayer, false);
 	}
 	
+	/**
+	 * Copies the inventory from the given player to the inventory of this entity.
+	 * 
+	 * @param inPlayer			Player to copy inventory from
+	 * @param inIgnoreArmor		If armor should not be copied or if it should
+	 */
 	public void copyInventory(Player inPlayer, boolean inIgnoreArmor)
 	{
 		this.copyInventory(inPlayer.getInventory());
@@ -378,12 +396,22 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			equip.setItemInHand(inPlayer.getItemInHand());		
 	}
 	
+	/**
+	 * Copies the the contents of the given inventory to the inventory of this entity.
+	 * 
+	 * @param inInventory	Inventory to copy from.
+	 */
 	public void copyInventory(Inventory inInventory)
 	{
 		if(this.getInventory() != null)
 			this.getInventory().setContents(inInventory.getContents());
 	}
 	
+	/**
+	 * Gets the inventory of this entity.
+	 * 
+	 * @return	Inventory
+	 */
 	public Inventory getInventory()
 	{
 		if(this.getHandle() instanceof RemoteEntityHandle)
@@ -407,6 +435,11 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		return false;
 	}
 	
+	/**
+	 * Gets the location the entity was last unloaded.
+	 * 
+	 * @return	unloading location
+	 */
 	public Location getUnloadedLocation()
 	{
 		return this.m_unloadedLocation;
