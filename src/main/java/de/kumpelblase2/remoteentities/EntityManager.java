@@ -359,7 +359,19 @@ public class EntityManager
 	 * @param inEntity	entity to replace
 	 * @return			instance of the RemoteEntity
 	 */
-	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity) //TODO copy more shit from entity
+	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity)
+	{
+		return this.createRemoteEntityFromExisting(inEntity, true);
+	}
+	
+	/**
+	 * Creates a RemoteEntity from an existing minecraft entity. The old entity will only get removed when inDeleteOld is true.
+	 * 
+	 * @param inEntity		entity to copy from
+	 * @param inDeleteOld	should delete old one
+	 * @return				created entity
+	 */
+	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity, boolean inDeleteOld) //TODO copy more shit from entity
 	{
 		RemoteEntityType type = RemoteEntityType.getByEntityClass(((CraftLivingEntity)inEntity).getHandle().getClass());
 		if(type == null)
@@ -367,7 +379,9 @@ public class EntityManager
 		
 		Location originalSpot = inEntity.getLocation();
 		String name = (inEntity instanceof HumanEntity) ? ((HumanEntity)inEntity).getName() : null;
-		inEntity.remove();
+		if(inDeleteOld)
+			inEntity.remove();
+		
 		try
 		{
 			if(name == null)
@@ -379,7 +393,7 @@ public class EntityManager
 		{
 			e.printStackTrace();
 			return null;
-		}		
+		}	
 	}
 	
 	/**
