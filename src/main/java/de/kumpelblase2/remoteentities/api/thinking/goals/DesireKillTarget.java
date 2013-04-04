@@ -93,4 +93,10 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 	{
 		this.getEntityHandle().m(((CraftLivingEntity)inEntity).getHandle());
 	}
+
+	@Override
+	public boolean isFinished()
+	{
+		return !this.m_target.isAlive();
+	}
 }

@@ -39,7 +39,7 @@ public class DesireSelector
 						continue;
 						
 					event.getDesire().stopExecuting();
-					if(event.getDesire() instanceof OneTimeDesire)
+					if(event.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)event.getDesire()).isFinished())
 						this.m_desires.remove(event.getDesireItem());
 					
 					this.m_executingDesires.remove(event.getDesireItem());
@@ -69,7 +69,7 @@ public class DesireSelector
 					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
 					Bukkit.getPluginManager().callEvent(event);
 					item.getDesire().stopExecuting();
-					if(item.getDesire() instanceof OneTimeDesire)
+					if(item.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)item.getDesire()).isFinished())
 						this.m_desires.remove(item);
 					
 					it.remove();
@@ -85,7 +85,7 @@ public class DesireSelector
 			{
 				RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
 				Bukkit.getPluginManager().callEvent(event);
-				if(item.getDesire() instanceof OneTimeDesire)
+				if(item.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)item.getDesire()).isFinished())
 					this.m_desires.remove(item);
 				
 				it.remove();

@@ -47,4 +47,10 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
+
+	@Override
+	public boolean isFinished()
+	{
+		return !this.shouldExecute();
+	}
 }
