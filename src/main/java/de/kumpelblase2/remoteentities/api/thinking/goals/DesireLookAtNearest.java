@@ -37,6 +37,7 @@ public class DesireLookAtNearest extends DesireBase
 		this.m_minDist = inMinDistance;
 		this.m_minDistSquared = this.m_minDist * this.m_minDist;
 		this.m_lookPossibility = inPossibility;
+		this.m_type = 3;
 	}
 
 	@Override

@@ -32,6 +32,7 @@ public class DesireFollowCarrotStick extends DesireBase
 	{
 		super(inEntity);
 		this.m_maxSpeed = inMaxSpeed;
+		this.m_type = 7;
 	}
 
 	@Override
