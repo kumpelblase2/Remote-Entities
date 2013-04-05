@@ -54,7 +54,7 @@ public class DesireEatGrass extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_eatTick > 40;
+		return this.m_eatTick > 0;
 	}
 	
 	public int tickTime()

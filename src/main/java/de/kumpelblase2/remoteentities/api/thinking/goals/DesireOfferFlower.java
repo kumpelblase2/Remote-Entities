@@ -60,7 +60,7 @@ public class DesireOfferFlower extends DesireBase
 	{
 		this.m_offerTick = 400;
 		if(this.getEntityHandle() instanceof EntityIronGolem)
-			((EntityIronGolem)this.getEntityHandle()).e(true);
+			((EntityIronGolem)this.getEntityHandle()).a(true);
 		else
 			this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)11);
 	}
@@ -70,7 +70,7 @@ public class DesireOfferFlower extends DesireBase
 	{
 		this.m_nearestEntity = null;
 		if(this.getEntityHandle() instanceof EntityIronGolem)
-			((EntityIronGolem)this.getEntityHandle()).e(false);
+			((EntityIronGolem)this.getEntityHandle()).a(false);
 		else
 			this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)11);
 	}

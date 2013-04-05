@@ -26,9 +26,10 @@ public class DesireTradeWithPlayer extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
+		
 		if(!this.getEntityHandle().isAlive())
 			return false;
-		else if(this.getEntityHandle().H())
+		else if(this.getEntityHandle().G())
 			return false;
 		else if(!this.getEntityHandle().onGround)
 			return false;
@@ -37,7 +38,13 @@ public class DesireTradeWithPlayer extends DesireBase
 		else
 		{
 			EntityHuman trader = this.m_villager.m_();
-			return trader == null ? false : this.m_villager.e(trader) > 16 ? false : (trader.activeContainer instanceof Container);
+			if(trader == null)
+				return false;
+			
+			if(this.m_villager.e(trader) > 16)
+				return false;
+			
+			return trader.activeContainer instanceof Container;
 		}
 	}
 	
@@ -50,6 +57,6 @@ public class DesireTradeWithPlayer extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.m_villager.b_(null);
+		this.m_villager.a((EntityHuman)null);
 	}
 }

@@ -103,7 +103,7 @@ public class DesireFollowTamer extends DesireBase
 						{
 							for(int l = 0; l <= 4; l++)
 							{
-								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.v(x + i, y - 1, z + l) && !this.m_animal.world.t(x + i, y, z + l) && !this.m_animal.world.t(x + i, y + 1, z + l))
+								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.w(x + i, y - 1, z + l) && !this.m_animal.world.u(x + i, y, z + l) && !this.m_animal.world.u(x + i, y + 1, z + l))
 								{
 									this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
 									this.m_animal.getNavigation().g();

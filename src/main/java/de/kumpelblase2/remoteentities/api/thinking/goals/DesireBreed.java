@@ -7,6 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import net.minecraft.server.v1_5_R2.EntityAgeable;
 import net.minecraft.server.v1_5_R2.EntityAnimal;
+import net.minecraft.server.v1_5_R2.EntityExperienceOrb;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -34,7 +35,7 @@ public class DesireBreed extends DesireBase
 		this.getEntityHandle().getControllerLook().a(this.m_mate, 10, this.getEntityHandle().bs());
 		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
-		if(this.m_mateTicks == 60)
+		if(this.m_mateTicks >= 60 && this.getEntityHandle().e(this.m_mate) < 9D)
 			this.createChild();
 
 		return true;
@@ -68,16 +69,19 @@ public class DesireBreed extends DesireBase
 		double range = 8;
 		List entities = this.getEntityHandle().world.a(this.getEntityHandle().getClass(), this.getEntityHandle().boundingBox.grow(range, range, range));
 		Iterator it = entities.iterator();
-		
-		EntityAnimal nearest;
-		do
+		double nearestRange = Double.MAX_VALUE;		
+		EntityAnimal nearest = null;
+		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
+		while(it.hasNext())
 		{
-			if(!it.hasNext())
-				return null;
-			
-			nearest = (EntityAnimal)it.next();
+			EntityAnimal mate = (EntityAnimal)it.next();
+			double currentRange;
+			if(entity.mate(mate) && (currentRange = entity.e(mate)) < nearestRange)
+			{
+				nearest = mate;
+				nearestRange = currentRange;
+			}
 		}
-		while(!((EntityAnimal)this.getEntityHandle()).mate(nearest));
 		return nearest;
 	}
 	
@@ -104,6 +108,8 @@ public class DesireBreed extends DesireBase
 				
 				entity.world.addParticle("heart", entity.locX + (r.nextFloat() * entity.width * 2) - entity.width, entity.locY + 0.5D + (r.nextFloat() * entity.length), entity.locZ + (r.nextFloat() * entity.width * 2) - entity.width, d0, d1, d2);
 			}
+			
+			entity.world.addEntity(new EntityExperienceOrb(entity.world, entity.locX, entity.locY, entity.locZ, r.nextInt(7) + 1));
 		}
 		
 		return baby;

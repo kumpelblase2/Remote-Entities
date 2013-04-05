@@ -7,6 +7,7 @@ import net.minecraft.server.v1_5_R2.DistanceComparator;
 import net.minecraft.server.v1_5_R2.Entity;
 import net.minecraft.server.v1_5_R2.EntityHuman;
 import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.IEntitySelector;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -21,6 +22,8 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	protected Class<? extends Entity> m_targetClass;
 	protected DistanceComparator m_comparator;
 	protected EntityLiving m_target;
+	@SerializeAs(pos = 6)
+	protected IEntitySelector m_selector;
 	protected boolean m_onlyAtNight;
 	
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
@@ -28,10 +31,15 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
 	}	
 	
-	@SuppressWarnings("unchecked")
-	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
+	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
 	{
-		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance, null);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance, IEntitySelector inSelector)
+	{
+		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_comparator = new DistanceComparator(null, this.getEntityHandle());
 		this.m_targetChance = inChance;
 		if(Entity.class.isAssignableFrom(inTargetClass))
@@ -46,6 +54,11 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
+	}
+	
+	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChange, IEntitySelector inSelector)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChange, inSelector);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,7 +86,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 			}
 			else
 			{
-				List<EntityLiving> entities = this.getEntityHandle().world.a(this.m_targetClass, this.getEntityHandle().boundingBox.grow(this.m_distance, 4, this.m_distance));
+				List<EntityLiving> entities = this.getEntityHandle().world.a(this.m_targetClass, this.getEntityHandle().boundingBox.grow(this.m_distance, 4, this.m_distance), this.m_selector);
 				Collections.sort(entities, this.m_comparator);
 				Iterator<EntityLiving> it = entities.iterator();
 				while(it.hasNext())

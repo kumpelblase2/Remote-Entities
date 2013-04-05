@@ -47,7 +47,7 @@ public class DesirePlay extends DesireBase
 			while(it.hasNext())
 			{
 				EntityVillager villager = (EntityVillager)it.next();
-				if(villager != this.m_villager && !villager.p() && villager.getAge() < 0)
+				if(villager != this.m_villager && !villager.o() && villager.getAge() < 0)
 				{
 					double dist = villager.e(this.m_villager);
 					
@@ -81,7 +81,7 @@ public class DesirePlay extends DesireBase
 	public void startExecuting()
 	{
 		if(this.m_friend != null)
-			this.m_villager.f(true);
+			this.m_villager.j(true);
 		
 		this.m_playTick = 1000;
 	}
@@ -89,7 +89,7 @@ public class DesirePlay extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.m_villager.f(false);
+		this.m_villager.j(false);
 		this.m_friend = null;
 	}
 	

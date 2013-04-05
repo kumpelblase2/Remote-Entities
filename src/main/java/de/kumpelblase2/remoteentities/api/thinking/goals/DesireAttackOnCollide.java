@@ -74,7 +74,16 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entityTarget = this.getEntityHandle().getGoalTarget();
 		EntityLiving entity = this.getEntityHandle();
-		return entityTarget == null ? false : (!this.m_target.isAlive() ? false : (!this.m_ignoreSight ? !entity.getNavigation().f() : entity.d(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ))));
+		if(entityTarget == null)
+			return false;
+		
+		if(!this.m_target.isAlive())
+			return false;
+		
+		if(!this.m_ignoreSight)
+			return !entity.getNavigation().f();
+		else
+			return entity.d(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ));
 	}
 	
 	@Override

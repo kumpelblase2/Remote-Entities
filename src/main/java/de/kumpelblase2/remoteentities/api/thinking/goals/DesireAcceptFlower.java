@@ -87,7 +87,7 @@ public class DesireAcceptFlower extends DesireBase
 		
 		if(this.m_takeFlower && entity.e(this.m_nearestGolem) < 4)
 		{
-			this.m_nearestGolem.e(false);
+			this.m_nearestGolem.a(false);
 			entity.getNavigation().g();
 		}
 		return true;

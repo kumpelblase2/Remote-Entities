@@ -83,7 +83,13 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_target.isAlive() ? false : (this.getEntityHandle().e(this.m_target) > this.m_minDistSquared ? false : this.m_lookTicks > 0);
+		if(!this.m_target.isAlive())
+			return false;
+		
+		if(this.getEntityHandle().e(this.m_target) > this.m_minDistSquared)
+			return false;
+		
+		return this.m_lookTicks > 0;
 	}
 	
 	@Override

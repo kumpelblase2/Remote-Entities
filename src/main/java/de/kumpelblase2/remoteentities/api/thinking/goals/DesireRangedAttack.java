@@ -12,6 +12,7 @@ import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.EntityPotion;
 import net.minecraft.server.v1_5_R2.EntitySmallFireball;
 import net.minecraft.server.v1_5_R2.EntitySnowball;
+import net.minecraft.server.v1_5_R2.IRangedEntity;
 import net.minecraft.server.v1_5_R2.MathHelper;
 import net.minecraft.server.v1_5_R2.MobEffectList;
 import net.minecraft.server.v1_5_R2.Vec3D;
@@ -30,8 +31,10 @@ public class DesireRangedAttack extends DesireBase
 	protected int m_inRangeTick;
 	protected int m_shootTicks;
 	@SerializeAs(pos = 2)
-	protected int m_shootDelay;
+	protected int m_shootMinDelay;
 	@SerializeAs(pos = 3)
+	protected int m_shootMaxDelay;
+	@SerializeAs(pos = 4)
 	protected float m_minDistance;
 	protected float m_minDistanceSquared;
 
@@ -47,12 +50,19 @@ public class DesireRangedAttack extends DesireBase
 	
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay, float inMinDistance)
 	{
+		this(inEntity, inProjectileType, inDelay, inDelay, inMinDistance);
+	}
+	
+	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inMinDelay, int inMaxDelay, float inMinDistance)
+	{
 		super(inEntity);
 		this.m_projeProjectileType = inProjectileType;
-		this.m_shootDelay = inDelay;
+		this.m_shootMinDelay = inMinDelay;
+		this.m_shootMaxDelay = inMaxDelay;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = inMinDistance * inMinDistance;
 		this.m_type = 3;
+		this.m_shootTicks = -1;
 	}
 
 	@Override
@@ -62,6 +72,7 @@ public class DesireRangedAttack extends DesireBase
 		CraftEventFactory.callEntityTargetEvent((Entity)this.getEntityHandle(), null, reason);
 		this.m_target = null;
 		this.m_inRangeTick = 0;
+		this.m_shootTicks = -1;
 	}
 
 	@Override
@@ -81,14 +92,28 @@ public class DesireRangedAttack extends DesireBase
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity());
 		
 		this.getEntityHandle().getControllerLook().a(this.m_target, 30, 30);
-		this.m_shootTicks = Math.max(this.m_shootTicks - 1, 0);
-		if(this.m_shootTicks <= 0)
+		float strength;
+		if(--this.m_shootTicks == 0)
 		{
 			if(dist <= this.m_minDistanceSquared && canSee)
 			{
-				this.shoot();
-				this.m_shootTicks = this.m_shootDelay;
+				strength = MathHelper.sqrt(dist) / this.m_minDistance;
+				float strength2 = strength;
+				
+				if(strength < 0.1F)
+					strength2 = 0.1F;
+				
+				if(strength2 > 1F)
+					strength2 = 1F;
+								
+				this.shoot(strength2);
+				this.m_shootTicks = MathHelper.d(strength * (this.m_shootMaxDelay - this.m_shootMinDelay) + this.m_shootMinDelay);
 			}
+		}
+		else if( this.m_shootTicks < 0)
+		{
+			strength = MathHelper.sqrt(dist) / this.m_minDistance;
+			this.m_shootTicks = MathHelper.d(strength * (this.m_shootMaxDelay - this.m_shootMinDelay) + this.m_shootMinDelay);
 		}
 		
 		return true;
@@ -117,7 +142,7 @@ public class DesireRangedAttack extends DesireBase
 		return this.shouldExecute() || !this.getEntityHandle().getNavigation().f();
 	}
 	
-	protected void shoot()
+	protected void shoot(float inStrength)
 	{
 		EntityLiving entity = this.getEntityHandle();
 		if(this.m_projeProjectileType == RemoteProjectileType.ARROW)
@@ -182,7 +207,12 @@ public class DesireRangedAttack extends DesireBase
             entity.world.addEntity(potion);
 		}
 		else
-			entity.d(this.m_target);
+		{
+			if(!(entity instanceof IRangedEntity))
+				entity.d(this.m_target);
+			else
+				((IRangedEntity)entity).a(this.m_target, inStrength);
+		}
 	}
 	
 	@Override

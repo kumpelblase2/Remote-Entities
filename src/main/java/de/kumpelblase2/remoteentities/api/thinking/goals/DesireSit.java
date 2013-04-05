@@ -29,14 +29,20 @@ public class DesireSit extends DesireBase
 		
 		if(!this.m_animal.isTamed())
 			return false;
-		else if(this.m_animal.H())
+		else if(this.m_animal.G())
 			return false;
 		else if(!this.m_animal.onGround)
 			return false;
 		else
 		{
 			EntityLiving owner = this.m_animal.getOwner();
-			return owner == null ? true : (this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null ? false : this.m_canSit);
+			if(owner == null)
+				return true;
+			
+			if(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null)
+				return false;
+			
+			return this.m_canSit;
 		}
 	}
 	

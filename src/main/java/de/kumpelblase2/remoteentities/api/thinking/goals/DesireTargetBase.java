@@ -95,86 +95,81 @@ public abstract class DesireTargetBase extends DesireBase
 			return false;
 		else if(!inEntity.isAlive())
 			return false;
-		else if(inEntity.boundingBox.e > this.getEntityHandle().boundingBox.b && inEntity.boundingBox.b < this.getEntityHandle().boundingBox.e)
+		else if(!this.getEntityHandle().a(inEntity.getClass()))
+			return false;
+		else
 		{
-			if(!this.getEntityHandle().a(inEntity.getClass()))
+			if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isTamed())
+			{
+				if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
+					return false;
+			
+				if(inEntity == ((EntityTameableAnimal)this.getEntityHandle()).getOwner())
+					return false;
+			}
+			else if(this.m_entity.getFeatures().hasFeature(TamingFeature.class) && this.m_entity.getFeatures().getFeature(TamingFeature.class).isTamed())
+			{
+				if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
+					return false;
+				
+				if(inEntity == ((CraftPlayer)this.m_entity.getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle())
+					return false;
+			}
+			else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
+				return false;
+				
+			if(!this.getEntityHandle().d(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
+				return false;
+			else if(this.m_shouldCheckSight && !this.getEntityHandle().aD().canSee(inEntity))
 				return false;
 			else
 			{
-				if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isTamed())
+				if(this.m_shouldMeleeAttack)
 				{
-					if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
+					if(--this.m_lastAttackTick <= 0)
+						this.m_useAttack = 0;
+					
+					if(this.m_useAttack == 0)
+						this.m_useAttack = this.useAttack(inEntity) ? 1 : 2;
+					
+					if(this.m_useAttack == 2)
 						return false;
+				}
 				
-					if(inEntity == ((EntityTameableAnimal)this.getEntityHandle()).getOwner())
-						return false;
-				}
-				else if(this.m_entity.getFeatures().hasFeature(TamingFeature.class) && this.m_entity.getFeatures().getFeature(TamingFeature.class).isTamed())
+				EntityTargetEvent.TargetReason reason = EntityTargetEvent.TargetReason.RANDOM_TARGET;
+				
+				if(this instanceof DesireDefendVillage)
+				    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
+				else if(this instanceof DesireFindAttackingTarget)
+				    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
+				else if(this instanceof DesireFindNearestTarget)
 				{
-					if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
-						return false;
-					
-					if(inEntity == ((CraftPlayer)this.m_entity.getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle())
-						return false;
+				    if(inEntity instanceof EntityHuman)
+				        reason = EntityTargetEvent.TargetReason.CLOSEST_PLAYER;
 				}
-				else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
-					return false;
-					
-				if(!this.getEntityHandle().d(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
-					return false;
-				else if(this.m_shouldCheckSight && !this.getEntityHandle().aD().canSee(inEntity))
-					return false;
-				else
+				else if(this instanceof DesireProtectOwner)
+				    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
+				else if(this instanceof DesireHelpAttacking)
+				    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
+				
+				EntityTargetLivingEntityEvent event = CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
+				if(event.isCancelled() || event.getTarget() == null)
 				{
-					if(this.m_shouldMeleeAttack)
-					{
-						if(--this.m_lastAttackTick <= 0)
-							this.m_useAttack = 0;
-						
-						if(this.m_useAttack == 0)
-							this.m_useAttack = this.useAttack(inEntity) ? 1 : 2;
-						
-						if(this.m_useAttack == 2)
-							return false;
-					}
-					
-					
-					EntityTargetEvent.TargetReason reason = EntityTargetEvent.TargetReason.RANDOM_TARGET;
-
-	                if (this instanceof DesireDefendVillage)
-	                    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
-	                else if (this instanceof DesireFindAttackingTarget)
-	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
-	                else if (this instanceof DesireFindNearestTarget)
-	                {
-	                    if (inEntity instanceof EntityHuman)
-	                        reason = EntityTargetEvent.TargetReason.CLOSEST_PLAYER;
-	                }
-	                else if (this instanceof DesireProtectOwner)
-	                    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
-	                else if (this instanceof DesireHelpAttacking)
-	                    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
-
-	                EntityTargetLivingEntityEvent event = CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
-	                if (event.isCancelled() || event.getTarget() == null)
-	                {
-	                    if (this.getEntityHandle() instanceof EntityCreature)
-	                        ((EntityCreature)this.getEntityHandle()).target = null;
-	                    
-	                    return false;
-	                }
-	                else if (inEntity.getBukkitEntity() != event.getTarget())
-	                    this.getEntityHandle().setGoalTarget((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
-
-	                if (this.getEntityHandle() instanceof EntityCreature)
-	                    ((EntityCreature)this.getEntityHandle()).target = ((CraftEntity) event.getTarget()).getHandle();
-					
-					
-					return true;
+				    if(this.getEntityHandle() instanceof EntityCreature)
+				        ((EntityCreature)this.getEntityHandle()).setGoalTarget(null);
+				    
+				    return false;
 				}
+				else if(inEntity.getBukkitEntity() != event.getTarget())
+				    this.getEntityHandle().setGoalTarget((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
+				
+				if(this.getEntityHandle() instanceof EntityCreature)
+				    ((EntityCreature)this.getEntityHandle()).target = ((CraftEntity) event.getTarget()).getHandle();
+				
+				
+				return true;
 			}
 		}
-		return false;
 	}
 	
 	protected boolean useAttack(EntityLiving inEntity)

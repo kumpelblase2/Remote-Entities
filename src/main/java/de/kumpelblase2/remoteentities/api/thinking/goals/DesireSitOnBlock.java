@@ -63,7 +63,9 @@ public class DesireSitOnBlock extends DesireBase
 	public boolean update()
 	{
 		this.m_currentSitTick++;
-		this.m_ocelot.setSitting(true);
+		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
+			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
+		
 		if(this.m_ocelot.e((double)this.m_x, (double)this.m_y + 1, (double)this.m_z) > 1)
 		{
 			this.m_ocelot.setSitting(false);
@@ -83,9 +85,9 @@ public class DesireSitOnBlock extends DesireBase
 		int y = (int)this.m_ocelot.locY;
 		double minDist = 2.147483647E9D;
 		
-		for(int x = (int)this.m_ocelot.locX - 8; x < (int)this.m_ocelot.locX + 8; x++)
+		for(int x = (int)this.m_ocelot.locX - 8; x < (int)this.m_ocelot.locX + 8; ++x)
 		{
-			for(int z = (int)this.m_ocelot.locZ - 8; z < (int)this.m_ocelot.locZ + 8; z++)
+			for(int z = (int)this.m_ocelot.locZ - 8; z < (int)this.m_ocelot.locZ + 8; ++z)
 			{
 				if(this.isSitableBlock(this.m_ocelot.world, x, y, z) && this.m_ocelot.world.isEmpty(x, y + 1, z))
 				{

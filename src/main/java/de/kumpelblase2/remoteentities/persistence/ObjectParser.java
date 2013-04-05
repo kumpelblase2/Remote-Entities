@@ -51,6 +51,17 @@ public class ObjectParser
 			return this.getNMSEntity(inObject);
 		else if(inType.isAssignableFrom(LivingEntity.class))
 			return this.getEntity(inObject);
+		else if(inType.isAssignableFrom(IEntitySerializer.class))
+		{
+			try
+			{
+				return inType.newInstance();
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+		}
 		else
 			return inObject.toString();
 	}

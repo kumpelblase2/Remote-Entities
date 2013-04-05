@@ -35,7 +35,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 				return false;
 			else
 			{
-				this.m_ownerTarget = owner.aF();
+				this.m_ownerTarget = owner.aG();
 				return this.isSuitableTarget(this.m_ownerTarget, false);
 			}
 		}

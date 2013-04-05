@@ -75,7 +75,7 @@ public class DesireAvoidSun extends DesireBase
 			
 			if(entity instanceof EntityCreature)
 			{
-				if(!entity.world.l(x, y, z) && ((EntityCreature)entity).a(x, y,z) < 0.0F)
+				if(!entity.world.l(x, y, z) && ((EntityCreature)entity).a(x, y, z) < 0.0F)
 					return entity.world.getVec3DPool().create(x, y, z);
 			}
 			else

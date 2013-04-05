@@ -65,7 +65,7 @@ public class DesireBegForItem extends DesireBase
 			return false;
 		
 		this.m_nearestPlayer = this.getEntityHandle().world.findNearbyPlayer(this.getEntityHandle(), this.m_minDistance);
-		return this.m_nearestPlayer == null ? false : this.update();
+		return this.m_nearestPlayer == null ? false : this.hasItemInHand(this.m_nearestPlayer);
 	}
 
 	@Override

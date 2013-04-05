@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import net.minecraft.server.v1_5_R2.Block;
+import net.minecraft.server.v1_5_R2.BlockStepAbstract;
 import net.minecraft.server.v1_5_R2.EntityHuman;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.Item;
@@ -135,8 +136,15 @@ public class DesireFollowCarrotStick extends DesireBase
         int nextX = MathHelper.floor(entity.locX + f9);
         int nextZ = MathHelper.floor(entity.locZ + f10);
         PathPoint point = new PathPoint(MathHelper.d(entity.width + 1), MathHelper.d(entity.length + passenger.length + 1), MathHelper.d(entity.width + 1));
-        if((x != nextX || z != nextZ) && Pathfinder.a(entity, nextX, y, nextZ, point, false, false, true) == 0 && Pathfinder.a(entity, x, y + 1, z, point, false, false, true) == 1 && Pathfinder.a(entity, nextX, y + 1, nextZ, point, false, false, true) == 1)
-        	entity.getControllerJump().a();
+        if(x != nextX || z != nextZ)
+        {
+        	int type1 = entity.world.getTypeId(x, y, z);
+        	int type2 = entity.world.getTypeId(x, y - 1, z);
+        	boolean isStep = this.isStep(type1) || Block.byId[type1] == null && this.isStep(type2);
+        	
+        	if(!isStep && Pathfinder.a(entity, nextX, y, nextZ, point, false, false, true) == 0 && Pathfinder.a(entity, x, y + 1, z, point, false, false, true) == 1 && Pathfinder.a(entity, nextX, y + 1, nextZ, point, false, false, true) == 1)
+            	entity.getControllerJump().a();
+        }
         
         if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aE().nextFloat() < 0.006f && !this.m_speedBoosted)
         {
@@ -173,6 +181,11 @@ public class DesireFollowCarrotStick extends DesireBase
 	public boolean isControlledByPlayer()
 	{
 		return !this.isSpeedBoosted() && this.m_currentSpeed > this.m_maxSpeed * 0.3;
+	}
+	
+	protected boolean isStep(int inType)
+	{
+		return Block.byId[inType] != null && (Block.byId[inType].d() == 10 || Block.byId[inType] instanceof BlockStepAbstract);
 	}
 	
 	@Override

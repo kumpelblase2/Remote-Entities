@@ -60,7 +60,7 @@ public class DesireMakeLove extends DesireBase
 	public void startExecuting()
 	{
 		this.m_loveTick = 300;
-		this.m_villager.e(true);
+		this.m_villager.i(true);
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class DesireMakeLove extends DesireBase
 	{
 		this.m_nearestVillage = null;
 		this.m_partner = null;
-		this.m_villager.e(false);
+		this.m_villager.i(false);
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public class DesireMakeLove extends DesireBase
 		this.m_villager.getControllerLook().a(this.m_partner, 10, 30);
 		if(this.m_villager.e(this.m_partner) > 2.25)
 			this.getRemoteEntity().move((LivingEntity)this.m_partner);
-		else if(this.m_loveTick == 0 && this.m_partner.o())
+		else if(this.m_loveTick == 0 && this.m_partner.n())
 			this.createBaby();
 		
 		if(this.m_villager.aE().nextInt(35) == 0)
@@ -95,11 +95,10 @@ public class DesireMakeLove extends DesireBase
 	
 	protected void createBaby()
 	{
-		EntityVillager baby = new EntityVillager(this.m_villager.world);
+		EntityVillager baby = this.m_villager.b(this.m_partner);
 		this.m_villager.setAge(6000);
 		this.m_villager.setAge(6000);
 		baby.setAge(-24000);
-		baby.setProfession(this.m_villager.aE().nextInt(5));
 		baby.setPositionRotation(this.m_villager.locX, this.m_villager.locY, this.m_villager.locZ, 0, 0);
 		this.m_villager.world.addEntity(baby);
 		this.m_villager.world.broadcastEntityEffect(baby, (byte)12);
@@ -107,6 +106,9 @@ public class DesireMakeLove extends DesireBase
 	
 	protected boolean hasEnoughSpace()
 	{
+		if(!this.m_nearestVillage.i())
+			return false;
+		
 		int i = (int)(this.m_nearestVillage.getDoorCount() * 0.35D);
 		return this.m_nearestVillage.getPopulationCount() < i; 
 	}

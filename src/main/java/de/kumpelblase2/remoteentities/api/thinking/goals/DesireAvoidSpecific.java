@@ -8,6 +8,7 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.nms.EntitySelectorViewable;
 
 public class DesireAvoidSpecific extends DesireBase
 {
@@ -21,6 +22,7 @@ public class DesireAvoidSpecific extends DesireBase
 	protected float m_closeSpeed;
 	protected Entity m_closestEntity;
 	protected PathEntity m_path;
+	protected EntitySelectorViewable m_selector;
 	
 	@SuppressWarnings("unchecked")
 	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
@@ -34,6 +36,7 @@ public class DesireAvoidSpecific extends DesireBase
 		this.m_minDistance = inMinDistance;
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;
+		this.m_selector = new EntitySelectorViewable(this.getEntityHandle());
 		this.m_type = 1;
 	}
 
@@ -88,7 +91,7 @@ public class DesireAvoidSpecific extends DesireBase
         else
         {
             @SuppressWarnings("rawtypes")
-			List var1 = this.getEntityHandle().world.a(this.m_toAvoid, this.getEntityHandle().boundingBox.grow((double)this.m_minDistance, 3.0D, (double)this.m_minDistance));
+			List var1 = this.getEntityHandle().world.a(this.m_toAvoid, this.getEntityHandle().boundingBox.grow((double)this.m_minDistance, 3.0D, (double)this.m_minDistance), this.m_selector);
 
             if(var1.isEmpty())
                 return false;

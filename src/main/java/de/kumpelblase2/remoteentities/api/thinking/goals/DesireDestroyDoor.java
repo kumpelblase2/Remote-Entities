@@ -17,7 +17,13 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	@Override
 	public boolean shouldExecute()
 	{
-		return !super.shouldExecute() ? false : ! this.m_door.b_(this.getEntityHandle().world, this.m_x, this.m_y, this.m_z);
+		if(!super.shouldExecute()) 
+			return false;
+		
+		if(!this.getEntityHandle().world.getGameRules().getBoolean("mobGriefing"))
+			return false;
+		
+		return !this.m_door.b_(this.getEntityHandle().world, this.m_x, this.m_y, this.m_z);
 	}
 	
 	@Override
