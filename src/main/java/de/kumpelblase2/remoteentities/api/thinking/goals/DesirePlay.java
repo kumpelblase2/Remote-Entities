@@ -8,6 +8,7 @@ import net.minecraft.server.v1_5_R2.EntityVillager;
 import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
@@ -24,7 +25,7 @@ public class DesirePlay extends DesireBase
 			throw new NotAVillagerException();
 		
 		this.m_villager = (EntityVillager)this.getEntityHandle();
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@SuppressWarnings("rawtypes")

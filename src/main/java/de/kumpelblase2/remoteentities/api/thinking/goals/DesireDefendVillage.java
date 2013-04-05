@@ -4,6 +4,7 @@ import net.minecraft.server.v1_5_R2.EntityIronGolem;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.Village;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public class DesireDefendVillage extends DesireTargetBase
@@ -18,7 +19,7 @@ public class DesireDefendVillage extends DesireTargetBase
 	public DesireDefendVillage(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMeele);
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

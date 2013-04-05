@@ -6,6 +6,7 @@ import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.api.thinking.OneTimeDesire;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
@@ -21,7 +22,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 	{
 		super(inEntity);
 		this.m_target = ((CraftLivingEntity)inTarget).getHandle();
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 	
 	public DesireKillTarget(RemoteEntity inEntity, EntityLiving inTarget)

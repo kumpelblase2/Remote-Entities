@@ -8,6 +8,7 @@ import net.minecraft.server.v1_5_R2.TileEntityChest;
 import net.minecraft.server.v1_5_R2.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAnOcelotException;
 
 public class DesireSitOnBlock extends DesireBase
@@ -27,7 +28,7 @@ public class DesireSitOnBlock extends DesireBase
 			throw new NotAnOcelotException();
 		
 		this.m_ocelot = (EntityOcelot)this.getEntityHandle();
-		this.m_type = 5;
+		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
 
 	@Override

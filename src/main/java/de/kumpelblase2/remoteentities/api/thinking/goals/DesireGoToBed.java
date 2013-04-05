@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import org.bukkit.Location;
 import net.minecraft.server.v1_5_R2.Block;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.entities.RemotePlayer;
 
 public class DesireGoToBed extends DesireFindBlockBase
@@ -15,6 +16,7 @@ public class DesireGoToBed extends DesireFindBlockBase
 	public DesireGoToBed(RemotePlayer inEntity, int inRange)
 	{
 		super(inEntity, Block.BED.id, inRange);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 	
 	@Deprecated

@@ -7,6 +7,7 @@ import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireEatGrass extends DesireBase
 {
@@ -15,7 +16,7 @@ public class DesireEatGrass extends DesireBase
 	public DesireEatGrass(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_type = 7;
+		this.m_type = DesireType.FOOD;
 	}
 
 	@Override

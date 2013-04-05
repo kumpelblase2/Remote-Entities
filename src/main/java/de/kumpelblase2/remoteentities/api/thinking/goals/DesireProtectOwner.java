@@ -4,6 +4,7 @@ import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
 public class DesireProtectOwner extends DesireTamedBase
@@ -17,7 +18,7 @@ public class DesireProtectOwner extends DesireTamedBase
 			throw new NotTameableException();
 		
 		this.m_animal = this.getEntityHandle();
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

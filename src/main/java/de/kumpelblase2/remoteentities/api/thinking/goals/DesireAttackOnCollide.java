@@ -9,6 +9,7 @@ import net.minecraft.server.v1_5_R2.MathHelper;
 import net.minecraft.server.v1_5_R2.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
@@ -46,7 +47,7 @@ public class DesireAttackOnCollide extends DesireBase
 			this.m_toAttack = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAttack);
 		
 		this.m_attackTick = 0;
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

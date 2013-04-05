@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
 public class DesirePanic extends DesireBase
@@ -15,7 +16,7 @@ public class DesirePanic extends DesireBase
 	public DesirePanic(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

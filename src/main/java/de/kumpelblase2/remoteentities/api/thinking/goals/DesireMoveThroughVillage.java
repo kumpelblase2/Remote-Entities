@@ -11,6 +11,7 @@ import net.minecraft.server.v1_5_R2.Village;
 import net.minecraft.server.v1_5_R2.VillageDoor;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -28,7 +29,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	{
 		super(inEntity);
 		this.m_onlyNight = inOnlyNight;
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

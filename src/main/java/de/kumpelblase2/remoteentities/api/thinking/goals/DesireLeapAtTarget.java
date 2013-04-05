@@ -4,6 +4,7 @@ import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
@@ -18,7 +19,7 @@ public class DesireLeapAtTarget extends DesireBase
 	{
 		super(inEntity);
 		this.m_yMotion = inYMotion;
-		this.m_type = 5;
+		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
 
 	@Override

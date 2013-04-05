@@ -8,6 +8,7 @@ import net.minecraft.server.v1_5_R2.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -33,7 +34,7 @@ public class DesireFollowTamer extends DesireBase
 			throw new NotTameableException();
 		
 		this.m_animal = this.getEntityHandle();
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_maxDistance = inMaxDistance;

@@ -10,6 +10,7 @@ import net.minecraft.server.v1_5_R2.EntityAnimal;
 import net.minecraft.server.v1_5_R2.EntityExperienceOrb;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireBreed extends DesireBase
 {
@@ -19,7 +20,7 @@ public class DesireBreed extends DesireBase
 	public DesireBreed(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

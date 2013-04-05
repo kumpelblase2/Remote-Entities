@@ -4,6 +4,7 @@ import net.minecraft.server.v1_5_R2.EntityCreeper;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotACreeperException;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -32,7 +33,7 @@ public class DesireSwell extends DesireBase
 			throw new NotACreeperException();
 		
 		this.m_creeper = (EntityCreeper)this.getEntityHandle();
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSqr = inMinDistance * inMinDistance;
 		this.m_maxDistance = inMaxDistance;

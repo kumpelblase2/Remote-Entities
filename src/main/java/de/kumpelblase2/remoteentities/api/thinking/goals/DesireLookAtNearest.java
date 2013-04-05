@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import java.util.List;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
@@ -37,7 +38,7 @@ public class DesireLookAtNearest extends DesireBase
 		this.m_minDist = inMinDistance;
 		this.m_minDistSquared = this.m_minDist * this.m_minDist;
 		this.m_lookPossibility = inPossibility;
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

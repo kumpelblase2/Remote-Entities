@@ -6,6 +6,7 @@ import net.minecraft.server.v1_5_R2.MathHelper;
 import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
@@ -32,6 +33,7 @@ public class DesireFollowSpecific extends DesireBase
 	{
 		super(inEntity);
 		this.m_toFollow = inToFollow;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_maxDistance = inMaxDistance;

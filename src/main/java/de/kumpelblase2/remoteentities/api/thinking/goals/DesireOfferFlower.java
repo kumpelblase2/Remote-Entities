@@ -6,6 +6,7 @@ import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
@@ -22,7 +23,7 @@ public class DesireOfferFlower extends DesireBase
 	{
 		super(inEntity);
 		this.m_toOfffer = EntityVillager.class;
-		this.m_type = 3;
+		this.m_type = DesireType.SUBCONSCIOUS;
 	}
 	
 	@SuppressWarnings("unchecked")

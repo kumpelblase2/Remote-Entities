@@ -19,6 +19,7 @@ import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
@@ -61,7 +62,7 @@ public class DesireRangedAttack extends DesireBase
 		this.m_shootMaxDelay = inMaxDelay;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = inMinDistance * inMinDistance;
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_shootTicks = -1;
 	}
 

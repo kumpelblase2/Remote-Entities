@@ -8,6 +8,7 @@ import net.minecraft.server.v1_5_R2.MathHelper;
 import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireAvoidSun extends DesireBase
 {
@@ -18,7 +19,7 @@ public class DesireAvoidSun extends DesireBase
 	public DesireAvoidSun(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

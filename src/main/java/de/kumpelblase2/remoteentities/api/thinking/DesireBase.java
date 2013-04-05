@@ -12,7 +12,7 @@ public abstract class DesireBase implements Desire
 {
 	@SerializeAs(pos = 0, special = "entity")
 	protected final RemoteEntity m_entity;
-	protected int m_type = 0;
+	protected DesireType m_type = DesireType.SUBCONSCIOUS;
 	protected boolean m_isContinous = true;
 	
 	public DesireBase(RemoteEntity inEntity)
@@ -35,7 +35,7 @@ public abstract class DesireBase implements Desire
 	}
 
 	@Override
-	public int getType()
+	public DesireType getType()
 	{
 		return this.m_type;
 	}
@@ -67,7 +67,7 @@ public abstract class DesireBase implements Desire
 	}
 	
 	@Override
-	public void setType(int inType)
+	public void setType(DesireType inType)
 	{
 		this.m_type = inType;
 	}

@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.entities.RemotePlayer;
 
 public class DesireLeaveBed extends DesireBase
@@ -9,6 +10,7 @@ public class DesireLeaveBed extends DesireBase
 	{
 		super(inEntity);
 		this.m_isContinous = false;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

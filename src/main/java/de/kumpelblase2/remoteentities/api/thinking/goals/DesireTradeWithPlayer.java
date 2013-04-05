@@ -5,6 +5,7 @@ import net.minecraft.server.v1_5_R2.EntityHuman;
 import net.minecraft.server.v1_5_R2.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 
 public class DesireTradeWithPlayer extends DesireBase
@@ -18,7 +19,7 @@ public class DesireTradeWithPlayer extends DesireBase
 			throw new NotAVillagerException();
 		
 		this.m_villager = (EntityVillager)this.getEntityHandle();
-		this.m_type = 5;
+		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
 
 	@Override

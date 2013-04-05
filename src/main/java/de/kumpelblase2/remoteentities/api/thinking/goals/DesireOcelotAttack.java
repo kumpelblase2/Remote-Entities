@@ -4,6 +4,7 @@ import org.bukkit.entity.Entity;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireOcelotAttack extends DesireBase
 {
@@ -13,7 +14,7 @@ public class DesireOcelotAttack extends DesireBase
 	public DesireOcelotAttack(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

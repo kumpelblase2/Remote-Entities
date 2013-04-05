@@ -123,7 +123,7 @@ public class DesireSelector
 	 
 	public static boolean areTasksCompatible(Desire inFirstDesire, Desire inSecondDesire)
 	{
-		return (inFirstDesire.getType() & inSecondDesire.getType()) == 0;
+		return inFirstDesire.getType().isCompatibleWith(inSecondDesire.getType());
 	}
 	
 	public List<DesireItem> getDesires()

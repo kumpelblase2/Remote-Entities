@@ -6,6 +6,7 @@ import net.minecraft.server.v1_5_R2.AxisAlignedBB;
 import net.minecraft.server.v1_5_R2.EntityHuman;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
@@ -21,14 +22,14 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
 		this.m_attackNearest = inAttackNearest;
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 	
 	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_attackNearest = inAttackNearest;
-		this.m_type = 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

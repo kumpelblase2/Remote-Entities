@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.api.thinking.OneTimeDesire;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -17,6 +18,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	{
 		super(inEntity);
 		this.m_targetLocation = inTargetLocation;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 import net.minecraft.server.v1_5_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
@@ -37,13 +38,7 @@ public class DesireAvoidSpecific extends DesireBase
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;
 		this.m_selector = new EntitySelectorViewable(this.getEntityHandle());
-		this.m_type = 1;
-	}
-
-	@Override
-	public int getType()
-	{
-		return 1;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override

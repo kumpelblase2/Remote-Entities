@@ -6,6 +6,7 @@ import net.minecraft.server.v1_5_R2.MathHelper;
 import net.minecraft.server.v1_5_R2.Village;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 
 public class DesireMakeLove extends DesireBase
@@ -22,7 +23,7 @@ public class DesireMakeLove extends DesireBase
 			throw new NotAVillagerException();
 		
 		this.m_villager = (EntityVillager)this.getEntityHandle();
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

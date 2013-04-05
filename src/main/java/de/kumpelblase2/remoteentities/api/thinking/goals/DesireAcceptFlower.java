@@ -7,6 +7,7 @@ import net.minecraft.server.v1_5_R2.EntityIronGolem;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireAcceptFlower extends DesireBase
 {
@@ -17,7 +18,7 @@ public class DesireAcceptFlower extends DesireBase
 	public DesireAcceptFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_type = 3;
+		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

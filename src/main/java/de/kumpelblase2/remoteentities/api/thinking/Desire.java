@@ -17,14 +17,14 @@ public interface Desire
 	 * 
 	 * @return type
 	 */
-	public int getType();
+	public DesireType getType();
 	
 	/**
 	 * Sets the type
 	 * 
 	 * @param inType type
 	 */
-	public void setType(int inType);
+	public void setType(DesireType inType);
 	
 	/**
 	 * Returns whether this desire is continuous or not

@@ -11,6 +11,7 @@ import net.minecraft.server.v1_5_R2.PathPoint;
 import net.minecraft.server.v1_5_R2.Pathfinder;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
@@ -33,7 +34,7 @@ public class DesireFollowCarrotStick extends DesireBase
 	{
 		super(inEntity);
 		this.m_maxSpeed = inMaxSpeed;
-		this.m_type = 7;
+		this.m_type = DesireType.FOOD;
 	}
 
 	@Override
