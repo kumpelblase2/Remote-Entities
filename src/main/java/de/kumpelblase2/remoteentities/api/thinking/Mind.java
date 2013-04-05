@@ -32,6 +32,7 @@ public class Mind
 	 */
 	public void addBehaviour(Behavior inBehaviour)
 	{
+		inBehaviour.onAdd();
 		this.m_behaviours.put(inBehaviour.getName(), inBehaviour);
 	}
 	
@@ -43,7 +44,13 @@ public class Mind
 	 */
 	public boolean removeBehaviour(String inName)
 	{
-		return this.m_behaviours.remove(inName) != null;
+		Behavior b = this.m_behaviours.remove(inName);
+		if(b != null)
+		{
+			b.onRemove();
+			return true;
+		}
+		return false;
 	}
 	
 	/**
