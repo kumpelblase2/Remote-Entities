@@ -27,8 +27,11 @@ public abstract class DamageBehavior extends BaseBehavior
 	}
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	private void onDamageEvent(EntityDamageEvent event)
+	public void onDamageEvent(EntityDamageEvent event)
 	{
+		if(!event.getEntity().equals(this.m_entity.getBukkitEntity()))
+			return;
+		
 		if(this.m_entity.getMind().canFeel())
 			this.onDamage(event);
 	}
