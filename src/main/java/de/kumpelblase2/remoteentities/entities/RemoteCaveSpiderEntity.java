@@ -69,14 +69,14 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		try
 		{
 			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
-			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 4);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 7);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
+			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
+			mind.addMovementDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 2), 2);
+			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 3);
+			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 4);
+			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 5);
+			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
 			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
 			mind.addTargetingDesire(new DesireFindNearestTargetAtNight(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
-			mind.addTargetingDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 2), 3);
 		}
 		catch(Exception e)
 		{
