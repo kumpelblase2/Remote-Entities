@@ -12,8 +12,10 @@ public class Mind
 	private DesireSelector m_movementNavigation;
 	private boolean m_hasFixedYaw = false;
 	private boolean m_hasFixedPitch = false;
+	private boolean m_hasFixedHeadYaw = false;
 	private float m_fixedYaw;
 	private float m_fixedPitch;
+	private float m_fixedHeadYaw;
 	
 	public Mind(RemoteEntity inEntity)
 	{
@@ -305,6 +307,25 @@ public class Mind
 	}
 	
 	/**
+	 * Fixes the yaw of an entity to a specific value.
+	 * 
+	 * @param inYaw	Fixed yaw value
+	 */
+	public void fixHeadYawAt(float inHeadYaw)
+	{
+		this.m_hasFixedHeadYaw = true;
+		this.m_fixedHeadYaw = inHeadYaw;
+	}
+	
+	/**
+	 * Removes the fix of the yaw value
+	 */
+	public void resetFixedHeadYaw()
+	{
+		this.m_hasFixedHeadYaw = false;
+	}
+	
+	/**
 	 * Updates the mind
 	 */
 	public void tick()
@@ -317,6 +338,10 @@ public class Mind
 		
 		if(this.m_hasFixedPitch)
 			this.m_entity.setPitch(this.m_fixedPitch);
+		
+		if(this.m_hasFixedHeadYaw)
+			this.m_entity.setHeadYaw(this.m_fixedHeadYaw);
+
 		
 		if(this.canFeel())
 		{

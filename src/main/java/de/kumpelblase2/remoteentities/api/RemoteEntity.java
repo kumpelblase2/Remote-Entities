@@ -113,6 +113,14 @@ public interface RemoteEntity
 	public void setPitch(float inPitch);
 	
 	/**
+	 * Sets that yaw of the head of the entity
+	 * When the entity is stationary, the yaw value will be fixed to the new value.
+	 * 
+	 * @param inHeadYaw	new head yaw
+	 */
+	public void setHeadYaw(float inHeadYaw);
+
+	/**
 	 * Lets the entity look at the given location
 	 * 
 	 * @param inLocation	location to look at
