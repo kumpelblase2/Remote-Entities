@@ -74,7 +74,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 4 + entity.aE().nextInt(7);
-			this.getRemoteEntity().move((LivingEntity)entity.getBukkitEntity(), this.getRemoteEntity().getSpeed());
+			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.getRemoteEntity().getSpeed());
 		}
 		
 		this.m_attackTick = Math.max(this.m_attackTick - 1, 0);

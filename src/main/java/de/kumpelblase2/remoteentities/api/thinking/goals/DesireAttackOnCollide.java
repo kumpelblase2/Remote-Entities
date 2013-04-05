@@ -112,7 +112,7 @@ public class DesireAttackOnCollide extends DesireBase
 		if((this.m_ignoreSight || entity.aD().canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 4 + entity.aE().nextInt(7);
-			this.getRemoteEntity().move((LivingEntity)entity.getBukkitEntity(), this.m_speed);
+			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.m_speed);
 		}
 		
 		this.m_attackTick = Math.max(this.m_attackTick - 1, 0);
