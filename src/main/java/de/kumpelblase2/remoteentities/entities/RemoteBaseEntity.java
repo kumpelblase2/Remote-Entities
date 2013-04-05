@@ -210,6 +210,19 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
+	public void setHeadYaw(float inHeadYaw)
+	{
+		if(!this.isSpawned())
+			return;
+		
+		if(this.isStationary())
+			this.getMind().fixHeadYawAt(inHeadYaw);
+			
+		this.m_entity.aA = inHeadYaw;
+		this.m_entity.aB = inHeadYaw;
+	}
+
+	@Override
 	public void lookAt(Location inLocation)
 	{
 		if(!this.isSpawned())
