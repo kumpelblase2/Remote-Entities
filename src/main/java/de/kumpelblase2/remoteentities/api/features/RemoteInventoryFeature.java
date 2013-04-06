@@ -11,7 +11,7 @@ public class RemoteInventoryFeature extends RemoteFeature implements InventoryFe
 	
 	public RemoteInventoryFeature(RemoteEntity inEntity)
 	{
-		this(inEntity, 27);
+		this(inEntity, 36);
 	}
 	
 	public RemoteInventoryFeature(RemoteEntity inEntity, int inSize)
