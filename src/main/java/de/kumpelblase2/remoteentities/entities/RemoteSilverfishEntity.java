@@ -10,16 +10,6 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackOnCollide;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireDestroyDoor;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindAttackingTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindNearestTarget;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveThroughVillage;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveTowardsRestriction;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
-import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteSilverfishEntity extends EntitySilverfish implements RemoteEntityHandle
