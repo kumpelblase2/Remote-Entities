@@ -207,6 +207,20 @@ public class Mind
 	}
 	
 	/**
+	 * Adds all given desires to the movement desires with given priority.
+	 * 
+	 * @param inDesires		Array of DesireItems containing the desire and it's priority
+	 * @see #addMovementDesire(Desire, int)
+	 */
+	public void addMovementDesires(DesireItem... inDesires)
+	{
+		for(DesireItem item : inDesires)
+		{
+			this.addMovementDesire(item.getDesire(), item.getPriority());
+		}
+	}
+	
+	/**
 	 * Adds a targeting desire with given priority
 	 * 
 	 * @param inDesire		desire
@@ -215,6 +229,20 @@ public class Mind
 	public void addTargetingDesire(Desire inDesire, int inPriority)
 	{
 		this.m_targetNavigation.addDesire(inDesire, inPriority);
+	}
+	
+	/**
+	 * Adds all given desires to the targeting desires with given priority.
+	 * 
+	 * @param inDesires		Array of DesireItems containing the desire and it's priority
+	 * @see #addTargetingDesire(Desire, int)
+	 */
+	public void addTargetingDesires(DesireItem... inDesires)
+	{
+		for(DesireItem item : inDesires)
+		{
+			this.addTargetingDesire(item.getDesire(), item.getPriority());
+		}
 	}
 	
 	/**
