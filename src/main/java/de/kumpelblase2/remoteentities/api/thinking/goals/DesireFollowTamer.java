@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
 import net.minecraft.server.v1_5_R2.MathHelper;
@@ -45,6 +46,9 @@ public class DesireFollowTamer extends DesireBase
 	public boolean shouldExecute()
 	{
 		if(this.m_animal == null)
+			return false;
+		
+		if(!this.isTamed())
 			return false;
 		
 		EntityLiving owner = this.getTamer();
@@ -124,7 +128,13 @@ public class DesireFollowTamer extends DesireBase
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).getOwner();
 		else
-			return ((CraftPlayer)this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle();
+		{
+			Player pl = this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer();
+			if(pl == null)
+				return null;
+			
+			return ((CraftPlayer)pl).getHandle();
+		}
 	}
 	
 	protected boolean isSitting()
@@ -133,6 +143,14 @@ public class DesireFollowTamer extends DesireBase
 			return ((EntityTameableAnimal)this.m_animal).isSitting();
 		
 		return false;
+	}
+	
+	protected boolean isTamed()
+	{
+		if(this.m_animal instanceof EntityTameableAnimal)
+			return ((EntityTameableAnimal)this.m_animal).isTamed();
+		else
+			return this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).isTamed();
 	}
 	
 	@Override

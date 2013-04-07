@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -28,6 +29,12 @@ public abstract class DesireTamedBase extends DesireTargetBase
 		if(this.m_animal instanceof EntityTameableAnimal)
 			return ((EntityTameableAnimal)this.m_animal).getOwner();
 		else
-			return ((CraftPlayer)this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle();
+		{
+			Player pl = this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer();
+			if(pl == null)
+				return null;
+			
+			return ((CraftPlayer)pl).getHandle();
+		}
 	}
 }
