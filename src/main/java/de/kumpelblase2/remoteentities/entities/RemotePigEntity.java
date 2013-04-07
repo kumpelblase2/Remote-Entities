@@ -60,24 +60,7 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
-			mind.addMovementDesire(new DesirePanic(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireFollowCarrotStick(this.getRemoteEntity(), 0.34f), 2);
-			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 3);
-			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.CARROT.id, false), 4);
-			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.CARROT_STICK.id, false), 4);
-			mind.addMovementDesire(new DesireFollowParent(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 7);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 8);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -159,5 +142,34 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		try
+		{
+			return new DesireItem[] { 
+					new DesireItem(new DesireSwim(inEntityFor), 0),
+					new DesireItem(new DesirePanic(inEntityFor), 1),
+					new DesireItem(new DesireFollowCarrotStick(inEntityFor, 0.34f), 2),
+					new DesireItem(new DesireBreed(inEntityFor), 3),
+					new DesireItem(new DesireTempt(inEntityFor, Item.CARROT.id, false), 4),
+					new DesireItem(new DesireTempt(inEntityFor, Item.CARROT_STICK.id, false), 4),
+					new DesireItem(new DesireFollowParent(inEntityFor), 5),
+					new DesireItem(new DesireWanderAround(inEntityFor), 6),
+					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 6), 7),
+					new DesireItem(new DesireLookRandomly(inEntityFor), 8)
+			};
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new DesireItem[0];
+		}
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
 	}
 }

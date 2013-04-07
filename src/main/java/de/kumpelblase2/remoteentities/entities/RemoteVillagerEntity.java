@@ -50,29 +50,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
-			mind.addMovementDesire(new DesireAvoidSpecific(this.getRemoteEntity(), 8f, 0.35f, 0.3f, EntityZombie.class), 1);
-			mind.addMovementDesire(new DesireTradeWithPlayer(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireLookAtTrader(this.getRemoteEntity(), 8), 1);
-			mind.addMovementDesire(new DesireMoveIndoors(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireRestrictOpenDoor(this.getRemoteEntity()), 3);
-			mind.addMovementDesire(new DesireOpenDoor(this.getRemoteEntity(), true, false), 4);
-			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireMakeLove(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireAcceptFlower(this.getRemoteEntity()), 7);
-			mind.addMovementDesire(new DesirePlay(this.getRemoteEntity()), 8);
-			mind.addMovementDesire(new DesireInteract(this.getRemoteEntity(), EntityHuman.class, 3), 9);
-			mind.addMovementDesire(new DesireInteract(this.getRemoteEntity(), EntityVillager.class, 5), 9);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 9);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityLiving.class, 8), 10);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -154,5 +132,39 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		try
+		{
+			return new DesireItem[] { 
+					new DesireItem(new DesireSwim(inEntityFor), 0),
+					new DesireItem(new DesireAvoidSpecific(inEntityFor, 8f, 0.35f, 0.3f, EntityZombie.class), 1),
+					new DesireItem(new DesireTradeWithPlayer(inEntityFor), 1),
+					new DesireItem(new DesireLookAtTrader(inEntityFor, 8), 1),
+					new DesireItem(new DesireMoveIndoors(inEntityFor), 2),
+					new DesireItem(new DesireRestrictOpenDoor(inEntityFor), 3),
+					new DesireItem(new DesireOpenDoor(inEntityFor, true, false), 4),
+					new DesireItem(new DesireMoveTowardsRestriction(inEntityFor), 5),
+					new DesireItem(new DesireMakeLove(inEntityFor), 6),
+					new DesireItem(new DesireAcceptFlower(inEntityFor), 7),
+					new DesireItem(new DesirePlay(inEntityFor), 8),
+					new DesireItem(new DesireInteract(inEntityFor, EntityHuman.class, 3), 9),
+					new DesireItem(new DesireInteract(inEntityFor, EntityVillager.class, 5), 9),
+					new DesireItem(new DesireWanderAround(inEntityFor), 9),
+					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityLiving.class, 8), 10)
+			};
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new DesireItem[0];
+		}
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
 	}
 }

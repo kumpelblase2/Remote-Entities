@@ -79,26 +79,9 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireSit(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireTempt(this.getRemoteEntity(), Item.RAW_FISH.id, true), 3);
-			mind.addMovementDesire(new DesireAvoidSpecific(this.getRemoteEntity(), 16F, 0.4F, 0.23F, EntityHuman.class), 4);
-			mind.addMovementDesire(new DesireFollowTamer(this.getRemoteEntity(), 5, 10), 5);
-			mind.addMovementDesire(new DesireSitOnBlock(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 0.4F), 7);
-			mind.addMovementDesire(new DesireOcelotAttack(this.getRemoteEntity()), 8);
-			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 9);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 10);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 10F), 11);
-			mind.addTargetingDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntityChicken.class, 14, false, true, 750), 1);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		Mind mind = this.getRemoteEntity().getMind();
+		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -164,5 +147,45 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		try
+		{
+			return new DesireItem[] { 
+					new DesireItem(new DesireSwim(inEntityFor), 1),
+					new DesireItem(new DesireSit(inEntityFor), 2),
+					new DesireItem(new DesireTempt(inEntityFor, Item.RAW_FISH.id, true), 3),
+					new DesireItem(new DesireAvoidSpecific(inEntityFor, 16F, 0.4F, 0.23F, EntityHuman.class), 4),
+					new DesireItem(new DesireFollowTamer(inEntityFor, 5, 10), 5),
+					new DesireItem(new DesireSitOnBlock(inEntityFor), 6),
+					new DesireItem(new DesireLeapAtTarget(inEntityFor, 0.4F), 7),
+					new DesireItem(new DesireOcelotAttack(inEntityFor), 8),
+					new DesireItem(new DesireBreed(inEntityFor), 9),
+					new DesireItem(new DesireWanderAround(inEntityFor), 10),
+					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 10F), 11)
+			};
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new DesireItem[0];
+		}
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		try
+		{
+			return new DesireItem[] {
+					new DesireItem(new DesireNonTamedFindNearest(inEntityFor, EntityChicken.class, 14, false, true, 750), 1)
+			};
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new DesireItem[0];
+		}
 	}
 }

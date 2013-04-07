@@ -10,6 +10,17 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackOnCollide;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireDefendVillage;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindAttackingTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindNearestTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveThroughVillage;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveToTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveTowardsRestriction;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireOfferFlower;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEntityHandle
@@ -181,5 +192,15 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	public boolean bh()
 	{
 		return true;
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
 	}
 }

@@ -61,28 +61,9 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireSit(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireLeapAtTarget(this.getRemoteEntity(), 0.4F), 3);
-			mind.addMovementDesire(new DesireAttackOnCollide(this.getRemoteEntity(), null, true), 4);
-			mind.addMovementDesire(new DesireFollowTamer(this.getRemoteEntity(), 2, 10), 5);
-			mind.addMovementDesire(new DesireBreed(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 7);
-			mind.addMovementDesire(new DesireBegForItem(this.getRemoteEntity(), 8f, Material.BONE), 8);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 9);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 9);
-			mind.addTargetingDesire(new DesireProtectOwner(this.getRemoteEntity(), 32, false), 1);
-			mind.addTargetingDesire(new DesireHelpAttacking(this.getRemoteEntity(), 32, false), 2);
-			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, true, true), 3);
-			mind.addTargetingDesire(new DesireNonTamedFindNearest(this.getRemoteEntity(), EntitySheep.class, 16, false, true, 200), 4);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		Mind mind = this.getRemoteEntity().getMind();
+		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -164,5 +145,47 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		try
+		{
+			return new DesireItem[] { 
+					new DesireItem(new DesireSwim(inEntityFor), 1),
+					new DesireItem(new DesireSit(inEntityFor), 2),
+					new DesireItem(new DesireLeapAtTarget(inEntityFor, 0.4F), 3),
+					new DesireItem(new DesireAttackOnCollide(inEntityFor, null, true), 4),
+					new DesireItem(new DesireFollowTamer(inEntityFor, 2, 10), 5),
+					new DesireItem(new DesireBreed(inEntityFor), 6),
+					new DesireItem(new DesireWanderAround(inEntityFor), 7),
+					new DesireItem(new DesireBegForItem(inEntityFor, 8f, Material.BONE), 8),
+					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 9),
+					new DesireItem(new DesireLookRandomly(inEntityFor), 9)
+			};
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new DesireItem[0];
+		}
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		try
+		{
+			return new DesireItem[] {
+					new DesireItem(new DesireProtectOwner(inEntityFor, 32, false), 1),
+					new DesireItem(new DesireHelpAttacking(inEntityFor, 32, false), 2),
+					new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, true, true), 3),
+					new DesireItem(new DesireNonTamedFindNearest(inEntityFor, EntitySheep.class, 14, false, true, 750), 4)
+			};
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return new DesireItem[0];
+		}
 	}
 }

@@ -51,19 +51,9 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.ENTITY_DEFAULT), 1);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 6), 3);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 4);
-			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityLiving.class, 16, false, true, 0), 1);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		Mind mind = this.getRemoteEntity().getMind();
+		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -145,5 +135,22 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] { 
+				new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.ENTITY_DEFAULT), 1),
+				new DesireItem(new DesireWanderAround(inEntityFor), 2),
+				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 6), 3),
+				new DesireItem(new DesireLookRandomly(inEntityFor), 4)
+		};
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] {
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityLiving.class, 16, false, true, 0), 1)
+		};
 	}
 }

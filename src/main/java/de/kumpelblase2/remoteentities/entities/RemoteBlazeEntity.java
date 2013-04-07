@@ -13,7 +13,7 @@ import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
-{
+{		
 	private RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
@@ -49,9 +49,8 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesire(new DesireRangedAttack(this.getRemoteEntity(), RemoteProjectileType.SMALL_FIREBALL, 20), 1);
-		this.getRemoteEntity().getMind().addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 64, true, true), 1);
-		this.getRemoteEntity().getMind().addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 64, true, 0), 2);
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		this.getRemoteEntity().getMind().addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -139,5 +138,18 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] { new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.SMALL_FIREBALL, 20), 1) };
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] {
+				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 64, true, true), 1),
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 64, true, 0), 2)
+		};
 	}
 }

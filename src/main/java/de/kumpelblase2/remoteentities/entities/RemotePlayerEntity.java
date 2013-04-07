@@ -8,7 +8,14 @@ import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindAttackingTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindNearestTargetAtNight;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLeapAtTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireMoveTowardsRestriction;
 import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
 import de.kumpelblase2.remoteentities.nms.*;
 
 public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHandle
@@ -223,5 +230,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		this.attack(inEntity);
 		return super.m(inEntity);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
 	}
 }

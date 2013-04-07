@@ -51,20 +51,9 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.m_remoteEntity.getMind();
-			mind.addMovementDesire(new DesireSwell(this.m_remoteEntity), 1);
-			mind.addMovementDesire(new DesireRangedAttack(this.m_remoteEntity, RemoteProjectileType.ENTITY_DEFAULT), 2);
-			mind.addMovementDesire(new DesireWanderAround(this.m_remoteEntity), 3);
-			mind.addMovementDesire(new DesireLookAtNearest(this.m_remoteEntity, EntityHuman.class, 8), 4);
-			mind.addMovementDesire(new DesireLookRandomly(this.m_remoteEntity), 5);
-			mind.addTargetingDesire(new DesireFindAttackingTarget(this.m_remoteEntity, 16, true, false), 1);
-			mind.addTargetingDesire(new DesireFindNearestTarget(this.m_remoteEntity, EntityHuman.class, 16, true, 0), 2);
-		}
-		catch(Exception e)
-		{
-		}
+		Mind mind = this.m_remoteEntity.getMind();
+		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -152,5 +141,24 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] { 
+				new DesireItem(new DesireSwim(inEntityFor), 1),
+				new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.ENTITY_DEFAULT, 60), 2),
+				new DesireItem(new DesireWanderAround(inEntityFor), 3),
+				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 4),
+				new DesireItem(new DesireLookRandomly(inEntityFor), 5)
+		};
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] {
+				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, false, false), 1),
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 16, false, true, 0), 2)
+		};
 	}
 }

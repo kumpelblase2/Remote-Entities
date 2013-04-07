@@ -50,26 +50,9 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 0);
-			mind.addMovementDesire(new DesireDestroyDoor(this.getRemoteEntity(), false), 1);
-			mind.addMovementDesire(new DesireAttackOnCollide(this.getRemoteEntity(), EntityHuman.class, false), 2);
-			mind.addMovementDesire(new DesireAttackOnCollide(this.getRemoteEntity(), EntityVillager.class, true), 3);
-			mind.addMovementDesire(new DesireMoveTowardsRestriction(this.getRemoteEntity()), 4);
-			mind.addMovementDesire(new DesireMoveThroughVillage(this.getRemoteEntity(), false), 5);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 6);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 7);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 7);
-			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 1);
-			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 16, false, true, 0), 2);
-			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityVillager.class, 16, false, true, 0), 2);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		Mind mind = this.getRemoteEntity().getMind();
+		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 
 	@Override
@@ -151,5 +134,29 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] { 
+				new DesireItem(new DesireSwim(inEntityFor), 0),
+				new DesireItem(new DesireDestroyDoor(inEntityFor, false), 1),
+				new DesireItem(new DesireAttackOnCollide(inEntityFor, EntityHuman.class, false), 2),
+				new DesireItem(new DesireAttackOnCollide(inEntityFor, EntityVillager.class, true), 3),
+				new DesireItem(new DesireMoveTowardsRestriction(inEntityFor), 4),
+				new DesireItem(new DesireMoveThroughVillage(inEntityFor, false), 5),
+				new DesireItem(new DesireWanderAround(inEntityFor), 6),
+				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 7),
+				new DesireItem(new DesireLookRandomly(inEntityFor), 7)
+		};
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] {
+				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, false, false), 1),
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 16, false, true, 0), 2),
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityVillager.class, 16, false, true, 0), 2)
+		};
 	}
 }

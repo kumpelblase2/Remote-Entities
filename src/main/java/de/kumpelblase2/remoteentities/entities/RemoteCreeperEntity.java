@@ -66,23 +66,9 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	@Override
 	public void setupStandardGoals()
 	{
-		try
-		{
-			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesire(new DesireSwim(this.getRemoteEntity()), 1);
-			mind.addMovementDesire(new DesireSwell(this.getRemoteEntity()), 2);
-			mind.addMovementDesire(new DesireAvoidSpecific(this.getRemoteEntity(), 6f, 0.25f, 0.3f, EntityOcelot.class), 3);
-			mind.addMovementDesire(new DesireAttackOnCollide(this.getRemoteEntity(), null, false), 4);
-			mind.addMovementDesire(new DesireWanderAround(this.getRemoteEntity()), 5);
-			mind.addMovementDesire(new DesireLookAtNearest(this.getRemoteEntity(), EntityHuman.class, 8), 6);
-			mind.addMovementDesire(new DesireLookRandomly(this.getRemoteEntity()), 6);
-			mind.addTargetingDesire(new DesireFindNearestTarget(this.getRemoteEntity(), EntityHuman.class, 16, true, 0), 1);
-			mind.addTargetingDesire(new DesireFindAttackingTarget(this.getRemoteEntity(), 16, false, false), 2);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		Mind mind = this.getRemoteEntity().getMind();
+		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
 	}
 	
 	@Override
@@ -154,5 +140,26 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 			this.getRemoteEntity().getMind().clearTargetingDesires();
 		}
 		super.die(damagesource);
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] { 
+				new DesireItem(new DesireSwim(inEntityFor), 1),
+				new DesireItem(new DesireSwell(inEntityFor), 2),
+				new DesireItem(new DesireAvoidSpecific(inEntityFor, 6f, 0.25f, 0.3f, EntityOcelot.class), 3),
+				new DesireItem(new DesireAttackOnCollide(inEntityFor, null, false), 4),
+				new DesireItem(new DesireWanderAround(inEntityFor), 5),
+				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 6),
+				new DesireItem(new DesireLookRandomly(inEntityFor), 6)
+		};
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[] {
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 16, true, 0), 1),
+				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, false, false), 2)
+		};
 	}
 }

@@ -11,6 +11,15 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAttackOnCollide;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireAvoidSpecific;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindAttackingTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireFindNearestTarget;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookAtNearest;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireLookRandomly;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwell;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
+import de.kumpelblase2.remoteentities.api.thinking.goals.DesireWanderAround;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
@@ -163,5 +172,15 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	public boolean bh()
 	{
 		return true;
+	}
+	
+	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
+	}
+	
+	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	{
+		return new DesireItem[0];
 	}
 }
