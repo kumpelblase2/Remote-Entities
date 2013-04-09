@@ -28,6 +28,11 @@ public class RemoteEntities extends JavaPlugin
 	@Override
 	public void onDisable()
 	{
+		for(EntityManager manager : m_managers.values())
+		{
+			manager.despawnAll(DespawnReason.PLUGIN_DISABLE);
+			manager.unregisterEntityLoader();
+		}
 		s_instance = null;
 	}
 	
