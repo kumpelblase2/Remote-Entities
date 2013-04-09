@@ -133,6 +133,9 @@ class ChunkEntityLoader implements Listener
 		if(this.canSpawnAt(inLocation))
 		{
 			inEntity.spawn(inLocation);
+			if(inEntity.isSpawned() && inSetupGoals && inEntity.getHandle() instanceof RemoteEntityHandle)
+				((RemoteEntityHandle)inEntity.getHandle()).setupStandardGoals();
+			
 			return false;
 		}
 		
