@@ -25,6 +25,7 @@ public class EntityManager
 	protected boolean m_removeDespawned = false;
 	private final ChunkEntityLoader m_entityChunkLoader;
 	protected IEntitySerializer m_serializer;
+	private boolean m_saveOnDisable = false;
 	
 	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
 	{
@@ -406,11 +407,30 @@ public class EntityManager
 	
 	/**
 	 * Despawns all entities from this manager with the given {@link DespawnReason}.
+	 * This also saves the entities if the reason is PLUGIN_DISABLE and {@link #shouldSaveOnDisable()} returns true.
 	 * 
 	 * @param inReason	despawn reason
 	 */
 	public void despawnAll(DespawnReason inReason)
 	{
+		if(this.m_entities.size() > 0 && inReason == DespawnReason.PLUGIN_DISABLE && this.shouldSaveOnDisable())
+			this.despawnAll(inReason, true);
+		
+		this.despawnAll(inReason, false);
+	}
+	
+	/**
+	 * Despawns all entities from this manager with the given {@link DespawnReason}.
+	 * If inSave is true, it will save all entities before despawning them.
+	 * 
+	 * @param inReason	The despawn reason
+	 * @param inSave	If the entities should be save before despawning
+	 */
+	public void despawnAll(DespawnReason inReason, boolean inSave)
+	{
+		if(inSave)
+			this.saveEntities();
+		
 		for(RemoteEntity entity : this.m_entities.values())
 		{
 			entity.despawn(inReason);
@@ -512,5 +532,25 @@ public class EntityManager
 		EntityData[] data = this.m_serializer.loadData();
 		for(EntityData entity : data)
 			this.m_serializer.create(entity);
+	}
+	
+	/**
+	 * Sets whether the entity manager should automatically save the entities when the plugin gets disabled.
+	 * 
+	 * @param inSave	New save state
+	 */
+	public void setSaveOnDisable(boolean inSave)
+	{
+		this.m_saveOnDisable = inSave;
+	}
+	
+	/**
+	 * Checks whether entities should be save when the plugin gets disabled.
+	 * 
+	 * @return	state
+	 */
+	public boolean shouldSaveOnDisable()
+	{
+		return this.m_saveOnDisable;
 	}
 }
