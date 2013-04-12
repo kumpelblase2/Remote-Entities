@@ -269,7 +269,7 @@ public class Mind
 	 */
 	public boolean removeMovementDesire(Class<? extends Desire> inToRemove)
 	{
-		return this.m_targetNavigation.removeDesireByType(inToRemove);
+		return this.m_movementNavigation.removeDesireByType(inToRemove);
 	}
 	
 	/**
@@ -290,7 +290,7 @@ public class Mind
 	 */
 	public boolean removeTargetingDesire(Class<? extends Desire> inToRemove)
 	{
-		return this.m_movementNavigation.removeDesireByType(inToRemove);
+		return this.m_targetNavigation.removeDesireByType(inToRemove);
 	}
 	
 	/**
