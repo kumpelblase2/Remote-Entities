@@ -1,8 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import org.bukkit.Bukkit;
 import de.kumpelblase2.remoteentities.api.events.RemoteDesireAddEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteDesireStartEvent;
@@ -22,6 +24,8 @@ public class DesireSelector
 	
 	public void onUpdate()
 	{
+		Set<DesireItem> toRemove = new HashSet<DesireItem>();
+		
 		if(++this.m_delay % 3 == 0)
 		{
 			Iterator<DesireItem> it = this.m_desires.iterator();
@@ -40,12 +44,12 @@ public class DesireSelector
 						
 					event.getDesire().stopExecuting();
 					if(event.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)event.getDesire()).isFinished())
-						this.m_desires.remove(event.getDesireItem());
+						toRemove.add(event.getDesireItem());
 					
 					this.m_executingDesires.remove(event.getDesireItem());
 				}
 							 
-				if(this.hasHighestPriority(item) && item.getDesire().shouldExecute())
+				if(!toRemove.contains(item.getDesire()) && this.hasHighestPriority(item) && item.getDesire().shouldExecute())
 				{
 					RemoteDesireStartEvent event = new RemoteDesireStartEvent(item.getDesire().getRemoteEntity(), item);
 					Bukkit.getPluginManager().callEvent(event);
@@ -75,6 +79,11 @@ public class DesireSelector
 					it.remove();
 				}
 			}
+		}
+		
+		for(DesireItem remove : toRemove)
+		{
+			this.m_desires.remove(remove);
 		}
 		
 		Iterator<DesireItem> it = this.m_executingDesires.iterator();
