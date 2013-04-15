@@ -12,13 +12,14 @@ public class JumpChecker implements MoveChecker
 	{
 		if(inData.getYDiff() == 1)
 		{
-			if(inData.getXDiff() == 0 && inData.getZDiff() == 0)
+			if(inData.getXDiff() == 0 && inData.getZDiff() == 0 && !inData.getFrom().getBlock().isLiquid())
 			{
 				inData.setValid(false);
 				return;
 			}
 			
-			if(!inData.getFrom().getBlock().getRelative(BlockFace.UP, 3).isEmpty())
+			Block aboveHead = inData.getFrom().getBlock().getRelative(BlockFace.UP, 3);
+			if(!aboveHead.isEmpty() && !aboveHead.isLiquid())
 			{
 				inData.setValid(false);
 				return;
