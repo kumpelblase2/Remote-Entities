@@ -7,6 +7,7 @@ public class Path
 {
 	private List<BlockNode> m_nodes;
 	private int m_pos;
+	private float m_speed = -1;
 	
 	public Path(BlockNode... inNodes)
 	{
@@ -17,6 +18,21 @@ public class Path
 	{
 		this.m_pos = -1;
 		this.m_nodes = inNodes;
+	}
+	
+	public void setCustomSpeed(float inSpeed)
+	{
+		this.m_speed = inSpeed;
+	}
+	
+	public float getCustomSpeed()
+	{
+		return this.m_speed;
+	}
+	
+	public boolean hasCustomSpeed()
+	{
+		return this.getCustomSpeed() != -1;
 	}
 	
 	public BlockNode next()

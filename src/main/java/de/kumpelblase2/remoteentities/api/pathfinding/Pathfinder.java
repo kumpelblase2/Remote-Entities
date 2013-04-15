@@ -6,49 +6,52 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import net.minecraft.server.v1_5_R2.EntityLiving;
 import org.bukkit.Location;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class Pathfinder
 {
 	private Set<BlockNode> m_openList;
 	private Set<BlockNode> m_closedList;
-	private BlockNode m_start;
-	private BlockNode m_end;
 	private List<MoveChecker> m_checkers;
 	private HeuristicType m_heuristicType = HeuristicType.MANHATTAN;
+	private final RemoteEntity m_entity;
+	private Path m_currentPath;
 	
-	public Pathfinder()
+	public Pathfinder(RemoteEntity inEntity)
 	{
 		this.m_openList = new HashSet<BlockNode>();
 		this.m_closedList = new HashSet<BlockNode>();
 		this.m_checkers = new ArrayList<MoveChecker>();
+		this.m_entity = inEntity;
 	}
 	
 	public Path find(Location inStart, Location inEnd)
 	{
-		this.m_start = new BlockNode(this, inStart);
-		this.m_end = new BlockNode(this, inEnd);
-		if(this.m_start.equals(this.m_end))
-			return new Path(this.m_start);
+		BlockNode start = new BlockNode(this, inStart);
+		BlockNode end = new BlockNode(this, inEnd);
+		if(start.equals(end))
+			return new Path(start);
 		
 		
-		this.m_start.calcualteGScore();
-		this.m_start.calculateHScore(this.m_end);
-		this.m_openList.add(this.m_start);
+		start.calcualteGScore();
+		start.calculateHScore(end);
+		this.m_openList.add(start);
 		BlockNode next = null;
-		while(!this.m_closedList.contains(this.m_end))
+		while(!this.m_closedList.contains(end))
 		{
 			if(this.m_openList.size() <= 0)
 				return null;
 			
-			next = this.getNodeWithLowestFScore();
+			next = this.getNodeWithLowestFScore(end);
 			this.m_openList.remove(next);
 			this.m_closedList.add(next);
 			
-			if(this.m_end.equals(next))
+			if(end.equals(next))
 				break;
 			
-			List<BlockNode> newNodes = this.getNearNodes(next);
+			List<BlockNode> newNodes = this.getNearNodes(next, end);
 			for(BlockNode n : newNodes)
 			{
 				n.setParent(next);
@@ -75,7 +78,29 @@ public class Pathfinder
 		return new Path(inOrder);
 	}
 	
-	protected BlockNode getNodeWithLowestFScore()
+	public boolean moveTo(Location inTo)
+	{
+		if(!this.m_entity.isSpawned())
+			return false;
+		
+		Path p = this.find(this.m_entity.getBukkitEntity().getLocation(), inTo);
+		if(p == null)
+			return false;
+		
+		this.m_currentPath = p;
+		return true;
+	}
+	
+	public boolean moveTo(Location inTo, float inSpeed)
+	{
+		if(!this.moveTo(inTo))
+			return false;
+		
+		this.m_currentPath.setCustomSpeed(inSpeed);
+		return true;
+	}
+	
+	protected BlockNode getNodeWithLowestFScore(BlockNode inEnd)
 	{
 		BlockNode currentSmallest = null;
 		double currentScore = 0;
@@ -83,7 +108,7 @@ public class Pathfinder
 		for(BlockNode n : this.m_openList)
 		{
 			if(n.getHScore() == -1)
-				n.calculateHScore(this.m_end);
+				n.calculateHScore(inEnd);
 			
 			if(n.getGScore() == -1)
 				n.calcualteGScore();
@@ -98,7 +123,7 @@ public class Pathfinder
 		return currentSmallest;
 	}
 	
-	public List<BlockNode> getNearNodes(BlockNode inCurrent)
+	protected List<BlockNode> getNearNodes(BlockNode inCurrent, BlockNode inEnd)
 	{
 		ArrayList<BlockNode> nodes = new ArrayList<BlockNode>(26);
 		for(int x = -1; x <= 1; x++)
@@ -118,7 +143,7 @@ public class Pathfinder
 					{
 						node.setParent(inCurrent);
 						node.calcualteGScore();
-						node.calculateHScore(this.m_end);
+						node.calculateHScore(inEnd);
 						nodes.add(node);
 					}
 				}
@@ -194,9 +219,57 @@ public class Pathfinder
 		}
 	}
 	
-	public static Pathfinder getDefaultPathfinder()
+	public boolean hasPath()
 	{
-		Pathfinder p = new Pathfinder();
+		return this.m_currentPath != null && !this.m_currentPath.isDone();
+	}
+	
+	public Path getCurrentPath()
+	{
+		return this.m_currentPath;
+	}
+	
+	public void setPath(Path inPath)
+	{
+		this.m_currentPath = inPath;
+	}
+	
+	public RemoteEntity getEntity()
+	{
+		return this.m_entity;
+	}
+	
+	public void update()
+	{
+		if(!this.hasPath() || !this.getEntity().isSpawned())
+			return;
+		
+		BlockNode next = this.m_currentPath.next();
+		if(next == null)
+		{
+			this.cancelPath();
+			return;
+		}
+		
+		EntityLiving entity = this.getEntity().getHandle();
+		double yDist = next.getY() - entity.locY;
+		if(yDist > 0)
+			entity.getControllerJump().a();
+		
+		entity.getNavigation().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
+		
+		if(this.m_currentPath.isDone())
+			this.m_currentPath = null;
+	}
+	
+	public void cancelPath()
+	{
+		this.m_currentPath = null;
+	}
+	
+	public static Pathfinder getDefaultPathfinder(RemoteEntity inEntity)
+	{
+		Pathfinder p = new Pathfinder(inEntity);
 		
 		p.addChecker(new JumpChecker());
 		p.addChecker(new JumpDownChecker());
