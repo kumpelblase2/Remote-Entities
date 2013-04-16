@@ -15,6 +15,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightable
 {
@@ -83,6 +84,7 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
+		ReflectionUtil.replaceNavigation(this);
 		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 	}
 
