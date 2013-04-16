@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
+import de.kumpelblase2.remoteentities.api.pathfinding.Pathfinder;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 
 public interface RemoteEntity
@@ -248,4 +249,6 @@ public interface RemoteEntity
 	 * @return	true if the entity could get saved, false if not
 	 */
 	public boolean save();
+	
+	public Pathfinder getPathfinder();
 }

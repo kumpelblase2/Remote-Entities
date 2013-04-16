@@ -385,6 +385,7 @@ public class Mind
 				behaviour.run();
 			}
 		}
+		
 		this.m_movementNavigation.onUpdate();
 		this.m_targetNavigation.onUpdate();
 	}

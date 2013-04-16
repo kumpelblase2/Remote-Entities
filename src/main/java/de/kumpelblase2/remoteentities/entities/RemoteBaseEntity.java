@@ -1,12 +1,16 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
+import net.minecraft.server.v1_5_R2.EntityCreature;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.PathEntity;
+import net.minecraft.server.v1_5_R2.World;
+import net.minecraft.server.v1_5_R2.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_5_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -15,13 +19,13 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
-import net.minecraft.server.v1_5_R2.*;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.pathfinding.Pathfinder;
 import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
@@ -40,6 +44,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected float m_speed;
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
+	protected Pathfinder m_pathfinder;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -57,6 +62,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.m_speed = 0.25F;
 		}
 		this.m_manager = inManager;
+		this.m_pathfinder = Pathfinder.getDefaultPathfinder(this);
 	}
 
 	@Override
@@ -130,7 +136,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation)
 	{
-		return this.move(inLocation, this.getSpeed());
+		if(!this.isSpawned() || this.m_isStationary)
+			return false;
+		
+		return getPathfinder().moveTo(inLocation);
 	}
 	
 	@Override
@@ -139,18 +148,16 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 		
-		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
-		{
-			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
-			return this.moveWithPath(path, inSpeed);
-		}
-		return true;
+		return this.getPathfinder().moveTo(inLocation, inSpeed);
 	}
 	
 	@Override
 	public boolean move(LivingEntity inEntity)
 	{
-		return this.move(inEntity, this.getSpeed());
+		if(!this.isSpawned() || this.m_isStationary)
+			return false;
+		
+		return this.getPathfinder().moveTo(inEntity.getLocation());
 	}
 	
 	@Override
@@ -159,16 +166,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 		
-		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
-		if(handle == this.m_entity)
-			return true;
-		
-		if(!this.m_entity.getNavigation().a(handle, inSpeed))
-		{
-			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, 20, true, false, false, true);
-			return this.moveWithPath(path, inSpeed);
-		}
-		return true;
+		return this.getPathfinder().moveTo(inEntity.getLocation(), inSpeed);
 	}
 	
 	@Override
@@ -246,8 +244,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(this.m_entity == null)
 			return;
 		
-		if(this.m_entity.getNavigation().f())
-			this.m_entity.getNavigation().g();
+		if(this.getPathfinder().hasPath())
+			this.getPathfinder().cancelPath();
 	}
 
 	@Override
@@ -281,6 +279,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
+			ReflectionUtil.replaceNavigation(this);
 			this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 		}
 		catch(Exception e)
@@ -456,5 +455,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	public Location getUnloadedLocation()
 	{
 		return this.m_unloadedLocation;
+	}
+	
+	public Pathfinder getPathfinder()
+	{
+		return this.m_pathfinder;
 	}
 }
