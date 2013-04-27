@@ -23,3 +23,7 @@ releases/*
 snapshots/*
 
 *.prefs
+
+*.idea
+*.iml
+.idea/*
