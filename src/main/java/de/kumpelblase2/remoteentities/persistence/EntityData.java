@@ -24,7 +24,7 @@ public class EntityData implements ConfigurationSerializable
 	public DesireData[] actionDesires = new DesireData[0];
 	public DesireData[] movementDesires = new DesireData[0];
 	public BehaviorData[] behaviors = new BehaviorData[0];
-	public static ObjectParser objectParser = new ObjectParser();
+	public static transient ObjectParser objectParser = new ObjectParser();
 	
 	public EntityData()
 	{

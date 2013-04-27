@@ -22,7 +22,7 @@ public class Pathfinder
 	private HeuristicType m_heuristicType = HeuristicType.MANHATTAN;
 	private final RemoteEntity m_entity;
 	private Path m_currentPath;
-	public static int MAX_CHECK_TIMEOUT = 200;
+	public static int MAX_CHECK_TIMEOUT = 10000;
 	private int m_checked = 0;
 	private Path m_lastPath;
 	public static Set<Material> transparentMaterial = new HashSet<Material>();
@@ -66,7 +66,6 @@ public class Pathfinder
 		start.calculateHScore(end);
 		this.m_openList.add(start);
 		BlockNode next = null;
-		long startTime = System.currentTimeMillis();
 		while(!this.m_closedList.contains(end))
 		{
 			if(this.m_openList.size() <= 0)
