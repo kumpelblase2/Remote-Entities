@@ -52,7 +52,7 @@ public class BlockNode
 	public void setLocation(Location inLocation)
 	{
 		this.m_loc = inLocation;
-		this.m_hash = new StringBuilder().append(this.getX()).append(this.getY()).append(this.getZ()).toString(); 
+		this.m_hash = new StringBuilder().append(this.getX() + ":").append(this.getY() + ":").append(this.getZ()).toString(); 
 	}
 	
 	public BlockNode getParent()
@@ -91,7 +91,7 @@ public class BlockNode
 		switch(this.m_finder.getHeuristicType())
 		{
 			case MANHATTAN:
-				this.m_h = Math.abs(inEnd.getX() - this.getX()) + Math.abs(inEnd.getY() - this.getY()) + Math.abs(inEnd.getZ() + this.getZ());
+				this.m_h = Math.abs(inEnd.getX() - this.getX()) + Math.abs(inEnd.getY() - this.getY()) + Math.abs(inEnd.getZ() - this.getZ());
 				break;
 			case EUCLIDEAN:
 				this.m_h = Math.sqrt(Math.pow(this.getX() - inEnd.getX(), 2) + Math.pow(this.getY() - inEnd.getY(), 2) + Math.pow(this.getZ() - inEnd.getZ(), 2));
@@ -101,7 +101,7 @@ public class BlockNode
 	
 	public void calcualteGScore()
 	{
-		BlockNode parent = this.getParent();
+		BlockNode parent = null;
 		BlockNode current = this;
 		double currentCost = 0;
 		while((parent = current.getParent()) != null)

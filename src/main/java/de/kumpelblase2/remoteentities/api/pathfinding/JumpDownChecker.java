@@ -7,6 +7,9 @@ public class JumpDownChecker implements MoveChecker
 	@Override
 	public void checkMove(MoveData inData)
 	{
+		if(!inData.isValid())
+			return;
+		
 		if(inData.getYDiff() == -1)
 		{
 			if(!inData.getAboveBlock().isEmpty() || !inData.getHeadBlock().isEmpty() || !inData.getHeadBlock().getRelative(BlockFace.UP).isEmpty())

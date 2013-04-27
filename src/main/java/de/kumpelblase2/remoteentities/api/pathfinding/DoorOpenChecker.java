@@ -4,7 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.material.Door;
 import org.bukkit.material.Gate;
 
-
 @SuppressWarnings("deprecation")
 public class DoorOpenChecker implements MoveChecker
 {
@@ -23,6 +22,9 @@ public class DoorOpenChecker implements MoveChecker
 	@Override
 	public void checkMove(MoveData inData)
 	{
+		if(inData.isValid())
+			return;
+		
 		if(inData.getAboveBlock().getType() == Material.FENCE_GATE)
 		{
 			Gate g = (Gate)inData.getAboveBlock().getState().getData();

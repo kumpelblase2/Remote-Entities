@@ -10,6 +10,9 @@ public class JumpChecker implements MoveChecker
 	@Override
 	public void checkMove(MoveData inData)
 	{
+		if(!inData.isValid())
+			return;
+		
 		if(inData.getYDiff() == 1)
 		{
 			if(inData.getXDiff() == 0 && inData.getZDiff() == 0 && !inData.getFrom().getBlock().isLiquid())

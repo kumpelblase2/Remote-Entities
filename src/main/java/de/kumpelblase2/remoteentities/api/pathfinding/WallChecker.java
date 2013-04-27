@@ -1,24 +1,16 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
-import org.bukkit.block.Block;
-
 public class WallChecker implements MoveChecker
 {
 	@Override
 	public void checkMove(MoveData inData)
 	{
-		if(inData.getYDiff() == 0 || inData.getYDiff() == 1)
+		if(!inData.isValid())
+			return;
+		
+		if(inData.getYDiff() >= 0)
 		{
-			Block above = inData.getAboveBlock();
-			Block head = inData.getHeadBlock();
-			
-			if(!above.isEmpty())
-			{
-				inData.setValid(false);
-				return;
-			}
-			
-			if(!head.isEmpty())
+			if(!inData.getAboveBlock().isEmpty() || !inData.getHeadBlock().isEmpty())
 			{
 				inData.setValid(false);
 				return;
@@ -33,8 +25,5 @@ public class WallChecker implements MoveChecker
 				return;
 			}
 		}
-		
-		if(!inData.isValid())
-			inData.setValid(true);
 	}
 }

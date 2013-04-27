@@ -8,6 +8,9 @@ public class AviodWaterChecker implements MoveChecker
 	@Override
 	public void checkMove(MoveData inData)
 	{
+		if(!inData.isValid())
+			return;
+		
 		if(inData.getBlock().getType() == Material.WATER || inData.getBlock().getType() == Material.STATIONARY_WATER)
 		{
 			inData.setValid(false);
