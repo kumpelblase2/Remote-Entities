@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,6 +9,9 @@ import java.util.List;
 import java.util.Set;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class Pathfinder
@@ -18,6 +22,23 @@ public class Pathfinder
 	private HeuristicType m_heuristicType = HeuristicType.MANHATTAN;
 	private final RemoteEntity m_entity;
 	private Path m_currentPath;
+	public static int MAX_CHECK_TIMEOUT = 200;
+	private int m_checked = 0;
+	private Path m_lastPath;
+	public static Set<Material> transparentMaterial = new HashSet<Material>();
+	
+	static
+	{
+		Material[] array = new Material[] { 
+			Material.AIR, Material.ACTIVATOR_RAIL, Material.BROWN_MUSHROOM, Material.CARROT, Material.CROPS, Material.DETECTOR_RAIL, Material.DIODE, Material.DIODE_BLOCK_OFF, 
+			Material.DIODE_BLOCK_ON, Material.FENCE_GATE, Material.GRASS, Material.LADDER, Material.LEVER, Material.LONG_GRASS, Material.MELON_STEM, Material.NETHER_WARTS, 
+			Material.PAINTING, Material.PORTAL, Material.POTATO, Material.PUMPKIN_STEM, Material.RAILS, Material.REDSTONE, Material.RED_ROSE, Material.REDSTONE_COMPARATOR, 
+			Material.REDSTONE_COMPARATOR_OFF, Material.REDSTONE_COMPARATOR_ON, Material.REDSTONE_WIRE, Material.REDSTONE_TORCH_OFF, Material.REDSTONE_TORCH_ON, Material.SAPLING, 
+			Material.SIGN_POST, Material.SKULL, Material.SNOW, Material.TORCH, Material.TRIPWIRE, Material.WALL_SIGN, Material.WOOD_BUTTON, Material.STONE_BUTTON, Material.STONE_PLATE,
+			Material.WOOD_PLATE, Material.YELLOW_FLOWER
+		};
+		transparentMaterial.addAll(Arrays.asList(array));
+	}
 	
 	public Pathfinder(RemoteEntity inEntity)
 	{
@@ -27,22 +48,29 @@ public class Pathfinder
 		this.m_entity = inEntity;
 	}
 	
-	public Path find(Location inStart, Location inEnd)
-	{
+	public PathResult find(Location inStart, Location inEnd)
+	{		
+		this.m_closedList.clear();
+		this.m_openList.clear();
+		this.m_checked = 0;
 		BlockNode start = new BlockNode(this, inStart);
 		BlockNode end = new BlockNode(this, inEnd);
 		if(start.equals(end))
-			return new Path(start);
+		{
+			this.m_lastPath = new Path(end);
+			return PathResult.SUCCESS;
+		}
 		
 		
 		start.calcualteGScore();
 		start.calculateHScore(end);
 		this.m_openList.add(start);
 		BlockNode next = null;
+		long startTime = System.currentTimeMillis();
 		while(!this.m_closedList.contains(end))
 		{
 			if(this.m_openList.size() <= 0)
-				return null;
+				return PathResult.NO_PATH;
 			
 			next = this.getNodeWithLowestFScore(end);
 			this.m_openList.remove(next);
@@ -52,6 +80,9 @@ public class Pathfinder
 				break;
 			
 			List<BlockNode> newNodes = this.getNearNodes(next, end);
+			if(this.m_checked >= MAX_CHECK_TIMEOUT)
+				return PathResult.MAX_ITERATION;
+				
 			for(BlockNode n : newNodes)
 			{
 				n.setParent(next);
@@ -73,9 +104,10 @@ public class Pathfinder
 		{
 			inOrder.add(next);
 		}
-		
+	
 		Collections.reverse(inOrder);
-		return new Path(inOrder);
+		this.m_lastPath = new Path(inOrder);
+		return PathResult.SUCCESS;
 	}
 	
 	public boolean moveTo(Location inTo)
@@ -83,11 +115,11 @@ public class Pathfinder
 		if(!this.m_entity.isSpawned())
 			return false;
 		
-		Path p = this.find(this.m_entity.getBukkitEntity().getLocation(), inTo);
-		if(p == null)
+		PathResult result = this.find(this.m_entity.getBukkitEntity().getLocation(), inTo);
+		if(result != PathResult.SUCCESS)
 			return false;
 		
-		this.m_currentPath = p;
+		this.m_currentPath = this.getLastPath();
 		return true;
 	}
 	
@@ -101,7 +133,7 @@ public class Pathfinder
 	}
 	
 	protected BlockNode getNodeWithLowestFScore(BlockNode inEnd)
-	{
+	{		
 		BlockNode currentSmallest = null;
 		double currentScore = 0;
 		
@@ -136,11 +168,9 @@ public class Pathfinder
 						continue;
 					
 					BlockNode node = new BlockNode(this, inCurrent.getLocation().add(x, y, z));
-					if(node.equals(this))
-						continue;
-					
-					if(this.canWalk(inCurrent.getLocation(), node.getLocation()) && !this.m_closedList.contains(node))
+					if(!this.m_closedList.contains(node) && this.canWalk(inCurrent.getLocation(), node.getLocation()))
 					{
+						this.m_checked++;
 						node.setParent(inCurrent);
 						node.calcualteGScore();
 						node.calculateHScore(inEnd);
@@ -256,10 +286,10 @@ public class Pathfinder
 		if(yDist > 0)
 			entity.getControllerJump().a();
 		
-		entity.getNavigation().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
+		entity.getControllerMove().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
 		
 		if(this.m_currentPath.isDone())
-			this.m_currentPath = null;
+			this.cancelPath();
 	}
 	
 	public void cancelPath()
@@ -267,15 +297,31 @@ public class Pathfinder
 		this.m_currentPath = null;
 	}
 	
+	public Path getLastPath()
+	{
+		return this.m_lastPath;
+	}
+	
 	public static Pathfinder getDefaultPathfinder(RemoteEntity inEntity)
 	{
 		Pathfinder p = new Pathfinder(inEntity);
 		
+		p.addChecker(new AirChecker());
 		p.addChecker(new JumpChecker());
 		p.addChecker(new JumpDownChecker());
 		p.addChecker(new WallChecker());
 		p.addChecker(new DoorOpenChecker());
 		
 		return p;
+	}
+	
+	public static boolean isTransparent(Block inBlock)
+	{
+		return isTransparent(inBlock.getType());
+	}
+	
+	public static boolean isTransparent(Material inType)
+	{
+		return transparentMaterial.contains(inType);
 	}
 }

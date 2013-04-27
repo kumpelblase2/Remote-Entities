@@ -22,7 +22,7 @@ public class JumpChecker implements MoveChecker
 			}
 			
 			Block aboveHead = inData.getFrom().getBlock().getRelative(BlockFace.UP, 3);
-			if(!aboveHead.isEmpty() && !aboveHead.isLiquid())
+			if(!Pathfinder.isTransparent(aboveHead))
 			{
 				inData.setValid(false);
 				return;

@@ -17,6 +17,9 @@ public class DoorOpenChecker implements MoveChecker
 	public DoorOpenChecker(boolean inIgnoreIronDoor)
 	{
 		this.m_ironDoor = inIgnoreIronDoor;
+		Pathfinder.transparentMaterial.add(Material.WOOD_DOOR);
+		if(!this.m_ironDoor)
+			Pathfinder.transparentMaterial.add(Material.IRON_DOOR_BLOCK);
 	}
 	
 	@Override
@@ -34,7 +37,7 @@ public class DoorOpenChecker implements MoveChecker
 				return;
 			}
 		}
-		else if(inData.getAboveBlock().getType() == Material.WOOD_DOOR || (!this.m_ironDoor && inData.getAboveBlock().getType() == Material.IRON_DOOR))
+		else if(inData.getAboveBlock().getType() == Material.WOOD_DOOR || (!this.m_ironDoor && inData.getAboveBlock().getType() == Material.IRON_DOOR_BLOCK))
 		{
 			Door d = (Door)inData.getAboveBlock().getState().getData();
 			if(d.isOpen())

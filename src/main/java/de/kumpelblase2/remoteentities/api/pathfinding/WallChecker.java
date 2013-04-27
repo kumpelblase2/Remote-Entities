@@ -10,7 +10,7 @@ public class WallChecker implements MoveChecker
 		
 		if(inData.getYDiff() >= 0)
 		{
-			if(!inData.getAboveBlock().isEmpty() || !inData.getHeadBlock().isEmpty())
+			if(!Pathfinder.isTransparent(inData.getAboveBlock()) || !Pathfinder.isTransparent(inData.getHeadBlock()))
 			{
 				inData.setValid(false);
 				return;
