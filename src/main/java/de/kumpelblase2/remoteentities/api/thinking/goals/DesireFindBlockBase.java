@@ -1,14 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.bukkit.Location;
-import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import org.bukkit.Location;
 
 public abstract class DesireFindBlockBase extends DesireBase
 {
@@ -35,7 +33,8 @@ public abstract class DesireFindBlockBase extends DesireBase
 	protected boolean findNearest()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		List<Location> locations = new ArrayList<Location>();
+		double shortestDistance = Double.MAX_VALUE;
+		Location shortest = null;
 		for(int x = (int)(entity.locX - this.m_range); x < entity.locX + this.m_range; x++)
 		{
 			for(int y = (int)(entity.locY - 8); y < entity.locY + 8; y++)
@@ -43,25 +42,21 @@ public abstract class DesireFindBlockBase extends DesireBase
 				for(int z = (int)(entity.locZ - this.m_range); z < entity.locZ + this.m_range; z++)
 				{
 					if(entity.world.getTypeId(x, y, z) == this.m_blockID)
-						locations.add(new Location(entity.world.getWorld(), x, y, z));
+					{
+						double dist = entity.e(x, y, z);
+						if(dist < shortestDistance)
+						{
+							shortestDistance = dist;
+							shortest = new Location(entity.world.getWorld(), x, y, z);
+						}
+					}
 				}
 			}
 		}
 		
-		if(locations.size() == 0)
+		if(shortest == null)
 			return false;
-		
-		double shortestDistance = Double.MAX_VALUE;
-		Location shortest = null;
-		for(Location loc : locations)
-		{
-			double dist = entity.e(loc.getX(), loc.getY(), loc.getZ());
-			if(dist < shortestDistance)
-			{
-				shortestDistance = dist;
-				shortest = loc;
-			}
-		}
+
 		this.m_locX = shortest.getBlockX();
 		this.m_locY = shortest.getBlockY();
 		this.m_locZ = shortest.getBlockZ();
