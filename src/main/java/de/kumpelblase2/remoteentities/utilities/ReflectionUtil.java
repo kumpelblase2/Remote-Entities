@@ -1,21 +1,14 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import de.kumpelblase2.remoteentities.RemoteEntities;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import de.kumpelblase2.remoteentities.nms.NavigationTemp;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.nms.*;
+import de.kumpelblase2.remoteentities.persistence.*;
 import net.minecraft.server.v1_5_R2.*;
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+import java.util.*;
 
 public final class ReflectionUtil
 {
@@ -35,7 +28,7 @@ public final class ReflectionUtil
 		{
 			if(s_cachedFields.containsKey(inSelectorName))
 			{
-				Field f = s_cachedFields.get(inNewSelector);
+				Field f = s_cachedFields.get(inSelectorName);
 				f.set(inEntity, inNewSelector);
 			}
 			else

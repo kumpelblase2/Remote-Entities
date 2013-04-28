@@ -4,9 +4,9 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class DesireFindNearestTargetAtNight extends DesireFindNearestTarget
 {
-	public DesireFindNearestTargetAtNight(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMeele, int inChance)
+	public DesireFindNearestTargetAtNight(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
 	{
-		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMeele, inChance);
+		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance);
 		this.m_onlyAtNight = true;
 	}
 	

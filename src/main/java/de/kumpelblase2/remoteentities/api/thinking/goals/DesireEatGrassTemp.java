@@ -5,7 +5,7 @@ import net.minecraft.server.v1_5_R2.PathfinderGoalEatTile;
 
 public class DesireEatGrassTemp extends PathfinderGoalEatTile
 {
-	private RemoteEntity m_entity;
+	private final RemoteEntity m_entity;
 	
 	public DesireEatGrassTemp(RemoteEntity inEntity)
 	{

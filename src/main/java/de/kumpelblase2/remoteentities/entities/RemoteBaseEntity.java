@@ -28,7 +28,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected Mind m_mind;
 	protected FeatureSet m_features;
 	protected boolean m_isStationary = false;
-	protected RemoteEntityType m_type;
+	protected final RemoteEntityType m_type;
 	protected EntityLiving m_entity;
 	protected boolean m_isPushable = true;
 	protected float m_speed;

@@ -1,12 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
+import de.kumpelblase2.remoteentities.api.*;
 import java.util.*;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class Mind
 {
 	private Map<String, Behavior> m_behaviours;
-	private RemoteEntity m_entity;
+	private final RemoteEntity m_entity;
 	private boolean m_canFeel = true;
 	private DesireSelector m_targetNavigation;
 	private DesireSelector m_movementNavigation;
@@ -344,7 +344,7 @@ public class Mind
 	/**
 	 * Fixes the yaw of an entity to a specific value.
 	 * 
-	 * @param inYaw	Fixed yaw value
+	 * @param inHeadYaw	Fixed yaw value
 	 */
 	public void fixHeadYawAt(float inHeadYaw)
 	{

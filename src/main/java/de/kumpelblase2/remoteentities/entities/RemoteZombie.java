@@ -15,10 +15,10 @@ public class RemoteZombie extends RemoteBaseEntity implements Fightable
 		this(inID, null, inManager);
 	}
 	
-	public RemoteZombie(int inID, RemoteZombieEntity inEntitiy, EntityManager inManager)
+	public RemoteZombie(int inID, RemoteZombieEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Zombie, inManager);
-		this.m_entity = inEntitiy;
+		this.m_entity = inEntity;
 	}
 
 	@Override

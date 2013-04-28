@@ -13,14 +13,14 @@ public class WorldUtilities
 	 * @param m_zPos	middle y coordinate of circle
 	 * @param d			point x value
 	 * @param e			point y value
-	 * @param inRadious	radius
+	 * @param inRadius	radius
 	 * @return			true if inside, false if not
 	 */
-	public static boolean isInCircle(double m_xPos, double m_zPos, double d, double e, int inRadious)
+	public static boolean isInCircle(double m_xPos, double m_zPos, double d, double e, int inRadius)
 	{
 		double newX = (m_xPos - d);
 		double newY = (m_zPos - e);
-		return newX * newX + newY * newY < inRadious * inRadious;
+		return newX * newX + newY * newY < inRadius * inRadius;
 	}
 	
 	/**

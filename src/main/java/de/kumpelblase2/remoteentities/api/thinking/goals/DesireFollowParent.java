@@ -1,12 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.Iterator;
-import java.util.List;
-import org.bukkit.entity.LivingEntity;
-import net.minecraft.server.v1_5_R2.EntityAnimal;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.exceptions.CantBreedException;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.exceptions.*;
+import net.minecraft.server.v1_5_R2.*;
+import org.bukkit.entity.*;
+import java.util.*;
 
 public class DesireFollowParent extends DesireBase
 {
@@ -14,7 +13,7 @@ public class DesireFollowParent extends DesireBase
 	protected EntityAnimal m_parent;
 	protected int m_moveTick;
 	
-	public DesireFollowParent(RemoteEntity inEntity) throws Exception
+	public DesireFollowParent(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityAnimal))

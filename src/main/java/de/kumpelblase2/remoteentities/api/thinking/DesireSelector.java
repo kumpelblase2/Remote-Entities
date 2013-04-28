@@ -1,14 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import org.bukkit.Bukkit;
-import de.kumpelblase2.remoteentities.api.events.RemoteDesireAddEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteDesireStartEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteDesireStopEvent;
+import de.kumpelblase2.remoteentities.api.events.*;
+import org.bukkit.*;
+import java.util.*;
 
 public class DesireSelector
 {
@@ -49,7 +43,7 @@ public class DesireSelector
 					this.m_executingDesires.remove(event.getDesireItem());
 				}
 							 
-				if(!toRemove.contains(item.getDesire()) && this.hasHighestPriority(item) && item.getDesire().shouldExecute())
+				if(!toRemove.contains(item) && this.hasHighestPriority(item) && item.getDesire().shouldExecute())
 				{
 					RemoteDesireStartEvent event = new RemoteDesireStartEvent(item.getDesire().getRemoteEntity(), item);
 					Bukkit.getPluginManager().callEvent(event);

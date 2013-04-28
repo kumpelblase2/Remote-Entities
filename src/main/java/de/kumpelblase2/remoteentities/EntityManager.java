@@ -27,11 +27,11 @@ public class EntityManager
 	protected IEntitySerializer m_serializer;
 	private boolean m_saveOnDisable = false;
 	
-	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
+	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawned)
 	{
 		this.m_plugin = inPlugin;
 		this.m_entities = new ConcurrentHashMap<Integer, RemoteEntity>();
-		this.m_removeDespawned = inRemoveDespawed;
+		this.m_removeDespawned = inRemoveDespawned;
 		this.m_entityChunkLoader = new ChunkEntityLoader(this);
 		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()

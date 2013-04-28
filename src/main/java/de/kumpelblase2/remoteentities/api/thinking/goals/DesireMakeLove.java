@@ -16,7 +16,7 @@ public class DesireMakeLove extends DesireBase
 	protected Village m_nearestVillage;
 	protected int m_loveTick;
 	
-	public DesireMakeLove(RemoteEntity inEntity) throws Exception
+	public DesireMakeLove(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))

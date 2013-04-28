@@ -14,7 +14,7 @@ import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 {
-	private RemoteEntity m_remoteEntity;
+	private final RemoteEntity m_remoteEntity;
 	protected int m_jumpDelay = 0;
 	protected Entity m_target;
 	protected int m_lastBouncedId;

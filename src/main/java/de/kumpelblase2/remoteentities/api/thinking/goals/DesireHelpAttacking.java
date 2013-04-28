@@ -11,7 +11,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 {
 	protected EntityLiving m_ownerTarget;
 	
-	public DesireHelpAttacking(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight) throws Exception
+	public DesireHelpAttacking(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))

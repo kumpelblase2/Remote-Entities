@@ -16,7 +16,7 @@ public class DesireRangedAttack extends DesireBase
 {
 	protected EntityLiving m_target;
 	@SerializeAs(pos = 1)
-	protected RemoteProjectileType m_projeProjectileType;
+	protected RemoteProjectileType m_projectileType;
 	protected int m_inRangeTick;
 	protected int m_shootTicks;
 	@SerializeAs(pos = 2)
@@ -45,7 +45,7 @@ public class DesireRangedAttack extends DesireBase
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inMinDelay, int inMaxDelay, float inMinDistance)
 	{
 		super(inEntity);
-		this.m_projeProjectileType = inProjectileType;
+		this.m_projectileType = inProjectileType;
 		this.m_shootMinDelay = inMinDelay;
 		this.m_shootMaxDelay = inMaxDelay;
 		this.m_minDistance = inMinDistance;
@@ -58,7 +58,7 @@ public class DesireRangedAttack extends DesireBase
 	public void stopExecuting()
 	{
 		EntityTargetEvent.TargetReason reason = this.m_target.isAlive() ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
-		CraftEventFactory.callEntityTargetEvent((Entity)this.getEntityHandle(), null, reason);
+		CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
 		this.m_target = null;
 		this.m_inRangeTick = 0;
 		this.m_shootTicks = -1;
@@ -134,13 +134,13 @@ public class DesireRangedAttack extends DesireBase
 	protected void shoot(float inStrength)
 	{
 		EntityLiving entity = this.getEntityHandle();
-		if(this.m_projeProjectileType == RemoteProjectileType.ARROW)
+		if(this.m_projectileType == RemoteProjectileType.ARROW)
 		{
 			EntityArrow arrow = new EntityArrow(this.getEntityHandle().world, this.getEntityHandle(), this.m_target, 1.6F, 12);
 			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 			entity.world.addEntity(arrow);
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.SNOWBALL)
+		else if(this.m_projectileType == RemoteProjectileType.SNOWBALL)
 		{
 			EntitySnowball snowball = new EntitySnowball(entity.world, entity);
 			double xDiff = this.m_target.locX - entity.locX;
@@ -151,7 +151,7 @@ public class DesireRangedAttack extends DesireBase
 			snowball.shoot(xDiff, yDiff + dist, zDiff, 1.6F, 12);
 			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.SMALL_FIREBALL)
+		else if(this.m_projectileType == RemoteProjectileType.SMALL_FIREBALL)
 		{
 			entity.world.a(null, 1009, (int)entity.locX, (int)entity.locY, (int)entity.locZ, 0);
 			double xDiff = this.m_target.locX - entity.locX;
@@ -162,7 +162,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			entity.world.addEntity(fireball);
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.FIREBALL)
+		else if(this.m_projectileType == RemoteProjectileType.FIREBALL)
 		{
 			double xDiff = this.m_target.locX - entity.locX;
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
@@ -176,7 +176,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locZ = entity.locZ + vec.e * d;
 			entity.world.addEntity(fireball);
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.POTION)
+		else if(this.m_projectileType == RemoteProjectileType.POTION)
 		{
 			EntityPotion potion = new EntityPotion(entity.world, this.getEntityHandle(), 32732);
 			potion.pitch -= 20;

@@ -62,7 +62,7 @@ public class Pathfinder
 		}
 		
 		
-		start.calcualteGScore();
+		start.calculateGScore();
 		start.calculateHScore(end);
 		this.m_openList.add(start);
 		BlockNode next = null;
@@ -91,7 +91,7 @@ public class Pathfinder
 					if(old.getGScore() > n.getGScore())
 					{
 						old.setParent(next);
-						old.calcualteGScore();
+						old.calculateGScore();
 					}
 				}
 			}
@@ -142,7 +142,7 @@ public class Pathfinder
 				n.calculateHScore(inEnd);
 			
 			if(n.getGScore() == -1)
-				n.calcualteGScore();
+				n.calculateGScore();
 			
 			if(currentScore == 0 || n.getFScore() < currentScore)
 			{
@@ -171,7 +171,7 @@ public class Pathfinder
 					{
 						this.m_checked++;
 						node.setParent(inCurrent);
-						node.calcualteGScore();
+						node.calculateGScore();
 						node.calculateHScore(inEnd);
 						nodes.add(node);
 					}

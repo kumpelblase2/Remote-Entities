@@ -41,6 +41,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public EntityData[] loadData()
 	{

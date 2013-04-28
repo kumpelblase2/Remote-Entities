@@ -16,7 +16,7 @@ import java.lang.reflect.*;
 
 public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 {
-	private RemoteEntity m_remoteEntity;
+	private final RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	

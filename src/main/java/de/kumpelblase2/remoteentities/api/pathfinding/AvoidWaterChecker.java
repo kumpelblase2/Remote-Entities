@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.api.pathfinding;
 
 import org.bukkit.Material;
 
-public class AviodWaterChecker implements MoveChecker
+public class AvoidWaterChecker implements MoveChecker
 {
 	@Override
 	public void checkMove(MoveData inData)

@@ -21,7 +21,7 @@ public class DesireSitOnBlock extends DesireBase
 	protected int m_actionTicks = 0;
 	protected int m_maxSitTicks = 0;
 	
-	public DesireSitOnBlock(RemoteEntity inEntity) throws Exception
+	public DesireSitOnBlock(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityOcelot))

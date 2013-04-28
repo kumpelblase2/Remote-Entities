@@ -9,7 +9,7 @@ public class DesireTradeWithPlayer extends DesireBase
 {
 	protected EntityVillager m_villager;
 	
-	public DesireTradeWithPlayer(RemoteEntity inEntity) throws Exception
+	public DesireTradeWithPlayer(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))

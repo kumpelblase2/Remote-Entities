@@ -99,7 +99,7 @@ public class BlockNode
 		}
 	}
 	
-	public void calcualteGScore()
+	public void calculateGScore()
 	{
 		BlockNode parent;
 		BlockNode current = this;

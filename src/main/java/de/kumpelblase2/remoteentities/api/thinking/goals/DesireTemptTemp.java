@@ -5,7 +5,7 @@ import net.minecraft.server.v1_5_R2.PathfinderGoalTempt;
 
 public class DesireTemptTemp extends PathfinderGoalTempt
 {
-	private RemoteEntity m_entity;
+	private final RemoteEntity m_entity;
 	
 	public DesireTemptTemp(RemoteEntity inEntity)
 	{

@@ -2,11 +2,9 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.PathEntity;
+import net.minecraft.server.v1_5_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -128,7 +126,7 @@ public class DesireAttackOnCollide extends DesireBase
 		return true;
 	}
 	
-	public void attack(org.bukkit.entity.Entity inEntity)
+	public void attack(Entity inEntity)
 	{
 		this.getEntityHandle().m(this.m_target);
 	}

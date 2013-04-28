@@ -17,12 +17,12 @@ public class DesireOfferFlower extends DesireBase
 	protected int m_offerTick;
 	protected EntityLiving m_nearestEntity;
 	@SerializeAs(pos = 1)
-	protected Class<? extends Entity> m_toOfffer;
+	protected Class<? extends Entity> m_toOffer;
 	
 	public DesireOfferFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_toOfffer = EntityVillager.class;
+		this.m_toOffer = EntityVillager.class;
 		this.m_type = DesireType.SUBCONSCIOUS;
 	}
 	
@@ -31,9 +31,9 @@ public class DesireOfferFlower extends DesireBase
 	{
 		this(inEntity);
 		if(Entity.class.isAssignableFrom(inToOffer))
-			this.m_toOfffer = (Class<? extends Entity>)inToOffer;
+			this.m_toOffer = (Class<? extends Entity>)inToOffer;
 		else
-			this.m_toOfffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);
+			this.m_toOffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class DesireOfferFlower extends DesireBase
 			return false;
 		else
 		{
-			this.m_nearestEntity = (EntityLiving)this.getEntityHandle().world.a(this.m_toOfffer, this.getEntityHandle().boundingBox.grow(6, 2, 6), this.getEntityHandle());
+			this.m_nearestEntity = (EntityLiving)this.getEntityHandle().world.a(this.m_toOffer, this.getEntityHandle().boundingBox.grow(6, 2, 6), this.getEntityHandle());
 			return this.m_nearestEntity != null;
 		}
 	}

@@ -16,7 +16,7 @@ import net.minecraft.server.v1_5_R2.*;
 
 public class RemoteWitherEntity extends EntityWither implements RemoteEntityHandle
 {
-	private RemoteEntity m_remoteEntity;
+	private final RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	

@@ -1,21 +1,14 @@
 *.class
-
 # Package Files #
 *.war
 *.ear
 
 .classpath
-
 .project
-
-.settings/org.eclipse.jdt.core.prefs
-
-.settings/org.eclipse.m2e.core.prefs
+.settings/*
+*.prefs
 
 *.DS_Store
-
-target/classes/de/kumpelblase2/removeentities/.DS_Store
-
 dependency-reduced-pom.xml
 
 target/*

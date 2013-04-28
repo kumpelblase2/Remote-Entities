@@ -12,7 +12,7 @@ public class DesireSit extends DesireBase
 	protected EntityTameableAnimal m_animal;
 	protected boolean m_canSit = false;
 	
-	public DesireSit(RemoteEntity inEntity) throws Exception
+	public DesireSit(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class RandomPositionGenerator
 {
-	private static Vec3D a = Vec3D.a(0.0D, 0.0D, 0.0D);
+	private static final Vec3D a = Vec3D.a(0.0D, 0.0D, 0.0D);
 
     public static Vec3D a(EntityLiving entitycreature, int i, int j)
     {

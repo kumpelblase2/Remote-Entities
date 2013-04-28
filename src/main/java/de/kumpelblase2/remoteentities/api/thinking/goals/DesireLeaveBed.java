@@ -9,7 +9,7 @@ public class DesireLeaveBed extends DesireBase
 	public DesireLeaveBed(RemotePlayer inEntity)
 	{
 		super(inEntity);
-		this.m_isContinous = false;
+		this.m_isContinuous = false;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

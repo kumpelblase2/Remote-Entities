@@ -1,16 +1,11 @@
 package de.kumpelblase2.remoteentities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.bukkit.Location;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import de.kumpelblase2.remoteentities.api.features.Feature;
-import de.kumpelblase2.remoteentities.api.thinking.Behavior;
-import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
-import de.kumpelblase2.remoteentities.exceptions.NoNameException;
-import de.kumpelblase2.remoteentities.exceptions.NoTypeException;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.features.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.exceptions.*;
+import org.bukkit.*;
+import java.util.*;
 
 public class CreateEntityContext
 {
@@ -20,7 +15,7 @@ public class CreateEntityContext
 	private Location m_location;
 	private List<Feature> m_features;
 	private List<Behavior> m_behaviors;
-	private EntityManager m_manager;
+	private final EntityManager m_manager;
 	private boolean m_stationary = false;
 	private boolean m_pushable = true;
 	private float m_speed = -1;
@@ -194,7 +189,7 @@ public class CreateEntityContext
 	 */
 	public RemoteEntity create()
 	{
-		RemoteEntity created = null;
+		RemoteEntity created;
 		
 		if(this.m_type == null)
 			throw new NoTypeException();

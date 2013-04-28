@@ -87,7 +87,7 @@ public abstract class DesireTargetBase extends DesireBase
 		}
 	}
 	
-	protected boolean isSuitableTarget(EntityLiving inEntity, boolean inAttackInvulnurablePlayer)
+	protected boolean isSuitableTarget(EntityLiving inEntity, boolean inAttackInvulnerablePlayer)
 	{
 		if(inEntity == null)
 			return false;
@@ -115,7 +115,7 @@ public abstract class DesireTargetBase extends DesireBase
 				if(inEntity == ((CraftPlayer)this.m_entity.getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle())
 					return false;
 			}
-			else if(inEntity instanceof EntityHuman && !inAttackInvulnurablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
+			else if(inEntity instanceof EntityHuman && !inAttackInvulnerablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
 				return false;
 				
 			if(!this.getEntityHandle().d(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))

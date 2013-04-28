@@ -32,10 +32,7 @@ public class DoorOpenChecker implements MoveChecker
 		{
 			Gate g = (Gate)inData.getAboveBlock().getState().getData();
 			if(g.isOpen())
-			{
 				inData.setValid(true);
-				return;
-			}
 		}
 		else if(inData.getAboveBlock().getType() == Material.WOOD_DOOR || (!this.m_ironDoor && inData.getAboveBlock().getType() == Material.IRON_DOOR_BLOCK))
 		{

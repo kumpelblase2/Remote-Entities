@@ -18,11 +18,11 @@ public class DesireData implements ConfigurationSerializable
 	{
 	}
 	
-	public DesireData(Desire inDesire, int inPriotity)
+	public DesireData(Desire inDesire, int inPriority)
 	{
 		this.type = inDesire.getClass().getName();
 		this.parameters = inDesire.getSerializeableData();
-		this.priority = inPriotity;
+		this.priority = inPriority;
 	}
 	
 	public DesireData(DesireItem item)

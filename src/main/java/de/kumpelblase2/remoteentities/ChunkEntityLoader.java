@@ -13,7 +13,7 @@ import java.util.*;
 
 class ChunkEntityLoader implements Listener
 {
-	private EntityManager m_manager;
+	private final EntityManager m_manager;
 	private Set<EntityLoadData> m_toSpawn;
 	
 	ChunkEntityLoader(EntityManager inManager)
@@ -74,7 +74,7 @@ class ChunkEntityLoader implements Listener
 					
 					if(RemoteEntities.isRemoteEntity((LivingEntity)entity))
 					{
-						RemoteEntity rentity = (RemoteEntity)RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
+						RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
 						if(rentity.isSpawned())
 						{
 							m_toSpawn.add(new EntityLoadData(rentity, entity.getLocation()));
@@ -134,9 +134,9 @@ class ChunkEntityLoader implements Listener
 	
 	class EntityLoadData
 	{
-		RemoteEntity entity;
-		Location loc;
-		boolean setupGoals;
+		final RemoteEntity entity;
+		final Location loc;
+		final boolean setupGoals;
 		
 		public EntityLoadData(RemoteEntity inEntity, Location inLoc, boolean inSetupGoals)
 		{

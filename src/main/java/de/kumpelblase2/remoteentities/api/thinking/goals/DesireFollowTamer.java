@@ -28,7 +28,7 @@ public class DesireFollowTamer extends DesireBase
 	protected int m_moveTick;
 	protected boolean m_avoidWaterState;
 	
-	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance) throws Exception
+	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
