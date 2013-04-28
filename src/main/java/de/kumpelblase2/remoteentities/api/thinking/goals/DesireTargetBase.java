@@ -60,7 +60,7 @@ public abstract class DesireTargetBase extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().setGoalTarget((EntityLiving)null);
+		this.getEntityHandle().setGoalTarget(null);
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public abstract class DesireTargetBase extends DesireBase
 				if(event.isCancelled() || event.getTarget() == null)
 				{
 				    if(this.getEntityHandle() instanceof EntityCreature)
-				        ((EntityCreature)this.getEntityHandle()).setGoalTarget(null);
+				        this.getEntityHandle().setGoalTarget(null);
 				    
 				    return false;
 				}

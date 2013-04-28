@@ -1,6 +1,5 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.List;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -9,6 +8,7 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 import net.minecraft.server.v1_5_R2.*;
+import java.util.List;
 
 public class DesireLookAtNearest extends DesireBase
 {
@@ -86,11 +86,8 @@ public class DesireLookAtNearest extends DesireBase
 	{
 		if(!this.m_target.isAlive())
 			return false;
-		
-		if(this.getEntityHandle().e(this.m_target) > this.m_minDistSquared)
-			return false;
-		
-		return this.m_lookTicks > 0;
+
+		return this.getEntityHandle().e(this.m_target) <= this.m_minDistSquared && this.m_lookTicks > 0;
 	}
 	
 	@Override

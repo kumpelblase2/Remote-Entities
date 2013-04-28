@@ -42,7 +42,7 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		if(this.m_entity == null)
 			return;
 		
-		this.getHandle().setGoalTarget((EntityLiving)null);
+		this.getHandle().setGoalTarget(null);
 		if(!this.m_hadAttackDesire)
 			this.getMind().removeTargetingDesire(DesireFindAttackingTarget.class);
 	}

@@ -1,11 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.Village;
-import net.minecraft.server.v1_5_R2.VillageDoor;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import net.minecraft.server.v1_5_R2.*;
 
 public class DesireRestrictOpenDoor extends DesireBase
 {
@@ -30,7 +27,7 @@ public class DesireRestrictOpenDoor extends DesireBase
 			else
 			{
 				this.m_door = nearestVillage.b(MathHelper.floor(entity.locX), MathHelper.floor(entity.locY), MathHelper.floor(entity.locZ));
-				return this.m_door == null ? false : this.m_door.c(MathHelper.floor(entity.locX), MathHelper.floor(entity.locY), MathHelper.floor(entity.locZ)) < 2.25;
+				return this.m_door != null && this.m_door.c(MathHelper.floor(entity.locX), MathHelper.floor(entity.locY), MathHelper.floor(entity.locZ)) < 2.25;
 			}
 		}
 	}
@@ -39,7 +36,7 @@ public class DesireRestrictOpenDoor extends DesireBase
 	public boolean canContinue()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		return entity.world.u() ? false : !this.m_door.removed && this.m_door.a(MathHelper.floor(entity.locX), MathHelper.floor(entity.locZ));
+		return !entity.world.u() && !this.m_door.removed && this.m_door.a(MathHelper.floor(entity.locX), MathHelper.floor(entity.locZ));
 	}
 	
 	@Override

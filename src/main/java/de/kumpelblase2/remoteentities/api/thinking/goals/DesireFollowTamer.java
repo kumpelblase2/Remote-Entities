@@ -139,10 +139,7 @@ public class DesireFollowTamer extends DesireBase
 	
 	protected boolean isSitting()
 	{
-		if(this.m_animal instanceof EntityTameableAnimal)
-			return ((EntityTameableAnimal)this.m_animal).isSitting();
-		
-		return false;
+		return this.m_animal instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.m_animal).isSitting();
 	}
 	
 	protected boolean isTamed()

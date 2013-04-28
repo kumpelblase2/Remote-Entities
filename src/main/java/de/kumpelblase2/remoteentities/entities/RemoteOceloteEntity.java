@@ -1,18 +1,18 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import java.lang.reflect.Field;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_5_R2.*;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
-import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.events.*;
+import de.kumpelblase2.remoteentities.api.features.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
-import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.nms.*;
+import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R2.Item;
+import net.minecraft.server.v1_5_R2.World;
+import org.bukkit.*;
+import org.bukkit.entity.*;
+import org.bukkit.inventory.*;
+import java.lang.reflect.*;
 
 public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHandle
 {
@@ -51,7 +51,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
+		return this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 
 	@Override

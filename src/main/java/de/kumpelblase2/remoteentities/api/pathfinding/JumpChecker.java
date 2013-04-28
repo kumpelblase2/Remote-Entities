@@ -30,10 +30,7 @@ public class JumpChecker implements MoveChecker
 			
 			Block to = inData.getTo().getBlock();
 			if(to.getType() == Material.FENCE || (to.getType() == Material.FENCE_GATE && !((Gate)to.getState().getData()).isOpen()))
-			{
 				inData.setValid(false);
-				return;
-			}
 		}
 	}
 }

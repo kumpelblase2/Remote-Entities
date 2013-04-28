@@ -22,10 +22,7 @@ public class DesireNonTamedFindNearest extends DesireFindNearestTarget
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.m_animal == null)
-			return false;
-		
-		return this.isTamed() ? false : super.shouldExecute();
+		return this.m_animal != null && !this.isTamed() && super.shouldExecute();
 	}
 	
 	protected boolean isTamed()

@@ -52,7 +52,7 @@ public class BlockNode
 	public void setLocation(Location inLocation)
 	{
 		this.m_loc = inLocation;
-		this.m_hash = new StringBuilder().append(this.getX() + ":").append(this.getY() + ":").append(this.getZ()).toString(); 
+		this.m_hash = this.getX() + ":" + this.getY() + ":" + this.getZ();
 	}
 	
 	public BlockNode getParent()
@@ -101,7 +101,7 @@ public class BlockNode
 	
 	public void calcualteGScore()
 	{
-		BlockNode parent = null;
+		BlockNode parent;
 		BlockNode current = this;
 		double currentCost = 0;
 		while((parent = current.getParent()) != null)
@@ -134,15 +134,12 @@ public class BlockNode
 	@Override
 	public boolean equals(Object o)
 	{
-		if(o == null)
-			return false;
-		
-		return o.toString().equals(this.toString());
+		return o != null && o.toString().equals(this.toString());
 	}
 	
 	public boolean isSolid()
 	{
-		return !this.getLocation().getBlock().isEmpty();
+		return !Pathfinder.isTransparent(this.getLocation().getBlock());
 	}
 	
 	public boolean canJump()

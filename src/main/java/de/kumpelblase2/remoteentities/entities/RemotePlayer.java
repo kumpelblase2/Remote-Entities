@@ -48,7 +48,7 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		if(this.m_entity == null)
 			return;
 		
-		this.m_entity.setGoalTarget((EntityLiving)null);
+		this.m_entity.setGoalTarget(null);
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 	 */
 	public boolean isSleeping()
 	{
-		return ((EntityHuman)this.getHandle()).isSleeping();
+		return this.getHandle().isSleeping();
 	}
 	
 	/**

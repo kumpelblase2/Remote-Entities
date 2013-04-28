@@ -1,16 +1,10 @@
 package de.kumpelblase2.remoteentities.persistence;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import de.kumpelblase2.remoteentities.api.Nameable;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import de.kumpelblase2.remoteentities.api.thinking.Behavior;
-import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
-import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.entities.*;
+import org.bukkit.configuration.serialization.*;
+import java.util.*;
 
 public class EntityData implements ConfigurationSerializable
 {
@@ -64,7 +58,7 @@ public class EntityData implements ConfigurationSerializable
 			if(!desire.getDesire().getClass().isAnnotationPresent(IgnoreSerialization.class))
 				action.add(new DesireData(desire));
 		}
-		this.actionDesires = action.toArray(new DesireData[0]);
+		this.actionDesires = action.toArray(new DesireData[action.size()]);
 		List<DesireData> movement = new ArrayList<DesireData>();
 		for(int i = 0; i < inEntity.getMind().getMovementDesires().size(); i++)
 		{
@@ -72,7 +66,7 @@ public class EntityData implements ConfigurationSerializable
 			if(!desire.getDesire().getClass().isAnnotationPresent(IgnoreSerialization.class))
 				movement.add(new DesireData(desire));
 		}
-		this.movementDesires = movement.toArray(new DesireData[0]);
+		this.movementDesires = movement.toArray(new DesireData[movement.size()]);
 		this.behaviors = new BehaviorData[inEntity.getMind().getBehaviours().size()];
 		int pos = 0;
 		for(Behavior behavior : inEntity.getMind().getBehaviours())

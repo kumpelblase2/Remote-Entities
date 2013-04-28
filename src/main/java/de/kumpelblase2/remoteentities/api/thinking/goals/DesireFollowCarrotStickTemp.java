@@ -17,7 +17,7 @@ public class DesireFollowCarrotStickTemp extends PathfinderGoalPassengerCarrotSt
 	{
 		if(this.m_entity.getMind().getMovementDesire(DesireFollowCarrotStick.class) == null)
 			return false;
-		
+
 		return this.m_entity.getMind().getMovementDesire(DesireFollowCarrotStick.class).isSpeedBoosted();
 	}
 	

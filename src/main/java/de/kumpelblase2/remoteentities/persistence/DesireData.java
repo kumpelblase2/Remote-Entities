@@ -1,16 +1,12 @@
 package de.kumpelblase2.remoteentities.persistence;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.lang3.ClassUtils;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import de.kumpelblase2.remoteentities.RemoteEntities;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import org.apache.commons.lang3.*;
+import org.bukkit.configuration.serialization.*;
+import java.lang.reflect.*;
+import java.util.*;
 
 public class DesireData implements ConfigurationSerializable
 {
@@ -117,7 +113,6 @@ public class DesireData implements ConfigurationSerializable
 			catch(Exception e)
 			{
 				e.printStackTrace();
-				continue;
 			}
 		}
 		return classes;

@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities;
 
-import java.lang.reflect.Constructor;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.exceptions.NoNameException;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
 import net.minecraft.server.v1_5_R2.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,10 +13,10 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.exceptions.NoNameException;
-import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
+import java.lang.reflect.Constructor;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EntityManager
 {
@@ -240,10 +240,10 @@ public class EntityManager
 	 */
 	public void removeEntity(int inID, boolean inDespawn)
 	{
-		if(this.m_entities.containsKey((Integer)inID) && inDespawn)
-			this.m_entities.get((Integer)inID).despawn(DespawnReason.CUSTOM);
+		if(this.m_entities.containsKey(inID) && inDespawn)
+			this.m_entities.get(inID).despawn(DespawnReason.CUSTOM);
 		
-		this.m_entities.remove((Integer)inID);
+		this.m_entities.remove(inID);
 	}
 	
 	/**
@@ -318,7 +318,7 @@ public class EntityManager
 	 */
 	public RemoteEntity getRemoteEntityByID(int inID)
 	{
-		return this.m_entities.get((Integer)inID);
+		return this.m_entities.get(inID);
 	}
 	
 	/**
@@ -340,7 +340,7 @@ public class EntityManager
 			}
 		}
 		
-		return entities.toArray(new RemoteEntity[0]);
+		return entities.toArray(new RemoteEntity[entities.size()]);
 	}
 	
 	/**

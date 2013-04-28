@@ -41,10 +41,7 @@ public class DoorOpenChecker implements MoveChecker
 		{
 			Door d = (Door)inData.getAboveBlock().getState().getData();
 			if(d.isOpen())
-			{
 				inData.setValid(true);
-				return;
-			}
 		}
 	}
 	

@@ -40,7 +40,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 			this.playerConnection = new NullNetServerHandler(minecraftserver, manager, this);
 			manager.a(playerConnection);
 		}
-		catch(Exception e){}
+		catch(Exception e)
+		{
+		}
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
+		return this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
             }
 
             this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = (float) (1 * this.getSize());
+            this.bE = (float)this.getSize();
         } else {
             this.bG = false;
             if (this.onGround) {

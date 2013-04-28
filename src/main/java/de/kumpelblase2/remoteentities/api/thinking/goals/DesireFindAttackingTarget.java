@@ -1,15 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.server.v1_5_R2.AxisAlignedBB;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import net.minecraft.server.v1_5_R2.*;
+import java.util.Iterator;
+import java.util.List;
 
 public class DesireFindAttackingTarget extends DesireTargetBase
 {
@@ -35,10 +33,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null)
-			return false;
-		
-		return this.isSuitableTarget(this.getEntityHandle().aF(), true);
+		return this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().aF(), true);
 	}
 	
 	@Override

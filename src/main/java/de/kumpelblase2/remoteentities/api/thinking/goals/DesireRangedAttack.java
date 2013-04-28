@@ -1,21 +1,5 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityArrow;
-import net.minecraft.server.v1_5_R2.EntityFireball;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLargeFireball;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EntityPotion;
-import net.minecraft.server.v1_5_R2.EntitySmallFireball;
-import net.minecraft.server.v1_5_R2.EntitySnowball;
-import net.minecraft.server.v1_5_R2.IRangedEntity;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.MobEffectList;
-import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -23,6 +7,10 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import net.minecraft.server.v1_5_R2.*;
+import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityTargetEvent;
 
 public class DesireRangedAttack extends DesireBase
 {
@@ -165,7 +153,7 @@ public class DesireRangedAttack extends DesireBase
 		}
 		else if(this.m_projeProjectileType == RemoteProjectileType.SMALL_FIREBALL)
 		{
-			entity.world.a((EntityHuman)null, 1009, (int)entity.locX, (int)entity.locY, (int)entity.locZ, 0);
+			entity.world.a(null, 1009, (int)entity.locX, (int)entity.locY, (int)entity.locZ, 0);
 			double xDiff = this.m_target.locX - entity.locX;
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
 			double zDiff = this.m_target.locZ - entity.locZ;

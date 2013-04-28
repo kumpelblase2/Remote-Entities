@@ -39,11 +39,8 @@ public class DesireSit extends DesireBase
 			EntityLiving owner = this.m_animal.getOwner();
 			if(owner == null)
 				return true;
-			
-			if(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null)
-				return false;
-			
-			return this.m_canSit;
+
+			return !(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null) && this.m_canSit;
 		}
 	}
 	

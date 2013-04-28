@@ -23,13 +23,19 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	{
 		this(world, null);
 	}
-	
-	public RemoteVillagerEntity(World world, RemoteEntity inRemoteEntity)
+
+	public RemoteVillagerEntity(World inWorld, RemoteEntity inRemoteEntity)
 	{
-		super(world);
+		super(inWorld);
 		this.m_remoteEntity = inRemoteEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
+	}
+
+	@Override
+	public EntityAgeable createChild(EntityAgeable inEntityAgeable)
+	{
+		return this.b(inEntityAgeable);
 	}
 	
 	@Override
@@ -38,7 +44,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
+		return this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 
 	@Override

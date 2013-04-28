@@ -13,10 +13,7 @@ public class JumpDownChecker implements MoveChecker
 		if(inData.getYDiff() == -1)
 		{
 			if(!Pathfinder.isTransparent(inData.getAboveBlock()) || !Pathfinder.isTransparent(inData.getHeadBlock()) || !Pathfinder.isTransparent(inData.getHeadBlock().getRelative(BlockFace.UP)))
-			{
 				inData.setValid(false);
-				return;
-			}
 		}
 	}
 }

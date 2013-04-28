@@ -1,23 +1,15 @@
 package de.kumpelblase2.remoteentities;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import de.kumpelblase2.remoteentities.api.*;
 import net.minecraft.server.v1_5_R2.WorldServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
-import de.kumpelblase2.remoteentities.api.DespawnReason;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import java.util.*;
 
 class ChunkEntityLoader implements Listener
 {
@@ -102,10 +94,7 @@ class ChunkEntityLoader implements Listener
 	 */
 	public boolean canSpawnAt(Location inLocation)
 	{
-		if(inLocation.getChunk().isLoaded())
-			return true;
-		
-		return false;
+		return inLocation.getChunk().isLoaded();
 	}
 	
 	/**

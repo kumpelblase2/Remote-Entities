@@ -22,7 +22,7 @@ public class DesireGoToBed extends DesireFindBlockBase
 	@Deprecated
 	public DesireGoToBed(RemoteEntity inEntity, int inBlockID, int inRange)
 	{
-		super((RemotePlayer)inEntity, inBlockID, inRange);
+		super(inEntity, inBlockID, inRange);
 	}
 
 	@Override
@@ -30,11 +30,8 @@ public class DesireGoToBed extends DesireFindBlockBase
 	{
 		if(this.m_entity.getHandle().world.u() || ((RemotePlayer)this.m_entity).isSleeping())
 			return false;
-		
-		if(!this.findNearest())
-			return false;
-		
-		return true;
+
+		return this.findNearest();
 	}
 	
 	@Override

@@ -34,7 +34,7 @@ public class DesireOcelotAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_target.isAlive() ? false : this.getEntityHandle().e(this.m_target) > 225 ? false : !this.getEntityHandle().getNavigation().f() || this.shouldExecute();
+		return this.m_target.isAlive() && (this.getEntityHandle().e(this.m_target) <= 225 && (!this.getEntityHandle().getNavigation().f() || this.shouldExecute()));
 	}
 	
 	@Override

@@ -15,11 +15,8 @@ public class AviodWaterChecker implements MoveChecker
 			inData.setValid(false);
 			return;
 		}
-		
+
 		if(inData.getAboveBlock().getType() == Material.WATER || inData.getAboveBlock().getType() == Material.STATIONARY_WATER)
-		{
 			inData.setValid(false);
-			return;
-		}
 	}
 }

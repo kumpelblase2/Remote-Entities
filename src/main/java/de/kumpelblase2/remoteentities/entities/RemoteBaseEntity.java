@@ -1,36 +1,26 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import java.lang.reflect.Field;
-import net.minecraft.server.v1_5_R2.EntityCreature;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.PathEntity;
-import net.minecraft.server.v1_5_R2.World;
-import net.minecraft.server.v1_5_R2.WorldServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftInventoryPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.metadata.FixedMetadataValue;
-import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.*;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
-import de.kumpelblase2.remoteentities.api.features.FeatureSet;
-import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.events.*;
+import de.kumpelblase2.remoteentities.api.features.*;
 import de.kumpelblase2.remoteentities.api.pathfinding.Pathfinder;
-import de.kumpelblase2.remoteentities.api.thinking.Behavior;
-import de.kumpelblase2.remoteentities.api.thinking.Mind;
-import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
-import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.persistence.*;
+import de.kumpelblase2.remoteentities.utilities.*;
+import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R2.World;
+import org.bukkit.*;
+import org.bukkit.Chunk;
+import org.bukkit.craftbukkit.v1_5_R2.*;
+import org.bukkit.craftbukkit.v1_5_R2.entity.*;
+import org.bukkit.craftbukkit.v1_5_R2.inventory.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.*;
+import org.bukkit.event.entity.CreatureSpawnEvent.*;
+import org.bukkit.inventory.*;
+import org.bukkit.metadata.*;
+import java.lang.reflect.*;
 
 public abstract class RemoteBaseEntity implements RemoteEntity
 {
@@ -138,7 +128,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
-		
+
 		return getPathfinder().moveTo(inLocation);
 	}
 	
@@ -275,7 +265,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
 			ReflectionUtil.registerEntityType(this.getType().getEntityClass(), this.getNativeEntityName(), entry.getID());
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
-			this.m_entity = (EntityLiving)this.m_type.getEntityClass().getConstructor(World.class, RemoteEntity.class).newInstance(worldServer, this);
+			this.m_entity = this.m_type.getEntityClass().getConstructor(World.class, de.kumpelblase2.remoteentities.api.RemoteEntity.class).newInstance(worldServer, this);
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();

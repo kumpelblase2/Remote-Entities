@@ -48,7 +48,7 @@ public class DesireEatGrass extends DesireBase
 			int y = MathHelper.floor(entity.locY);
 			int z = MathHelper.floor(entity.locZ);
 			
-			return entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id && entity.world.getData(x, y, z) == 1 ? true : entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id; 
+			return entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id && entity.world.getData(x, y, z) == 1 || entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id;
 		}
 	}
 
