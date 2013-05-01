@@ -8,7 +8,7 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import java.util.List;
 
 public class DesireAvoidSpecific extends DesireBase
@@ -94,7 +94,7 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!this.getEntityHandle().aD().canSee(this.m_closestEntity))
+        if (!this.getEntityHandle().getEntitySenses().canSee(this.m_closestEntity))
             return false;
         else
         {

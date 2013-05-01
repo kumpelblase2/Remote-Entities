@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
@@ -89,9 +89,9 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 	
 	@Override
-	protected void bn()
+	protected void bq()
 	{
-		this.bk();
+		this.bn();
 		if(this.m_target != null)
 		{
 			this.a(this.m_target, 10.0F, 20.0F);

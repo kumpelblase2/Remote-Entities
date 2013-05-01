@@ -4,7 +4,7 @@ import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.*;
 import de.kumpelblase2.remoteentities.utilities.*;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import java.util.*;
 
 public class DesireFindNearestTarget extends DesireTargetBase
@@ -62,7 +62,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		if(this.m_onlyAtNight && this.getEntityHandle().world.u())
+		if(this.m_onlyAtNight && this.getEntityHandle().world.v())
 			return false;
 		else if(this.m_targetChance > 0 && this.getEntityHandle().aE().nextInt(this.m_targetChance) != 0)
 			return false;

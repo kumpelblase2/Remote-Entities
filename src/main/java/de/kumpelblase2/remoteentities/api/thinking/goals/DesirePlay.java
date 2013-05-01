@@ -4,7 +4,7 @@ import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.exceptions.*;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import java.util.*;

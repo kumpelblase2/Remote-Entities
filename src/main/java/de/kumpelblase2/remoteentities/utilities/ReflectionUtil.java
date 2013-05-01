@@ -5,7 +5,7 @@ import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.nms.*;
 import de.kumpelblase2.remoteentities.persistence.*;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
@@ -65,7 +65,7 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
  
-            Method a = net.minecraft.server.v1_5_R2.EntityTypes.class.getDeclaredMethod("a", args);
+            Method a = net.minecraft.server.v1_5_R3.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
  
             a.invoke(a, inClass, name, inID);

@@ -4,7 +4,7 @@ import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.*;
 import de.kumpelblase2.remoteentities.utilities.*;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 
 public class DesireTempt extends DesireBase
 {
@@ -48,7 +48,7 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.cb();
+				ItemStack item = this.m_nearPlayer.cd();
 				return item != null && item.id == this.m_itemId;
 			}
 		}

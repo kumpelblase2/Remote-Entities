@@ -7,8 +7,8 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.v1_5_R2.*;
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 
@@ -68,7 +68,7 @@ public class DesireRangedAttack extends DesireBase
 	public boolean update()
 	{
 		double dist = this.getEntityHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
-		boolean canSee = this.getEntityHandle().aD().canSee(this.m_target);
+		boolean canSee = this.getEntityHandle().getEntitySenses().canSee(this.m_target);
 		
 		if(canSee)
 			this.m_inRangeTick++;

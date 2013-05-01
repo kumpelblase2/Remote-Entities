@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import java.lang.reflect.*;
 import java.util.*;
 

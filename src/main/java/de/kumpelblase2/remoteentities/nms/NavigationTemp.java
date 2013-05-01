@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import net.minecraft.server.v1_5_R2.Navigation;
+import net.minecraft.server.v1_5_R3.Navigation;
 
 public class NavigationTemp extends Navigation
 {
