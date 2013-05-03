@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Mind
 {
-	private Map<String, Behavior> m_behaviours;
+	private final Map<String, Behavior> m_behaviours;
 	private final RemoteEntity m_entity;
 	private boolean m_canFeel = true;
 	private DesireSelector m_targetNavigation;
@@ -385,8 +385,9 @@ public class Mind
 				behaviour.run();
 			}
 		}
-		
+
 		this.m_movementNavigation.onUpdate();
 		this.m_targetNavigation.onUpdate();
+		this.m_entity.getPathfinder().update();
 	}
 }
