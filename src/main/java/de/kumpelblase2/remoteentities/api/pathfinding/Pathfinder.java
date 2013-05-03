@@ -1,18 +1,12 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import org.bukkit.Location;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.events.*;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import java.util.*;
 
 public class Pathfinder
 {
@@ -25,6 +19,7 @@ public class Pathfinder
 	public static int MAX_CHECK_TIMEOUT = 10000;
 	private int m_checked = 0;
 	private Path m_lastPath;
+	private boolean m_isFindingAsync = false;
 	public static Set<Material> transparentMaterial = new HashSet<Material>();
 	
 	static
@@ -46,6 +41,12 @@ public class Pathfinder
 		this.m_closedList = new HashSet<BlockNode>();
 		this.m_checkers = new ArrayList<MoveChecker>();
 		this.m_entity = inEntity;
+	}
+
+	public Pathfinder(RemoteEntity inEntity, boolean inAsyncFinding)
+	{
+		this(inEntity);
+		this.m_isFindingAsync = inAsyncFinding;
 	}
 	
 	public PathResult find(Location inStart, Location inEnd)
@@ -108,6 +109,19 @@ public class Pathfinder
 		this.m_lastPath = new Path(inOrder);
 		return PathResult.SUCCESS;
 	}
+
+	public void findAsync(final Location inStart, final Location inEnd, final PathfinderCallback inCallback)
+	{
+		Bukkit.getScheduler().runTaskAsynchronously(this.m_entity.getManager().getPlugin(), new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				PathResult result = find(inStart, inEnd);
+				inCallback.onPathfindEnd(Pathfinder.this, result);
+			}
+		});
+	}
 	
 	public boolean moveTo(Location inTo)
 	{
@@ -117,8 +131,10 @@ public class Pathfinder
 		PathResult result = this.find(this.m_entity.getBukkitEntity().getLocation(), inTo);
 		if(result != PathResult.SUCCESS)
 			return false;
-		
-		this.m_currentPath = this.getLastPath();
+
+		RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(this.m_entity, this.getLastPath());
+		Bukkit.getPluginManager().callEvent(event);
+		this.m_currentPath = event.getPath();
 		return true;
 	}
 	
@@ -128,6 +144,55 @@ public class Pathfinder
 			return false;
 		
 		this.m_currentPath.setCustomSpeed(inSpeed);
+		return true;
+	}
+
+	public boolean moveToAsync(Location inTo)
+	{
+		if(!this.m_entity.isSpawned())
+			return false;
+
+		this.findAsync(this.m_entity.getBukkitEntity().getLocation(), inTo, new PathfinderCallback()
+		{
+			@Override
+			public void onPathfindEnd(Pathfinder inFinder, PathResult inResult)
+			{
+				if(inResult == PathResult.SUCCESS)
+				{
+					RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(Pathfinder.this.m_entity, inFinder.getLastPath(), true);
+					Bukkit.getPluginManager().callEvent(event);
+					if(event.isCancelled())
+						return;
+
+					Pathfinder.this.m_currentPath = event.getPath();
+				}
+			}
+		});
+		return true;
+	}
+
+	public boolean moveToAsync(Location inTo, final float inSpeed)
+	{
+		if(!this.m_entity.isSpawned())
+			return false;
+
+		this.findAsync(this.m_entity.getBukkitEntity().getLocation(), inTo, new PathfinderCallback()
+		{
+			@Override
+			public void onPathfindEnd(Pathfinder inFinder, PathResult inResult)
+			{
+				if(inResult == PathResult.SUCCESS)
+				{
+					RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(Pathfinder.this.m_entity, inFinder.getLastPath(), true);
+					Bukkit.getPluginManager().callEvent(event);
+					if(event.isCancelled())
+						return;
+
+					Pathfinder.this.m_currentPath = event.getPath();
+					Pathfinder.this.m_currentPath.setCustomSpeed(inSpeed);
+				}
+			}
+		});
 		return true;
 	}
 	
@@ -276,7 +341,7 @@ public class Pathfinder
 		BlockNode next = this.m_currentPath.next();
 		if(next == null)
 		{
-			this.cancelPath();
+			this.cancelPath(CancelReason.END);
 			return;
 		}
 		
@@ -288,17 +353,34 @@ public class Pathfinder
 		entity.getControllerMove().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
 		
 		if(this.m_currentPath.isDone())
-			this.cancelPath();
+			this.cancelPath(CancelReason.END);
 	}
 	
 	public void cancelPath()
 	{
+		this.cancelPath(CancelReason.PLUGIN);
+	}
+
+	public void cancelPath(CancelReason inReason)
+	{
+		RemotePathCancelEvent event = new RemotePathCancelEvent(this.m_entity, inReason);
+		Bukkit.getPluginManager().callEvent(event);
 		this.m_currentPath = null;
 	}
 	
 	public Path getLastPath()
 	{
 		return this.m_lastPath;
+	}
+
+	public boolean isFindingAsync()
+	{
+		return this.m_isFindingAsync;
+	}
+
+	public void setFindingAsync(boolean inFindingAsync)
+	{
+		this.m_isFindingAsync = inFindingAsync;
 	}
 	
 	public static Pathfinder getDefaultPathfinder(RemoteEntity inEntity)

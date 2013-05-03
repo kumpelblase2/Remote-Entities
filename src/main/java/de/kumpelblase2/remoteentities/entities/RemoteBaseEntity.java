@@ -129,6 +129,9 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 
+		if(this.m_pathfinder.isFindingAsync())
+			return getPathfinder().moveToAsync(inLocation);
+
 		return getPathfinder().moveTo(inLocation);
 	}
 	
@@ -137,7 +140,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
-		
+
+		if(this.m_pathfinder.isFindingAsync())
+			return this.m_pathfinder.moveToAsync(inLocation, inSpeed);
+
 		return this.getPathfinder().moveTo(inLocation, inSpeed);
 	}
 	
