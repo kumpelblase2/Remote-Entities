@@ -7,7 +7,7 @@ public class AirChecker implements MoveChecker
 	{
 		if(inData.getYDiff() >= 0)
 		{
-			if(!Pathfinder.isTransparent(inData.getBlock()))
+			if(!Pathfinder.isTransparent(inData.getBlock()) && !Pathfinder.isLiquid(inData.getBlock()))
 				inData.setValid(false);
 		}
 	}

@@ -10,9 +10,9 @@ import java.util.*;
 
 public class Pathfinder
 {
-	private Set<BlockNode> m_openList;
-	private Set<BlockNode> m_closedList;
-	private List<MoveChecker> m_checkers;
+	private final Set<BlockNode> m_openList;
+	private final Set<BlockNode> m_closedList;
+	private final List<MoveChecker> m_checkers;
 	private HeuristicType m_heuristicType = HeuristicType.MANHATTAN;
 	private final RemoteEntity m_entity;
 	private Path m_currentPath;
@@ -20,7 +20,8 @@ public class Pathfinder
 	private int m_checked = 0;
 	private Path m_lastPath;
 	private boolean m_isFindingAsync = false;
-	public static Set<Material> transparentMaterial = new HashSet<Material>();
+	public static final Set<Material> transparentMaterial = new HashSet<Material>();
+	public static final Set<Material> liquidMaterial = new HashSet<Material>();
 	
 	static
 	{
@@ -33,6 +34,9 @@ public class Pathfinder
 			Material.WOOD_PLATE, Material.YELLOW_FLOWER
 		};
 		transparentMaterial.addAll(Arrays.asList(array));
+
+		array = new Material[] { Material.WATER, Material.STATIONARY_WATER, Material.LAVA, Material.STATIONARY_LAVA, Material.LADDER };
+		liquidMaterial.addAll(Arrays.asList(array));
 	}
 	
 	public Pathfinder(RemoteEntity inEntity)
@@ -79,7 +83,7 @@ public class Pathfinder
 			if(end.equals(next))
 				break;
 			
-			List<BlockNode> newNodes = this.getNearNodes(next, end);
+			Set<BlockNode> newNodes = this.getNearNodes(next, end);
 			if(this.m_checked >= MAX_CHECK_TIMEOUT)
 				return PathResult.MAX_ITERATION;
 				
@@ -219,9 +223,9 @@ public class Pathfinder
 		return currentSmallest;
 	}
 	
-	protected List<BlockNode> getNearNodes(BlockNode inCurrent, BlockNode inEnd)
+	protected Set<BlockNode> getNearNodes(BlockNode inCurrent, BlockNode inEnd)
 	{
-		ArrayList<BlockNode> nodes = new ArrayList<BlockNode>(26);
+		Set<BlockNode> nodes = new HashSet<BlockNode>(26);
 		for(int x = -1; x <= 1; x++)
 		{
 			for(int y = -1; y <= 1; y++)
@@ -337,20 +341,23 @@ public class Pathfinder
 	{
 		if(!this.hasPath() || !this.getEntity().isSpawned())
 			return;
-		
+
+		EntityLiving entity = this.getEntity().getHandle();
+		if(!entity.getNavigation().f())
+			return;
+
 		BlockNode next = this.m_currentPath.next();
 		if(next == null)
 		{
 			this.cancelPath(CancelReason.END);
 			return;
 		}
-		
-		EntityLiving entity = this.getEntity().getHandle();
+
 		double yDist = next.getY() - entity.locY;
 		if(yDist > 0)
 			entity.getControllerJump().a();
-		
-		entity.getControllerMove().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
+
+		entity.getNavigation().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
 		
 		if(this.m_currentPath.isDone())
 			this.cancelPath(CancelReason.END);
@@ -404,5 +411,15 @@ public class Pathfinder
 	public static boolean isTransparent(Material inType)
 	{
 		return transparentMaterial.contains(inType);
+	}
+
+	public static boolean isLiquid(Block inBlock)
+	{
+		return isLiquid(inBlock.getType());
+	}
+
+	public static boolean isLiquid(Material inMaterial)
+	{
+		return liquidMaterial.contains(inMaterial);
 	}
 }

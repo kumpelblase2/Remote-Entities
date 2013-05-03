@@ -15,7 +15,7 @@ public class JumpChecker implements MoveChecker
 		
 		if(inData.getYDiff() == 1)
 		{
-			if(inData.getXDiff() == 0 && inData.getZDiff() == 0 && !inData.getFrom().getBlock().isLiquid())
+			if(inData.getXDiff() == 0 && inData.getZDiff() == 0 && !Pathfinder.isLiquid(inData.getFrom().getBlock()))
 			{
 				inData.setValid(false);
 				return;
