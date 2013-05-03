@@ -1,9 +1,7 @@
 package de.kumpelblase2.remoteentities.utilities;
 
 import de.kumpelblase2.remoteentities.*;
-import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.nms.*;
 import de.kumpelblase2.remoteentities.persistence.*;
 import net.minecraft.server.v1_5_R3.*;
 import java.lang.annotation.*;
@@ -12,8 +10,8 @@ import java.util.*;
 
 public final class ReflectionUtil
 {
-	private static Set<Class<?>> s_registeredClasses = new HashSet<Class<?>>();
-	private static Map<String, Field> s_cachedFields = new HashMap<String, Field>();
+	private static final Set<Class<?>> s_registeredClasses = new HashSet<Class<?>>();
+	private static final Map<String, Field> s_cachedFields = new HashMap<String, Field>();
 	
 	/**
 	 * Replaces the goal selector of an entity with a new one
@@ -170,28 +168,5 @@ public final class ReflectionUtil
 			clazz = clazz.getSuperclass();
 		}
 		return parameters;
-	}
-	
-	public static void replaceNavigation(RemoteEntity inEntity)
-	{
-		try
-		{
-			if(s_cachedFields.containsKey("navigation"))
-			{
-				Field navigation = s_cachedFields.get("navigation");
-				navigation.set(inEntity.getHandle(), new NavigationTemp(inEntity, 50));
-			}
-			else
-			{
-				Field navigation = EntityLiving.class.getDeclaredField("navigation");
-				navigation.setAccessible(true);
-				navigation.set(inEntity.getHandle(), new NavigationTemp(inEntity, 50));
-				s_cachedFields.put("navigation", navigation);
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 }

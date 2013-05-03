@@ -275,7 +275,6 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
-			ReflectionUtil.replaceNavigation(this);
 			this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 		}
 		catch(Exception e)
