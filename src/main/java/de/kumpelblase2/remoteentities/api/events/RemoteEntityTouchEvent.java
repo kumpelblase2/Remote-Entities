@@ -10,7 +10,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 public class RemoteEntityTouchEvent extends RemoteEvent
 {
 	protected final LivingEntity m_touchingEntity;
-	private static HandlerList handlers = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 	
 	public RemoteEntityTouchEvent(RemoteEntity inEntity, LivingEntity inTouchingEntity)
 	{

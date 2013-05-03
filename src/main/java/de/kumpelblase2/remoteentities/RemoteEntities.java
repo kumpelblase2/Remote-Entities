@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class RemoteEntities extends JavaPlugin
 {
-	private Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
+	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
 	
 	@Override

@@ -14,7 +14,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	protected boolean m_onlyNight;
 	protected PathEntity m_path;
 	protected VillageDoor m_nextDoor;
-	protected List<VillageDoor> m_doors = new ArrayList<VillageDoor>();
+	protected final List<VillageDoor> m_doors = new ArrayList<VillageDoor>();
 	
 	public DesireMoveThroughVillage(RemoteEntity inEntity, boolean inOnlyNight)
 	{

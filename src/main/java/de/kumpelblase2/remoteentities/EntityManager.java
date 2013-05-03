@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class EntityManager
 {
-	private Map<Integer, RemoteEntity> m_entities;
+	private final Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
 	protected boolean m_removeDespawned = false;
 	private final ChunkEntityLoader m_entityChunkLoader;

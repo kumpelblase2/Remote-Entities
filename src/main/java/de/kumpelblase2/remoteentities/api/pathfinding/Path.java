@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Path
 {
-	private List<BlockNode> m_nodes;
+	private final List<BlockNode> m_nodes;
 	private int m_pos;
 	private float m_speed = -1;
 	

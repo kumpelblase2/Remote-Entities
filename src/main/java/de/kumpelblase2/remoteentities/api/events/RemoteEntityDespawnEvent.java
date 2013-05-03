@@ -9,7 +9,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
  */
 public class RemoteEntityDespawnEvent extends RemoteEvent
 {
-	private static HandlerList handlers = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 	private final DespawnReason m_reason;
 	
 	public RemoteEntityDespawnEvent(RemoteEntity inEntity)

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class FeatureSet
 {
-	protected List<Feature> m_features = new ArrayList<Feature>();
+	protected final List<Feature> m_features = new ArrayList<Feature>();
 	
 	/**
 	 * Checks if the entity has a specific kind of feature

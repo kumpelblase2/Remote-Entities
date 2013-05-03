@@ -14,7 +14,7 @@ import java.util.*;
 class ChunkEntityLoader implements Listener
 {
 	private final EntityManager m_manager;
-	private Set<EntityLoadData> m_toSpawn;
+	private final Set<EntityLoadData> m_toSpawn;
 	
 	ChunkEntityLoader(EntityManager inManager)
 	{

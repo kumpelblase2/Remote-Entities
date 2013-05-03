@@ -20,8 +20,8 @@ public class CreateEntityContext
 	private boolean m_pushable = true;
 	private float m_speed = -1;
 	private int m_maxHealth = -1;
-	private List<DesireItem> m_movementDesires;
-	private List<DesireItem> m_actionDesires;
+	private final List<DesireItem> m_movementDesires;
+	private final List<DesireItem> m_actionDesires;
 	
 	CreateEntityContext(EntityManager inManager)
 	{

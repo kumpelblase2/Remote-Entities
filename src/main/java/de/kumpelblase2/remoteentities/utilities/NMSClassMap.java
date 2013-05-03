@@ -1,14 +1,13 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.server.v1_5_R3.*;
 import org.bukkit.entity.*;
+import java.util.*;
 
 @SuppressWarnings("rawtypes")
 public class NMSClassMap
 {
-	private static Map<Class, Class> s_classes;
+	private static final Map<Class, Class> s_classes;
 	
 	static
 	{

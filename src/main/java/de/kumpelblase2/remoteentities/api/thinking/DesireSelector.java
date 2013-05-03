@@ -6,8 +6,8 @@ import java.util.*;
 
 public class DesireSelector
 {
-	private List<DesireItem> m_desires;
-	private List<DesireItem> m_executingDesires;
+	private final List<DesireItem> m_desires;
+	private final List<DesireItem> m_executingDesires;
 	private int m_delay = 0;
 	
 	public DesireSelector()
