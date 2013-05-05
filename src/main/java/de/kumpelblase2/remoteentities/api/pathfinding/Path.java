@@ -58,6 +58,14 @@ public class Path
 		this.m_pos = -1;
 		return this.next();
 	}
+
+	public BlockNode current()
+	{
+		if(this.m_pos < 0 || this.m_pos >= this.m_nodes.size())
+			return null;
+
+		return this.m_nodes.get(this.m_pos);
+	}
 	
 	public boolean isDone()
 	{
