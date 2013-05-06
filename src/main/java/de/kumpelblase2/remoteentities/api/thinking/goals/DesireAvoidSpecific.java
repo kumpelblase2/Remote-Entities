@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.nms.EntitySelectorViewable;
+import de.kumpelblase2.remoteentities.api.thinking.selectors.EntitySelectorViewable;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
