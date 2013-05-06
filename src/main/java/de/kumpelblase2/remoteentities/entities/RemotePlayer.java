@@ -1,16 +1,16 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.*;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.entity.*;
-import org.bukkit.entity.*;
-import org.bukkit.metadata.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
-public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightable
+public class RemotePlayer extends RemoteAttackingBaseEntity<Player> implements Nameable
 {
 	protected String m_name;
 	
@@ -24,24 +24,6 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		super(inID, RemoteEntityType.Human, inManager);
 		this.m_name = inName;
 		this.m_entity = inEntity;
-	}
-
-	@Override
-	public void attack(LivingEntity inTarget)
-	{
-		if(this.m_entity == null)
-			return;
-		
-		this.m_entity.setGoalTarget(((CraftLivingEntity)inTarget).getHandle());
-	}
-
-	@Override
-	public void loseTarget()
-	{
-		if(this.m_entity == null)
-			return;
-		
-		this.m_entity.setGoalTarget(null);
 	}
 
 	@Override
@@ -78,19 +60,6 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
 		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
-	}
-
-	@Override
-	public LivingEntity getTarget()
-	{
-		if(this.m_entity == null)
-			return null;
-		
-		EntityLiving target = this.m_entity.getGoalTarget();
-		if(target != null)
-			return (LivingEntity)target.getBukkitEntity();
-		
-		return null;
 	}
 
 	@Override

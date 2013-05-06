@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.utilities;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.pathfinding.*;
 import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.craftbukkit.v1_5_R3.entity.*;
 import org.bukkit.util.*;
 
 public class WorldUtilities
@@ -41,5 +42,16 @@ public class WorldUtilities
 		double width = ((int)(inEntity.getHandle().width + 1)) * 0.5d;
 		vec.add(new Vector(width, 0, width));
 		return vec;
+	}
+
+	/**
+	 * Gets the NMS entity from a bukkit entity.
+	 *
+	 * @param inEntity  The bukkit entity
+	 * @return          NMS entity
+	 */
+	public static EntityLiving getNMSEntity(org.bukkit.entity.LivingEntity inEntity)
+	{
+		return ((CraftLivingEntity)inEntity).getHandle();
 	}
 }

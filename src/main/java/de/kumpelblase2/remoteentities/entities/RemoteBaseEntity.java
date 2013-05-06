@@ -21,7 +21,7 @@ import org.bukkit.inventory.*;
 import org.bukkit.metadata.*;
 import java.lang.reflect.*;
 
-public abstract class RemoteBaseEntity implements RemoteEntity
+public abstract class RemoteBaseEntity<T extends LivingEntity> implements RemoteEntity
 {
 	private final int m_id;
 	protected Mind m_mind;
@@ -112,10 +112,10 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	}
 	
 	@Override
-	public LivingEntity getBukkitEntity()
+	public T getBukkitEntity()
 	{
 		if(this.isSpawned())
-			return (LivingEntity)this.m_entity.getBukkitEntity();
+			return (T)this.m_entity.getBukkitEntity();
 		
 		return null;
 	}
@@ -427,7 +427,8 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		
 		return this.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
-	
+
+	@Override
 	public boolean save()
 	{
 		if(this.getManager().getSerializer() instanceof ISingleEntitySerializer)

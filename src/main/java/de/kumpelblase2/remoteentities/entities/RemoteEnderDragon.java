@@ -1,17 +1,15 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ComplexEntityPart;
 import org.bukkit.entity.EnderDragon;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.Fightable;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
-public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
+public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 {
 	protected boolean m_shouldDestroyBlocks = false;
 	
@@ -63,27 +61,6 @@ public class RemoteEnderDragon extends RemoteBaseEntity implements Fightable
 	public void shouldDestroyBlocks(boolean inState)
 	{
 		this.m_shouldDestroyBlocks = inState;
-	}
-
-	@Override
-	public void attack(LivingEntity inTarget)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loseTarget()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public LivingEntity getTarget()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

@@ -2,8 +2,9 @@ package de.kumpelblase2.remoteentities.entities;
 
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import org.bukkit.entity.*;
 
-public class RemoteBat extends RemoteBaseEntity
+public class RemoteBat extends RemoteAttackingBaseEntity<Bat>
 {
 	public RemoteBat(int inID, EntityManager inManager)
 	{
