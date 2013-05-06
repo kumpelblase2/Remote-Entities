@@ -1,8 +1,9 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.MathHelper;
-import net.minecraft.server.v1_5_R3.Village;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.pathfinding.*;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.util.*;
 
 public class WorldUtilities
 {
@@ -32,5 +33,13 @@ public class WorldUtilities
 	public static Village getClosestVillage(Entity inEntity)
 	{
 		return inEntity.world.villages.getClosestVillage(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ), 32);
+	}
+
+	public static Vector addEntityWidth(RemoteEntity inEntity, BlockNode inNode)
+	{
+		Vector vec = new Vector(inNode.getX(), inNode.getY(), inNode.getZ());
+		double width = ((int)(inEntity.getHandle().width + 1)) * 0.5d;
+		vec.add(new Vector(width, 0, width));
+		return vec;
 	}
 }

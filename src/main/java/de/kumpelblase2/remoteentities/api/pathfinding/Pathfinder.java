@@ -2,10 +2,12 @@ package de.kumpelblase2.remoteentities.api.pathfinding;
 
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.*;
+import de.kumpelblase2.remoteentities.utilities.*;
 import net.minecraft.server.v1_5_R3.*;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.util.Vector;
 import java.util.*;
 
 public class Pathfinder
@@ -139,15 +141,23 @@ public class Pathfinder
 		RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(this.m_entity, this.getLastPath());
 		Bukkit.getPluginManager().callEvent(event);
 		this.m_currentPath = event.getPath();
+		this.m_entity.getHandle().getNavigation().a(this.m_currentPath.toNMSPath(), this.m_entity.getSpeed());
 		return true;
 	}
 	
 	public boolean moveTo(Location inTo, float inSpeed)
 	{
-		if(!this.moveTo(inTo))
+		if(!this.m_entity.isSpawned())
 			return false;
-		
-		this.m_currentPath.setCustomSpeed(inSpeed);
+
+		PathResult result = this.find(this.m_entity.getBukkitEntity().getLocation(), inTo);
+		if(result != PathResult.SUCCESS)
+			return false;
+
+		RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(this.m_entity, this.getLastPath());
+		Bukkit.getPluginManager().callEvent(event);
+		this.m_currentPath = event.getPath();
+		this.m_entity.getHandle().getNavigation().a(this.m_currentPath.toNMSPath(), inSpeed);
 		return true;
 	}
 
@@ -169,6 +179,7 @@ public class Pathfinder
 						return;
 
 					Pathfinder.this.m_currentPath = event.getPath();
+					Pathfinder.this.m_entity.getHandle().getNavigation().a(Pathfinder.this.m_currentPath.toNMSPath(), Pathfinder.this.m_entity.getSpeed());
 				}
 			}
 		});
@@ -194,6 +205,7 @@ public class Pathfinder
 
 					Pathfinder.this.m_currentPath = event.getPath();
 					Pathfinder.this.m_currentPath.setCustomSpeed(inSpeed);
+					Pathfinder.this.m_entity.getHandle().getNavigation().a(Pathfinder.this.m_currentPath.toNMSPath(), inSpeed);
 				}
 			}
 		});
@@ -343,7 +355,7 @@ public class Pathfinder
 			return;
 
 		EntityLiving entity = this.getEntity().getHandle();
-		if(!entity.getNavigation().f())
+		if(!entity.getNavigation().f() || entity.getControllerMove().a())
 			return;
 
 		BlockNode next = this.m_currentPath.next();
@@ -357,7 +369,8 @@ public class Pathfinder
 		if(yDist > 0)
 			entity.getControllerJump().a();
 
-		entity.getNavigation().a(next.getX(), next.getY(), next.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
+		Vector moveVec = WorldUtilities.addEntityWidth(this.m_entity, next);
+		entity.getControllerMove().a(moveVec.getX(), moveVec.getY(), moveVec.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
 		
 		if(this.m_currentPath.isDone())
 			this.cancelPath(CancelReason.END);

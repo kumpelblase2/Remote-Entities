@@ -1,23 +1,23 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
-import java.util.Arrays;
-import java.util.List;
+import net.minecraft.server.v1_5_R3.*;
+import java.util.*;
 
 public class Path
 {
-	private final List<BlockNode> m_nodes;
+	private final BlockNode[] m_nodes;
 	private int m_pos;
 	private float m_speed = -1;
 	
 	public Path(BlockNode... inNodes)
 	{
-		this(Arrays.asList(inNodes));
+		this.m_pos = -1;
+		this.m_nodes = inNodes;
 	}
 	
 	public Path(List<BlockNode> inNodes)
 	{
-		this.m_pos = -1;
-		this.m_nodes = inNodes;
+		this(inNodes.toArray(new BlockNode[inNodes.size()]));
 	}
 	
 	public void setCustomSpeed(float inSpeed)
@@ -37,20 +37,20 @@ public class Path
 	
 	public BlockNode next()
 	{
-		this.m_pos++;
-		if(this.m_pos >= this.m_nodes.size())
+		if(this.m_pos >= this.m_nodes.length - 1)
 			return null;
-		
-		return this.m_nodes.get(this.m_pos);
+
+		this.m_pos++;
+		return this.m_nodes[this.m_pos];
 	}
 	
 	public BlockNode previous()
 	{
-		this.m_pos--;
-		if(this.m_pos < 0)
+		if(this.m_pos <= 1)
 			return null;
-		
-		return this.m_nodes.get(this.m_pos);
+
+		this.m_pos--;
+		return this.m_nodes[this.m_pos];
 	}
 	
 	public BlockNode start()
@@ -61,14 +61,35 @@ public class Path
 
 	public BlockNode current()
 	{
-		if(this.m_pos < 0 || this.m_pos >= this.m_nodes.size())
+		if(this.m_pos < 0 || this.m_pos >= this.m_nodes.length)
 			return null;
 
-		return this.m_nodes.get(this.m_pos);
+		return this.m_nodes[this.m_pos];
+	}
+
+	public void setPosition(int inPos)
+	{
+		if(inPos < 0)
+			inPos = 0;
+		else if(inPos >= this.m_nodes.length)
+			inPos = this.m_nodes.length - 1;
+
+		this.m_pos = inPos;
 	}
 	
 	public boolean isDone()
 	{
-		return this.m_pos == this.m_nodes.size() - 1;
+		return this.m_pos == this.m_nodes.length - 1;
+	}
+
+	public PathEntity toNMSPath()
+	{
+		PathPoint[] points = new PathPoint[this.m_nodes.length];
+		for(int i = 0; i < this.m_nodes.length; i++)
+		{
+			BlockNode node = this.m_nodes[i];
+			points[i] = new PathPoint(node.getX(), node.getZ(), node.getZ());
+		}
+		return new PathEntity(points);
 	}
 }
