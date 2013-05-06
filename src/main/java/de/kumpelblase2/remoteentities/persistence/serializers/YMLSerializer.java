@@ -1,12 +1,14 @@
 package de.kumpelblase2.remoteentities.persistence.serializers;
 
-import de.kumpelblase2.remoteentities.*;
-import de.kumpelblase2.remoteentities.persistence.*;
-import org.bukkit.configuration.file.*;
-import org.bukkit.configuration.serialization.*;
-import org.bukkit.plugin.*;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.List;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.plugin.Plugin;
+import de.kumpelblase2.remoteentities.RemoteEntities;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 
 /**
  * This represents a serializer which outputs the serialized data to a yml string/file.

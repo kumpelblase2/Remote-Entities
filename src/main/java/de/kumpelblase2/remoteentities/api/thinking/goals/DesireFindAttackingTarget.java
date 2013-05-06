@@ -1,13 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.server.v1_5_R3.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import net.minecraft.server.v1_5_R3.*;
-import java.util.Iterator;
-import java.util.List;
 
 public class DesireFindAttackingTarget extends DesireTargetBase
 {

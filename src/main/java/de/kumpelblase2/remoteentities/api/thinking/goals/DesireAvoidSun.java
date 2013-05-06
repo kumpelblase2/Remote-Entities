@@ -1,10 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
+import java.util.Random;
 import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.*;
-import java.util.*;
+import org.bukkit.Location;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireAvoidSun extends DesireBase
 {

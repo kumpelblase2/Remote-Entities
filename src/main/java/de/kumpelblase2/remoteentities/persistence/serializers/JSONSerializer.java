@@ -1,11 +1,14 @@
 package de.kumpelblase2.remoteentities.persistence.serializers;
 
-import de.kumpelblase2.remoteentities.*;
-import de.kumpelblase2.remoteentities.persistence.*;
-import de.kumpelblase2.remoteentities.utilities.*;
-import org.bukkit.craftbukkit.libs.com.google.gson.*;
-import org.bukkit.plugin.*;
 import java.io.*;
+import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
+import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
+import org.bukkit.plugin.Plugin;
+import de.kumpelblase2.remoteentities.RemoteEntities;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.utilities.ParameterDataDeserializer;
+import de.kumpelblase2.remoteentities.utilities.ParameterDataSerializer;
 
 /**
  * This represents a serializer which outputs the serialized data into a json format/file.

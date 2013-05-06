@@ -1,9 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.exceptions.*;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_5_R3.EntityHuman;
+import net.minecraft.server.v1_5_R3.EntityVillager;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 
 public class DesireTradeWithPlayer extends DesireBase
 {

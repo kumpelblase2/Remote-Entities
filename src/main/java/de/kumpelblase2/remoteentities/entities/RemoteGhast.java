@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import org.bukkit.entity.Ghast;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import org.bukkit.entity.Ghast;
 
 public class RemoteGhast extends RemoteAttackingBaseEntity<Ghast>
 {

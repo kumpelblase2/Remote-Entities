@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import net.minecraft.server.v1_5_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -11,7 +12,6 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
-import net.minecraft.server.v1_5_R3.*;
 
 public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHandle
 {

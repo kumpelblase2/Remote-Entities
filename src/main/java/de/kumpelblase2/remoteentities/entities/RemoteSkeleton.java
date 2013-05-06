@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import net.minecraft.server.v1_5_R3.EntityLiving;
 import org.bukkit.entity.Skeleton;
+import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteSkeleton extends RemoteAttackingBaseEntity<Skeleton>
 {	

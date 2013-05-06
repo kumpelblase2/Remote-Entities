@@ -1,10 +1,10 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.pathfinding.*;
 import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.entity.*;
-import org.bukkit.util.*;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
+import org.bukkit.util.Vector;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.pathfinding.BlockNode;
 
 public class WorldUtilities
 {

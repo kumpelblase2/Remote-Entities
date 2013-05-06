@@ -1,9 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
+import java.util.Iterator;
+import java.util.List;
 import net.minecraft.server.v1_5_R3.*;
-import java.util.*;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
 public class DesireAcceptFlower extends DesireBase
 {

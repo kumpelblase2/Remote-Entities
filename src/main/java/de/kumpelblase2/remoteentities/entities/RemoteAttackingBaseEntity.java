@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import org.bukkit.entity.LivingEntity;
 
 public abstract class RemoteAttackingBaseEntity<T extends LivingEntity> extends RemoteBaseEntity<T> implements Fightable
 {

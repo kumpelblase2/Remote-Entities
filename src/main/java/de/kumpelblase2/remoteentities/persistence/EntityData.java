@@ -1,10 +1,11 @@
 package de.kumpelblase2.remoteentities.persistence;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.entities.*;
-import org.bukkit.configuration.serialization.*;
 import java.util.*;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 
 public class EntityData implements ConfigurationSerializable
 {

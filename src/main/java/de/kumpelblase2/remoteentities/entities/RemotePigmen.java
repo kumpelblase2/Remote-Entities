@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import org.bukkit.entity.PigZombie;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import org.bukkit.entity.PigZombie;
 
 public class RemotePigmen extends RemoteAttackingBaseEntity<PigZombie>
 {

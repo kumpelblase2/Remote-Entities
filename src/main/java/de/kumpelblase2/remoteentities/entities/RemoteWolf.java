@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import org.bukkit.entity.Wolf;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import org.bukkit.entity.Wolf;
 
 public class RemoteWolf extends RemoteAttackingBaseEntity<Wolf>
 {

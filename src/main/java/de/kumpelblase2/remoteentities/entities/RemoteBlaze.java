@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import org.bukkit.entity.Blaze;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import org.bukkit.entity.Blaze;
 
 public class RemoteBlaze extends RemoteAttackingBaseEntity<Blaze>
 {	

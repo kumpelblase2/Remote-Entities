@@ -1,10 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Entity;
-import org.bukkit.event.entity.EntityTargetEvent;
 import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityTargetEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;

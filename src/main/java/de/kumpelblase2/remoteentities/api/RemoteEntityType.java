@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api;
 
+import net.minecraft.server.v1_5_R3.EntityLiving;
 import de.kumpelblase2.remoteentities.entities.*;
 import de.kumpelblase2.remoteentities.utilities.EnumChange;
-import net.minecraft.server.v1_5_R3.EntityLiving;
 
 public enum RemoteEntityType
 {

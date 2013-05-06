@@ -1,12 +1,12 @@
 package de.kumpelblase2.remoteentities.persistence;
 
-import de.kumpelblase2.remoteentities.*;
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import org.apache.commons.lang3.*;
-import org.bukkit.configuration.serialization.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
 import java.util.*;
+import org.apache.commons.lang3.ClassUtils;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import de.kumpelblase2.remoteentities.RemoteEntities;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
 
 public class BehaviorData implements ConfigurationSerializable
 {

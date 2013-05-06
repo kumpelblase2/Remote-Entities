@@ -1,11 +1,14 @@
 package de.kumpelblase2.remoteentities;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.features.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.exceptions.*;
-import org.bukkit.*;
 import java.util.*;
+import org.bukkit.Location;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.api.features.Feature;
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.exceptions.NoNameException;
+import de.kumpelblase2.remoteentities.exceptions.NoTypeException;
 
 public class CreateEntityContext
 {

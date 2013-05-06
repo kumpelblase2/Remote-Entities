@@ -1,13 +1,16 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.exceptions.*;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.server.v1_5_R3.EntityVillager;
+import net.minecraft.server.v1_5_R3.Vec3D;
+import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.*;
-import org.bukkit.entity.*;
-import java.util.*;
 
 public class DesirePlay extends DesireBase
 {

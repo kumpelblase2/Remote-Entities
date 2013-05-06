@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import de.kumpelblase2.remoteentities.api.events.*;
-import org.bukkit.*;
 import java.util.*;
+import org.bukkit.Bukkit;
+import de.kumpelblase2.remoteentities.api.events.*;
 
 public class DesireSelector
 {

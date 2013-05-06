@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import de.kumpelblase2.remoteentities.api.*;
 import java.util.*;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class Mind
 {

@@ -5,9 +5,7 @@ import net.minecraft.server.v1_5_R3.PathEntity;
 import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.api.thinking.OneTimeDesire;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public class DesireKillTarget extends DesireBase implements OneTimeDesire

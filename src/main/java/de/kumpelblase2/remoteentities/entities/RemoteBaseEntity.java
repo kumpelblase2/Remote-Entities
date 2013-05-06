@@ -1,25 +1,31 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import de.kumpelblase2.remoteentities.*;
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.*;
-import de.kumpelblase2.remoteentities.api.features.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.persistence.*;
-import de.kumpelblase2.remoteentities.utilities.*;
+import java.lang.reflect.Field;
 import net.minecraft.server.v1_5_R3.*;
 import net.minecraft.server.v1_5_R3.World;
 import org.bukkit.*;
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.entity.*;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.*;
+import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
-import org.bukkit.event.entity.CreatureSpawnEvent.*;
-import org.bukkit.inventory.*;
-import org.bukkit.metadata.*;
-import java.lang.reflect.*;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.metadata.FixedMetadataValue;
+import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
+import de.kumpelblase2.remoteentities.api.features.FeatureSet;
+import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.thinking.Behavior;
+import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
+import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class RemoteBaseEntity<T extends LivingEntity> implements RemoteEntity
 {

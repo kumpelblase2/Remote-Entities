@@ -1,18 +1,19 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.*;
-import de.kumpelblase2.remoteentities.api.features.*;
+import java.lang.reflect.Field;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
+import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
-import de.kumpelblase2.remoteentities.nms.*;
-import net.minecraft.server.v1_5_R3.*;
-import net.minecraft.server.v1_5_R3.World;
-import org.bukkit.*;
-import org.bukkit.Material;
-import org.bukkit.entity.*;
-import org.bukkit.inventory.*;
-import java.lang.reflect.*;
+import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 {

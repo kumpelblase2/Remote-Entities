@@ -1,15 +1,10 @@
 package de.kumpelblase2.remoteentities.persistence.serializers;
 
 import org.bukkit.plugin.Plugin;
-import de.kumpelblase2.remoteentities.CreateEntityContext;
-import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.RemoteEntities;
+import de.kumpelblase2.remoteentities.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
-import de.kumpelblase2.remoteentities.persistence.BehaviorData;
-import de.kumpelblase2.remoteentities.persistence.DesireData;
-import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
+import de.kumpelblase2.remoteentities.persistence.*;
 
 /**
  * This is a base seralizer which creates the data from an entity and creates an entity from the data, but it does not save it or load it to a file.

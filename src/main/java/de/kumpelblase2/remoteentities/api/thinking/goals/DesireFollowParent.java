@@ -1,11 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import de.kumpelblase2.remoteentities.exceptions.*;
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.entity.*;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import net.minecraft.server.v1_5_R3.EntityAnimal;
+import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.exceptions.CantBreedException;
 
 public class DesireFollowParent extends DesireBase
 {

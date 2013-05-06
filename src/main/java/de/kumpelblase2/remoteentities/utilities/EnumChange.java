@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import sun.reflect.*;
 import java.lang.reflect.*;
 import java.util.*;
+import sun.reflect.*;
 
 //Made by Jerome Kehrli and modified by kumpelblase2. Original can be found at [http://www.niceideas.ch/roller2/badtrash/entry/java_create_enum_instances_dynamically]
 public final class EnumChange

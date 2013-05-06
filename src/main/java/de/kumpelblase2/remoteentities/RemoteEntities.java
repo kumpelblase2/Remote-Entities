@@ -1,8 +1,7 @@
 package de.kumpelblase2.remoteentities;
 
-import de.kumpelblase2.remoteentities.api.DespawnReason;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -10,8 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.util.HashMap;
-import java.util.Map;
+import de.kumpelblase2.remoteentities.api.DespawnReason;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
 
 public class RemoteEntities extends JavaPlugin
 {

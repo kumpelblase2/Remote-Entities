@@ -1,8 +1,9 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import de.kumpelblase2.remoteentities.persistence.*;
+import java.lang.reflect.Type;
 import org.bukkit.craftbukkit.libs.com.google.gson.*;
-import java.lang.reflect.*;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
 
 /**
  * Author: TIM

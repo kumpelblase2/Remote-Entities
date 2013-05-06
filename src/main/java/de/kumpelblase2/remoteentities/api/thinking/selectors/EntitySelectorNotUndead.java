@@ -1,9 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.selectors;
 
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.EnumMonsterType;
-import net.minecraft.server.v1_5_R3.IEntitySelector;
+import net.minecraft.server.v1_5_R3.*;
 
 public class EntitySelectorNotUndead implements IEntitySelector
 {

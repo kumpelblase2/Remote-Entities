@@ -1,12 +1,12 @@
 package de.kumpelblase2.remoteentities.api;
 
-import de.kumpelblase2.remoteentities.*;
-import de.kumpelblase2.remoteentities.api.features.*;
-import de.kumpelblase2.remoteentities.api.thinking.*;
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.*;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.*;
+import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.features.FeatureSet;
+import de.kumpelblase2.remoteentities.api.thinking.Mind;
 
 public interface RemoteEntity
 {

@@ -1,14 +1,14 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.*;
-import de.kumpelblase2.remoteentities.utilities.*;
-import net.minecraft.server.v1_5_R3.*;
+import java.util.*;
+import net.minecraft.server.v1_5_R3.EntityLiving;
 import org.bukkit.*;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
-import java.util.*;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.events.RemoteAsyncPathFindEvent;
+import de.kumpelblase2.remoteentities.api.events.RemotePathCancelEvent;
+import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public class Pathfinder
 {

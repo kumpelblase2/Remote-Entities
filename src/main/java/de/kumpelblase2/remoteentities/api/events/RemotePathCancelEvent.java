@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.events;
 
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.pathfinding.*;
-import org.bukkit.event.*;
+import org.bukkit.event.HandlerList;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.pathfinding.CancelReason;
 
 public class RemotePathCancelEvent extends RemoteEvent
 {
