@@ -1,12 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.PathEntity;
+import net.minecraft.server.v1_5_R3.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -109,7 +107,7 @@ public class DesireAttackOnCollide extends DesireBase
 	{
 		EntityLiving entity = this.getEntityHandle();
 		entity.getControllerLook().a(this.m_target, 30, 30);
-		if((this.m_ignoreSight || entity.aD().canSee(this.m_target)) && --this.m_moveTick <= 0)
+		if((this.m_ignoreSight || entity.getEntitySenses().canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 4 + entity.aE().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.m_speed);
@@ -128,7 +126,7 @@ public class DesireAttackOnCollide extends DesireBase
 		return true;
 	}
 	
-	public void attack(org.bukkit.entity.Entity inEntity)
+	public void attack(Entity inEntity)
 	{
 		this.getEntityHandle().m(this.m_target);
 	}

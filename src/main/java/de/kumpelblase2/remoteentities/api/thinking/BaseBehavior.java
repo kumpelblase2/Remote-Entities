@@ -9,7 +9,7 @@ public abstract class BaseBehavior implements Behavior
 {
 	protected String m_name;
 	@SerializeAs(pos = 0, special = "entity")
-	protected RemoteEntity m_entity;
+	protected final RemoteEntity m_entity;
 	
 	public BaseBehavior(RemoteEntity inEntity)
 	{

@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Location;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.Vec3D;
-import net.minecraft.server.v1_5_R2.Village;
-import net.minecraft.server.v1_5_R2.VillageDoor;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.MathHelper;
+import net.minecraft.server.v1_5_R3.Vec3D;
+import net.minecraft.server.v1_5_R3.Village;
+import net.minecraft.server.v1_5_R3.VillageDoor;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -30,7 +30,7 @@ public class DesireMoveIndoors extends DesireBase
 		if(entity == null)
 			return false;
 		
-		if((!entity.world.u() || entity.world.O()) && !entity.world.worldProvider.f)
+		if((!entity.world.v() || entity.world.P()) && !entity.world.worldProvider.f)
 		{
 			if(entity.aE().nextInt(50) != 0)
 				return false;

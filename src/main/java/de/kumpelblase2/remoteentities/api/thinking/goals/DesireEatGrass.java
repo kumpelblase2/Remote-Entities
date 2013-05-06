@@ -1,10 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
-import net.minecraft.server.v1_5_R2.Block;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.MathHelper;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import net.minecraft.server.v1_5_R3.Block;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -48,7 +48,7 @@ public class DesireEatGrass extends DesireBase
 			int y = MathHelper.floor(entity.locY);
 			int z = MathHelper.floor(entity.locZ);
 			
-			return entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id && entity.world.getData(x, y, z) == 1 ? true : entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id; 
+			return entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id && entity.world.getData(x, y, z) == 1 || entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id;
 		}
 	}
 

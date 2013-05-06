@@ -1,7 +1,8 @@
 package de.kumpelblase2.remoteentities;
 
-import java.util.HashMap;
-import java.util.Map;
+import de.kumpelblase2.remoteentities.api.DespawnReason;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -9,13 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import de.kumpelblase2.remoteentities.api.DespawnReason;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RemoteEntities extends JavaPlugin
 {
-	private Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
+	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
 	
 	@Override
@@ -104,10 +104,7 @@ public class RemoteEntities extends JavaPlugin
 	 */
 	public static boolean hasManagerForPlugin(String inName)
 	{
-		if(getInstance() == null)
-			return false;
-		
-		return getInstance().m_managers.containsKey(inName);
+		return getInstance() != null && getInstance().m_managers.containsKey(inName);
 	}
 	
 	/**

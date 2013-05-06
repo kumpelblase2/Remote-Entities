@@ -1,14 +1,12 @@
 package de.kumpelblase2.remoteentities.persistence.serializers;
 
-import java.io.File;
-import java.util.List;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.plugin.Plugin;
-import de.kumpelblase2.remoteentities.RemoteEntities;
-import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
+import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.persistence.*;
+import org.bukkit.configuration.file.*;
+import org.bukkit.configuration.serialization.*;
+import org.bukkit.plugin.*;
+import java.io.*;
+import java.util.*;
 
 public class YMLSerializer extends PreparationSerializer implements ISingleEntitySerializer
 {
@@ -43,6 +41,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public EntityData[] loadData()
 	{
@@ -51,8 +50,9 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 			if(!this.loadConfig())
 				return new EntityData[0];
 		}
-		
-		return this.m_config.getList("entities").toArray(new EntityData[0]);
+
+		List<EntityData> entitydata = (List<EntityData>)this.m_config.getList("entities");
+		return entitydata.toArray(new EntityData[entitydata.size()]);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -89,7 +89,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 			}
 			else if(inParameter instanceof Integer)
 			{
-				if(inParameter.equals((Integer)entity.id))
+				if(inParameter.equals(entity.id))
 					return entity;
 			}
 		}

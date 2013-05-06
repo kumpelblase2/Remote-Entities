@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
@@ -14,7 +14,7 @@ import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEntityHandle
 {
-	private RemoteEntity m_remoteEntity;
+	private final RemoteEntity m_remoteEntity;
 	protected int m_jumpDelay = 0;
 	protected Entity m_target;
 	protected int m_lastBouncedId;
@@ -40,7 +40,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
+		return this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
             }
 
             this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = (float) (1 * this.getSize());
+            this.bE = (float)this.getSize();
         } else {
             this.bG = false;
             if (this.onGround) {

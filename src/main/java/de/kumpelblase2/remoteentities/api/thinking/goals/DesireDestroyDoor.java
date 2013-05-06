@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
-import net.minecraft.server.v1_5_R2.World;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import net.minecraft.server.v1_5_R3.World;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class DesireDestroyDoor extends DesireInteractDoor
@@ -55,7 +55,7 @@ public class DesireDestroyDoor extends DesireInteractDoor
 			this.getEntityHandle().world.triggerEffect(1010, this.m_x, this.m_y, this.m_z, 0);
 		
 		this.m_breakTick++;
-		int i = (int)(this.m_breakTick / 240 * 10);
+		int i = this.m_breakTick / 240 * 10;
 		if(i != this.m_lastBreak)
 		{
 			this.getEntityHandle().world.f(this.getEntityHandle().id, this.m_x, this.m_y, this.m_z, i);

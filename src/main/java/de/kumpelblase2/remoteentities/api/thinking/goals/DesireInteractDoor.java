@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R2.Block;
-import net.minecraft.server.v1_5_R2.BlockDoor;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.Navigation;
-import net.minecraft.server.v1_5_R2.PathEntity;
-import net.minecraft.server.v1_5_R2.PathPoint;
+import net.minecraft.server.v1_5_R3.Block;
+import net.minecraft.server.v1_5_R3.BlockDoor;
+import net.minecraft.server.v1_5_R3.MathHelper;
+import net.minecraft.server.v1_5_R3.Navigation;
+import net.minecraft.server.v1_5_R3.PathEntity;
+import net.minecraft.server.v1_5_R3.PathPoint;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;

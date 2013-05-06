@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import net.minecraft.server.v1_5_R2.PathfinderGoalPassengerCarrotStick;
+import net.minecraft.server.v1_5_R3.PathfinderGoalPassengerCarrotStick;
 
 public class DesireFollowCarrotStickTemp extends PathfinderGoalPassengerCarrotStick
 {
@@ -17,7 +17,7 @@ public class DesireFollowCarrotStickTemp extends PathfinderGoalPassengerCarrotSt
 	{
 		if(this.m_entity.getMind().getMovementDesire(DesireFollowCarrotStick.class) == null)
 			return false;
-		
+
 		return this.m_entity.getMind().getMovementDesire(DesireFollowCarrotStick.class).isSpeedBoosted();
 	}
 	

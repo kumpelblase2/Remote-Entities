@@ -1,19 +1,18 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import java.util.HashMap;
-import java.util.Map;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import org.bukkit.entity.*;
+import java.util.*;
 
 @SuppressWarnings("rawtypes")
 public class NMSClassMap
 {
-	private static Map<Class, Class> s_classes;
+	private static final Map<Class, Class> s_classes;
 	
 	static
 	{
 		s_classes = new HashMap<Class, Class>();
-		s_classes.put(org.bukkit.entity.Entity.class, net.minecraft.server.v1_5_R2.Entity.class);
+		s_classes.put(org.bukkit.entity.Entity.class, net.minecraft.server.v1_5_R3.Entity.class);
 		s_classes.put(LivingEntity.class, EntityLiving.class);
 		s_classes.put(Creature.class, EntityCreature.class);
 		s_classes.put(Monster.class, EntityMonster.class);

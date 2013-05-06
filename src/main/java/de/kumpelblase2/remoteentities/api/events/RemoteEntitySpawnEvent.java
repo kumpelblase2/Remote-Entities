@@ -9,7 +9,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
  */
 public class RemoteEntitySpawnEvent extends RemoteEvent
 {
-	private static HandlerList handlers = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 	private Location m_location;
 	
 	public RemoteEntitySpawnEvent(RemoteEntity inEntity, Location inLocation)

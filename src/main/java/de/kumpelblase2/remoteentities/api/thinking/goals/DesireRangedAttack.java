@@ -1,21 +1,5 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityTargetEvent;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityArrow;
-import net.minecraft.server.v1_5_R2.EntityFireball;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLargeFireball;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EntityPotion;
-import net.minecraft.server.v1_5_R2.EntitySmallFireball;
-import net.minecraft.server.v1_5_R2.EntitySnowball;
-import net.minecraft.server.v1_5_R2.IRangedEntity;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.MobEffectList;
-import net.minecraft.server.v1_5_R2.Vec3D;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteProjectileType;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -23,12 +7,16 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityTargetEvent;
 
 public class DesireRangedAttack extends DesireBase
 {
 	protected EntityLiving m_target;
 	@SerializeAs(pos = 1)
-	protected RemoteProjectileType m_projeProjectileType;
+	protected RemoteProjectileType m_projectileType;
 	protected int m_inRangeTick;
 	protected int m_shootTicks;
 	@SerializeAs(pos = 2)
@@ -57,7 +45,7 @@ public class DesireRangedAttack extends DesireBase
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inMinDelay, int inMaxDelay, float inMinDistance)
 	{
 		super(inEntity);
-		this.m_projeProjectileType = inProjectileType;
+		this.m_projectileType = inProjectileType;
 		this.m_shootMinDelay = inMinDelay;
 		this.m_shootMaxDelay = inMaxDelay;
 		this.m_minDistance = inMinDistance;
@@ -70,7 +58,7 @@ public class DesireRangedAttack extends DesireBase
 	public void stopExecuting()
 	{
 		EntityTargetEvent.TargetReason reason = this.m_target.isAlive() ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
-		CraftEventFactory.callEntityTargetEvent((Entity)this.getEntityHandle(), null, reason);
+		CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
 		this.m_target = null;
 		this.m_inRangeTick = 0;
 		this.m_shootTicks = -1;
@@ -80,7 +68,7 @@ public class DesireRangedAttack extends DesireBase
 	public boolean update()
 	{
 		double dist = this.getEntityHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
-		boolean canSee = this.getEntityHandle().aD().canSee(this.m_target);
+		boolean canSee = this.getEntityHandle().getEntitySenses().canSee(this.m_target);
 		
 		if(canSee)
 			this.m_inRangeTick++;
@@ -146,13 +134,13 @@ public class DesireRangedAttack extends DesireBase
 	protected void shoot(float inStrength)
 	{
 		EntityLiving entity = this.getEntityHandle();
-		if(this.m_projeProjectileType == RemoteProjectileType.ARROW)
+		if(this.m_projectileType == RemoteProjectileType.ARROW)
 		{
 			EntityArrow arrow = new EntityArrow(this.getEntityHandle().world, this.getEntityHandle(), this.m_target, 1.6F, 12);
 			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 			entity.world.addEntity(arrow);
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.SNOWBALL)
+		else if(this.m_projectileType == RemoteProjectileType.SNOWBALL)
 		{
 			EntitySnowball snowball = new EntitySnowball(entity.world, entity);
 			double xDiff = this.m_target.locX - entity.locX;
@@ -163,9 +151,9 @@ public class DesireRangedAttack extends DesireBase
 			snowball.shoot(xDiff, yDiff + dist, zDiff, 1.6F, 12);
 			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.SMALL_FIREBALL)
+		else if(this.m_projectileType == RemoteProjectileType.SMALL_FIREBALL)
 		{
-			entity.world.a((EntityHuman)null, 1009, (int)entity.locX, (int)entity.locY, (int)entity.locZ, 0);
+			entity.world.a(null, 1009, (int)entity.locX, (int)entity.locY, (int)entity.locZ, 0);
 			double xDiff = this.m_target.locX - entity.locX;
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
 			double zDiff = this.m_target.locZ - entity.locZ;
@@ -174,7 +162,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			entity.world.addEntity(fireball);
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.FIREBALL)
+		else if(this.m_projectileType == RemoteProjectileType.FIREBALL)
 		{
 			double xDiff = this.m_target.locX - entity.locX;
 			double yDiff = this.m_target.boundingBox.b + (this.m_target.length / 2) - (entity.locY + (entity.length / 2));
@@ -188,7 +176,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locZ = entity.locZ + vec.e * d;
 			entity.world.addEntity(fireball);
 		}
-		else if(this.m_projeProjectileType == RemoteProjectileType.POTION)
+		else if(this.m_projectileType == RemoteProjectileType.POTION)
 		{
 			EntityPotion potion = new EntityPotion(entity.world, this.getEntityHandle(), 32732);
 			potion.pitch -= 20;

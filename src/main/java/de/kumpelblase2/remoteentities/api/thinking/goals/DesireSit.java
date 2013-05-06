@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -12,7 +12,7 @@ public class DesireSit extends DesireBase
 	protected EntityTameableAnimal m_animal;
 	protected boolean m_canSit = false;
 	
-	public DesireSit(RemoteEntity inEntity) throws Exception
+	public DesireSit(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))
@@ -39,11 +39,8 @@ public class DesireSit extends DesireBase
 			EntityLiving owner = this.m_animal.getOwner();
 			if(owner == null)
 				return true;
-			
-			if(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null)
-				return false;
-			
-			return this.m_canSit;
+
+			return !(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null) && this.m_canSit;
 		}
 	}
 	

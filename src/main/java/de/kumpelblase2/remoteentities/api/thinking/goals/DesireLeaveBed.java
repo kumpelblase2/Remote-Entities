@@ -9,17 +9,14 @@ public class DesireLeaveBed extends DesireBase
 	public DesireLeaveBed(RemotePlayer inEntity)
 	{
 		super(inEntity);
-		this.m_isContinous = false;
+		this.m_isContinuous = false;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle().world.u() && ((RemotePlayer)this.m_entity).isSleeping())
-			return true;
-		
-		return false;
+		return this.getEntityHandle().world.v() && ((RemotePlayer)this.m_entity).isSleeping();
 	}
 	
 	@Override

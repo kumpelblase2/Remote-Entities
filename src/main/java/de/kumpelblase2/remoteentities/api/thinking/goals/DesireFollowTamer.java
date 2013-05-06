@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EntityTameableAnimal;
-import net.minecraft.server.v1_5_R2.MathHelper;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntityTameableAnimal;
+import net.minecraft.server.v1_5_R3.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -28,7 +28,7 @@ public class DesireFollowTamer extends DesireBase
 	protected int m_moveTick;
 	protected boolean m_avoidWaterState;
 	
-	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance) throws Exception
+	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
@@ -139,10 +139,7 @@ public class DesireFollowTamer extends DesireBase
 	
 	protected boolean isSitting()
 	{
-		if(this.m_animal instanceof EntityTameableAnimal)
-			return ((EntityTameableAnimal)this.m_animal).isSitting();
-		
-		return false;
+		return this.m_animal instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.m_animal).isSitting();
 	}
 	
 	protected boolean isTamed()

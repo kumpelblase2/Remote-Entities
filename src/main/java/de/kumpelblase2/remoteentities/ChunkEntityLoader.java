@@ -1,28 +1,20 @@
 package de.kumpelblase2.remoteentities;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import net.minecraft.server.v1_5_R2.WorldServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
+import de.kumpelblase2.remoteentities.api.*;
+import net.minecraft.server.v1_5_R3.WorldServer;
+import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
-import de.kumpelblase2.remoteentities.api.DespawnReason;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import java.util.*;
 
 class ChunkEntityLoader implements Listener
 {
-	private EntityManager m_manager;
-	private Set<EntityLoadData> m_toSpawn;
+	private final EntityManager m_manager;
+	private final Set<EntityLoadData> m_toSpawn;
 	
 	ChunkEntityLoader(EntityManager inManager)
 	{
@@ -82,7 +74,7 @@ class ChunkEntityLoader implements Listener
 					
 					if(RemoteEntities.isRemoteEntity((LivingEntity)entity))
 					{
-						RemoteEntity rentity = (RemoteEntity)RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
+						RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
 						if(rentity.isSpawned())
 						{
 							m_toSpawn.add(new EntityLoadData(rentity, entity.getLocation()));
@@ -102,10 +94,7 @@ class ChunkEntityLoader implements Listener
 	 */
 	public boolean canSpawnAt(Location inLocation)
 	{
-		if(inLocation.getChunk().isLoaded())
-			return true;
-		
-		return false;
+		return inLocation.getChunk().isLoaded();
 	}
 	
 	/**
@@ -145,9 +134,9 @@ class ChunkEntityLoader implements Listener
 	
 	class EntityLoadData
 	{
-		RemoteEntity entity;
-		Location loc;
-		boolean setupGoals;
+		final RemoteEntity entity;
+		final Location loc;
+		final boolean setupGoals;
 		
 		public EntityLoadData(RemoteEntity inEntity, Location inLoc, boolean inSetupGoals)
 		{

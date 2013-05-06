@@ -1,21 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.MathHelper;
-import net.minecraft.server.v1_5_R2.PathEntity;
-import net.minecraft.server.v1_5_R2.Vec3D;
-import net.minecraft.server.v1_5_R2.Village;
-import net.minecraft.server.v1_5_R2.VillageDoor;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.persistence.*;
+import de.kumpelblase2.remoteentities.utilities.*;
+import net.minecraft.server.v1_5_R3.*;
+import java.util.*;
 
 public class DesireMoveThroughVillage extends DesireBase
 {
@@ -23,7 +14,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	protected boolean m_onlyNight;
 	protected PathEntity m_path;
 	protected VillageDoor m_nextDoor;
-	protected List<VillageDoor> m_doors = new ArrayList<VillageDoor>();
+	protected final List<VillageDoor> m_doors = new ArrayList<VillageDoor>();
 	
 	public DesireMoveThroughVillage(RemoteEntity inEntity, boolean inOnlyNight)
 	{
@@ -37,7 +28,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	{
 		this.cleanupDoors();
 		EntityLiving entity = this.getEntityHandle();		
-		if(entity == null || (this.m_onlyNight && entity.world.u()))
+		if(entity == null || (this.m_onlyNight && entity.world.v()))
 			return false;
 		else
 		{

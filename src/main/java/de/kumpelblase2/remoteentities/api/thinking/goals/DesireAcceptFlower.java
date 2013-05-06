@@ -1,13 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.server.v1_5_R2.EntityAgeable;
-import net.minecraft.server.v1_5_R2.EntityIronGolem;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import net.minecraft.server.v1_5_R3.*;
+import java.util.*;
 
 public class DesireAcceptFlower extends DesireBase
 {
@@ -30,7 +26,7 @@ public class DesireAcceptFlower extends DesireBase
 		
 		if(entity instanceof EntityAgeable && ((EntityAgeable)entity).getAge() >= 0)
 			return false;
-		else if(!entity.world.u())
+		else if(!entity.world.v())
 			return false;
 		else
 		{

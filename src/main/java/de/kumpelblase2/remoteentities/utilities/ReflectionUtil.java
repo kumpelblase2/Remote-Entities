@@ -1,21 +1,17 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import de.kumpelblase2.remoteentities.RemoteEntities;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import net.minecraft.server.v1_5_R2.*;
+import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.persistence.*;
+import net.minecraft.server.v1_5_R3.*;
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+import java.util.*;
 
 public final class ReflectionUtil
 {
-	private static Set<Class<?>> m_registeredClasses = new HashSet<Class<?>>();
+	private static final Set<Class<?>> s_registeredClasses = new HashSet<Class<?>>();
+	private static final Map<String, Field> s_cachedFields = new HashMap<String, Field>();
 	
 	/**
 	 * Replaces the goal selector of an entity with a new one
@@ -28,12 +24,22 @@ public final class ReflectionUtil
 	{
 		try
 		{
-			Field goalSelectorField = inEntity.getClass().getDeclaredField(inSelectorName);
-			goalSelectorField.setAccessible(true);
-			goalSelectorField.set(inEntity, inNewSelector);
+			if(s_cachedFields.containsKey(inSelectorName))
+			{
+				Field f = s_cachedFields.get(inSelectorName);
+				f.set(inEntity, inNewSelector);
+			}
+			else
+			{
+				Field goalSelectorField = inEntity.getClass().getDeclaredField(inSelectorName);
+				goalSelectorField.setAccessible(true);
+				goalSelectorField.set(inEntity, inNewSelector);
+				s_cachedFields.put(inSelectorName, goalSelectorField);
+			}
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 	
@@ -46,7 +52,7 @@ public final class ReflectionUtil
 	 */
 	public static void registerEntityType(Class<?> inClass, String name, int inID)
 	{
-		if(m_registeredClasses.contains(inClass))
+		if(s_registeredClasses.contains(inClass))
 			return;
 		
 		try
@@ -57,11 +63,11 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
  
-            Method a = net.minecraft.server.v1_5_R2.EntityTypes.class.getDeclaredMethod("a", args);
+            Method a = net.minecraft.server.v1_5_R3.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
  
             a.invoke(a, inClass, name, inID);
-            m_registeredClasses.add(inClass);
+            s_registeredClasses.add(inClass);
         }
 		catch (Exception e)
 		{
@@ -79,8 +85,18 @@ public final class ReflectionUtil
 	{
 		try
 		{
-			Field speed = inEntity.getClass().getDeclaredField("bH");
-			return speed.getFloat(inEntity);
+			if(s_cachedFields.containsKey("speed"))
+			{
+				Field speed = s_cachedFields.get("speed");
+				return speed.getFloat(inEntity);
+			}
+			else
+			{
+				Field speed = inEntity.getClass().getDeclaredField("bI");
+				speed.setAccessible(true);
+				s_cachedFields.put("speed", speed);
+				return speed.getFloat(inEntity);
+			}
 		}
 		catch(Exception e)
 		{
@@ -98,8 +114,18 @@ public final class ReflectionUtil
 	{
 		try
 		{
-			Field speed = inEntity.getClass().getDeclaredField("bP");
-			return speed.getFloat(inEntity);
+			if(s_cachedFields.containsKey("speedModifier"))
+			{
+				Field speed = s_cachedFields.get("speedModifier");
+				return speed.getFloat(inEntity);
+			}
+			else
+			{
+				Field speed = inEntity.getClass().getDeclaredField("bQ");
+				speed.setAccessible(true);
+				s_cachedFields.put("speedModifier", speed);
+				return speed.getFloat(inEntity);
+			}
 		}
 		catch(Exception e)
 		{

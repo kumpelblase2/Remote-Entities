@@ -1,37 +1,37 @@
 package de.kumpelblase2.remoteentities;
 
-import java.lang.reflect.Constructor;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-import net.minecraft.server.v1_5_R2.EntityLiving;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.exceptions.NoNameException;
+import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
+import net.minecraft.server.v1_5_R3.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.exceptions.NoNameException;
-import de.kumpelblase2.remoteentities.persistence.EntityData;
-import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
+import java.lang.reflect.Constructor;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EntityManager
 {
-	private Map<Integer, RemoteEntity> m_entities;
+	private final Map<Integer, RemoteEntity> m_entities;
 	private final Plugin m_plugin;
 	protected boolean m_removeDespawned = false;
 	private final ChunkEntityLoader m_entityChunkLoader;
 	protected IEntitySerializer m_serializer;
 	private boolean m_saveOnDisable = false;
 	
-	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawed)
+	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawned)
 	{
 		this.m_plugin = inPlugin;
 		this.m_entities = new ConcurrentHashMap<Integer, RemoteEntity>();
-		this.m_removeDespawned = inRemoveDespawed;
+		this.m_removeDespawned = inRemoveDespawned;
 		this.m_entityChunkLoader = new ChunkEntityLoader(this);
 		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
@@ -240,10 +240,10 @@ public class EntityManager
 	 */
 	public void removeEntity(int inID, boolean inDespawn)
 	{
-		if(this.m_entities.containsKey((Integer)inID) && inDespawn)
-			this.m_entities.get((Integer)inID).despawn(DespawnReason.CUSTOM);
+		if(this.m_entities.containsKey(inID) && inDespawn)
+			this.m_entities.get(inID).despawn(DespawnReason.CUSTOM);
 		
-		this.m_entities.remove((Integer)inID);
+		this.m_entities.remove(inID);
 	}
 	
 	/**
@@ -318,7 +318,7 @@ public class EntityManager
 	 */
 	public RemoteEntity getRemoteEntityByID(int inID)
 	{
-		return this.m_entities.get((Integer)inID);
+		return this.m_entities.get(inID);
 	}
 	
 	/**
@@ -340,7 +340,7 @@ public class EntityManager
 			}
 		}
 		
-		return entities.toArray(new RemoteEntity[0]);
+		return entities.toArray(new RemoteEntity[entities.size()]);
 	}
 	
 	/**

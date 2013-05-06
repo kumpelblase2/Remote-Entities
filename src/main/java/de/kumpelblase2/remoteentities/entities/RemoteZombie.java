@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityCreature;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
+import net.minecraft.server.v1_5_R3.Entity;
+import net.minecraft.server.v1_5_R3.EntityCreature;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
@@ -15,10 +15,10 @@ public class RemoteZombie extends RemoteBaseEntity implements Fightable
 		this(inID, null, inManager);
 	}
 	
-	public RemoteZombie(int inID, RemoteZombieEntity inEntitiy, EntityManager inManager)
+	public RemoteZombie(int inID, RemoteZombieEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Zombie, inManager);
-		this.m_entity = inEntitiy;
+		this.m_entity = inEntity;
 	}
 
 	@Override

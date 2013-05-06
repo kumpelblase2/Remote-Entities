@@ -1,15 +1,15 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.List;
-import net.minecraft.server.v1_5_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.nms.EntitySelectorViewable;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
-import de.kumpelblase2.remoteentities.nms.EntitySelectorViewable;
+import net.minecraft.server.v1_5_R3.*;
+import java.util.List;
 
 public class DesireAvoidSpecific extends DesireBase
 {
@@ -94,7 +94,7 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!this.getEntityHandle().aD().canSee(this.m_closestEntity))
+        if (!this.getEntityHandle().getEntitySenses().canSee(this.m_closestEntity))
             return false;
         else
         {
@@ -107,7 +107,7 @@ public class DesireAvoidSpecific extends DesireBase
             else
             {
                 this.m_path = this.getEntityHandle().getNavigation().a(var2.c, var2.d, var2.e);
-                return this.m_path == null ? false : this.m_path.b(var2);
+                return this.m_path != null && this.m_path.b(var2);
             }
         }
 	}

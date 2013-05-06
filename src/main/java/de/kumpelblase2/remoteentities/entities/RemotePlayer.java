@@ -1,20 +1,14 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EnumBedResult;
-import net.minecraft.server.v1_5_R2.Packet18ArmAnimation;
-import net.minecraft.server.v1_5_R2.PlayerInteractManager;
-import net.minecraft.server.v1_5_R2.WorldServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.metadata.FixedMetadataValue;
-import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.*;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
+import de.kumpelblase2.remoteentities.api.events.*;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_5_R3.*;
+import org.bukkit.craftbukkit.v1_5_R3.entity.*;
+import org.bukkit.entity.*;
+import org.bukkit.metadata.*;
 
 public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightable
 {
@@ -47,7 +41,7 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 		if(this.m_entity == null)
 			return;
 		
-		this.m_entity.setGoalTarget((EntityLiving)null);
+		this.m_entity.setGoalTarget(null);
 	}
 
 	@Override
@@ -132,7 +126,7 @@ public class RemotePlayer extends RemoteBaseEntity implements Nameable, Fightabl
 	 */
 	public boolean isSleeping()
 	{
-		return ((EntityHuman)this.getHandle()).isSleeping();
+		return this.getHandle().isSleeping();
 	}
 	
 	/**

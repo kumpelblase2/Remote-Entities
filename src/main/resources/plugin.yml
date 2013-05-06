@@ -1,4 +1,4 @@
-main: de.kumpelblase2.remoteentities.RemoteEntities
+main: ${project.groupId}.${project.artifactId}.${project.name}
 author: kumpelblase2
-name: RemoteEntities
-version: 1.6
+name: ${project.name}
+version: ${project.version}
