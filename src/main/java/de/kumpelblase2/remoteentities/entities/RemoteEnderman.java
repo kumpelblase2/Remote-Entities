@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
@@ -42,7 +42,7 @@ public class RemoteEnderman extends RemoteBaseEntity implements Fightable
 		if(this.m_entity == null)
 			return;
 		
-		this.getHandle().setGoalTarget((EntityLiving)null);
+		this.getHandle().setGoalTarget(null);
 		if(!this.m_hadAttackDesire)
 			this.getMind().removeTargetingDesire(DesireFindAttackingTarget.class);
 	}

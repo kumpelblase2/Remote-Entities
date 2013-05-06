@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R2.EntityCreeper;
-import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntityCreeper;
+import net.minecraft.server.v1_5_R3.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -19,7 +19,7 @@ public class DesireSwell extends DesireBase
 	protected int m_minDistanceSqr;
 	@SerializeAs(pos = 2)
 	protected int m_maxDistance;
-	protected int m_maxDistnaceSqr;
+	protected int m_maxDistanceSqr;
 	
 	public DesireSwell(RemoteEntity inEntity)
 	{
@@ -37,7 +37,7 @@ public class DesireSwell extends DesireBase
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSqr = inMinDistance * inMinDistance;
 		this.m_maxDistance = inMaxDistance;
-		this.m_maxDistnaceSqr = inMaxDistance * inMaxDistance;
+		this.m_maxDistanceSqr = inMaxDistance * inMaxDistance;
 	}
 
 	@Override
@@ -68,9 +68,9 @@ public class DesireSwell extends DesireBase
 	{
 		if(this.m_target == null)
 			this.m_creeper.a(-1);
-		else if(this.m_creeper.e(this.m_target) > this.m_maxDistnaceSqr)
+		else if(this.m_creeper.e(this.m_target) > this.m_maxDistanceSqr)
 			this.m_creeper.a(-1);
-		else if(!this.m_creeper.aD().canSee(this.m_target))
+		else if(!this.m_creeper.getEntitySenses().canSee(this.m_target))
 			this.m_creeper.a(-1);
 		else
 			this.m_creeper.a(1);

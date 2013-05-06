@@ -1,18 +1,15 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R2.Container;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityVillager;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.exceptions.*;
+import net.minecraft.server.v1_5_R3.*;
 
 public class DesireTradeWithPlayer extends DesireBase
 {
 	protected EntityVillager m_villager;
 	
-	public DesireTradeWithPlayer(RemoteEntity inEntity) throws Exception
+	public DesireTradeWithPlayer(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))
@@ -41,11 +38,8 @@ public class DesireTradeWithPlayer extends DesireBase
 			EntityHuman trader = this.m_villager.m_();
 			if(trader == null)
 				return false;
-			
-			if(this.m_villager.e(trader) > 16)
-				return false;
-			
-			return trader.activeContainer instanceof Container;
+
+			return this.m_villager.e(trader) <= 16 && trader.activeContainer != null;
 		}
 	}
 	

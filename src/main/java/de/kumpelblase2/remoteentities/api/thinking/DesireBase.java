@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.PathEntity;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.PathEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -13,7 +13,7 @@ public abstract class DesireBase implements Desire
 	@SerializeAs(pos = 0, special = "entity")
 	protected final RemoteEntity m_entity;
 	protected DesireType m_type = DesireType.SUBCONSCIOUS;
-	protected boolean m_isContinous = true;
+	protected boolean m_isContinuous = true;
 	
 	public DesireBase(RemoteEntity inEntity)
 	{
@@ -47,7 +47,7 @@ public abstract class DesireBase implements Desire
 	
 	public boolean isContinuous()
 	{
-		return this.m_isContinous;
+		return this.m_isContinuous;
 	}
 	
 	@Override

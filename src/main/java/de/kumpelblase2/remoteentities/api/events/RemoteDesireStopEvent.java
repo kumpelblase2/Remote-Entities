@@ -7,7 +7,7 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 
 public class RemoteDesireStopEvent extends RemoteEvent
 {
-	private static HandlerList handlers = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 	private final DesireItem m_desire;
 	
 	public RemoteDesireStopEvent(RemoteEntity inEntity, DesireItem inDesire)

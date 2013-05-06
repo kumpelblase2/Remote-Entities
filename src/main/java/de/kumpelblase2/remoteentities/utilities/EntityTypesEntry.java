@@ -1,15 +1,15 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-import net.minecraft.server.v1_5_R2.EntityTypes;
+import net.minecraft.server.v1_5_R3.*;
+import java.lang.reflect.*;
+import java.util.*;
 
 public class EntityTypesEntry
 {
-	private String m_name;
+	private final String m_name;
 	@SuppressWarnings("rawtypes")
-	private Class m_class;
-	private Integer m_id;
+	private final Class m_class;
+	private final Integer m_id;
 	
 	@SuppressWarnings("rawtypes")
 	public EntityTypesEntry(String inName, Class inClass, Integer inID)

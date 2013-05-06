@@ -10,7 +10,7 @@ import de.kumpelblase2.remoteentities.api.thinking.Desire;
 public class RemoteDesireAddEvent extends RemoteEvent
 {
 	private Desire m_desire;
-	private static HandlerList handlers = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 	private int m_priority;
 	
 	public RemoteDesireAddEvent(RemoteEntity inEntity, Desire inDesire, int inPriority)

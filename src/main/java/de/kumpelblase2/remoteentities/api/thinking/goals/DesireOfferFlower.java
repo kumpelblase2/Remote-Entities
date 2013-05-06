@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityIronGolem;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EntityVillager;
+import net.minecraft.server.v1_5_R3.Entity;
+import net.minecraft.server.v1_5_R3.EntityIronGolem;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -17,12 +17,12 @@ public class DesireOfferFlower extends DesireBase
 	protected int m_offerTick;
 	protected EntityLiving m_nearestEntity;
 	@SerializeAs(pos = 1)
-	protected Class<? extends Entity> m_toOfffer;
+	protected Class<? extends Entity> m_toOffer;
 	
 	public DesireOfferFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
-		this.m_toOfffer = EntityVillager.class;
+		this.m_toOffer = EntityVillager.class;
 		this.m_type = DesireType.SUBCONSCIOUS;
 	}
 	
@@ -31,21 +31,21 @@ public class DesireOfferFlower extends DesireBase
 	{
 		this(inEntity);
 		if(Entity.class.isAssignableFrom(inToOffer))
-			this.m_toOfffer = (Class<? extends Entity>)inToOffer;
+			this.m_toOffer = (Class<? extends Entity>)inToOffer;
 		else
-			this.m_toOfffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);
+			this.m_toOffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().world.u())
+		if(this.getEntityHandle() == null || this.getEntityHandle().world.v())
 			return false;
 		else if(this.getEntityHandle().aE().nextInt(8000) != 0)
 			return false;
 		else
 		{
-			this.m_nearestEntity = (EntityLiving)this.getEntityHandle().world.a(this.m_toOfffer, this.getEntityHandle().boundingBox.grow(6, 2, 6), this.getEntityHandle());
+			this.m_nearestEntity = (EntityLiving)this.getEntityHandle().world.a(this.m_toOffer, this.getEntityHandle().boundingBox.grow(6, 2, 6), this.getEntityHandle());
 			return this.m_nearestEntity != null;
 		}
 	}

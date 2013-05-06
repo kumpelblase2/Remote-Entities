@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
@@ -40,7 +40,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 			this.playerConnection = new NullNetServerHandler(minecraftserver, manager, this);
 			manager.a(playerConnection);
 		}
-		catch(Exception e){}
+		catch(Exception e)
+		{
+		}
 	}
 
 	@Override

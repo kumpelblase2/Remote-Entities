@@ -12,11 +12,11 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
 
 public class RemoteWitherEntity extends EntityWither implements RemoteEntityHandle
 {
-	private RemoteEntity m_remoteEntity;
+	private final RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	
@@ -39,7 +39,7 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
 		
-		return ((InventoryFeature)this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class)).getInventory();
+		return this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 	
 	@Override

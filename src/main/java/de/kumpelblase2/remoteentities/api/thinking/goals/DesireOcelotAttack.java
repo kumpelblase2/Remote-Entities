@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import org.bukkit.entity.Entity;
-import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -34,7 +34,7 @@ public class DesireOcelotAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_target.isAlive() ? false : this.getEntityHandle().e(this.m_target) > 225 ? false : !this.getEntityHandle().getNavigation().f() || this.shouldExecute();
+		return this.m_target.isAlive() && (this.getEntityHandle().e(this.m_target) <= 225 && (!this.getEntityHandle().getNavigation().f() || this.shouldExecute()));
 	}
 	
 	@Override

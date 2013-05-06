@@ -1,17 +1,16 @@
 package de.kumpelblase2.remoteentities.persistence.serializers;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
-import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
-import org.bukkit.plugin.Plugin;
-import de.kumpelblase2.remoteentities.RemoteEntities;
-import de.kumpelblase2.remoteentities.persistence.EntityData;
+import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.persistence.*;
+import de.kumpelblase2.remoteentities.utilities.*;
+import org.bukkit.craftbukkit.libs.com.google.gson.*;
+import org.bukkit.plugin.*;
+import java.io.*;
 
 public class JSONSerializer extends PreparationSerializer
 {
 	protected Class<? extends EntityData[]> m_dataClass;
+	protected Gson m_gson;
 	
 	public JSONSerializer(Plugin inPlugin)
 	{
@@ -22,13 +21,13 @@ public class JSONSerializer extends PreparationSerializer
 	{
 		super(inPlugin);
 		this.m_dataClass = inDataClass;
+		this.m_gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(ParameterData.class, new ParameterDataSerializer()).registerTypeAdapter(ParameterData.class, new ParameterDataDeserializer()).create();
 	}
 
 	@Override
 	public boolean save(EntityData[] inData)
 	{
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(inData);
+		String json = this.m_gson.toJson(inData);
 		return this.writeToFile(json);
 	}
 
@@ -41,7 +40,7 @@ public class JSONSerializer extends PreparationSerializer
 		
 		try
 		{
-			return new Gson().fromJson(new FileReader(jsonFile), this.m_dataClass);
+			return this.m_gson.fromJson(new FileReader(jsonFile), this.m_dataClass);
 		}
 		catch(Exception e)
 		{

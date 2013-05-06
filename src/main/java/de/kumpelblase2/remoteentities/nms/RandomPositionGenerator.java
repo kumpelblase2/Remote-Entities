@@ -1,15 +1,15 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import java.util.Random;
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.v1_5_R3.*;
+import java.util.*;
 
 public class RandomPositionGenerator
 {
-	private static Vec3D a = Vec3D.a(0.0D, 0.0D, 0.0D);
+	private static final Vec3D a = Vec3D.a(0.0D, 0.0D, 0.0D);
 
     public static Vec3D a(EntityLiving entitycreature, int i, int j)
     {
-        return c(entitycreature, i, j, (Vec3D) null);
+        return c(entitycreature, i, j, null);
     }
 
     public static Vec3D a(EntityLiving entitycreature, int i, int j, Vec3D vec3d)

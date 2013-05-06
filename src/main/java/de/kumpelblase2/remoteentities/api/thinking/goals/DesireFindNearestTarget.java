@@ -1,19 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.server.v1_5_R2.DistanceComparator;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.IEntitySelector;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.persistence.*;
+import de.kumpelblase2.remoteentities.utilities.*;
+import net.minecraft.server.v1_5_R3.*;
+import java.util.*;
 
 public class DesireFindNearestTarget extends DesireTargetBase
 {
@@ -50,6 +42,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		
 		this.m_onlyAtNight = false;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
+		this.m_selector = inSelector;
 	}
 	
 	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
@@ -69,7 +62,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		if(this.getEntityHandle() == null)
 			return false;
 		
-		if(this.m_onlyAtNight && this.getEntityHandle().world.u())
+		if(this.m_onlyAtNight && this.getEntityHandle().world.v())
 			return false;
 		else if(this.m_targetChance > 0 && this.getEntityHandle().aE().nextInt(this.m_targetChance) != 0)
 			return false;

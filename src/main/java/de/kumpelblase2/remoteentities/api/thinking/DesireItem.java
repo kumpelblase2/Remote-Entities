@@ -3,7 +3,7 @@ package de.kumpelblase2.remoteentities.api.thinking;
 public class DesireItem
 {
 	private final Desire m_desire;
-	private int m_priority;
+	private final int m_priority;
 	
 	public DesireItem(Desire inDesire, int inPriority)
 	{

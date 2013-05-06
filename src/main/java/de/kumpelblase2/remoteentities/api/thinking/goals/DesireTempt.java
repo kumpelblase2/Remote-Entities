@@ -1,14 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import org.bukkit.entity.LivingEntity;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.ItemStack;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
-import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.persistence.*;
+import de.kumpelblase2.remoteentities.utilities.*;
+import net.minecraft.server.v1_5_R3.*;
 
 public class DesireTempt extends DesireBase
 {
@@ -52,8 +48,8 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.cb();
-				return item == null ? false : item.id == this.m_itemId;
+				ItemStack item = this.m_nearPlayer.cd();
+				return item != null && item.id == this.m_itemId;
 			}
 		}
 	}
@@ -113,7 +109,7 @@ public class DesireTempt extends DesireBase
 		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
 			this.getEntityHandle().getNavigation().g();
 		else
-			this.getRemoteEntity().move((LivingEntity)this.m_nearPlayer.getBukkitEntity());
+			this.getRemoteEntity().move(this.m_nearPlayer.getBukkitEntity());
 		
 		return false;
 	}
