@@ -1,13 +1,12 @@
 package de.kumpelblase2.remoteentities.api;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import org.bukkit.Location;
+import de.kumpelblase2.remoteentities.*;
+import de.kumpelblase2.remoteentities.api.features.*;
+import de.kumpelblase2.remoteentities.api.thinking.*;
+import net.minecraft.server.v1_5_R3.*;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.features.FeatureSet;
-import de.kumpelblase2.remoteentities.api.pathfinding.Pathfinder;
-import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import org.bukkit.entity.*;
 
 public interface RemoteEntity
 {
@@ -249,6 +248,4 @@ public interface RemoteEntity
 	 * @return	true if the entity could get saved, false if not
 	 */
 	public boolean save();
-	
-	public Pathfinder getPathfinder();
 }

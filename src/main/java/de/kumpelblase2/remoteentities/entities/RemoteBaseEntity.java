@@ -4,7 +4,6 @@ import de.kumpelblase2.remoteentities.*;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.*;
 import de.kumpelblase2.remoteentities.api.features.*;
-import de.kumpelblase2.remoteentities.api.pathfinding.Pathfinder;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.*;
 import de.kumpelblase2.remoteentities.utilities.*;
@@ -34,7 +33,6 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	protected float m_speed;
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
-	protected Pathfinder m_pathfinder;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -52,7 +50,6 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 			this.m_speed = 0.25F;
 		}
 		this.m_manager = inManager;
-		this.m_pathfinder = Pathfinder.getDefaultPathfinder(this);
 	}
 
 	@Override
@@ -126,13 +123,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	@Override
 	public boolean move(Location inLocation)
 	{
-		if(!this.isSpawned() || this.m_isStationary)
-			return false;
-
-		if(this.m_pathfinder.isFindingAsync())
-			return getPathfinder().moveToAsync(inLocation);
-
-		return getPathfinder().moveTo(inLocation);
+		return this.move(inLocation, this.getSpeed());
 	}
 	
 	@Override
@@ -141,19 +132,18 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 
-		if(this.m_pathfinder.isFindingAsync())
-			return this.m_pathfinder.moveToAsync(inLocation, inSpeed);
-
-		return this.getPathfinder().moveTo(inLocation, inSpeed);
+		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
+		{
+			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
+			return this.moveWithPath(path, inSpeed);
+		}
+		return true;
 	}
 	
 	@Override
 	public boolean move(LivingEntity inEntity)
 	{
-		if(!this.isSpawned() || this.m_isStationary)
-			return false;
-		
-		return this.getPathfinder().moveTo(inEntity.getLocation());
+		return this.move(inEntity, this.getSpeed());
 	}
 	
 	@Override
@@ -161,8 +151,17 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	{
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
-		
-		return this.getPathfinder().moveTo(inEntity.getLocation(), inSpeed);
+
+		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
+		if(handle == this.m_entity)
+			return true;
+
+		if(!this.m_entity.getNavigation().a(handle, inSpeed))
+		{
+			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, 20, true, false, false, true);
+			return this.moveWithPath(path, inSpeed);
+		}
+		return true;
 	}
 	
 	@Override
@@ -240,8 +239,7 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 		if(this.m_entity == null)
 			return;
 		
-		if(this.getPathfinder().hasPath())
-			this.getPathfinder().cancelPath();
+		this.getHandle().getNavigation().g();
 	}
 
 	@Override
@@ -450,10 +448,5 @@ public abstract class RemoteBaseEntity implements RemoteEntity
 	public Location getUnloadedLocation()
 	{
 		return this.m_unloadedLocation;
-	}
-	
-	public Pathfinder getPathfinder()
-	{
-		return this.m_pathfinder;
 	}
 }

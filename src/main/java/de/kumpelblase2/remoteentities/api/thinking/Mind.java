@@ -388,6 +388,5 @@ public class Mind
 
 		this.m_movementNavigation.onUpdate();
 		this.m_targetNavigation.onUpdate();
-		this.m_entity.getPathfinder().update();
 	}
 }
