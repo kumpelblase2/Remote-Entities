@@ -7,6 +7,9 @@ import org.bukkit.craftbukkit.libs.com.google.gson.*;
 import org.bukkit.plugin.*;
 import java.io.*;
 
+/**
+ * This represents a serializer which outputs the serialized data into a json format/file.
+ */
 public class JSONSerializer extends PreparationSerializer
 {
 	protected Class<? extends EntityData[]> m_dataClass;

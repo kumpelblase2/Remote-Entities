@@ -413,8 +413,11 @@ public class EntityManager
 	 */
 	public void despawnAll(DespawnReason inReason)
 	{
-		if(this.m_entities.size() > 0 && inReason == DespawnReason.PLUGIN_DISABLE && this.shouldSaveOnDisable())
-			this.despawnAll(inReason, true);
+		if(this.m_entities.size() == 0)
+			return;
+		
+		if(inReason == DespawnReason.PLUGIN_DISABLE)
+			this.despawnAll(inReason, this.shouldSaveOnDisable());
 		
 		this.despawnAll(inReason, false);
 	}

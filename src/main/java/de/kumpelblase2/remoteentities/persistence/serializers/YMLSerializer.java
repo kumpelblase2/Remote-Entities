@@ -8,6 +8,9 @@ import org.bukkit.plugin.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This represents a serializer which outputs the serialized data to a yml string/file.
+ */
 public class YMLSerializer extends PreparationSerializer implements ISingleEntitySerializer
 {
 	protected FileConfiguration m_config;

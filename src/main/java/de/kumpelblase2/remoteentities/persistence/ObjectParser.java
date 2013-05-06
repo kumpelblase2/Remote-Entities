@@ -8,6 +8,9 @@ import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
+/**
+ * This class is used to serialize and deserialize any kind of object
+ */
 public class ObjectParser
 {
 	@SuppressWarnings("rawtypes")

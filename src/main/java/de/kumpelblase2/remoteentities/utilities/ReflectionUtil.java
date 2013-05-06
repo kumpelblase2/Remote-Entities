@@ -132,7 +132,13 @@ public final class ReflectionUtil
 			return 0F;
 		}
 	}
-	
+
+	/**
+	 * Gets the data for the parameters of the classes' constructor
+	 *
+	 * @param inClass   The class to get the data for
+	 * @return          List of data for each parameter in order
+	 */
 	public static List<ParameterData> getParameterDataForClass(Object inClass)
 	{
 		Class<?> clazz = inClass.getClass();
@@ -157,6 +163,7 @@ public final class ReflectionUtil
 						{
 							Object value = field.get(inClass);
 							parameters.add(new ParameterData(sas.pos(), field.getType().getName(), value, sas.special()));
+							break;
 						}
 						catch(Exception e)
 						{

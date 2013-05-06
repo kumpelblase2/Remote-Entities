@@ -11,6 +11,9 @@ import de.kumpelblase2.remoteentities.persistence.DesireData;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
 
+/**
+ * This is a base seralizer which creates the data from an entity and creates an entity from the data, but it does not save it or load it to a file.
+ */
 public abstract class PreparationSerializer implements IEntitySerializer
 {
 	protected final Plugin m_plugin;
