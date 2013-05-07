@@ -508,11 +508,13 @@ public class EntityManager
 	
 	/**
 	 * Saves all currently available entities
+	 *
+	 * @return  The amount of entities saved
 	 */
-	public void saveEntities()
+	public int saveEntities()
 	{
 		if(this.m_serializer == null)
-			return;
+			return 0;
 		
 		EntityData[] data = new EntityData[this.m_entities.size()];
 		int pos = 0;
@@ -522,19 +524,26 @@ public class EntityManager
 			pos++;
 		}
 		this.m_serializer.save(data);
+		return data.length;
 	}
 	
 	/**
 	 * Loads all saved entities
+	 *
+	 * @return  The amount of entities loaded
 	 */
-	public void loadEntities()
+	public int loadEntities()
 	{
 		if(this.m_serializer == null)
-			return;
+			return 0;
 		
 		EntityData[] data = this.m_serializer.loadData();
 		for(EntityData entity : data)
+		{
 			this.m_serializer.create(entity);
+		}
+
+		return data.length;
 	}
 	
 	/**
