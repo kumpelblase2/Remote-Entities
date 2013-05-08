@@ -49,10 +49,7 @@ class ChunkEntityLoader implements Listener
 					Location loc = toSpawn.loc;
 					if(loc.getChunk() == c)
 					{
-						toSpawn.entity.spawn(loc);
-						if(toSpawn.entity.isSpawned() && toSpawn.setupGoals)
-							((RemoteEntityHandle)toSpawn.entity.getHandle()).setupStandardGoals();
-							
+						spawn(toSpawn);
 						it.remove();
 					}
 				}
@@ -119,17 +116,22 @@ class ChunkEntityLoader implements Listener
 	 */
 	public boolean queueSpawn(RemoteEntity inEntity, Location inLocation, boolean inSetupGoals)
 	{
+		EntityLoadData spawnData = new EntityLoadData(inEntity, inLocation, inSetupGoals);
 		if(this.canSpawnAt(inLocation))
 		{
-			inEntity.spawn(inLocation);
-			if(inEntity.isSpawned() && inSetupGoals && inEntity.getHandle() instanceof RemoteEntityHandle)
-				((RemoteEntityHandle)inEntity.getHandle()).setupStandardGoals();
-			
+			this.spawn(spawnData);
 			return false;
 		}
 		
-		this.m_toSpawn.add(new EntityLoadData(inEntity, inLocation, inSetupGoals));
+		this.m_toSpawn.add(spawnData);
 		return true;
+	}
+
+	protected void spawn(EntityLoadData inData)
+	{
+		inData.entity.spawn(inData.loc);
+		if(inData.entity.isSpawned() && inData.setupGoals)
+			((RemoteEntityHandle)inData.entity.getHandle()).setupStandardGoals();
 	}
 	
 	class EntityLoadData
