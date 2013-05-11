@@ -61,7 +61,11 @@ public class RandomPositionGenerator
                 i2 += MathHelper.floor(entitycreature.locZ);
                 if (!flag1 || entitycreature.d(k1, l1, i2))
                 {
-                    float f1 = 0.5F - entitycreature.world.q(k1, l1, i2);
+	                float f1;
+	                if(entitycreature instanceof EntityCreature)
+		                f1 = ((EntityCreature)entitycreature).a(k1, l1, i2);
+	                else
+                        f1 = 0.5F - entitycreature.world.q(k1, l1, i2);
 
                     if (f1 > f)
                     {
