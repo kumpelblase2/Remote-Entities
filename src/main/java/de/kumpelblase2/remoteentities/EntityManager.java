@@ -106,9 +106,8 @@ public class EntityManager
 	 * @param inType			type of the entity to create
 	 * @param inLocation		location where it should get created
 	 * @return					the created entity
-	 * @throws NoNameException	when trying to create a named entity. Use {@link EntityManager#createNamedEntity(RemoteEntityType, Location, String)} instead
 	 */
-	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation) throws NoNameException
+	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation)
 	{
 		return this.createEntity(inType, inLocation, true);
 	}
@@ -121,7 +120,6 @@ public class EntityManager
 	 * @param inLocation		location where it should get created
 	 * @param inSetupGoals		if default desires/goals should be applied
 	 * @return					the created entity
-	 * @throws NoNameException	when trying to create a named entity. Use {@link EntityManager#createNamedEntity(RemoteEntityType, Location, String, boolean)} instead
 	 */
 	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation, boolean inSetupGoals)
 	{
@@ -181,7 +179,9 @@ public class EntityManager
 	{
 		if(!inType.isNamed())
 		{
-			return this.createEntity(inType, inLocation, inSetupGoals);
+			RemoteEntity entity = this.createEntity(inType, inLocation, inSetupGoals);
+			entity.setName(inName);
+			return entity;
 		}
 		
 		Integer id = this.getNextFreeID();

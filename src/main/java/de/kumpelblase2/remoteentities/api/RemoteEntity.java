@@ -8,7 +8,7 @@ import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
 
-public interface RemoteEntity
+public interface RemoteEntity extends Nameable
 {
 	/**
 	 * Gets the ID of the entity

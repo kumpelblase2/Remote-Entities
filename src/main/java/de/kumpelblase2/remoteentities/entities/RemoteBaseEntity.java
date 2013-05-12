@@ -39,6 +39,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected float m_speed;
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
+	protected String m_nameToSpawnwith;
 	
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -280,6 +281,11 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
 			this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
+			if(this.getName() != null)
+			{
+				this.getBukkitEntity().setCustomName(this.getName());
+				this.getBukkitEntity().setCustomNameVisible(true);
+			}
 		}
 		catch(Exception e)
 		{
@@ -445,6 +451,33 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		}
 		
 		return false;
+	}
+
+	public String getName()
+	{
+		if(!this.isSpawned())
+			return this.m_nameToSpawnwith;
+
+		return this.getBukkitEntity().getCustomName();
+	}
+
+	public void setName(String inName)
+	{
+		if(this.isSpawned())
+		{
+			if(inName == null)
+			{
+				this.getBukkitEntity().setCustomNameVisible(false);
+				this.getBukkitEntity().setCustomName(null);
+			}
+			else
+			{
+				this.getBukkitEntity().setCustomNameVisible(true);
+				this.getBukkitEntity().setCustomName(inName);
+			}
+		}
+		else
+			this.m_nameToSpawnwith = inName;
 	}
 	
 	/**
