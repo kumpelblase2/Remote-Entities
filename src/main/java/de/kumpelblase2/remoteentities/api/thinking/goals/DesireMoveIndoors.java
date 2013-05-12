@@ -63,7 +63,10 @@ public class DesireMoveIndoors extends DesireBase
 		{
 			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, entity.world.getVec3DPool().create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 			if(vec != null)
+			{
 				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
+				Vec3D.a.release(vec);
+			}
 		}
 		else
 			this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));

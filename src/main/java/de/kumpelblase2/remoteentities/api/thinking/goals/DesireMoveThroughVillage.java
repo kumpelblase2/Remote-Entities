@@ -62,6 +62,7 @@ public class DesireMoveThroughVillage extends DesireBase
 							entity.getNavigation().b(false);
 							this.m_path = entity.getNavigation().a(vec.c, vec.d, vec.e);
 							entity.getNavigation().b(flag);
+							Vec3D.a.release(vec);
 							return this.m_path != null;
 						}
 					}

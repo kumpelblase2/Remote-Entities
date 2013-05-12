@@ -36,6 +36,7 @@ public class DesireMoveTowardsRestriction extends DesireBase
 				this.m_x = vec.c;
 				this.m_y = vec.d;
 				this.m_z = vec.e;
+				Vec3D.a.release(vec);
 				return true;
 			}
 		}

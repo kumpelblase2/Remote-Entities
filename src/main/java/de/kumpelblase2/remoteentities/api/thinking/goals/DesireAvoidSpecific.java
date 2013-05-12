@@ -103,11 +103,16 @@ public class DesireAvoidSpecific extends DesireBase
             if (var2 == null)
                 return false;
             else if (this.m_closestEntity.e(var2.c, var2.d, var2.e) < this.m_closestEntity.e(this.getEntityHandle()))
+            {
+	            Vec3D.a.release(var2);
                 return false;
+            }
             else
             {
                 this.m_path = this.getEntityHandle().getNavigation().a(var2.c, var2.d, var2.e);
-                return this.m_path != null && this.m_path.b(var2);
+	            boolean returnValue = this.m_path != null && this.m_path.b(var2);
+	            Vec3D.a.release(var2);
+                return returnValue;
             }
         }
 	}

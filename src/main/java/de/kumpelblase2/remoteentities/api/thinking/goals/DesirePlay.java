@@ -66,6 +66,8 @@ public class DesirePlay extends DesireBase
 				
 				if(vec == null)
 					return false;
+
+				Vec3D.a.release(vec);
 			}
 			
 			return true;
@@ -111,6 +113,7 @@ public class DesirePlay extends DesireBase
 				return true;
 			
 			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
+			Vec3D.a.release(vec);
 		}
 		return true;
 	}

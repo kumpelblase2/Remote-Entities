@@ -175,6 +175,7 @@ public class DesireRangedAttack extends DesireBase
 			fireball.locY = entity.locY + (entity.length / 2) + 0.5D;
 			fireball.locZ = entity.locZ + vec.e * d;
 			entity.world.addEntity(fireball);
+			Vec3D.a.release(vec);
 		}
 		else if(this.m_projectileType == RemoteProjectileType.POTION)
 		{
