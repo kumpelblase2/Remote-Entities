@@ -40,7 +40,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
 	protected String m_nameToSpawnwith;
-	
+
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
 		this.m_id = inID;
@@ -70,7 +70,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		return this.m_manager;
 	}
-	
+
 	@Override
 	public Mind getMind()
 	{
@@ -88,7 +88,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		this.setStationary(inState, false);
 	}
-	
+
 	@Override
 	public void setStationary(boolean inState, boolean inKeepHeadFixed)
 	{
@@ -117,22 +117,22 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		return this.m_entity;
 	}
-	
+
 	@Override
 	public T getBukkitEntity()
 	{
 		if(this.isSpawned())
 			return (T)this.m_entity.getBukkitEntity();
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public boolean move(Location inLocation)
 	{
 		return this.move(inLocation, this.getSpeed());
 	}
-	
+
 	@Override
 	public boolean move(Location inLocation, float inSpeed)
 	{
@@ -141,18 +141,18 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
-			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 20, true, false, false, true);
+			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 32, true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean move(LivingEntity inEntity)
 	{
 		return this.move(inEntity, this.getSpeed());
 	}
-	
+
 	@Override
 	public boolean move(LivingEntity inEntity, float inSpeed)
 	{
@@ -170,19 +170,19 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		}
 		return true;
 	}
-	
+
 	@Override
 	public void setYaw(float inYaw)
 	{
 		this.setYaw(inYaw, false);
 	}
-	
+
 	@Override
 	public void setYaw(float inYaw, boolean inRotate)
 	{
 		if(!this.isSpawned())
 			return;
-		
+
 		Location newLoc = this.getBukkitEntity().getLocation();
 		newLoc.setYaw(inYaw);
 		if(inRotate)
@@ -191,33 +191,33 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		{
 			if(this.isStationary())
 				this.getMind().fixYawAt(inYaw);
-			
+
 			this.m_entity.yaw = inYaw;
 			this.m_entity.az = inYaw;
 		}
 	}
-	
+
 	@Override
 	public void setPitch(float inPitch)
 	{
 		if(!this.isSpawned())
 			return;
-		
+
 		if(this.isStationary())
 			this.getMind().fixPitchAt(inPitch);
-		
+
 		this.m_entity.pitch = inPitch;
 	}
-	
+
 	@Override
 	public void setHeadYaw(float inHeadYaw)
 	{
 		if(!this.isSpawned())
 			return;
-		
+
 		if(this.isStationary())
 			this.getMind().fixHeadYawAt(inHeadYaw);
-			
+
 		this.m_entity.aA = inHeadYaw;
 		this.m_entity.aB = inHeadYaw;
 	}
@@ -227,25 +227,25 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		if(!this.isSpawned())
 			return;
-		
+
 		this.m_entity.getControllerLook().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), 10, this.m_entity.bs());
 	}
-	
+
 	@Override
 	public void lookAt(Entity inEntity)
 	{
 		if(!this.isSpawned())
 			return;
-		
+
 		this.m_entity.getControllerLook().a(((CraftEntity)inEntity).getHandle(), 10, this.m_entity.bs());
 	}
-	
+
 	@Override
 	public void stopMoving()
 	{
 		if(this.m_entity == null)
 			return;
-		
+
 		this.getHandle().getNavigation().g();
 	}
 
@@ -254,23 +254,23 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		if(this.m_entity == null)
 			return;
-		
+
 		this.getBukkitEntity().teleport(inLocation);
 	}
-	
+
 	@Override
 	public void spawn(Location inLocation)
 	{
 		if(this.isSpawned())
 			return;
-		
+
 		RemoteEntitySpawnEvent event = new RemoteEntitySpawnEvent(this, inLocation);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled())
 			return;
-		
+
 		inLocation = event.getSpawnLocation();
-		
+
 		try
 		{
 			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
@@ -293,55 +293,55 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		}
 		this.m_unloadedLocation = null;
 	}
-	
+
 	@Override
 	public void spawn(Location inLocation, boolean inForce)
 	{
 		Chunk c = inLocation.getChunk();
 		if(c == null)
 			return;
-		
+
 		if(!c.isLoaded() && inForce)
 		{
 			if(!c.load())
 				return;
 		}
-		
+
 		this.spawn(inLocation);
 	}
-	
+
 	@Override
 	public boolean despawn(DespawnReason inReason)
-	{		
+	{
 		RemoteEntityDespawnEvent event = new RemoteEntityDespawnEvent(this, inReason);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
 			return false;
-		
+
 		if(inReason != DespawnReason.CHUNK_UNLOAD)
 		{
 			for(Behavior behaviour : this.getMind().getBehaviours())
 			{
 				behaviour.onRemove();
 			}
-			
+
 			this.getMind().clearBehaviours();
 		}
 		else
 			this.m_unloadedLocation = (this.getBukkitEntity() != null ? this.getBukkitEntity().getLocation() : null);
-		
+
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
 		this.m_entity = null;
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSpawned()
 	{
 		return this.m_entity != null;
 	}
-	
+
 	@Override
 	public boolean isPushable()
 	{
@@ -353,22 +353,22 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		this.m_isPushable = inState;
 	}
-	
+
 	@Override
 	public float getSpeed()
 	{
 		return this.m_speed;
 	}
-	
+
 	@Override
 	public void setSpeed(float inSpeed)
 	{
 		this.m_speed = inSpeed;
 	}
-	
+
 	/**
 	 * Sets the path of the entity with a given speed.
-	 * 
+	 *
 	 * @param inPath	Path to follow
 	 * @param inSpeed	Speed to walk with
 	 * @return			true if it could use the path, false if not
@@ -377,26 +377,26 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		if(this.m_entity == null || inPath == null || this.m_isStationary)
 			return false;
-		
+
 		if(this.m_entity instanceof EntityCreature)
 			((EntityCreature)this.m_entity).setPathEntity(inPath);
-		
+
 		return this.m_entity.getNavigation().a(inPath, inSpeed);
 	}
-	
+
 	/**
 	 * Copies the inventory from the given player to the inventory of this entity.
-	 * 
+	 *
 	 * @param inPlayer	Player to copy inventory from
 	 */
 	public void copyInventory(Player inPlayer)
 	{
 		this.copyInventory(inPlayer, false);
 	}
-	
+
 	/**
 	 * Copies the inventory from the given player to the inventory of this entity.
-	 * 
+	 *
 	 * @param inPlayer			Player to copy inventory from
 	 * @param inIgnoreArmor		If armor should not be copied or if it should
 	 */
@@ -406,16 +406,16 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		EntityEquipment equip = this.getBukkitEntity().getEquipment();
 		if(!inIgnoreArmor)
 			equip.setArmorContents(inPlayer.getInventory().getArmorContents());
-		
+
 		if(this.getInventory() instanceof CraftInventoryPlayer)
 			((CraftInventoryPlayer)this.getInventory()).setHeldItemSlot(inPlayer.getInventory().getHeldItemSlot());
 		else
-			equip.setItemInHand(inPlayer.getItemInHand());		
+			equip.setItemInHand(inPlayer.getItemInHand());
 	}
-	
+
 	/**
 	 * Copies the the contents of the given inventory to the inventory of this entity.
-	 * 
+	 *
 	 * @param inInventory	Inventory to copy from.
 	 */
 	public void copyInventory(Inventory inInventory)
@@ -423,20 +423,20 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(this.getInventory() != null)
 			this.getInventory().setContents(inInventory.getContents());
 	}
-	
+
 	/**
 	 * Gets the inventory of this entity.
-	 * 
+	 *
 	 * @return	Inventory
 	 */
 	public Inventory getInventory()
 	{
 		if(this.getHandle() instanceof RemoteEntityHandle)
 			return ((RemoteEntityHandle)this.getHandle()).getInventory();
-		
+
 		if(!this.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
-		
+
 		return this.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 
@@ -449,7 +449,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			serializer.save(serializer.prepare(this));
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -479,10 +479,10 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		else
 			this.m_nameToSpawnwith = inName;
 	}
-	
+
 	/**
 	 * Gets the location the entity was last unloaded.
-	 * 
+	 *
 	 * @return	unloading location
 	 */
 	public Location getUnloadedLocation()
