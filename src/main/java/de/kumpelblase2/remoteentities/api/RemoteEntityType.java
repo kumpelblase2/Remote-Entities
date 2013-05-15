@@ -91,6 +91,16 @@ public class RemoteEntityType
 		return this.m_name;
 	}
 
+	public int ordinal()
+	{
+		for(int i = 0; i < values.size(); i++)
+		{
+			if(values.get(i) == this)
+				return i;
+		}
+		return -1; //This shouldn't happen however.
+	}
+
 	public boolean equals(Object o)
 	{
 		return o instanceof RemoteEntity && ((RemoteEntityType)o).name().equals(this.name());
