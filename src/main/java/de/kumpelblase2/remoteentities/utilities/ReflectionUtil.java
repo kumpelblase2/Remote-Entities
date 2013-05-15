@@ -13,12 +13,11 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
 public final class ReflectionUtil
 {
-	private static final Set<Class<?>> s_registeredClasses = new HashSet<Class<?>>();
 	private static final Map<String, Field> s_cachedFields = new HashMap<String, Field>();
-	
+
 	/**
 	 * Replaces the goal selector of an entity with a new one
-	 * 
+	 *
 	 * @param inEntity			entity
 	 * @param inSelectorName	name of the selector (targetSelector or movementSelector)
 	 * @param inNewSelector		new selector
@@ -45,19 +44,16 @@ public final class ReflectionUtil
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Registers custom entity class at the native minecraft entity enum
-	 * 
+	 *
 	 * @param inClass	class of the entity
 	 * @param name		minecraft entity name
 	 * @param inID		minecraft entity id
 	 */
 	public static void registerEntityType(Class<?> inClass, String name, int inID)
 	{
-		if(s_registeredClasses.contains(inClass))
-			return;
-		
 		try
 		{
             @SuppressWarnings("rawtypes")
@@ -65,22 +61,21 @@ public final class ReflectionUtil
             args[0] = Class.class;
             args[1] = String.class;
             args[2] = int.class;
- 
+
             Method a = net.minecraft.server.v1_5_R3.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
- 
+
             a.invoke(a, inClass, name, inID);
-            s_registeredClasses.add(inClass);
         }
 		catch (Exception e)
 		{
             e.printStackTrace();
         }
 	}
-	
+
 	/**
 	 * Gets the speed of an entity
-	 * 
+	 *
 	 * @param inEntity	entity
 	 * @return			speed
 	 */
@@ -106,10 +101,10 @@ public final class ReflectionUtil
 			return 0F;
 		}
 	}
-	
+
 	/**
 	 * Gets the speed modifier of an entity
-	 * 
+	 *
 	 * @param inEntity	entity
 	 * @return			modifier
 	 */
@@ -155,7 +150,7 @@ public final class ReflectionUtil
 				field.setAccessible(true);
 				if(membersLooked.contains(field.getName()))
 					continue;
-				
+
 				membersLooked.add(field.getName());
 				for(Annotation an : field.getAnnotations())
 				{
