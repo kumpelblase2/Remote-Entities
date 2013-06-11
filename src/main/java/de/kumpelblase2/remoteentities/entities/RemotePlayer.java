@@ -13,12 +13,12 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 {
 	protected String m_name;
-	
+
 	public RemotePlayer(int inID, String inName, EntityManager inManager)
 	{
 		this(inID, inName, null, inManager);
 	}
-	
+
 	public RemotePlayer(int inID, String inName, RemotePlayerEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Human, inManager);
@@ -40,26 +40,27 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		this.despawn(DespawnReason.NAME_CHANGE);
 		this.spawn(loc);
 	}
-	
+
 	@Override
 	public void spawn(Location inLocation)
 	{
 		if(this.isSpawned())
 			return;
-		
+
 		RemoteEntitySpawnEvent event = new RemoteEntitySpawnEvent(this, inLocation);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled())
 			return;
-		
+
 		inLocation = event.getSpawnLocation();
-		
+
 		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new PlayerInteractManager(worldServer), this);
 		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
 		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
+		this.move(this.getBukkitEntity().getLocation());
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 
 	/**
 	 * Tries to place the npc in a bed at given location.
-	 * 
+	 *
 	 * @param inLocation	Location the bed is present.
 	 * @return				True if it was possible, false if not
 	 */
@@ -81,7 +82,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	}
 
 	/**
-	 * Leaves the bed the npc currently is in. 
+	 * Leaves the bed the npc currently is in.
 	 */
 	public void leaveBed()
 	{
@@ -90,16 +91,16 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 
 	/**
 	 * Checks if the npc is currently in a bed.
-	 * 
+	 *
 	 * @return	true if he is, false if not
 	 */
 	public boolean isSleeping()
 	{
 		return this.getHandle().isSleeping();
 	}
-	
+
 	/**
-	 * Send the arm swing animation to nearby players. 
+	 * Send the arm swing animation to nearby players.
 	 */
 	public void doArmSwing()
 	{
