@@ -10,24 +10,24 @@ public class WorldUtilities
 {
 	/**
 	 * Checks if a position is inside a circle
-	 * 
-	 * @param m_xPos	middle x coordinate of circle
-	 * @param m_zPos	middle y coordinate of circle
-	 * @param d			point x value
-	 * @param e			point y value
+	 *
+	 * @param m_midXPos	middle x coordinate of circle
+	 * @param m_midZPos	middle y coordinate of circle
+	 * @param inPointX	point x value
+	 * @param inPointZ	point y value
 	 * @param inRadius	radius
 	 * @return			true if inside, false if not
 	 */
-	public static boolean isInCircle(double m_xPos, double m_zPos, double d, double e, int inRadius)
+	public static boolean isInCircle(double m_midXPos, double m_midZPos, double inPointX, double inPointZ, int inRadius)
 	{
-		double newX = (m_xPos - d);
-		double newY = (m_zPos - e);
+		double newX = (m_midXPos - inPointX);
+		double newY = (m_midZPos - inPointZ);
 		return newX * newX + newY * newY < inRadius * inRadius;
 	}
-	
+
 	/**
 	 * Gets the closest village to an entity
-	 * 
+	 *
 	 * @param inEntity	entity
 	 * @return			village
 	 */
