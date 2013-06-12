@@ -28,10 +28,10 @@ public class DesireWanderAroundArea extends DesireWanderAround
 	public boolean shouldExecute()
 	{
 		LivingEntity handle = this.getRemoteEntity().getBukkitEntity();
-		if(!WorldUtilities.isInCircle(handle.getLocation().getX(), handle.getLocation().getZ(), this.m_midSpot.getX(), this.m_midSpot.getZ(), this.m_Radius) || super.shouldExecute())
+		if(!WorldUtilities.isInCircle(this.m_midSpot.getX(), this.m_midSpot.getZ(), handle.getLocation().getX(), handle.getLocation().getZ(), this.m_Radius) || super.shouldExecute())
 		{
 			int tries = 0;
-			while(!WorldUtilities.isInCircle(this.m_xPos, this.m_zPos, this.m_midSpot.getX(), this.m_midSpot.getZ(), this.m_Radius) && tries <= 10)
+			while(!WorldUtilities.isInCircle(this.m_midSpot.getX(), this.m_midSpot.getZ(), this.m_xPos, this.m_zPos, this.m_Radius) && tries <= 10)
 			{
 				Vec3D vector = RandomPositionGenerator.a(this.getEntityHandle(), 10, 7);
 				if(vector != null)
