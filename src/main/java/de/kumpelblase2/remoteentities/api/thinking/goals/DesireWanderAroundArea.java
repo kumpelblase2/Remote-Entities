@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import net.minecraft.server.v1_5_R3.Vec3D;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -15,18 +16,19 @@ public class DesireWanderAroundArea extends DesireWanderAround
 	protected int m_Radius;
 	@SerializeAs(pos = 2)
 	protected Location m_midSpot;
-	
+
 	public DesireWanderAroundArea(RemoteEntity inEntity, int inRadius, Location inMidPoint)
 	{
 		super(inEntity);
 		this.m_Radius = inRadius;
 		this.m_midSpot = inMidPoint;
 	}
-	
+
 	@Override
 	public boolean shouldExecute()
 	{
-		if(super.shouldExecute())
+		LivingEntity handle = this.getRemoteEntity().getBukkitEntity();
+		if(!WorldUtilities.isInCircle(handle.getLocation().getX(), handle.getLocation().getZ(), this.m_midSpot.getX(), this.m_midSpot.getZ(), this.m_Radius) || super.shouldExecute())
 		{
 			int tries = 0;
 			while(!WorldUtilities.isInCircle(this.m_xPos, this.m_zPos, this.m_midSpot.getX(), this.m_midSpot.getZ(), this.m_Radius) && tries <= 10)
@@ -49,7 +51,7 @@ public class DesireWanderAroundArea extends DesireWanderAround
 			return false;
 		}
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{
