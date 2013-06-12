@@ -21,8 +21,8 @@ public class WorldUtilities
 	public static boolean isInCircle(double m_midXPos, double m_midZPos, double inPointX, double inPointZ, int inRadius)
 	{
 		double newX = (m_midXPos - inPointX);
-		double newY = (m_midZPos - inPointZ);
-		return newX * newX + newY * newY < inRadius * inRadius;
+		double newZ = (m_midZPos - inPointZ);
+		return newX * newX + newZ * newZ < inRadius * inRadius;
 	}
 
 	/**
