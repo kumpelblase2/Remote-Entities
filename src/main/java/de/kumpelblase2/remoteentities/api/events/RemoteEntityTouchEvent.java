@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.events;
 
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.HandlerList;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
@@ -9,25 +9,25 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
  */
 public class RemoteEntityTouchEvent extends RemoteEvent
 {
-	protected final LivingEntity m_touchingEntity;
+	protected final Entity m_touchingEntity;
 	private static final HandlerList handlers = new HandlerList();
-	
-	public RemoteEntityTouchEvent(RemoteEntity inEntity, LivingEntity inTouchingEntity)
+
+	public RemoteEntityTouchEvent(RemoteEntity inEntity, Entity inTouchingEntity)
 	{
 		super(inEntity);
 		this.m_touchingEntity = inTouchingEntity;
 	}
-	
+
 	/**
 	 * Entity that's touching the RemoteEntity
-	 * 
+	 *
 	 * @return entity
 	 */
-	public LivingEntity getTouchingEntity()
+	public Entity getTouchingEntity()
 	{
 		return this.m_touchingEntity;
 	}
-	
+
 	public static HandlerList getHandlerList()
 	{
 		return handlers;

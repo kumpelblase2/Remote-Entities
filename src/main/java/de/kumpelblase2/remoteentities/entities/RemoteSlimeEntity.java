@@ -19,12 +19,12 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	protected Entity m_target;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	
+
 	public RemoteSlimeEntity(World world)
 	{
 		this(world, null);
 	}
-	
+
 	public RemoteSlimeEntity(World world, RemoteEntity inRemoteEntity)
 	{
 		super(world);
@@ -33,13 +33,13 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		this.m_jumpDelay = this.random.nextInt(20) + 10;
 	}
-	
+
 	@Override
 	public Inventory getInventory()
 	{
 		if(!this.m_remoteEntity.getFeatures().hasFeature(InventoryFeature.class))
 			return null;
-		
+
 		return this.m_remoteEntity.getFeatures().getFeature(InventoryFeature.class).getInventory();
 	}
 
@@ -53,33 +53,33 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	public void setupStandardGoals()
 	{
 	}
-	
+
 	@Override
 	public void g(double x, double y, double z)
-	{		
+	{
 		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
 			super.g(x, y, z);
 	}
-	
+
 	@Override
 	public void move(double d0, double d1, double d2)
 	{
 		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
 			return;
-		
+
 		super.move(d0, d1, d2);
 	}
-	
+
 	public void setTarget(Entity inEntity)
 	{
 		this.m_target = inEntity;
 	}
-	
+
 	public Entity getTarget()
 	{
 		return this.m_target;
 	}
-	
+
 	@Override
 	public void l_()
 	{
@@ -87,7 +87,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
-	
+
 	@Override
 	protected void bq()
 	{
@@ -96,7 +96,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		{
 			this.a(this.m_target, 10.0F, 20.0F);
 		}
-		
+
 		// --- Taken from EntitySlime.java#103 - #121
 		if (this.onGround && this.m_jumpDelay-- <= 0) {
             this.m_jumpDelay = this.j();
@@ -119,53 +119,55 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
         }
 		// ---
 	}
-	
+
 	@Override
-	public void b_(EntityHuman entity)
+	public void collide(Entity inEntity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
-			return;
-		
-		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			super.collide(inEntity);
+			return;
+		}
+
+		if (this.m_lastBouncedId != inEntity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+		{
+			RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, inEntity.getBukkitEntity());
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return;
+
+			if(inEntity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 			{
-				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
-				{
-					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
-					Bukkit.getPluginManager().callEvent(event);
-					if(event.isCancelled())
-						return;
-					
-					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
-					this.m_lastBouncedTime = System.currentTimeMillis();
-					this.m_lastBouncedId = entity.id;
-				}
+				if(inEntity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)inEntity.getBukkitEntity());
 			}
 		}
-		super.b_(entity);
+
+		this.m_lastBouncedTime = System.currentTimeMillis();
+		this.m_lastBouncedId = inEntity.id;
+		super.collide(inEntity);
 	}
-	
+
 	@Override
 	public boolean a_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return super.a_(entity);
-		
+
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
 				return super.a_(entity);
-			
+
 			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
-		
+
 		return super.a_(entity);
 	}
-	
+
 	@Override
 	public void die(DamageSource damagesource)
 	{
@@ -176,18 +178,18 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		}
 		super.die(damagesource);
 	}
-	
+
 	@Override
 	public boolean bh()
 	{
 		return true;
 	}
-	
+
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[0];
 	}
-	
+
 	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[0];

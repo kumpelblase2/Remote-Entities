@@ -18,7 +18,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	protected EntityLiving m_target;
-	
+
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager)
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
@@ -30,7 +30,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.getNavigation().e(true);
 		this.fauxSleeping = true;
 	}
-	
+
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
 	{
 		this(minecraftserver, world, s, iteminworldmanager);
@@ -57,53 +57,55 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		return this.getBukkitEntity().getInventory();
 	}
-	
+
 	@Override
-	public void b_(EntityHuman entity)
+	public void collide(Entity inEntity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
-			return;
-		
-		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 		{
-			if (this.m_lastBouncedId != entity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+			super.collide(inEntity);
+			return;
+		}
+
+		if (this.m_lastBouncedId != inEntity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+		{
+			RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, inEntity.getBukkitEntity());
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return;
+
+			if(inEntity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
 			{
-				if(entity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
-				{
-					RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, entity.getBukkitEntity());
-					Bukkit.getPluginManager().callEvent(event);
-					if(event.isCancelled())
-						return;
-					
-					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)entity.getBukkitEntity());
-					this.m_lastBouncedTime = System.currentTimeMillis();
-					this.m_lastBouncedId = entity.id;
-				}
+				if(inEntity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
+					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)inEntity.getBukkitEntity());
 			}
 		}
-		super.b_(entity);
+
+		this.m_lastBouncedTime = System.currentTimeMillis();
+		this.m_lastBouncedId = inEntity.id;
+		super.collide(inEntity);
 	}
-	
+
 	@Override
 	public boolean a_(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
 			return super.a_(entity);
-		
+
 		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
 		{
 			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
 				return super.a_(entity);
-			
+
 			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
 				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
 		}
-		
+
 		return super.a_(entity);
 	}
-	
+
 	@Override
 	public void l_()
 	{
@@ -113,7 +115,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
-		
+
 		//Taken from Citizens2#EntityHumanNPC.java#129 - #138
         if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
             motX = motY = motZ = 0;
@@ -125,7 +127,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
             this.applyMovement();
         }
         //End Citizens
-        
+
         if(this.getRemoteEntity() != null)
         	this.getRemoteEntity().getMind().tick();
 	}
@@ -141,7 +143,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		getControllerJump().b();
 		e(this.getRemoteEntity().getSpeed());
 		//End Citizens
-		
+
 		if (bG)
 		{
             boolean inLiquid = G() || I();
@@ -165,24 +167,24 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
         float prev = aN;
         aN *= bE() * this.getRemoteEntity().getSpeed();
-        e(bC, bD); 
+        e(bC, bD);
         aN = prev;
         az = yaw;
 	}
-	
+
 	@Override
 	public void g(double x, double y, double z)
-	{		
+	{
 		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
 			super.g(x, y, z);
 	}
-	
+
 	@Override
 	public void move(double d0, double d1, double d2)
 	{
 		if(this.m_remoteEntity != null && this.m_remoteEntity.isStationary())
 			return;
-		
+
 		super.move(d0, d1, d2);
 	}
 
@@ -191,13 +193,13 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
 	}
-	
+
 	@Override
 	public boolean bh()
 	{
 		return true;
 	}
-	
+
 	@Override
 	public void die(DamageSource damagesource)
 	{
@@ -208,33 +210,33 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		}
 		super.die(damagesource);
 	}
-	
+
 	@Override
 	public EntityLiving getGoalTarget()
 	{
 		return this.m_target;
 	}
-	
+
 	@Override
 	public void setGoalTarget(EntityLiving inEntity)
 	{
 		this.m_target = inEntity;
 	}
-	
+
 	@Override
 	public boolean m(Entity inEntity)
 	{
 		this.attack(inEntity);
 		return super.m(inEntity);
 	}
-	
+
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {
 				new DesireItem(new DesireSwim(inEntityFor), 0)
 		};
 	}
-	
+
 	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[0];
