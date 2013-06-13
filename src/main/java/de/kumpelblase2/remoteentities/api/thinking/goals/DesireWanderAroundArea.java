@@ -40,16 +40,13 @@ public class DesireWanderAroundArea extends DesireWanderAround
 					this.m_yPos = vector.d;
 					this.m_zPos = vector.e;
 					Vec3D.a.release(vector);
-					return true;
 				}
 				tries++;
 			}
-			return false;
+			return tries <= 10;
 		}
 		else
-		{
 			return false;
-		}
 	}
 
 	@Override
