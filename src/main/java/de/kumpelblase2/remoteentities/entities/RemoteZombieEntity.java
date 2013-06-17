@@ -4,10 +4,10 @@ import net.minecraft.server.v1_5_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
+import de.kumpelblase2.remoteentities.api.events.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
@@ -64,8 +64,15 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	@Override
 	public void g(double x, double y, double z)
 	{
-		if(this.m_remoteEntity != null && this.m_remoteEntity.isPushable() && !this.m_remoteEntity.isStationary())
-			super.g(x, y, z);
+		RemoteEntityPushEvent event = new RemoteEntityPushEvent(this.getRemoteEntity(), new Vector(x, y, z));
+		event.setCancelled(this.m_remoteEntity == null || !this.m_remoteEntity.isPushable() || this.m_remoteEntity.isStationary());
+		Bukkit.getPluginManager().callEvent(event);
+
+		if(!event.isCancelled())
+		{
+			Vector vel = event.getVelocity();
+			super.g(vel.getX(), vel.getY(), vel.getZ());
+		}
 	}
 
 	@Override
