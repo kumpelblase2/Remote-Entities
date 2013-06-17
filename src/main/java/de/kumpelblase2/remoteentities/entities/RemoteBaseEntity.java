@@ -15,14 +15,13 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityDespawnEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
+import de.kumpelblase2.remoteentities.api.events.*;
 import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.Behavior;
-import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
@@ -40,6 +39,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
 	protected String m_nameToSpawnwith;
+	protected int m_lastBouncedId;
+	protected long m_lastBouncedTime;
 
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -489,5 +490,65 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	public Location getUnloadedLocation()
 	{
 		return this.m_unloadedLocation;
+	}
+
+	Vector onPush(double inX, double inY, double inZ)
+	{
+		RemoteEntityPushEvent event = new RemoteEntityPushEvent(this, new Vector(inX, inY, inZ));
+		event.setCancelled(!this.isPushable() || this.isStationary());
+		Bukkit.getPluginManager().callEvent(event);
+
+		if(!event.isCancelled())
+			return event.getVelocity();
+		else
+			return null;
+	}
+
+	boolean onCollide(Entity inEntity)
+	{
+		if(this.getMind() == null)
+			return true;
+
+		if(this.m_lastBouncedId != inEntity.getEntityId() || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
+		{
+			RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this, inEntity);
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return false;
+
+			if(inEntity instanceof Player && this.getMind().canFeel() && this.getMind().hasBehaviour("Touch"))
+			{
+				if(inEntity.getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
+					((TouchBehavior)this.getMind().getBehaviour("Touch")).onTouch((Player)inEntity);
+			}
+		}
+
+		this.m_lastBouncedTime = System.currentTimeMillis();
+		this.m_lastBouncedId = inEntity.getEntityId();
+		return true;
+	}
+
+	void onDeath()
+	{
+		this.getMind().clearMovementDesires();
+		this.getMind().clearTargetingDesires();
+	}
+
+	boolean onInteract(Player inEntity)
+	{
+		if(this.getMind() == null)
+			return true;
+
+		if(this.getMind().canFeel())
+		{
+			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this, inEntity);
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return false;
+
+			if(this.getMind().hasBehaviour("Interact"))
+				((InteractBehavior)this.getMind().getBehaviour("Interact")).onInteract(inEntity);
+		}
+		return true;
 	}
 }

@@ -1,14 +1,13 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
@@ -56,17 +55,25 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	}
 
 	@Override
+	public void l_()
+	{
+		super.l_();
+		if(this.getRemoteEntity() != null)
+			this.getRemoteEntity().getMind().tick();
+	}
+
+	@Override
 	public void g(double x, double y, double z)
 	{
-		RemoteEntityPushEvent event = new RemoteEntityPushEvent(this.getRemoteEntity(), new Vector(x, y, z));
-		event.setCancelled(this.m_remoteEntity == null || !this.m_remoteEntity.isPushable() || this.m_remoteEntity.isStationary());
-		Bukkit.getPluginManager().callEvent(event);
-
-		if(!event.isCancelled())
+		if(this.m_remoteEntity == null)
 		{
-			Vector vel = event.getVelocity();
-			super.g(vel.getX(), vel.getY(), vel.getZ());
+			super.g(x, y, z);
+			return;
 		}
+
+		Vector vector = ((RemoteBaseEntity)this.m_remoteEntity).onPush(x, y, z);
+		if(vector != null)
+			super.g(vector.getX(), vector.getY(), vector.getZ());
 	}
 
 	@Override
@@ -81,67 +88,35 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	@Override
 	public void collide(Entity inEntity)
 	{
-		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+		if(this.getRemoteEntity() == null)
 		{
 			super.collide(inEntity);
 			return;
 		}
 
-		if (this.m_lastBouncedId != inEntity.id || System.currentTimeMillis() - this.m_lastBouncedTime > 1000)
-		{
-			RemoteEntityTouchEvent event = new RemoteEntityTouchEvent(this.m_remoteEntity, inEntity.getBukkitEntity());
-			Bukkit.getPluginManager().callEvent(event);
-			if(event.isCancelled())
-				return;
-
-			if(inEntity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel() && this.getRemoteEntity().getMind().hasBehaviour("Touch"))
-			{
-				if(inEntity.getBukkitEntity().getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
-					((TouchBehavior)this.getRemoteEntity().getMind().getBehaviour("Touch")).onTouch((Player)inEntity.getBukkitEntity());
-			}
-		}
-
-		this.m_lastBouncedTime = System.currentTimeMillis();
-		this.m_lastBouncedId = inEntity.id;
-		super.collide(inEntity);
+		if(((RemoteBaseEntity)this.m_remoteEntity).onCollide(inEntity.getBukkitEntity()))
+			super.collide(inEntity);
 	}
 
 	@Override
 	public boolean a_(EntityHuman entity)
 	{
-		if(this.getRemoteEntity() == null || this.getRemoteEntity().getMind() == null)
+		if(this.getRemoteEntity() == null)
 			return super.a_(entity);
 
-		if(entity instanceof EntityPlayer && this.getRemoteEntity().getMind().canFeel())
-		{
-			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this.m_remoteEntity, (Player)entity.getBukkitEntity());
-			Bukkit.getPluginManager().callEvent(event);
-			if(event.isCancelled())
-				return super.a_(entity);
+		if(!(entity.getBukkitEntity() instanceof Player))
+			return super.a_(entity);
 
-			if(this.getRemoteEntity().getMind().hasBehaviour("Interact"))
-				((InteractBehavior)this.getRemoteEntity().getMind().getBehaviour("Interact")).onInteract((Player)entity.getBukkitEntity());
-		}
-
-		return super.a_(entity);
-	}
-
-	@Override
-	public void l_()
-	{
-		super.l_();
-		if(this.getRemoteEntity() != null)
-			this.getRemoteEntity().getMind().tick();
+		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
+			return super.a_(entity);
+		else
+			return false;
 	}
 
 	@Override
 	public void die(DamageSource damagesource)
 	{
-		if(this.getRemoteEntity() != null && this.getRemoteEntity().getMind() != null)
-		{
-			this.getRemoteEntity().getMind().clearMovementDesires();
-			this.getRemoteEntity().getMind().clearTargetingDesires();
-		}
+		((RemoteBaseEntity)this.m_remoteEntity).onDeath();
 		super.die(damagesource);
 	}
 
