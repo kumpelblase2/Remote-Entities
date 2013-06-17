@@ -14,11 +14,11 @@ public class LocationData implements ConfigurationSerializable
 	public int z;
 	public float yaw;
 	public float pitch;
-	
+
 	public LocationData()
 	{
 	}
-	
+
 	public LocationData(Location inLocation)
 	{
 		this.world = inLocation.getWorld().getName();
@@ -28,7 +28,7 @@ public class LocationData implements ConfigurationSerializable
 		this.yaw = inLocation.getYaw();
 		this.pitch = inLocation.getPitch();
 	}
-	
+
 	public LocationData(Map<String, Object> inData)
 	{
 		this.world = (String)inData.get("world");
@@ -38,12 +38,12 @@ public class LocationData implements ConfigurationSerializable
 		this.yaw = ((Double)inData.get("yaw")).floatValue();
 		this.pitch = ((Double)inData.get("pitch")).floatValue();
 	}
-	
+
 	public Location toBukkitLocation()
 	{
-		if(Bukkit.getWorld(world) != null){
+		if(Bukkit.getWorld(world) != null)
 			return new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
-		}
+
 		return null;
 	}
 
