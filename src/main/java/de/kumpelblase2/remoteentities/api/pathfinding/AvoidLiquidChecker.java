@@ -7,14 +7,8 @@ public class AvoidLiquidChecker implements MoveChecker
 	{
 		if(!inData.isValid())
 			return;
-		
-		if(Pathfinder.isLiquid(inData.getBlock()))
-		{
-			inData.setValid(false);
-			return;
-		}
 
-		if(Pathfinder.isLiquid(inData.getAboveBlock()))
+		if(Pathfinder.isLiquid(inData.getBlock()) || Pathfinder.isLiquid(inData.getAboveBlock()))
 			inData.setValid(false);
 	}
 }
