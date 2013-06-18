@@ -17,7 +17,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 {
 	protected FileConfiguration m_config;
 	protected File m_configFile;
-	
+
 	public YMLSerializer(Plugin inPlugin)
 	{
 		super(inPlugin);
@@ -34,10 +34,10 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 				if(!this.loadConfig())
 					return false;
 			}
-			
+
 			this.m_config.set("entities", inData);
 			this.m_config.save(this.m_configFile);
-			
+
 			return true;
 		}
 		catch(Exception e)
@@ -56,6 +56,9 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 				return new EntityData[0];
 		}
 
+		if(!this.m_config.contains("entities"))
+			return new EntityData[0];
+
 		List<EntityData> entitydata = (List<EntityData>)this.m_config.getList("entities");
 		return entitydata.toArray(new EntityData[entitydata.size()]);
 	}
@@ -71,7 +74,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 				if(!this.loadConfig())
 					return;
 			}
-			
+
 			((List<EntityData>)this.m_config.getList("entities")).add(inData);
 			this.m_config.save(this.m_configFile);
 		}
@@ -100,7 +103,7 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 		}
 		return null;
 	}
-	
+
 	protected boolean loadConfig()
 	{
 		try
@@ -111,14 +114,14 @@ public class YMLSerializer extends PreparationSerializer implements ISingleEntit
 				if(!fileFolder.mkdirs())
 					return false;
 			}
-			
+
 			this.m_configFile = new File(fileFolder, "entities.yml");
 			if(!this.m_configFile.exists())
 			{
 				if(!this.m_configFile.createNewFile())
 					return false;
 			}
-		
+
 			this.m_config = YamlConfiguration.loadConfiguration(this.m_configFile);
 			return true;
 		}
