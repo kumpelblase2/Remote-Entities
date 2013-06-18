@@ -14,6 +14,7 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.events.RemoteEntityCreateEvent;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
@@ -145,6 +146,11 @@ public class EntityManager
 		{
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, EntityManager.class);
 			RemoteEntity entity = constructor.newInstance(inID, this);
+			RemoteEntityCreateEvent event = new RemoteEntityCreateEvent(entity);
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return null;
+
 			this.m_entities.put(inID, entity);
 			return entity;
 		}
@@ -206,6 +212,11 @@ public class EntityManager
 		{
 			Constructor<? extends RemoteEntity> constructor = inType.getRemoteClass().getConstructor(int.class, String.class, EntityManager.class);
 			RemoteEntity entity = constructor.newInstance(inID, inName, this);
+			RemoteEntityCreateEvent event = new RemoteEntityCreateEvent(entity);
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())
+				return null;
+			
 			this.m_entities.put(inID, entity);
 			return entity;
 		}
