@@ -216,7 +216,7 @@ public class EntityManager
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
 				return null;
-			
+
 			this.m_entities.put(inID, entity);
 			return entity;
 		}

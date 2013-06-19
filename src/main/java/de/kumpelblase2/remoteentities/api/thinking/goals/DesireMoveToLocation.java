@@ -11,7 +11,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 {
 	@SerializeAs(pos = 1)
 	private Location m_targetLocation;
-	
+
 	public DesireMoveToLocation(RemoteEntity inEntity, Location inTargetLocation)
 	{
 		super(inEntity);
@@ -24,33 +24,28 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	{
 		return this.getRemoteEntity().getBukkitEntity().getLocation().distanceSquared(this.m_targetLocation) > 1.15;
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
-		return this.shouldExecute();
+		return !this.getEntityHandle().getNavigation().f();
 	}
-	
+
+	@Override
 	public void startExecuting()
 	{
 		this.m_entity.move(this.m_targetLocation);
-	}
-	
-	@Override
-	public boolean update()
-	{
-		return this.m_entity.move(this.m_targetLocation);
-	}
-	
-	@Override
-	public ParameterData[] getSerializeableData()
-	{
-		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 
 	@Override
 	public boolean isFinished()
 	{
-		return !this.shouldExecute();
+		return !this.canContinue() && this.getRemoteEntity().getBukkitEntity().getLocation().distance(this.m_targetLocation) < 2;
+	}
+
+	@Override
+	public ParameterData[] getSerializeableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }
