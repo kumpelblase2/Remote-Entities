@@ -16,20 +16,21 @@ public class EntityData implements ConfigurationSerializable
 	public boolean stationary;
 	public boolean pushable;
 	public float speed;
+	public int pathfindingRange;
 	public DesireData[] actionDesires = new DesireData[0];
 	public DesireData[] movementDesires = new DesireData[0];
 	public BehaviorData[] behaviors = new BehaviorData[0];
 	public static transient ObjectParser objectParser = new ObjectParser();
-	
+
 	public EntityData()
 	{
 	}
-	
+
 	public EntityData(RemoteEntity inEntity)
 	{
 		if(inEntity == null)
 			return;
-		
+
 		this.id = inEntity.getID();
 		this.type = inEntity.getType();
 		this.name = (inEntity instanceof Nameable ? ((Nameable)inEntity).getName() : "");
@@ -48,10 +49,11 @@ public class EntityData implements ConfigurationSerializable
 			else
 				this.location = new LocationData();
 		}
-			
+
 		this.stationary = inEntity.isStationary();
 		this.pushable = inEntity.isPushable();
 		this.speed = inEntity.getSpeed();
+		this.pathfindingRange = inEntity.getPathfindingRange();
 		List<DesireData> action = new ArrayList<DesireData>();
 		for(int i = 0; i < inEntity.getMind().getTargetingDesires().size(); i++)
 		{
@@ -76,7 +78,7 @@ public class EntityData implements ConfigurationSerializable
 			pos++;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public EntityData(Map<String, Object> inData)
 	{
@@ -87,6 +89,7 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = (Boolean)inData.get("stationary");
 		this.pushable = (Boolean)inData.get("pushable");
 		this.speed = ((Double)inData.get("speed")).floatValue();
+		this.pathfindingRange = (Integer)inData.get("pathfindingRange");
 		List<Map<String, Object>> dataList = (List<Map<String, Object>>)inData.get("actionDesires");
 		this.actionDesires = new DesireData[dataList.size()];
 		for(int i = 0; i < this.actionDesires.length; i++)
@@ -118,6 +121,7 @@ public class EntityData implements ConfigurationSerializable
 		data.put("stationary", this.stationary);
 		data.put("pushable", this.pushable);
 		data.put("speed", this.speed);
+		data.put("pathfindingRange", this.pathfindingRange);
 		List<Map<String, Object>> desirelist = new ArrayList<Map<String, Object>>();
 		for(DesireData dd : movementDesires)
 		{

@@ -12,12 +12,12 @@ import de.kumpelblase2.remoteentities.persistence.*;
 public abstract class PreparationSerializer implements IEntitySerializer
 {
 	protected final Plugin m_plugin;
-	
+
 	public PreparationSerializer(Plugin inPlugin)
 	{
 		this.m_plugin = inPlugin;
 	}
-	
+
 	@Override
 	public EntityData prepare(RemoteEntity inEntity)
 	{
@@ -30,28 +30,28 @@ public abstract class PreparationSerializer implements IEntitySerializer
 		EntityManager manager = RemoteEntities.getManagerOfPlugin(this.m_plugin.getName());
 		CreateEntityContext context = manager.prepareEntity(inData.type);
 		context.withName(inData.name).asPushable(inData.pushable).asStationary(inData.stationary).withID(inData.id);
-		context.withSpeed(inData.speed);
+		context.withSpeed(inData.speed).withPathfindingRange(inData.pathfindingRange);
 		if(inData.location != null)
 			context.atLocation(inData.location.toBukkitLocation());
-		
+
 		RemoteEntity entity = context.create();
 		for(DesireData data : inData.movementDesires)
 		{
 			DesireItem item = data.create(entity);
 			entity.getMind().addMovementDesire(item.getDesire(), item.getPriority());
 		}
-		
+
 		for(DesireData data : inData.actionDesires)
 		{
 			DesireItem item = data.create(entity);
 			entity.getMind().addTargetingDesire(item.getDesire(), item.getPriority());
 		}
-		
+
 		for(BehaviorData data : inData.behaviors)
 		{
 			entity.getMind().addBehaviour(data.create(entity));
 		}
-		
+
 		return entity;
 	}
 }

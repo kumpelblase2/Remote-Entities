@@ -41,6 +41,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected String m_nameToSpawnwith;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
+	protected int m_pathfindingRange = 32;
 
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -142,7 +143,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
-			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), 32, true, false, false, true);
+			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
@@ -166,7 +167,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(!this.m_entity.getNavigation().a(handle, inSpeed))
 		{
-			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, 20, true, false, false, true);
+			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
@@ -366,6 +367,18 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	public void setSpeed(float inSpeed)
 	{
 		this.m_speed = inSpeed;
+	}
+
+	@Override
+	public void setPathfindingRange(int inRange)
+	{
+		this.m_pathfindingRange = inRange;
+	}
+
+	@Override
+	public int getPathfindingRange()
+	{
+		return this.m_pathfindingRange;
 	}
 
 	/**
