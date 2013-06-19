@@ -22,7 +22,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getRemoteEntity().getBukkitEntity().getLocation().distanceSquared(this.m_targetLocation) > 1.15;
+		return !((CraftLivingEntity)this.getRemoteEntity().getBukkitEntity()).getHandle().getNavigation().f();
 	}
 	
 	@Override
