@@ -16,7 +16,7 @@ public class EntityData implements ConfigurationSerializable
 	public boolean stationary;
 	public boolean pushable;
 	public float speed;
-	public int pathfindingRange;
+	public int pathfindingRange = 32;
 	public DesireData[] actionDesires = new DesireData[0];
 	public DesireData[] movementDesires = new DesireData[0];
 	public BehaviorData[] behaviors = new BehaviorData[0];
@@ -89,7 +89,9 @@ public class EntityData implements ConfigurationSerializable
 		this.stationary = (Boolean)inData.get("stationary");
 		this.pushable = (Boolean)inData.get("pushable");
 		this.speed = ((Double)inData.get("speed")).floatValue();
-		this.pathfindingRange = (Integer)inData.get("pathfindingRange");
+		if(inData.containsKey("pathfindingRange"))
+			this.pathfindingRange = (Integer)inData.get("pathfindingRange");
+
 		List<Map<String, Object>> dataList = (List<Map<String, Object>>)inData.get("actionDesires");
 		this.actionDesires = new DesireData[dataList.size()];
 		for(int i = 0; i < this.actionDesires.length; i++)
