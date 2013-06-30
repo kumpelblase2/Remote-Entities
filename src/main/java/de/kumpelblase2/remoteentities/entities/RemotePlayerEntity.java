@@ -9,6 +9,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.api.thinking.goals.DesireSwim;
 import de.kumpelblase2.remoteentities.nms.*;
+import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHandle
 {
@@ -20,19 +21,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager)
 	{
 		super(minecraftserver, world, s, iteminworldmanager);
-		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
-		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
-		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
-		this.noDamageTicks = 1;
-		this.W = 1;
-		this.getNavigation().e(true);
-		this.fauxSleeping = true;
-	}
-
-	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
-	{
-		this(minecraftserver, world, s, iteminworldmanager);
-		this.m_remoteEntity = inEntity;
 		try
 		{
 			NetworkManager manager = new RemoteEntityNetworkManager(minecraftserver);
@@ -42,6 +30,20 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		catch(Exception e)
 		{
 		}
+
+		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
+		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
+		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
+		this.noDamageTicks = 1;
+		this.Y = 1;
+		this.getNavigation().e(true);
+		this.fauxSleeping = true;
+	}
+
+	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
+	{
+		this(minecraftserver, world, s, iteminworldmanager);
+		this.m_remoteEntity = inEntity;
 	}
 
 	@Override
@@ -94,32 +96,29 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		e(this.getRemoteEntity().getSpeed());
 		//End Citizens
 
-		if (bG)
+		if(this.bG)
 		{
             boolean inLiquid = G() || I();
             if (inLiquid)
+                this.motY += 0.04;
+            else if (this.onGround && this.bC == 0)
             {
-                motY += 0.04;
-            }
-            else if (onGround && bC == 0)
-            {
-                motY = 0.6;
-                bD = 10;
+                this.motY = 0.6;
+                this.bD = 10;
             }
         }
 		else
-		{
-            bD = 0;
-        }
-        bC *= 0.98F;
-        bD *= 0.98F;
-        bE *= 0.9F;
+            this.bD = 0;
 
-        float prev = aN;
-        aN *= bE() * this.getRemoteEntity().getSpeed();
-        e(bC, bD);
-        aN = prev;
-        az = yaw;
+		this.bC *= 0.98F;
+		this.bD *= 0.98F;
+		this.bE *= 0.9F;
+
+        float prev = this.aN;
+		this.aN *= this.bE() * this.getRemoteEntity().getSpeed();
+		this.e(this.bC, this.bD);
+		this.aN = prev;
+		this.az = this.yaw;
 	}
 
 	@Override
@@ -209,6 +208,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		this.attack(inEntity);
 		return super.m(inEntity);
+	}
+
+	void updateSpawn()
+	{
+		Packet20NamedEntitySpawn packet = new Packet20NamedEntitySpawn(this);
+		for(Player player : WorldUtilities.getNearbyPlayers(this.getBukkitEntity(), 64))
+		{
+			WorldUtilities.sendPacketToPlayer(player, packet);
+		}
 	}
 
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)

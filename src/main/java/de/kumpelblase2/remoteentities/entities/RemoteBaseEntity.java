@@ -288,7 +288,6 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				this.getBukkitEntity().setCustomName(this.getName());
 				this.getBukkitEntity().setCustomNameVisible(true);
 			}
-			this.move(this.getBukkitEntity().getLocation());
 		}
 		catch(Exception e)
 		{

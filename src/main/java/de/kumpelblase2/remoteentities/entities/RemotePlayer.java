@@ -7,7 +7,8 @@ import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.DespawnReason;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 
 public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
@@ -60,7 +61,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
 		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
-		this.move(this.getBukkitEntity().getLocation());
+		((RemotePlayerEntity)this.m_entity).updateSpawn();
 	}
 
 	@Override
