@@ -10,6 +10,9 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will try to look at the nearest entity of the given type.
+ */
 public class DesireLookAtNearest extends DesireBase
 {
 	protected EntityLiving m_target;
@@ -21,12 +24,12 @@ public class DesireLookAtNearest extends DesireBase
 	protected float m_minDistSquared;
 	@SerializeAs(pos = 3)
 	protected float m_lookPossibility;
-	
+
 	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
 	{
 		this(inEntity, inTarget, inMinDistance, 0.02F);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance, float inPossibility)
 	{
@@ -67,7 +70,7 @@ public class DesireLookAtNearest extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity == null)
 			return false;
-		
+
 		if(entity.aE().nextFloat() >= this.m_lookPossibility)
 			return false;
 		else
@@ -76,7 +79,7 @@ public class DesireLookAtNearest extends DesireBase
 				this.m_target = entity.world.findNearbyPlayer(entity, this.m_minDist);
 			else
 				this.m_target = (EntityLiving)entity.world.a(this.m_toLookAt, entity.boundingBox.grow(this.m_minDist, 3, this.m_minDist), entity);
-			
+
 			return this.m_target != null;
 		}
 	}
@@ -89,11 +92,11 @@ public class DesireLookAtNearest extends DesireBase
 
 		return this.getEntityHandle().e(this.m_target) <= this.m_minDistSquared && this.m_lookTicks > 0;
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{
 		List<ParameterData> thisData = ReflectionUtil.getParameterDataForClass(this);
-		return thisData.toArray(new ParameterData[0]);
+		return thisData.toArray(new ParameterData[thisData.size()]);
 	}
 }

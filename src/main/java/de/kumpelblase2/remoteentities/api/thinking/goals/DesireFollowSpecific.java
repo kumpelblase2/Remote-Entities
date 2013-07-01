@@ -11,6 +11,9 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will try and follow the specific entity.
+ */
 public class DesireFollowSpecific extends DesireBase
 {
 	@SerializeAs(pos = 1)
@@ -23,12 +26,12 @@ public class DesireFollowSpecific extends DesireBase
 	protected float m_maxDistanceSquared;
 	protected boolean m_avoidWaterState;
 	protected int m_moveTick;
-	
+
 	public DesireFollowSpecific(RemoteEntity inEntity, LivingEntity inToFollow, float inMinDistance, float inMaxDistance)
 	{
 		this(inEntity, ((CraftLivingEntity)inToFollow).getHandle(), inMinDistance, inMaxDistance);
 	}
-	
+
 	public DesireFollowSpecific(RemoteEntity inEntity, EntityLiving inToFollow, float inMinDistance, float inMaxDistance)
 	{
 		super(inEntity);
@@ -45,7 +48,7 @@ public class DesireFollowSpecific extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-			
+
 		if(this.m_toFollow == null)
 			return false;
 		else if(!this.m_toFollow.isAlive())
@@ -54,10 +57,10 @@ public class DesireFollowSpecific extends DesireBase
 			return false;
 		else if(this.m_toFollow.e(this.getEntityHandle()) < this.m_minDistanceSquared)
 			return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
@@ -65,20 +68,20 @@ public class DesireFollowSpecific extends DesireBase
 		this.getEntityHandle().getNavigation().a(false);
 		this.m_moveTick = 0;
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
 		this.getEntityHandle().getNavigation().g();
 		this.getEntityHandle().getNavigation().a(this.m_avoidWaterState);
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().getNavigation().f() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -93,7 +96,7 @@ public class DesireFollowSpecific extends DesireBase
 					int x = MathHelper.floor(this.m_toFollow.locX) - 2;
 					int z = MathHelper.floor(this.m_toFollow.locZ) - 2;
 					int y = MathHelper.floor(this.m_toFollow.boundingBox.b);
-					
+
 					for(int i = 0; i <= 4; i++)
 					{
 						for(int l = 0; l <= 4; l++)
@@ -111,7 +114,7 @@ public class DesireFollowSpecific extends DesireBase
 		}
 		return true;
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

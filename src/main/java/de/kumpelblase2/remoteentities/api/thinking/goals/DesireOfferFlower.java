@@ -9,20 +9,25 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will offer the nearest entity of the given type a flower.
+ * You can also specify the entity type.
+ * Keep in mind that this is designed for iron golems and might not work properly on other entities.
+ */
 public class DesireOfferFlower extends DesireBase
 {
 	protected int m_offerTick;
 	protected EntityLiving m_nearestEntity;
 	@SerializeAs(pos = 1)
 	protected Class<? extends Entity> m_toOffer;
-	
+
 	public DesireOfferFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		this.m_toOffer = EntityVillager.class;
 		this.m_type = DesireType.SUBCONSCIOUS;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public DesireOfferFlower(RemoteEntity inEntity, Class<?> inToOffer)
 	{
@@ -46,13 +51,13 @@ public class DesireOfferFlower extends DesireBase
 			return this.m_nearestEntity != null;
 		}
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return this.m_offerTick > 0;
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
@@ -62,7 +67,7 @@ public class DesireOfferFlower extends DesireBase
 		else
 			this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)11);
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
@@ -72,7 +77,7 @@ public class DesireOfferFlower extends DesireBase
 		else
 			this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)11);
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -80,7 +85,7 @@ public class DesireOfferFlower extends DesireBase
 		this.m_offerTick--;
 		return true;
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

@@ -4,6 +4,9 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
+/**
+ * Using this desire the entity will move upwards when its in water.
+ */
 public class DesireSwim extends DesireBase
 {
 	public DesireSwim(RemoteEntity inEntity)
@@ -18,13 +21,13 @@ public class DesireSwim extends DesireBase
 	{
 		return this.getEntityHandle() != null && (this.getEntityHandle().G() || this.getEntityHandle().I());
 	}
-	
+
 	@Override
 	public boolean update()
 	{
 		if(this.getEntityHandle().aE().nextFloat() < 0.8F)
 			this.getEntityHandle().getControllerJump().a();
-		
+
 		return true;
 	}
 }

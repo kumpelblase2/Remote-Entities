@@ -7,19 +7,22 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 
+/**
+ * Using this desire the villager will move into the next village and in an empty house to give birth to a new child with another villager.
+ */
 public class DesireMakeLove extends DesireBase
 {
 	protected EntityVillager m_villager;
 	protected EntityVillager m_partner;
 	protected Village m_nearestVillage;
 	protected int m_loveTick;
-	
+
 	public DesireMakeLove(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
-		
+
 		this.m_villager = (EntityVillager)this.getEntityHandle();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
@@ -29,7 +32,7 @@ public class DesireMakeLove extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		if(this.m_villager.getAge() != 0)
 			return false;
 		else if(this.m_villager.aE().nextInt(500) != 0)
@@ -54,14 +57,14 @@ public class DesireMakeLove extends DesireBase
 			}
 		}
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
 		this.m_loveTick = 300;
 		this.m_villager.i(true);
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
@@ -69,13 +72,13 @@ public class DesireMakeLove extends DesireBase
 		this.m_partner = null;
 		this.m_villager.i(false);
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return this.m_loveTick >= 0 && this.hasEnoughSpace() && this.m_villager.getAge() == 0;
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -85,13 +88,13 @@ public class DesireMakeLove extends DesireBase
 			this.getRemoteEntity().move((LivingEntity)this.m_partner);
 		else if(this.m_loveTick == 0 && this.m_partner.n())
 			this.createBaby();
-		
+
 		if(this.m_villager.aE().nextInt(35) == 0)
 			this.m_villager.world.broadcastEntityEffect(this.m_villager, (byte)12);
-		
+
 		return true;
 	}
-	
+
 	protected void createBaby()
 	{
 		EntityVillager baby = this.m_villager.b(this.m_partner);
@@ -102,13 +105,13 @@ public class DesireMakeLove extends DesireBase
 		this.m_villager.world.addEntity(baby);
 		this.m_villager.world.broadcastEntityEffect(baby, (byte)12);
 	}
-	
+
 	protected boolean hasEnoughSpace()
 	{
 		if(!this.m_nearestVillage.i())
 			return false;
-		
+
 		int i = (int)(this.m_nearestVillage.getDoorCount() * 0.35D);
-		return this.m_nearestVillage.getPopulationCount() < i; 
+		return this.m_nearestVillage.getPopulationCount() < i;
 	}
 }

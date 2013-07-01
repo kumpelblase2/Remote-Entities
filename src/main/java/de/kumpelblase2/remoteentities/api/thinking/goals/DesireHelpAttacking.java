@@ -7,16 +7,19 @@ import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
+/**
+ * Using this desire the entity will help attacking the target of the tamer.
+ */
 public class DesireHelpAttacking extends DesireTamedBase
 {
 	protected EntityLiving m_ownerTarget;
-	
+
 	public DesireHelpAttacking(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
-		
+
 		this.m_animal = this.getEntityHandle();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
@@ -26,7 +29,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 	{
 		if(this.m_animal == null)
 			return false;
-		
+
 		if(!this.isTamed())
 			return false;
 		else
@@ -41,7 +44,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 			}
 		}
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{

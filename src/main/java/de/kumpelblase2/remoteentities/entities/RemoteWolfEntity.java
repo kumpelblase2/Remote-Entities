@@ -139,7 +139,7 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 					new DesireItem(new DesireSwim(inEntityFor), 1),
 					new DesireItem(new DesireSit(inEntityFor), 2),
 					new DesireItem(new DesireLeapAtTarget(inEntityFor, 0.4F), 3),
-					new DesireItem(new DesireAttackOnCollide(inEntityFor, null, true), 4),
+					new DesireItem(new DesireMoveAndMeleeAttack(inEntityFor, null, true), 4),
 					new DesireItem(new DesireFollowTamer(inEntityFor, 2, 10), 5),
 					new DesireItem(new DesireBreed(inEntityFor), 6),
 					new DesireItem(new DesireWanderAround(inEntityFor), 7),

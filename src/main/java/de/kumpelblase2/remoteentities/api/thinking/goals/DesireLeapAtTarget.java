@@ -9,12 +9,15 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will leap towards the target once it comes into a certain range of the entity.
+ */
 public class DesireLeapAtTarget extends DesireBase
 {
 	@SerializeAs(pos = 1)
 	protected float m_yMotion;
 	protected EntityLiving m_target;
-	
+
 	public DesireLeapAtTarget(RemoteEntity inEntity, float inYMotion)
 	{
 		super(inEntity);
@@ -27,7 +30,7 @@ public class DesireLeapAtTarget extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		this.m_target = this.getEntityHandle().getGoalTarget();
 		if(this.m_target == null)
 			return false;
@@ -42,13 +45,13 @@ public class DesireLeapAtTarget extends DesireBase
 				return false;
 		}
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().onGround;
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -56,13 +59,13 @@ public class DesireLeapAtTarget extends DesireBase
 		double xDiff = this.m_target.locX - entity.locX;
 		double zDiff = this.m_target.locZ - entity.locZ;
 		float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff);
-		
+
 		entity.motX = xDiff / dist * 0.5D * 0.800000011920929D + entity.motX * 0.20000000298023224D;
 		entity.motZ = zDiff / dist * 0.5D * 0.800000011920929D + entity.motZ * 0.20000000298023224D;
 		entity.motY = this.m_yMotion;
 		return true;
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

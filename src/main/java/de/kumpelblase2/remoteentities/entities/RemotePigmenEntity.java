@@ -125,8 +125,8 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 		return new DesireItem[] {
 				new DesireItem(new DesireSwim(inEntityFor), 0),
 				new DesireItem(new DesireDestroyDoor(inEntityFor, false), 1),
-				new DesireItem(new DesireAttackOnCollide(inEntityFor, EntityHuman.class, false), 2),
-				new DesireItem(new DesireAttackOnCollide(inEntityFor, EntityVillager.class, true), 3),
+				new DesireItem(new DesireMoveAndMeleeAttack(inEntityFor, EntityHuman.class, false), 2),
+				new DesireItem(new DesireMoveAndMeleeAttack(inEntityFor, EntityVillager.class, true), 3),
 				new DesireItem(new DesireMoveTowardsRestriction(inEntityFor), 4),
 				new DesireItem(new DesireMoveThroughVillage(inEntityFor, false), 5),
 				new DesireItem(new DesireWanderAround(inEntityFor), 6),

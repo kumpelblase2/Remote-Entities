@@ -4,13 +4,16 @@ import net.minecraft.server.v1_5_R3.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 
+/**
+ * Using this desire the villager will look at the player which is trading with it.
+ */
 public class DesireLookAtTrader extends DesireLookAtNearest
 {
 	public DesireLookAtTrader(RemoteEntity inEntity, float inMinDistance)
 	{
 		super(inEntity, EntityHuman.class, inMinDistance);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Deprecated
 	public DesireLookAtTrader(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
@@ -21,7 +24,7 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 		else
 			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);
 	}
-	
+
 	@Override
 	public boolean shouldExecute()
 	{

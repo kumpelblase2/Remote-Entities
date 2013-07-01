@@ -11,6 +11,9 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * With this desire the entity will avoid the given type of entity and will run away from it once it comes near.
+ */
 public class DesireAvoidSpecific extends DesireBase
 {
 	@SerializeAs(pos = 4)
@@ -24,7 +27,7 @@ public class DesireAvoidSpecific extends DesireBase
 	protected Entity m_closestEntity;
 	protected PathEntity m_path;
 	protected EntitySelectorViewable m_selector;
-	
+
 	@SuppressWarnings("unchecked")
 	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
 	{
@@ -33,7 +36,7 @@ public class DesireAvoidSpecific extends DesireBase
 			this.m_toAvoid = (Class<? extends Entity>)inToAvoid;
 		else
 			this.m_toAvoid = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAvoid);
-		
+
 		this.m_minDistance = inMinDistance;
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;
@@ -58,12 +61,12 @@ public class DesireAvoidSpecific extends DesireBase
 	{
 		if(!this.m_closestEntity.isAlive())
 			return false;
-		
+
 		if(this.getEntityHandle().e(this.m_closestEntity) > 49)
 			this.getEntityHandle().getNavigation().a(this.m_farSpeed);
 		else
 			this.getEntityHandle().getNavigation().a(this.m_closeSpeed);
-		
+
 		return true;
 	}
 
@@ -72,7 +75,7 @@ public class DesireAvoidSpecific extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		if(this.m_toAvoid == EntityHuman.class)
         {
             if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isTamed())
@@ -122,7 +125,7 @@ public class DesireAvoidSpecific extends DesireBase
 	{
 		return !this.getEntityHandle().getNavigation().f();
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

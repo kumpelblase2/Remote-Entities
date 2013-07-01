@@ -9,6 +9,9 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will search for the nearest entity of the given type and sets it as the next target.
+ */
 public class DesireFindNearestTarget extends DesireTargetBase
 {
 	@SerializeAs(pos = 5)
@@ -20,17 +23,17 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	@SerializeAs(pos = 6)
 	protected IEntitySelector m_selector;
 	protected boolean m_onlyAtNight;
-	
+
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
-	}	
-	
+	}
+
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance, null);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance, IEntitySelector inSelector)
 	{
@@ -41,17 +44,17 @@ public class DesireFindNearestTarget extends DesireTargetBase
 			this.m_targetClass = (Class<? extends Entity>)inTargetClass;
 		else
 			this.m_targetClass = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTargetClass);
-		
+
 		this.m_onlyAtNight = false;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 		this.m_selector = inSelector;
 	}
-	
+
 	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
 	}
-	
+
 	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChange, IEntitySelector inSelector)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChange, inSelector);
@@ -63,7 +66,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		if(this.m_onlyAtNight && this.getEntityHandle().world.v())
 			return false;
 		else if(this.m_targetChance > 0 && this.getEntityHandle().aE().nextInt(this.m_targetChance) != 0)
@@ -73,7 +76,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 			if(this.m_targetClass == EntityHuman.class)
 			{
 				EntityHuman human = this.getEntityHandle().world.findNearbyVulnerablePlayer(this.getEntityHandle(), this.m_distance);
-				
+
 				if(this.isSuitableTarget(human, false))
 				{
 					this.m_target = human;
@@ -98,14 +101,14 @@ public class DesireFindNearestTarget extends DesireTargetBase
 			return false;
 		}
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
 		this.getEntityHandle().setGoalTarget(this.m_target);
 		super.startExecuting();
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

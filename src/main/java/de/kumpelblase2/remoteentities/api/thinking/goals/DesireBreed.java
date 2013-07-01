@@ -8,11 +8,14 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
+/**
+ * Using this desire the animal entity will try to breed a child.
+ */
 public class DesireBreed extends DesireBase
 {
 	protected EntityAnimal m_mate;
 	protected int m_mateTicks = 0;
-	
+
 	public DesireBreed(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -25,7 +28,7 @@ public class DesireBreed extends DesireBase
 		this.m_mate = null;
 		this.m_mateTicks = 0;
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -43,7 +46,7 @@ public class DesireBreed extends DesireBase
 	{
 		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			return false;
-		
+
 		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 		if(!entity.r())
 			return false;
@@ -59,14 +62,14 @@ public class DesireBreed extends DesireBase
 	{
 		return this.m_mate.isAlive() && this.m_mate.r() && this.m_mateTicks < 60;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	protected EntityAnimal getNextAnimal()
 	{
 		double range = 8;
 		List entities = this.getEntityHandle().world.a(this.getEntityHandle().getClass(), this.getEntityHandle().boundingBox.grow(range, range, range));
 		Iterator it = entities.iterator();
-		double nearestRange = Double.MAX_VALUE;		
+		double nearestRange = Double.MAX_VALUE;
 		EntityAnimal nearest = null;
 		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 		while(it.hasNext())
@@ -81,11 +84,11 @@ public class DesireBreed extends DesireBase
 		}
 		return nearest;
 	}
-	
+
 	protected EntityAgeable createChild()
 	{
 		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate);
-		
+
 		if(baby != null)
 		{
 			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
@@ -102,13 +105,13 @@ public class DesireBreed extends DesireBase
 				double d0 = r.nextGaussian() * 0.02D;
 				double d1 = r.nextGaussian() * 0.02D;
 				double d2 = r.nextGaussian() * 0.02D;
-				
+
 				entity.world.addParticle("heart", entity.locX + (r.nextFloat() * entity.width * 2) - entity.width, entity.locY + 0.5D + (r.nextFloat() * entity.length), entity.locZ + (r.nextFloat() * entity.width * 2) - entity.width, d0, d1, d2);
 			}
-			
+
 			entity.world.addEntity(new EntityExperienceOrb(entity.world, entity.locX, entity.locY, entity.locZ, r.nextInt(7) + 1));
 		}
-		
+
 		return baby;
 	}
 }

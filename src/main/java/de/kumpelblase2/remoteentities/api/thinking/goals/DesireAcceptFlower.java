@@ -7,12 +7,15 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
+/**
+ * This desire is aimed for villages to accept flowers given by iron golems.
+ */
 public class DesireAcceptFlower extends DesireBase
 {
 	protected boolean m_takeFlower = false;
 	protected EntityIronGolem m_nearestGolem;
 	protected int m_takeFlowerTick;
-	
+
 	public DesireAcceptFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -25,7 +28,7 @@ public class DesireAcceptFlower extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity == null)
 			return false;
-		
+
 		if(entity instanceof EntityAgeable && ((EntityAgeable)entity).getAge() >= 0)
 			return false;
 		else if(!entity.world.v())
@@ -52,13 +55,13 @@ public class DesireAcceptFlower extends DesireBase
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return this.m_nearestGolem.o() > 0;
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
@@ -66,14 +69,14 @@ public class DesireAcceptFlower extends DesireBase
 		this.m_takeFlower = false;
 		this.m_nearestGolem.getNavigation().g();
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
 		this.m_nearestGolem = null;
 		this.getEntityHandle().getNavigation().g();
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -83,7 +86,7 @@ public class DesireAcceptFlower extends DesireBase
 			entity.getNavigation().a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());
 			this.m_takeFlower = true;
 		}
-		
+
 		if(this.m_takeFlower && entity.e(this.m_nearestGolem) < 4)
 		{
 			this.m_nearestGolem.a(false);

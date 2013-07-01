@@ -8,24 +8,27 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
+/**
+ * Using this desire the entity will move around randomly.
+ */
 public class DesireWanderAround extends DesireBase
 {
 	protected double m_xPos;
 	protected double m_yPos;
 	protected double m_zPos;
-	
+
 	public DesireWanderAround(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
-	
+
 	@Override
 	public boolean shouldExecute()
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		if(this.getEntityHandle().aH() >= 100)
 			return false;
 		else if(this.getEntityHandle().aE().nextInt(120) != 0)
@@ -47,13 +50,13 @@ public class DesireWanderAround extends DesireBase
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().getNavigation().f();
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{

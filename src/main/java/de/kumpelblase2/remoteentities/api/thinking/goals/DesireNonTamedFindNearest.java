@@ -6,6 +6,9 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 
+/**
+ * Using this desire the entity will move towards the nearest entity of the given type which is not tamed.
+ */
 public class DesireNonTamedFindNearest extends DesireFindNearestTarget
 {
 	protected EntityLiving m_animal;
@@ -15,16 +18,16 @@ public class DesireNonTamedFindNearest extends DesireFindNearestTarget
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
-		
+
 		this.m_animal = this.getEntityHandle();
 	}
-	
+
 	@Override
 	public boolean shouldExecute()
 	{
 		return this.m_animal != null && !this.isTamed() && super.shouldExecute();
 	}
-	
+
 	protected boolean isTamed()
 	{
 		if(this.m_animal instanceof EntityTameableAnimal)

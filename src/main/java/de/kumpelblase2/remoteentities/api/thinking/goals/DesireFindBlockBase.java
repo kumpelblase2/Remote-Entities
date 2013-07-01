@@ -8,6 +8,9 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * This is a base for desires which will search for a specific block such as DesireGoToBed.
+ */
 public abstract class DesireFindBlockBase extends DesireBase
 {
 	@SerializeAs(pos = 1)
@@ -17,19 +20,19 @@ public abstract class DesireFindBlockBase extends DesireBase
 	protected int m_locZ;
 	@SerializeAs(pos = 2)
 	private int m_range;
-	
+
 	public DesireFindBlockBase(RemoteEntity inEntity, int inBlockID)
 	{
 		this(inEntity, inBlockID, 32);
 	}
-	
+
 	public DesireFindBlockBase(RemoteEntity inEntity, int inBlockID, int inRange)
 	{
 		super(inEntity);
 		this.m_blockID = inBlockID;
 		this.m_range = inRange;
 	}
-	
+
 	protected boolean findNearest()
 	{
 		EntityLiving entity = this.getEntityHandle();
@@ -53,7 +56,7 @@ public abstract class DesireFindBlockBase extends DesireBase
 				}
 			}
 		}
-		
+
 		if(shortest == null)
 			return false;
 
@@ -62,7 +65,7 @@ public abstract class DesireFindBlockBase extends DesireBase
 		this.m_locZ = shortest.getBlockZ();
 		return true;
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

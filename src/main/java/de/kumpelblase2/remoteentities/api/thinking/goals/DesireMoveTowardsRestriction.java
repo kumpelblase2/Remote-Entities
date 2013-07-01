@@ -13,7 +13,7 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	protected double m_x;
 	protected double m_y;
 	protected double m_z;
-	
+
 	public DesireMoveTowardsRestriction(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -41,13 +41,13 @@ public class DesireMoveTowardsRestriction extends DesireBase
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().getNavigation().f();
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{

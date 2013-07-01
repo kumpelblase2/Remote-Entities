@@ -12,6 +12,9 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will attack its target with a ranged attack when it is possible.
+ */
 public class DesireRangedAttack extends DesireBase
 {
 	protected EntityLiving m_target;
@@ -31,17 +34,17 @@ public class DesireRangedAttack extends DesireBase
 	{
 		this(inEntity, inProjectileType, 60);
 	}
-	
+
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay)
 	{
 		this(inEntity, inProjectileType, inDelay, 8);
 	}
-	
+
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay, float inMinDistance)
 	{
 		this(inEntity, inProjectileType, inDelay, inDelay, inMinDistance);
 	}
-	
+
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inMinDelay, int inMaxDelay, float inMinDistance)
 	{
 		super(inEntity);
@@ -69,17 +72,17 @@ public class DesireRangedAttack extends DesireBase
 	{
 		double dist = this.getEntityHandle().e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ);
 		boolean canSee = this.getEntityHandle().getEntitySenses().canSee(this.m_target);
-		
+
 		if(canSee)
 			this.m_inRangeTick++;
 		else
 			this.m_inRangeTick = 0;
-		
+
 		if(dist <= this.m_minDistanceSquared && this.m_inRangeTick >= 20)
 			this.getEntityHandle().getNavigation().g();
 		else
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity());
-		
+
 		this.getEntityHandle().getControllerLook().a(this.m_target, 30, 30);
 		float strength;
 		if(--this.m_shootTicks == 0)
@@ -88,13 +91,13 @@ public class DesireRangedAttack extends DesireBase
 			{
 				strength = MathHelper.sqrt(dist) / this.m_minDistance;
 				float strength2 = strength;
-				
+
 				if(strength < 0.1F)
 					strength2 = 0.1F;
-				
+
 				if(strength2 > 1F)
 					strength2 = 1F;
-								
+
 				this.shoot(strength2);
 				this.m_shootTicks = MathHelper.d(strength * (this.m_shootMaxDelay - this.m_shootMinDelay) + this.m_shootMinDelay);
 			}
@@ -104,7 +107,7 @@ public class DesireRangedAttack extends DesireBase
 			strength = MathHelper.sqrt(dist) / this.m_minDistance;
 			this.m_shootTicks = MathHelper.d(strength * (this.m_shootMaxDelay - this.m_shootMinDelay) + this.m_shootMinDelay);
 		}
-		
+
 		return true;
 	}
 
@@ -113,9 +116,9 @@ public class DesireRangedAttack extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		EntityLiving target = this.getEntityHandle().getGoalTarget();
-		
+
 		if(target == null)
 			return false;
 		else
@@ -130,7 +133,7 @@ public class DesireRangedAttack extends DesireBase
 	{
 		return this.shouldExecute() || !this.getEntityHandle().getNavigation().f();
 	}
-	
+
 	protected void shoot(float inStrength)
 	{
 		EntityLiving entity = this.getEntityHandle();
@@ -147,7 +150,7 @@ public class DesireRangedAttack extends DesireBase
 			double yDiff = this.m_target.locY + this.m_target.getHeadHeight() - 1.100000023841858D - snowball.locY;
 			double zDiff = this.m_target.locZ - entity.locZ;
 			float dist = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff) * 0.2F;
-			
+
 			snowball.shoot(xDiff, yDiff + dist, zDiff, 1.6F, 12);
 			entity.world.makeSound(entity, "random.bow", 1, 1F / (entity.aE().nextFloat() * 0.4F + 0.8F));
 		}
@@ -204,7 +207,7 @@ public class DesireRangedAttack extends DesireBase
 				((IRangedEntity)entity).a(this.m_target, inStrength);
 		}
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

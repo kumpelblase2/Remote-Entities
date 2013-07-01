@@ -123,7 +123,7 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireAttackOnCollide(inEntityFor, null, true), 1),
+				new DesireItem(new DesireMoveAndMeleeAttack(inEntityFor, null, true), 1),
 				new DesireItem(new DesireMoveToTarget(inEntityFor, 32), 2),
 				new DesireItem(new DesireMoveThroughVillage(inEntityFor, true), 3),
 				new DesireItem(new DesireMoveTowardsRestriction(inEntityFor), 4),

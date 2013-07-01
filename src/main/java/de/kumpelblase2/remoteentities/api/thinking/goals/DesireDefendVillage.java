@@ -5,15 +5,19 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
+/**
+ * Using this desire the entity will try to defend the nearest village at night, just like iron golems do.
+ * However, this desire only does the targeting and not the movement which has to be done by a different desire.
+ */
 public class DesireDefendVillage extends DesireTargetBase
 {
 	protected EntityLiving m_nextTarget;
-	
+
 	public DesireDefendVillage(RemoteEntity inEntity)
 	{
 		this(inEntity, 16f, false, true);
 	}
-	
+
 	public DesireDefendVillage(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
@@ -25,13 +29,13 @@ public class DesireDefendVillage extends DesireTargetBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		Village nextVillage;
 		if(this.getEntityHandle() instanceof EntityIronGolem)
 			nextVillage = ((EntityIronGolem)this.getEntityHandle()).m();
 		else
 			nextVillage = WorldUtilities.getClosestVillage(this.getEntityHandle());
-		
+
 		if(nextVillage == null)
 			return false;
 		else
@@ -50,7 +54,7 @@ public class DesireDefendVillage extends DesireTargetBase
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{

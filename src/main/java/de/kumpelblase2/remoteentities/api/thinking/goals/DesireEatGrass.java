@@ -7,10 +7,13 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 
+/**
+ * Using this desire the entity will occasionally try and eat either long grass or a grass block.
+ */
 public class DesireEatGrass extends DesireBase
 {
 	protected int m_eatTick;
-	
+
 	public DesireEatGrass(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -36,7 +39,7 @@ public class DesireEatGrass extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		if(this.getEntityHandle().aE().nextInt(this.getEntityHandle().isBaby() ? 50 : 1000) != 0)
 			return false;
 		else
@@ -45,7 +48,7 @@ public class DesireEatGrass extends DesireBase
 			int x = MathHelper.floor(entity.locX);
 			int y = MathHelper.floor(entity.locY);
 			int z = MathHelper.floor(entity.locZ);
-			
+
 			return entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id && entity.world.getData(x, y, z) == 1 || entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id;
 		}
 	}
@@ -55,12 +58,12 @@ public class DesireEatGrass extends DesireBase
 	{
 		return this.m_eatTick > 0;
 	}
-	
+
 	public int tickTime()
 	{
 		return this.m_eatTick;
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -71,7 +74,7 @@ public class DesireEatGrass extends DesireBase
 			int x = MathHelper.floor(entity.locX);
 			int y = MathHelper.floor(entity.locY);
 			int z = MathHelper.floor(entity.locZ);
-			
+
 			if(entity.world.getTypeId(x, y, z) == Block.LONG_GRASS.id)
 			{
 				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getEntityHandle().world.getWorld().getBlockAt(x, y, z), Material.AIR).isCancelled())

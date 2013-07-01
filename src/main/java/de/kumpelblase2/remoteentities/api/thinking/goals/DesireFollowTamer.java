@@ -13,6 +13,9 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will try and always be near its tamer.
+ */
 public class DesireFollowTamer extends DesireBase
 {
 	protected EntityLiving m_animal;
@@ -25,13 +28,13 @@ public class DesireFollowTamer extends DesireBase
 	protected EntityLiving m_owner;
 	protected int m_moveTick;
 	protected boolean m_avoidWaterState;
-	
+
 	public DesireFollowTamer(RemoteEntity inEntity, float inMinDistance, float inMaxDistance)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
-		
+
 		this.m_animal = this.getEntityHandle();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_minDistance = inMinDistance;
@@ -45,10 +48,10 @@ public class DesireFollowTamer extends DesireBase
 	{
 		if(this.m_animal == null)
 			return false;
-		
+
 		if(!this.isTamed())
 			return false;
-		
+
 		EntityLiving owner = this.getTamer();
 		if(owner == null)
 			return false;
@@ -62,13 +65,13 @@ public class DesireFollowTamer extends DesireBase
 			return true;
 		}
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return !this.m_animal.getNavigation().f() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
@@ -76,7 +79,7 @@ public class DesireFollowTamer extends DesireBase
 		this.m_avoidWaterState = this.m_animal.getNavigation().a();
 		this.m_animal.getNavigation().a(false);
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
@@ -84,7 +87,7 @@ public class DesireFollowTamer extends DesireBase
 		this.m_animal.getNavigation().g();
 		this.m_animal.getNavigation().a(this.m_avoidWaterState);
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -101,7 +104,7 @@ public class DesireFollowTamer extends DesireBase
 						int x = MathHelper.floor(this.m_owner.locX) - 2;
 						int z = MathHelper.floor(this.m_owner.locZ) - 2;
 						int y = MathHelper.floor(this.m_owner.boundingBox.b);
-						
+
 						for(int i = 0; i <= 4; i++)
 						{
 							for(int l = 0; l <= 4; l++)
@@ -120,7 +123,7 @@ public class DesireFollowTamer extends DesireBase
 		}
 		return true;
 	}
-	
+
 	protected EntityLiving getTamer()
 	{
 		if(this.m_animal instanceof EntityTameableAnimal)
@@ -130,16 +133,16 @@ public class DesireFollowTamer extends DesireBase
 			Player pl = this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).getTamer();
 			if(pl == null)
 				return null;
-			
+
 			return ((CraftPlayer)pl).getHandle();
 		}
 	}
-	
+
 	protected boolean isSitting()
 	{
 		return this.m_animal instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.m_animal).isSitting();
 	}
-	
+
 	protected boolean isTamed()
 	{
 		if(this.m_animal instanceof EntityTameableAnimal)
@@ -147,7 +150,7 @@ public class DesireFollowTamer extends DesireBase
 		else
 			return this.getRemoteEntity().getFeatures().getFeature(TamingFeature.class).isTamed();
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

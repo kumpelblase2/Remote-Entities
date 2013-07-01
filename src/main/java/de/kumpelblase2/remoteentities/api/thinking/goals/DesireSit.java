@@ -7,17 +7,20 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAnAnimalException;
 
+/**
+ * Using this desire the animal will sit when the tamer says so.
+ */
 public class DesireSit extends DesireBase
 {
 	protected EntityTameableAnimal m_animal;
 	protected boolean m_canSit = false;
-	
+
 	public DesireSit(RemoteEntity inEntity)
 	{
 		super(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))
 			throw new NotAnAnimalException();
-		
+
 		this.m_animal = (EntityTameableAnimal)this.getEntityHandle();
 		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
@@ -27,7 +30,7 @@ public class DesireSit extends DesireBase
 	{
 		if(this.m_animal == null)
 			return false;
-		
+
 		if(!this.m_animal.isTamed())
 			return false;
 		else if(this.m_animal.G())
@@ -43,20 +46,20 @@ public class DesireSit extends DesireBase
 			return !(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null) && this.m_canSit;
 		}
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
 		this.m_animal.getNavigation().g();
 		this.m_animal.setSitting(true);
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
 		this.m_animal.setSitting(false);
 	}
-	
+
 	public void canSit(boolean inFlag)
 	{
 		this.m_canSit = inFlag;

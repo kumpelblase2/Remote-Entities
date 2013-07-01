@@ -10,6 +10,9 @@ import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
+/**
+ * Using this desire the entity will move around randomly inside an area.
+ */
 public class DesireWanderAroundArea extends DesireWanderAround
 {
 	@SerializeAs(pos = 1)

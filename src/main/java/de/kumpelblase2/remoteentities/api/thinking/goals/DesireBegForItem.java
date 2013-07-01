@@ -10,6 +10,9 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will move towards a player and beg when he has or has one of the given item(s) in his hand.
+ */
 public class DesireBegForItem extends DesireBase
 {
 	@SerializeAs(pos = 2)
@@ -19,12 +22,12 @@ public class DesireBegForItem extends DesireBase
 	protected float m_minDistance;
 	protected float m_minDistanceSquared;
 	private int m_ticks;
-	
+
 	public DesireBegForItem(RemoteEntity inEntity, Material... inMaterial)
 	{
 		this(inEntity, 5f, inMaterial);
 	}
-	
+
 	public DesireBegForItem(RemoteEntity inEntity, float inMinDistance, Material... inMaterial)
 	{
 		super(inEntity);
@@ -33,13 +36,13 @@ public class DesireBegForItem extends DesireBase
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
 		if(this.getEntityHandle() instanceof EntityWolf)
 			((EntityWolf)this.getEntityHandle()).m(true);
-		
+
 		this.m_ticks = 40 + this.getEntityHandle().aE().nextInt(40);
 	}
 
@@ -50,7 +53,7 @@ public class DesireBegForItem extends DesireBase
 		if(this.getEntityHandle() instanceof EntityWolf)
 			((EntityWolf)this.getEntityHandle()).m(false);
 	}
-	
+
 	@Override
 	public boolean update()
 	{
@@ -64,7 +67,7 @@ public class DesireBegForItem extends DesireBase
 	{
 		if(this.getEntityHandle() == null)
 			return false;
-		
+
 		this.m_nearestPlayer = this.getEntityHandle().world.findNearbyPlayer(this.getEntityHandle(), this.m_minDistance);
 		return this.m_nearestPlayer != null && this.hasItemInHand(this.m_nearestPlayer);
 	}
@@ -80,12 +83,12 @@ public class DesireBegForItem extends DesireBase
 
 		return this.m_ticks > 0 && this.hasItemInHand(this.m_nearestPlayer);
 	}
-	
+
 	protected boolean hasItemInHand(EntityHuman inPlayer)
 	{
 		if(inPlayer.getBukkitEntity().getItemInHand() == null)
 			return false;
-		
+
 		Material inHand = inPlayer.getBukkitEntity().getItemInHand().getType();
 		for(Material m : this.m_toBeg)
 		{
@@ -94,7 +97,7 @@ public class DesireBegForItem extends DesireBase
 		}
 		return false;
 	}
-	
+
 	@Override
 	public ParameterData[] getSerializeableData()
 	{

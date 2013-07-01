@@ -7,12 +7,15 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
+/**
+ * Using this desire the entity will move around in panic when it gets damaged.
+ */
 public class DesirePanic extends DesireBase
 {
 	protected double m_x;
 	protected double m_y;
 	protected double m_z;
-	
+
 	public DesirePanic(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -39,13 +42,13 @@ public class DesirePanic extends DesireBase
 			}
 		}
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
 		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x, this.m_y, this.m_z));
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{

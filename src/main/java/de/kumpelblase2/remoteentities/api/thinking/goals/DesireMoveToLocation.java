@@ -7,6 +7,10 @@ import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+/**
+ * Using this desire the entity will move to a specific location.
+ * Once it reached that location the desire will be removed.
+ */
 public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 {
 	@SerializeAs(pos = 1)

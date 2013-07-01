@@ -132,7 +132,7 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 				new DesireItem(new DesireSwim(inEntityFor), 1),
 				new DesireItem(new DesireSwell(inEntityFor), 2),
 				new DesireItem(new DesireAvoidSpecific(inEntityFor, 6f, 0.25f, 0.3f, EntityOcelot.class), 3),
-				new DesireItem(new DesireAttackOnCollide(inEntityFor, null, false), 4),
+				new DesireItem(new DesireMoveAndMeleeAttack(inEntityFor, null, false), 4),
 				new DesireItem(new DesireWanderAround(inEntityFor), 5),
 				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 6),
 				new DesireItem(new DesireLookRandomly(inEntityFor), 6)

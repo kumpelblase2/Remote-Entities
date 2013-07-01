@@ -7,12 +7,15 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 
+/**
+ * Using this desire the entity will move into the nearest village and into a house to take shelter at night.
+ */
 public class DesireMoveIndoors extends DesireBase
 {
 	protected VillageDoor m_targetDoor;
 	protected int m_x = -1;
 	protected int m_z = -1;
-	
+
 	public DesireMoveIndoors(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -25,7 +28,7 @@ public class DesireMoveIndoors extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity == null)
 			return false;
-		
+
 		if((!entity.world.v() || entity.world.P()) && !entity.world.worldProvider.f)
 		{
 			if(entity.aE().nextInt(50) != 0)
@@ -35,7 +38,7 @@ public class DesireMoveIndoors extends DesireBase
 			else
 			{
 				Village nearestVillage = entity.world.villages.getClosestVillage(MathHelper.floor(entity.locX), MathHelper.floor(entity.locY), MathHelper.floor(entity.locZ), 14);
-				
+
 				if(nearestVillage == null)
 					return false;
 				else
@@ -47,13 +50,13 @@ public class DesireMoveIndoors extends DesireBase
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean canContinue()
 	{
 		return !this.getEntityHandle().getNavigation().f();
 	}
-	
+
 	@Override
 	public void startExecuting()
 	{
@@ -71,7 +74,7 @@ public class DesireMoveIndoors extends DesireBase
 		else
 			this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 	}
-	
+
 	@Override
 	public void stopExecuting()
 	{
