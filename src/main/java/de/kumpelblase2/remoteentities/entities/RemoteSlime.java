@@ -10,7 +10,7 @@ public class RemoteSlime extends RemoteAttackingBaseEntity<Slime>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteSlime(int inID, RemoteSlimeEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Slime, inManager);

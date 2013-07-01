@@ -6,7 +6,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 public class RemoteTamingFeature extends RemoteFeature implements TamingFeature
 {
 	private Player m_tamer;
-	
+
 	public RemoteTamingFeature(RemoteEntity inEntity)
 	{
 		super("TAMING", inEntity);

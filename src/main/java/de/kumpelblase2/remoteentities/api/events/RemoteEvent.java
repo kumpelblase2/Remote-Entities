@@ -10,10 +10,10 @@ public abstract class RemoteEvent extends BaseEvent
 	{
 		this.m_remoteEntity = inEntity;
 	}
-	
+
 	/**
 	 * Gets the entity that's associated with this event
-	 * 
+	 *
 	 * @return entity
 	 */
 	public RemoteEntity getRemoteEntity()

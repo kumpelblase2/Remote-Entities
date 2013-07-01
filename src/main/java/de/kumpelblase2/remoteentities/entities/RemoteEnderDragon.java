@@ -12,17 +12,17 @@ import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 {
 	protected boolean m_shouldDestroyBlocks = false;
-	
+
 	public RemoteEnderDragon(int inID, EntityManager inManager)
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteEnderDragon(int inID, RemoteEnderDragonEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.EnderDragon, inManager);
 		this.m_entity = inEntity;
-		
+
 		Bukkit.getPluginManager().registerEvents(new Listener()
 			{
 				@EventHandler
@@ -42,20 +42,20 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 			},
 		this.m_manager.getPlugin());
 	}
-	
+
 	/**
 	 * Checks whether it should destroy blocks or not.
-	 * 
+	 *
 	 * @return	True if it should, false if not
 	 */
 	public boolean shouldDestroyBlocks()
 	{
 		return this.m_shouldDestroyBlocks;
 	}
-	
+
 	/**
 	 * Sets whether it should destroy blocks or not.
-	 * 
+	 *
 	 * @param inState 	destroy blocks
 	 */
 	public void shouldDestroyBlocks(boolean inState)

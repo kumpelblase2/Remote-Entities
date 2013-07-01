@@ -10,7 +10,7 @@ public class RemoteWolf extends RemoteAttackingBaseEntity<Wolf>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteWolf(int inID, RemoteWolfEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Wolf, inManager);

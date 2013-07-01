@@ -12,17 +12,17 @@ public class BehaviorData implements ConfigurationSerializable
 {
 	public String type;
 	public ParameterData[] parameters;
-	
+
 	public BehaviorData()
 	{
 	}
-	
+
 	public BehaviorData(Behavior inBehavior)
 	{
 		this.type = inBehavior.getClass().getName();
 		this.parameters = inBehavior.getSerializeableData();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public BehaviorData(Map<String, Object> inData)
 	{
@@ -33,7 +33,7 @@ public class BehaviorData implements ConfigurationSerializable
 			this.parameters = new ParameterData[0];
 			return;
 		}
-		
+
 		this.parameters = new ParameterData[parameterData.size()];
 		for(Map<String, Object> param : parameterData)
 		{
@@ -55,7 +55,7 @@ public class BehaviorData implements ConfigurationSerializable
 		data.put("parameters", parameterData);
 		return data;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Behavior create(RemoteEntity inEntity)
 	{
@@ -65,7 +65,7 @@ public class BehaviorData implements ConfigurationSerializable
 			Constructor<? extends Behavior> con = c.getConstructor(this.getParameterClasses());
 			if(con == null)
 				return null;
-			
+
 			Object[] values = new Object[this.parameters.length];
 			for(int i = 0; i < values.length; i++)
 			{
@@ -73,7 +73,7 @@ public class BehaviorData implements ConfigurationSerializable
 					values[i] = inEntity;
 				else if(this.parameters[i].special.equals("manager"))
 					values[i] = inEntity.getManager();
-				else				
+				else
 					values[i] = EntityData.objectParser.deserialize(this.parameters[i]);
 			}
 			return con.newInstance(values);
@@ -85,7 +85,7 @@ public class BehaviorData implements ConfigurationSerializable
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public Class[] getParameterClasses()
 	{
@@ -95,9 +95,9 @@ public class BehaviorData implements ConfigurationSerializable
 			try
 			{
 				Class c = ClassUtils.getClass(this.getClass().getClassLoader(), this.parameters[i].type);
-				if(ClassUtils.wrapperToPrimitive(c) != null)	
+				if(ClassUtils.wrapperToPrimitive(c) != null)
 					c = ClassUtils.wrapperToPrimitive(c);
-				
+
 				classes[i] = c;
 			}
 			catch(Exception e)

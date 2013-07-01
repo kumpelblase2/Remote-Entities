@@ -10,7 +10,7 @@ public class RemoteSnowman extends RemoteAttackingBaseEntity<Snowman>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteSnowman(int inID, RemoteSnowmanEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Snowman, inManager);

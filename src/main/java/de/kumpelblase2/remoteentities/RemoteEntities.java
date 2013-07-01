@@ -17,14 +17,14 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
-	
+
 	@Override
 	public void onEnable()
 	{
 		s_instance = this;
 		Bukkit.getPluginManager().registerEvents(new DisableListener(), this);
 	}
-	
+
 	@Override
 	public void onDisable()
 	{
@@ -35,10 +35,10 @@ public class RemoteEntities extends JavaPlugin
 		}
 		s_instance = null;
 	}
-	
+
 	/**
 	 * Creates a manager for your plugin
-	 * 
+	 *
 	 * @param inPlugin	plugin using that manager
 	 * @return			instance of a manager
 	 */
@@ -46,14 +46,14 @@ public class RemoteEntities extends JavaPlugin
 	{
 		if(getInstance() == null)
 			throw new PluginNotEnabledException();
-		
+
 		return createManager(inPlugin, false);
 	}
-	
+
 	/**
 	 * Creates a manager for your plugin
 	 * You can also specify whether despawned entities should be removed or not
-	 * 
+	 *
 	 * @param inPlugin				plugin using that manager
 	 * @param inRemoveDespawned		automatically removed despawned entities
 	 * @return						instance of a manager
@@ -62,15 +62,15 @@ public class RemoteEntities extends JavaPlugin
 	{
 		if(getInstance() == null)
 			throw new PluginNotEnabledException();
-		
+
 		EntityManager manager = new EntityManager(inPlugin, inRemoveDespawned);
 		registerCustomManager(manager, inPlugin.getName());
 		return manager;
 	}
-	
+
 	/**
 	 * Adds custom created manager to internal map
-	 * 
+	 *
 	 * @param inManager custom manager
 	 * @param inName	name of the plugin using it
 	 */
@@ -81,10 +81,10 @@ public class RemoteEntities extends JavaPlugin
 
 		getInstance().m_managers.put(inName, inManager);
 	}
-	
+
 	/**
 	 * Gets the manager of a specific plugin
-	 * 
+	 *
 	 * @param inName	name of the plugin
 	 * @return			EntityManager of that plugin
 	 */
@@ -92,13 +92,13 @@ public class RemoteEntities extends JavaPlugin
 	{
 		if(getInstance() == null)
 			return null;
-		
+
 		return getInstance().m_managers.get(inName);
 	}
-	
+
 	/**
-	 * Checks if a specific plugin has registered a manager 
-	 * 
+	 * Checks if a specific plugin has registered a manager
+	 *
 	 * @param inName	name of the plugin
 	 * @return			true if the given plugin has a manager, false if not
 	 */
@@ -106,20 +106,20 @@ public class RemoteEntities extends JavaPlugin
 	{
 		return getInstance() != null && getInstance().m_managers.containsKey(inName);
 	}
-	
+
 	/**
 	 * Gets the instance of the RemoteEntities plugin
-	 * 
+	 *
 	 * @return RemoteEntities
 	 */
 	public static RemoteEntities getInstance()
 	{
 		return s_instance;
 	}
-	
+
 	/**
 	 * Checks if the given entity is a RemoteEntity created by any manager.
-	 * 
+	 *
 	 * @param inEntity	entity to check
 	 * @return			true if it is a RemoteEntity, false if not
 	 */
@@ -127,7 +127,7 @@ public class RemoteEntities extends JavaPlugin
 	{
 		if(getInstance() == null)
 			return false;
-		
+
 		for(EntityManager manager : getInstance().m_managers.values())
 		{
 			if(manager.isRemoteEntity(inEntity))
@@ -135,10 +135,10 @@ public class RemoteEntities extends JavaPlugin
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Gets the RemoteEntity from a given entity which can be created by any manager.
-	 * 
+	 *
 	 * @param inEntity	entity
 	 * @return			RemoteEntity
 	 */
@@ -146,7 +146,7 @@ public class RemoteEntities extends JavaPlugin
 	{
 		if(getInstance() == null)
 			return null;
-		
+
 		for(EntityManager manager : getInstance().m_managers.values())
 		{
 			RemoteEntity entity = manager.getRemoteEntityFromEntity(inEntity);
@@ -155,7 +155,7 @@ public class RemoteEntities extends JavaPlugin
 		}
 		return null;
 	}
-	
+
 	class DisableListener implements Listener
 	{
 		@EventHandler

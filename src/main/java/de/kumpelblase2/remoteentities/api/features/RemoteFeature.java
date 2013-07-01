@@ -6,13 +6,13 @@ public class RemoteFeature implements Feature
 {
 	protected final String NAME;
 	protected final RemoteEntity m_entity;
-	
+
 	public RemoteFeature(String inName, RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
 		this.NAME = inName;
 	}
-	
+
 	@Override
 	public String getName()
 	{

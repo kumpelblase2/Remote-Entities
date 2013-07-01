@@ -9,7 +9,7 @@ public class RemoteVillager extends RemoteBaseEntity
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteVillager(int inID, RemoteVillagerEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Villager, inManager);

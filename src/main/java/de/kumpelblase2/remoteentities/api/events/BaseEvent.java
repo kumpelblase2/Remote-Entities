@@ -6,7 +6,7 @@ import org.bukkit.event.Event;
 public abstract class BaseEvent extends Event implements Cancellable
 {
 	private boolean m_isCancelled = false;
-	
+
 	@Override
 	public boolean isCancelled()
 	{

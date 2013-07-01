@@ -17,12 +17,12 @@ public class JSONSerializer extends PreparationSerializer
 {
 	protected Class<? extends EntityData[]> m_dataClass;
 	protected Gson m_gson;
-	
+
 	public JSONSerializer(Plugin inPlugin)
 	{
 		this(inPlugin, EntityData[].class);
 	}
-	
+
 	public JSONSerializer(Plugin inPlugin, Class<? extends EntityData[]> inDataClass)
 	{
 		super(inPlugin);
@@ -43,7 +43,7 @@ public class JSONSerializer extends PreparationSerializer
 		File jsonFile = new File(RemoteEntities.getInstance().getDataFolder(), this.m_plugin.getName() + File.separator + "entities.json");
 		if(!jsonFile.exists())
 			return new EntityData[0];
-		
+
 		try
 		{
 			return this.m_gson.fromJson(new FileReader(jsonFile), this.m_dataClass);
@@ -53,7 +53,7 @@ public class JSONSerializer extends PreparationSerializer
 			return new EntityData[0];
 		}
 	}
-	
+
 	protected boolean writeToFile(String inJson)
 	{
 		try
@@ -64,14 +64,14 @@ public class JSONSerializer extends PreparationSerializer
 				if(!fileFolder.mkdirs())
 					return false;
 			}
-			
+
 			File jsonFile = new File(fileFolder, "entities.json");
 			if(!jsonFile.exists())
 			{
 				if(!jsonFile.createNewFile())
 					return false;
 			}
-			
+
 			FileWriter writer = new FileWriter(jsonFile);
 			writer.write(inJson);
 			writer.close();

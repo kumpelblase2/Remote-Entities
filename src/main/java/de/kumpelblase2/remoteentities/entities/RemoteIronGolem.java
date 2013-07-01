@@ -10,7 +10,7 @@ public class RemoteIronGolem extends RemoteAttackingBaseEntity<IronGolem>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteIronGolem(int inID, RemoteIronGolemEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.IronGolem, inManager);

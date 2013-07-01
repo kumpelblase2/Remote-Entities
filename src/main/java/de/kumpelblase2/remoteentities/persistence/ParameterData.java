@@ -10,7 +10,7 @@ public class ParameterData implements ConfigurationSerializable
 	public Object value;
 	public int pos;
 	public String special;
-	
+
 	public ParameterData()
 	{
 	}
@@ -22,7 +22,7 @@ public class ParameterData implements ConfigurationSerializable
 		this.value = inValue;
 		this.special = "";
 	}
-	
+
 	public ParameterData(int inPos, String inType, Object inValue, String inSpecial)
 	{
 		this(inPos, inType, inValue);

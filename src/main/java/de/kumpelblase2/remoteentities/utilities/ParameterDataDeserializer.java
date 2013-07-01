@@ -5,9 +5,6 @@ import org.bukkit.craftbukkit.libs.com.google.gson.*;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 
-/**
- * Author: TIM
- */
 public class ParameterDataDeserializer implements JsonDeserializer<ParameterData>
 {
 	@Override

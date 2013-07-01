@@ -10,7 +10,7 @@ public class RemotePigmen extends RemoteAttackingBaseEntity<PigZombie>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemotePigmen(int inID, RemotePigmenEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Pigmen, inManager);

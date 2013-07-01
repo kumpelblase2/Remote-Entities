@@ -10,7 +10,7 @@ public class RemoteCaveSpider extends RemoteAttackingBaseEntity<CaveSpider>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteCaveSpider(int inID, RemoteCaveSpiderEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.CaveSpider, inManager);

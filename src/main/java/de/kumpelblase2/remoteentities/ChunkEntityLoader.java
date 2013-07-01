@@ -15,13 +15,13 @@ class ChunkEntityLoader implements Listener
 {
 	private final EntityManager m_manager;
 	private final Set<EntityLoadData> m_toSpawn;
-	
+
 	ChunkEntityLoader(EntityManager inManager)
 	{
 		this.m_manager = inManager;
 		this.m_toSpawn = new HashSet<EntityLoadData>();
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkLoad(ChunkLoadEvent event)
 	{
@@ -30,7 +30,7 @@ class ChunkEntityLoader implements Listener
 		{
 			if(!entity.isSpawned())
 				continue;
-			
+
 			if(entity.getBukkitEntity().getLocation().getChunk() == c && entity.getHandle() != null)
 			{
 				WorldServer ws = ((CraftWorld)c.getWorld()).getHandle();
@@ -38,7 +38,7 @@ class ChunkEntityLoader implements Listener
 					ws.addEntity(entity.getHandle());
 			}
 		}
-		
+
 		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable() {
 			public void run()
 			{
@@ -56,7 +56,7 @@ class ChunkEntityLoader implements Listener
 			}
 		});
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onChunkUnload(ChunkUnloadEvent event)
 	{
@@ -68,7 +68,7 @@ class ChunkEntityLoader implements Listener
 				{
 					if(!(entity instanceof LivingEntity))
 						continue;
-					
+
 					if(RemoteEntities.isRemoteEntity((LivingEntity)entity))
 					{
 						RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
@@ -82,10 +82,10 @@ class ChunkEntityLoader implements Listener
 			}
 		});
 	}
-	
+
 	/**
 	 * Checks if an entity can be directly be spawned at given location.
-	 * 
+	 *
 	 * @param inLocation	Location to check for
 	 * @return				true if it can be spawned, false if not
 	 */
@@ -93,10 +93,10 @@ class ChunkEntityLoader implements Listener
 	{
 		return inLocation.getChunk().isLoaded();
 	}
-	
+
 	/**
 	 * Queues an entity to spawn whenever the chunk is loaded.
-	 * 
+	 *
 	 * @param inEntity		Entity to spawn
 	 * @param inLocation	Location to spawn at
 	 * @return				true if it gets queued, false if it could be spawned directly
@@ -105,10 +105,10 @@ class ChunkEntityLoader implements Listener
 	{
 		return this.queueSpawn(inEntity, inLocation, false);
 	}
-	
+
 	/**
 	 * Queues an entity to spawn whenever the chunk is loaded.
-	 * 
+	 *
 	 * @param inEntity		Entity to spawn
 	 * @param inLocation	Location to spawn at
 	 * @param inSetupGoals	Whether standard goals should be applied or not
@@ -122,7 +122,7 @@ class ChunkEntityLoader implements Listener
 			this.spawn(spawnData);
 			return false;
 		}
-		
+
 		this.m_toSpawn.add(spawnData);
 		return true;
 	}
@@ -133,20 +133,20 @@ class ChunkEntityLoader implements Listener
 		if(inData.entity.isSpawned() && inData.setupGoals)
 			((RemoteEntityHandle)inData.entity.getHandle()).setupStandardGoals();
 	}
-	
+
 	class EntityLoadData
 	{
 		final RemoteEntity entity;
 		final Location loc;
 		final boolean setupGoals;
-		
+
 		public EntityLoadData(RemoteEntity inEntity, Location inLoc, boolean inSetupGoals)
 		{
 			this.entity = inEntity;
 			this.loc = inLoc;
 			this.setupGoals = inSetupGoals;
 		}
-		
+
 		public EntityLoadData(RemoteEntity inEntity, Location inLoc)
 		{
 			this(inEntity, inLoc, false);

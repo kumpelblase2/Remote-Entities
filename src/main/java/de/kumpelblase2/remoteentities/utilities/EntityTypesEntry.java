@@ -10,7 +10,7 @@ public class EntityTypesEntry
 	@SuppressWarnings("rawtypes")
 	private final Class m_class;
 	private final Integer m_id;
-	
+
 	@SuppressWarnings("rawtypes")
 	public EntityTypesEntry(String inName, Class inClass, Integer inID)
 	{
@@ -18,12 +18,12 @@ public class EntityTypesEntry
 		this.m_class = inClass;
 		this.m_id = inID;
 	}
-	
+
 	public void restore()
 	{
 		ReflectionUtil.registerEntityType(this.m_class, this.m_name, this.m_id);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static EntityTypesEntry fromEntity(String inEntity)
 	{
@@ -43,18 +43,18 @@ public class EntityTypesEntry
 		  }
 		  return null;
 	}
-	
+
 	public int getID()
 	{
 		return this.m_id;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public Class getEntityClass()
 	{
 		return this.m_class;
 	}
-	
+
 	public String getName()
 	{
 		return this.m_name;

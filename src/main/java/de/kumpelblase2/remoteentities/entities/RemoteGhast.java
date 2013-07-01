@@ -10,7 +10,7 @@ public class RemoteGhast extends RemoteAttackingBaseEntity<Ghast>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteGhast(int inID, RemoteGhastEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Ghast, inManager);

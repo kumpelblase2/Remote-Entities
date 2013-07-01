@@ -32,10 +32,10 @@ public class ObjectParser
 			return this.getDeserializedObject(typeClass, inData.value);
 		}
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Object getDeserializedObject(Class inType, Object inObject)
-	{		
+	{
 		if(inType.isAssignableFrom(Class.class))
 			return this.getClass(inObject.toString());
 		else if(inType.isAssignableFrom(int.class) || inType.isAssignableFrom(Integer.class))
@@ -71,7 +71,7 @@ public class ObjectParser
 	{
 		if(inObject.getClass().isArray())
 		{
-			Object[] data = (Object[])inObject;			
+			Object[] data = (Object[])inObject;
 			StringBuilder sb = new StringBuilder();
 			sb.append("[");
 			for(Object aData : data)
@@ -87,7 +87,7 @@ public class ObjectParser
 			return this.getSerializedObject(inObject);
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	protected Object getSerializedObject(Object inObject)
 	{
@@ -102,7 +102,7 @@ public class ObjectParser
 		else
 			return inObject.toString();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	protected Class getClass(String inName)
 	{
@@ -115,7 +115,7 @@ public class ObjectParser
 			return null;
 		}
 	}
-	
+
 	protected Integer getInt(Object inValue)
 	{
 		try
@@ -127,7 +127,7 @@ public class ObjectParser
 			return 0;
 		}
 	}
-	
+
 	protected boolean getBoolean(Object inValue)
 	{
 		try
@@ -139,7 +139,7 @@ public class ObjectParser
 			return false;
 		}
 	}
-	
+
 	protected float getFloat(Object inValue)
 	{
 		try
@@ -151,7 +151,7 @@ public class ObjectParser
 			return 0f;
 		}
 	}
-	
+
 	protected double getDouble(Object inValue)
 	{
 		try
@@ -163,16 +163,16 @@ public class ObjectParser
 			return 0d;
 		}
 	}
-	
+
 	protected EntityLiving getNMSEntity(Object inValue)
 	{
 		Entity e = this.getEntity(inValue);
 		if(e == null)
 			return null;
-		
+
 		return ((CraftLivingEntity)e).getHandle();
 	}
-	
+
 	protected Entity getEntity(Object inValue)
 	{
 		for(World w : Bukkit.getWorlds())

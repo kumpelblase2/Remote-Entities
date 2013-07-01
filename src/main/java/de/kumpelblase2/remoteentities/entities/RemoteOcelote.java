@@ -10,7 +10,7 @@ public class RemoteOcelote extends RemoteAttackingBaseEntity<Ocelot>
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteOcelote(int inID, RemoteOceloteEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Ocelot, inManager);

@@ -9,7 +9,7 @@ public class RemoteMushroom extends RemoteBaseEntity
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteMushroom(int inID, RemoteMushroomEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Mushroom, inManager);

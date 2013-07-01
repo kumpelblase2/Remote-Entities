@@ -9,12 +9,12 @@ import de.kumpelblase2.remoteentities.api.thinking.Desire;
 public class PathfinderGoalSelectorHelper
 {
 	private final PathfinderGoalSelector m_selector;
-	
+
 	public PathfinderGoalSelectorHelper(PathfinderGoalSelector inSelector)
 	{
 		this.m_selector = inSelector;
 	}
-	
+
 	public Object getGoal(Class<? extends Desire> inDesire)
 	{
 		try
@@ -32,7 +32,7 @@ public class PathfinderGoalSelectorHelper
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public List getGoals()
 	{
@@ -48,7 +48,7 @@ public class PathfinderGoalSelectorHelper
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public void clearGoals()
 	{
@@ -64,8 +64,8 @@ public class PathfinderGoalSelectorHelper
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public void addGoal(PathfinderGoal inGoal, int inPriority)
 	{
 		this.m_selector.a(inPriority, inGoal);

@@ -9,7 +9,7 @@ public class RemotePig extends RemoteBaseEntity
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemotePig(int inID, RemotePigEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Pig, inManager);
