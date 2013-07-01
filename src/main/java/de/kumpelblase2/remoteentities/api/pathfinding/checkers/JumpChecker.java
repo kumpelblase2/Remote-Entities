@@ -1,9 +1,10 @@
-package de.kumpelblase2.remoteentities.api.pathfinding;
+package de.kumpelblase2.remoteentities.api.pathfinding.checkers;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.material.Gate;
+import de.kumpelblase2.remoteentities.api.pathfinding.*;
 
 public class JumpChecker implements MoveChecker
 {

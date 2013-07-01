@@ -1,4 +1,6 @@
-package de.kumpelblase2.remoteentities.api.pathfinding;
+package de.kumpelblase2.remoteentities.api.pathfinding.checkers;
+
+import de.kumpelblase2.remoteentities.api.pathfinding.*;
 
 public class AvoidLiquidChecker implements MoveChecker
 {

@@ -1,8 +1,9 @@
-package de.kumpelblase2.remoteentities.api.pathfinding;
+package de.kumpelblase2.remoteentities.api.pathfinding.checkers;
 
 import org.bukkit.Material;
 import org.bukkit.material.Door;
 import org.bukkit.material.Gate;
+import de.kumpelblase2.remoteentities.api.pathfinding.MoveData;
 
 @SuppressWarnings("deprecation")
 public class DoorOpenChecker implements MoveChecker
