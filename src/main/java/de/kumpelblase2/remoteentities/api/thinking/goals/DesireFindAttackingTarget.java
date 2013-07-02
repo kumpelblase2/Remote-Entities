@@ -2,11 +2,12 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -36,13 +37,13 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().aF(), true);
+		return this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().getLastDamager(), true);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getEntityHandle().aF();
+		EntityLiving entityTarget = this.getEntityHandle().getLastDamager();
 		return entityTarget != null && entityTarget != this.m_target;
 	}
 
@@ -50,8 +51,8 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	public void startExecuting()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		entity.setGoalTarget(entity.aF());
-		this.m_target = entity.aF();
+		NMSUtil.setGoalTarget(entity, entity.getLastDamager());
+		this.m_target = entity.getLastDamager();
 
 		if(this.m_attackNearest)
 		{
@@ -63,8 +64,8 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 			{
 				EntityLiving target = it.next();
 
-				if(this.getEntityHandle() != target && target.getGoalTarget() == null)
-					target.setGoalTarget(entity.aF());
+				if(this.getEntityHandle() != target && NMSUtil.getGoalTarget(target) == null)
+					NMSUtil.setGoalTarget(target, entity.getLastDamager());
 			}
 		}
 		super.startExecuting();
@@ -73,7 +74,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@Override
 	public void stopExecuting()
 	{
-		if(this.getEntityHandle().getGoalTarget() != null && this.getEntityHandle().getGoalTarget() instanceof EntityHuman && ((EntityHuman)this.getEntityHandle().getGoalTarget()).abilities.isInvulnerable)
+		if(NMSUtil.getGoalTarget(this.getEntityHandle()) != null && NMSUtil.getGoalTarget(this.getEntityHandle()) instanceof EntityHuman && ((EntityHuman)NMSUtil.getGoalTarget(this.getEntityHandle())).abilities.isInvulnerable)
 			super.stopExecuting();
 	}
 

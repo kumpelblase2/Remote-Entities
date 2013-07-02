@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.Vec3D;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -9,6 +9,7 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -38,7 +39,7 @@ public class DesireMoveToTarget extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		this.m_target = this.getEntityHandle().getGoalTarget();
+		this.m_target = NMSUtil.getGoalTarget(this.getEntityHandle());
 		if(this.m_target == null)
 			return false;
 		else if(this.m_target.e(this.getEntityHandle()) > this.m_minDistanceSquared)
@@ -62,7 +63,7 @@ public class DesireMoveToTarget extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistanceSquared;
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistanceSquared;
 	}
 
 	@Override

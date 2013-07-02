@@ -1,13 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.utilities.*;
 
 /**
  * Using this desire the entity will search for the nearest entity of the given type and sets it as the next target.
@@ -38,7 +37,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance, IEntitySelector inSelector)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
-		this.m_comparator = new DistanceComparator(null, this.getEntityHandle());
+		this.m_comparator = new DistanceComparator(this.getEntityHandle());
 		this.m_targetChance = inChance;
 		if(Entity.class.isAssignableFrom(inTargetClass))
 			this.m_targetClass = (Class<? extends Entity>)inTargetClass;
@@ -69,7 +68,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 
 		if(this.m_onlyAtNight && this.getEntityHandle().world.v())
 			return false;
-		else if(this.m_targetChance > 0 && this.getEntityHandle().aE().nextInt(this.m_targetChance) != 0)
+		else if(this.m_targetChance > 0 && this.getEntityHandle().aB().nextInt(this.m_targetChance) != 0)
 			return false;
 		else
 		{
@@ -105,7 +104,7 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().setGoalTarget(this.m_target);
+		NMSUtil.setGoalTarget(this.getEntityHandle(), this.m_target);
 		super.startExecuting();
 	}
 

@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 
@@ -34,7 +34,7 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 		else
 		{
 			EntityVillager villager = (EntityVillager)entity;
-			if(villager.p())
+			if(villager.bS())
 			{
 				this.m_target = villager.m_();
 				return true;

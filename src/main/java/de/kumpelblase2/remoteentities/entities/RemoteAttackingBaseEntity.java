@@ -1,10 +1,11 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_6_R1.EntityLiving;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.Fightable;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public abstract class RemoteAttackingBaseEntity<T extends LivingEntity> extends RemoteBaseEntity<T> implements Fightable
@@ -20,7 +21,7 @@ public abstract class RemoteAttackingBaseEntity<T extends LivingEntity> extends 
 		if(this.m_entity == null)
 			return;
 
-		this.m_entity.setGoalTarget(WorldUtilities.getNMSEntity(inTarget));
+		NMSUtil.setGoalTarget(this.m_entity, WorldUtilities.getNMSEntity(inTarget));
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public abstract class RemoteAttackingBaseEntity<T extends LivingEntity> extends 
 		if(this.m_entity == null)
 			return;
 
-		this.m_entity.setGoalTarget(null);
+		NMSUtil.setGoalTarget(this.m_entity, null);
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public abstract class RemoteAttackingBaseEntity<T extends LivingEntity> extends 
 		if(this.m_entity == null)
 			return null;
 
-		EntityLiving target = this.m_entity.getGoalTarget();
+		EntityLiving target = NMSUtil.getGoalTarget(this.m_entity);
 		if(target != null)
 			return (LivingEntity)target.getBukkitEntity();
 

@@ -1,11 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will occasionally try and eat either long grass or a grass block.
@@ -25,7 +26,7 @@ public class DesireEatGrass extends DesireBase
 	{
 		this.m_eatTick = 40;
 		this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)10);
-		this.getEntityHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class DesireEatGrass extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		if(this.getEntityHandle().aE().nextInt(this.getEntityHandle().isBaby() ? 50 : 1000) != 0)
+		if(this.getEntityHandle().aB().nextInt(this.getEntityHandle().isBaby() ? 50 : 1000) != 0)
 			return false;
 		else
 		{
@@ -80,7 +81,8 @@ public class DesireEatGrass extends DesireBase
 				if(!CraftEventFactory.callEntityChangeBlockEvent(this.getRemoteEntity().getBukkitEntity(), this.getEntityHandle().world.getWorld().getBlockAt(x, y, z), Material.AIR).isCancelled())
 				{
 					entity.world.setAir(x, y, z, false);
-					entity.aK();
+					if(entity instanceof EntityInsentient)
+						((EntityInsentient)entity).n();
 				}
 			}
 			else if(entity.world.getTypeId(x, y - 1, z) == Block.GRASS.id)
@@ -89,7 +91,8 @@ public class DesireEatGrass extends DesireBase
 				{
 					entity.world.triggerEffect(2001, x, y, z, Block.GRASS.id);
 					entity.world.setTypeIdAndData(x, y - 1, z, Block.DIRT.id, 0, 2);
-					entity.aK();
+					if(entity instanceof EntityInsentient)
+						((EntityInsentient)entity).n();
 				}
 			}
 		}

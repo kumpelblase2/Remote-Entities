@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
+import net.minecraft.server.v1_6_R1.*;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -11,6 +11,7 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -69,29 +70,29 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.m_animal.getNavigation().f() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
 	}
 
 	@Override
 	public void startExecuting()
 	{
 		this.m_moveTick = 0;
-		this.m_avoidWaterState = this.m_animal.getNavigation().a();
-		this.m_animal.getNavigation().a(false);
+		this.m_avoidWaterState = NMSUtil.getNavigation(this.m_animal).a();
+		NMSUtil.getNavigation(this.m_animal).a(false);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
 		this.m_owner = null;
-		this.m_animal.getNavigation().g();
-		this.m_animal.getNavigation().a(this.m_avoidWaterState);
+		NMSUtil.getNavigation(this.m_animal).h();
+		NMSUtil.getNavigation(this.m_animal).a(this.m_avoidWaterState);
 	}
 
 	@Override
 	public boolean update()
 	{
-		this.m_animal.getControllerLook().a(this.m_owner, 10, this.m_animal.bs());
+		NMSUtil.getControllerLook(this.m_animal).a(this.m_owner, 10, NMSUtil.getMaxHeadRotation(this.m_animal));
 		if(!this.isSitting())
 		{
 			if(--this.m_moveTick <= 0)
@@ -112,7 +113,7 @@ public class DesireFollowTamer extends DesireBase
 								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.w(x + i, y - 1, z + l) && !this.m_animal.world.u(x + i, y, z + l) && !this.m_animal.world.u(x + i, y + 1, z + l))
 								{
 									this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
-									this.m_animal.getNavigation().g();
+									NMSUtil.getNavigation(this.m_animal).h();
 									return true;
 								}
 							}

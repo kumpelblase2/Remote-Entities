@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityTameableAnimal;
-import net.minecraft.server.v1_5_R3.Vec3D;
+import net.minecraft.server.v1_6_R1.EntityTameableAnimal;
+import net.minecraft.server.v1_6_R1.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will move around randomly.
@@ -29,9 +30,9 @@ public class DesireWanderAround extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		if(this.getEntityHandle().aH() >= 100)
+		if(this.getEntityHandle().aE() >= 100)
 			return false;
-		else if(this.getEntityHandle().aE().nextInt(120) != 0)
+		else if(this.getEntityHandle().aB().nextInt(120) != 0)
 			return false;
 		else if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isSitting())
 			return false;
@@ -54,7 +55,7 @@ public class DesireWanderAround extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
 	}
 
 	@Override

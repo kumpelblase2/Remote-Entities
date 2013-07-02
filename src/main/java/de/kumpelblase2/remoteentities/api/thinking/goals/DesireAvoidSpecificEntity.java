@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
+import net.minecraft.server.v1_6_R1.*;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.selectors.EntitySelectorViewable;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -48,7 +49,7 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 		if(!this.m_entityToAvoid.isAlive())
 			return false;
 
-		if(!this.getEntityHandle().getEntitySenses().canSee(this.m_entityToAvoid))
+		if(!NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(this.m_entityToAvoid))
 			return false;
 		else
 		{
@@ -63,7 +64,7 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 			}
 			else
 			{
-				this.m_path = this.getEntityHandle().getNavigation().a(var2.c, var2.d, var2.e);
+				this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(var2.c, var2.d, var2.e);
 				boolean returnValue = this.m_path != null && this.m_path.b(var2);
 				Vec3D.a.release(var2);
 				return returnValue;
@@ -80,13 +81,13 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f() && this.m_entityToAvoid.isAlive();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_entityToAvoid.isAlive();
 	}
 
 	@Override
@@ -102,9 +103,9 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 			return false;
 
 		if(this.getEntityHandle().e(this.m_entityToAvoid) > 49)
-			this.getEntityHandle().getNavigation().a(this.m_farSpeed);
+			NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_farSpeed);
 		else
-			this.getEntityHandle().getNavigation().a(this.m_closeSpeed);
+			NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_closeSpeed);
 
 		return true;
 	}

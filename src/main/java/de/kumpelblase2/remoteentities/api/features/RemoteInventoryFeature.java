@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.features;
 
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventoryCustom;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventoryCustom;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;

@@ -1,14 +1,15 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.MathHelper;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.MathHelper;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -64,28 +65,28 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_avoidWaterState = this.getEntityHandle().getNavigation().a();
-		this.getEntityHandle().getNavigation().a(false);
+		this.m_avoidWaterState = NMSUtil.getNavigation(this.getEntityHandle()).a();
+		NMSUtil.getNavigation(this.getEntityHandle()).a(false);
 		this.m_moveTick = 0;
 	}
 
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().getNavigation().g();
-		this.getEntityHandle().getNavigation().a(this.m_avoidWaterState);
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_avoidWaterState);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
 	}
 
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_toFollow, 10, this.getEntityHandle().bs());
+		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_toFollow, 10, NMSUtil.getMaxHeadRotation(this.getEntityHandle()));
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
@@ -104,7 +105,7 @@ public class DesireFollowSpecific extends DesireBase
 							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.v(x + i, y - 1, z + l) && !this.getEntityHandle().world.t(x + i, y, z + l) && !this.getEntityHandle().world.t(x + i, y + 1, z + l))
 							{
 								this.getEntityHandle().setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.getEntityHandle().yaw, this.getEntityHandle().pitch);
-								this.getEntityHandle().getNavigation().g();
+								NMSUtil.getNavigation(this.getEntityHandle()).h();
 								return true;
 							}
 						}

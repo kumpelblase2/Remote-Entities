@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.MathHelper;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -31,7 +32,7 @@ public class DesireLeapAtTarget extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		this.m_target = this.getEntityHandle().getGoalTarget();
+		this.m_target = NMSUtil.getGoalTarget(this.getEntityHandle());
 		if(this.m_target == null)
 			return false;
 		else
@@ -39,7 +40,7 @@ public class DesireLeapAtTarget extends DesireBase
 			double dist = this.getEntityHandle().e(this.m_target);
 			if(dist >= 4 && dist <= 16)
 			{
-				return this.getEntityHandle().onGround && this.getEntityHandle().aE().nextInt(5) == 0;
+				return this.getEntityHandle().onGround && this.getEntityHandle().aB().nextInt(5) == 0;
 			}
 			else
 				return false;

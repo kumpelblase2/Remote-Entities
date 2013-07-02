@@ -4,10 +4,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.PathfinderGoalSelector;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.entities.RemotePlayerEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 
@@ -62,7 +62,7 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
 
-            Method a = net.minecraft.server.v1_5_R3.EntityTypes.class.getDeclaredMethod("a", args);
+            Method a = net.minecraft.server.v1_6_R1.EntityTypes.class.getDeclaredMethod("a", args);
             a.setAccessible(true);
 
             a.invoke(a, inClass, name, inID);

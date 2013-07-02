@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.PathEntity;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class DesireBase implements Desire
@@ -77,11 +77,16 @@ public abstract class DesireBase implements Desire
 		if(this.getRemoteEntity() instanceof RemoteBaseEntity)
 			((RemoteBaseEntity)this.getRemoteEntity()).moveWithPath(inPath, inSpeed);
 		else
-			this.getEntityHandle().getNavigation().a(inPath, inSpeed);
+			this.getNavigation().a(inPath, inSpeed);
 	}
 
 	public ParameterData[] getSerializeableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
+	}
+
+	public Navigation getNavigation()
+	{
+		return NMSUtil.getNavigation(this.getEntityHandle());
 	}
 }

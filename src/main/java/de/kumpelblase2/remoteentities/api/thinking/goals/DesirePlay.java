@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_5_R3.EntityVillager;
-import net.minecraft.server.v1_5_R3.Vec3D;
+import net.minecraft.server.v1_6_R1.EntityVillager;
+import net.minecraft.server.v1_6_R1.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -11,6 +11,7 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the villager baby will play around with another baby villager.
@@ -40,7 +41,7 @@ public class DesirePlay extends DesireBase
 
 		if(this.m_villager.getAge() >= 0)
 			return false;
-		else if(this.m_villager.aE().nextInt(400) != 0)
+		else if(this.m_villager.aB().nextInt(400) != 0)
 			return false;
 		else
 		{
@@ -51,7 +52,7 @@ public class DesirePlay extends DesireBase
 			while(it.hasNext())
 			{
 				EntityVillager villager = (EntityVillager)it.next();
-				if(villager != this.m_villager && !villager.o() && villager.getAge() < 0)
+				if(villager != this.m_villager && !villager.bR() && villager.getAge() < 0)
 				{
 					double dist = villager.e(this.m_villager);
 
@@ -108,7 +109,7 @@ public class DesirePlay extends DesireBase
 			if(this.m_villager.e(this.m_friend) > 4)
 				this.getRemoteEntity().move((LivingEntity)this.m_friend.getBukkitEntity());
 		}
-		else if(this.m_villager.getNavigation().f())
+		else if(NMSUtil.getNavigation(m_villager).g())
 		{
 			Vec3D vec = RandomPositionGenerator.a(this.m_villager, 16, 3);
 

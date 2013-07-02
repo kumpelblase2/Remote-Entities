@@ -1,13 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.utilities.*;
 
 /**
  * Using this desire the entity will offer the nearest entity of the given type a flower.
@@ -43,7 +42,7 @@ public class DesireOfferFlower extends DesireBase
 	{
 		if(this.getEntityHandle() == null || this.getEntityHandle().world.v())
 			return false;
-		else if(this.getEntityHandle().aE().nextInt(8000) != 0)
+		else if(this.getEntityHandle().aB().nextInt(8000) != 0)
 			return false;
 		else
 		{
@@ -81,7 +80,7 @@ public class DesireOfferFlower extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearestEntity, 30, 30);
+		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_nearestEntity, 30, 30);
 		this.m_offerTick--;
 		return true;
 	}

@@ -1,15 +1,14 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.List;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.api.thinking.selectors.EntitySelectorViewable;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.utilities.*;
 
 /**
  * With this desire the entity will avoid the given type of entity and will run away from it once it comes near.
@@ -63,9 +62,9 @@ public class DesireAvoidSpecific extends DesireBase
 			return false;
 
 		if(this.getEntityHandle().e(this.m_closestEntity) > 49)
-			this.getEntityHandle().getNavigation().a(this.m_farSpeed);
+			NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_farSpeed);
 		else
-			this.getEntityHandle().getNavigation().a(this.m_closeSpeed);
+			NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_closeSpeed);
 
 		return true;
 	}
@@ -97,7 +96,7 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!this.getEntityHandle().getEntitySenses().canSee(this.m_closestEntity))
+        if (!NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(this.m_closestEntity))
             return false;
         else
         {
@@ -112,7 +111,7 @@ public class DesireAvoidSpecific extends DesireBase
             }
             else
             {
-                this.m_path = this.getEntityHandle().getNavigation().a(var2.c, var2.d, var2.e);
+                this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(var2.c, var2.d, var2.e);
 	            boolean returnValue = this.m_path != null && this.m_path.b(var2);
 	            Vec3D.a.release(var2);
                 return returnValue;
@@ -123,7 +122,7 @@ public class DesireAvoidSpecific extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
 	}
 
 	@Override

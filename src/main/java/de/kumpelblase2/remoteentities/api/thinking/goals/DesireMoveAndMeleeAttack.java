@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import net.minecraft.server.v1_6_R1.*;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -10,8 +10,7 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
-import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.utilities.*;
 
 /**
  * This desire moves towards the entities target and deals damage when it's in melee range of the entity.
@@ -57,7 +56,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		EntityLiving entityTarget = this.getEntityHandle().getGoalTarget();
+		EntityLiving entityTarget = NMSUtil.getGoalTarget(this.getEntityHandle());
 
 		if(entityTarget == null)
 			return false;
@@ -66,7 +65,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		else
 		{
 			this.m_target = entityTarget;
-			this.m_path = this.getEntityHandle().getNavigation().a(this.m_target);
+			this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_target);
 			return this.m_path != null;
 		}
 	}
@@ -74,7 +73,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving entityTarget = this.getEntityHandle().getGoalTarget();
+		EntityLiving entityTarget = NMSUtil.getGoalTarget(this.getEntityHandle());
 		EntityLiving entity = this.getEntityHandle();
 		if(entityTarget == null)
 			return false;
@@ -83,9 +82,9 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 			return false;
 
 		if(!this.m_ignoreSight)
-			return !entity.getNavigation().f();
+			return !NMSUtil.getNavigation(entity).g();
 		else
-			return entity.d(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ));
+			return entity.b(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ)); //TODO does b() only exist in creature?
 	}
 
 	@Override
@@ -102,17 +101,17 @@ public class DesireMoveAndMeleeAttack extends DesireBase
         CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
 
 		this.m_target = null;
-		this.getEntityHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
 	}
 
 	@Override
 	public boolean update()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		entity.getControllerLook().a(this.m_target, 30, 30);
-		if((this.m_ignoreSight || entity.getEntitySenses().canSee(this.m_target)) && --this.m_moveTick <= 0)
+		NMSUtil.getControllerLook(entity).a(this.m_target, 30, 30);
+		if((this.m_ignoreSight || NMSUtil.getEntitySenses(entity).canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.aE().nextInt(7);
+			this.m_moveTick = 4 + entity.aB().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.m_speed);
 		}
 
@@ -121,8 +120,8 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
 			this.m_attackTick = 20;
-			if(entity.bG() != null)
-				this.getEntityHandle().bK();
+			if(entity.aV() != null)
+				this.getEntityHandle().aR();
 
 			this.attack(this.m_target.getBukkitEntity());
 		}
