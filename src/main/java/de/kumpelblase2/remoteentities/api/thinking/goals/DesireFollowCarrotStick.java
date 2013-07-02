@@ -39,7 +39,7 @@ public class DesireFollowCarrotStick extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		return this.getEntityHandle().isAlive() && this.getEntityHandle().passenger != null && this.getEntityHandle().passenger instanceof EntityHuman && (this.m_speedBoosted || this.getEntityHandle().bu());
+		return this.getEntityHandle().isAlive() && this.getEntityHandle().passenger != null && this.getEntityHandle().passenger instanceof EntityHuman && (this.m_speedBoosted || NMSUtil.canBeSteered(this.getEntityHandle()));
 	}
 
 	@Override

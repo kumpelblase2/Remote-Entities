@@ -80,4 +80,42 @@ public class NMSUtil
 		else
 			return 40;
 	}
+
+	public static ChunkCoordinates getChunkCoordinates(EntityLiving inEntity)
+	{
+		if(inEntity instanceof EntityCreature)
+			return ((EntityCreature)inEntity).bL();
+		else if(inEntity instanceof EntityPlayer)
+			return ((EntityPlayer)inEntity).b();
+		else
+			return new ChunkCoordinates(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ));
+	}
+
+	public static boolean hasHomeArea(EntityLiving inEntity)
+	{
+		return inEntity instanceof EntityCreature && ((EntityCreature)inEntity).bO();
+	}
+
+	public static boolean isInHomeArea(EntityLiving inEntity)
+	{
+		return !NMSUtil.hasHomeArea(inEntity) || !(inEntity instanceof EntityCreature) || ((EntityCreature)inEntity).bK();
+	}
+
+	public static boolean isInHomeArea(EntityLiving inEntity, int x, int y, int z)
+	{
+		return !NMSUtil.hasHomeArea(inEntity) || !(inEntity instanceof EntityCreature) || ((EntityCreature)inEntity).b(x, y, z);
+	}
+
+	public static float getHomeRange(EntityLiving inEntity)
+	{
+		if(inEntity instanceof EntityCreature)
+			return ((EntityCreature)inEntity).bM();
+		else
+			return 5; //TODO 5 seems weird.
+	}
+
+	public static boolean canBeSteered(EntityLiving inEntity)
+	{
+		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bu();
+	}
 }

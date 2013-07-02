@@ -113,7 +113,7 @@ public abstract class DesireTargetBase extends DesireBase
 			else if(inEntity instanceof EntityHuman && !inAttackInvulnerablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
 				return false;
 
-			if(!this.getEntityHandle().b(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
+			if(!NMSUtil.isInHomeArea(this.getEntityHandle(), MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
 				return false;
 			else if(this.m_shouldCheckSight && !NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(inEntity))
 				return false;

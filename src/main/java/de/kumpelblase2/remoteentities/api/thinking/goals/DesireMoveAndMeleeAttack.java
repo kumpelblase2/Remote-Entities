@@ -84,7 +84,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		if(!this.m_ignoreSight)
 			return !NMSUtil.getNavigation(entity).g();
 		else
-			return entity.b(MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ)); //TODO does b() only exist in creature?
+			return NMSUtil.isInHomeArea(entity, MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ));
 	}
 
 	@Override

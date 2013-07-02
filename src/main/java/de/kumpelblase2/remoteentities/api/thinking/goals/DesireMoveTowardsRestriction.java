@@ -24,11 +24,11 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().bK()) //TODO is bK() and bL() only for creature?
+		if(this.getEntityHandle() == null || NMSUtil.isInHomeArea(this.getEntityHandle()))
 			return false;
 		else
 		{
-			ChunkCoordinates chunkCoords = this.getEntityHandle().bL();
+			ChunkCoordinates chunkCoords = NMSUtil.getChunkCoordinates(this.getEntityHandle());
 			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, this.getEntityHandle().world.getVec3DPool().create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
 			if(vec == null)
 				return false;

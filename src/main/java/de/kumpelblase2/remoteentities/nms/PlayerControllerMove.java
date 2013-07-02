@@ -5,6 +5,8 @@ import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerControllerMove extends ControllerMove
 {
+	private static EntityInsentient s_tempEntity;
+
 	// --- Taken from minecraft/ControllerMove.java
 	// --- Modified to work with an entity living
 	private EntityLiving a;
@@ -15,7 +17,7 @@ public class PlayerControllerMove extends ControllerMove
 	private boolean f;
 
 	public PlayerControllerMove(EntityLiving inEntity) {
-		super(null); //TODO prevent npe thrown here
+		super(getTempEntity(inEntity));
 		this.a = inEntity;
 		this.b = inEntity.locX;
 		this.c = inEntity.locY;
@@ -39,7 +41,7 @@ public class PlayerControllerMove extends ControllerMove
 	}
 
 	public void c() {
-		this.a.n(0.0F); //TODO -> use n(float) from insentient
+		this.a.bf = 0.0f;
 		if (this.f) {
 			this.f = false;
 			int i = MathHelper.floor(this.a.boundingBox.b + 0.5D);
@@ -72,5 +74,16 @@ public class PlayerControllerMove extends ControllerMove
 		}
 
 		return f + f3;
+	}
+
+	private static EntityInsentient getTempEntity(EntityLiving inWorldHolder)
+	{
+		if(s_tempEntity != null)
+			return s_tempEntity;
+		else
+		{
+			s_tempEntity = new TempBatEntity(inWorldHolder.world);
+			return s_tempEntity;
+		}
 	}
 }
