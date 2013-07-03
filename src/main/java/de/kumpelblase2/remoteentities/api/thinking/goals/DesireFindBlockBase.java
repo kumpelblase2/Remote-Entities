@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_6_R1.EntityLiving;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -67,7 +67,7 @@ public abstract class DesireFindBlockBase extends DesireBase
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

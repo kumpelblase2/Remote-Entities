@@ -1,14 +1,14 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
-import net.minecraft.server.v1_5_R3.*;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R1.World;
 import org.bukkit.*;
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -23,8 +23,7 @@ import de.kumpelblase2.remoteentities.api.features.FeatureSet;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
-import de.kumpelblase2.remoteentities.utilities.EntityTypesEntry;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
+import de.kumpelblase2.remoteentities.utilities.*;
 
 public abstract class RemoteBaseEntity<T extends LivingEntity> implements RemoteEntity
 {
@@ -141,7 +140,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
 
-		if(!this.m_entity.getNavigation().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
+		if(!NMSUtil.getNavigation(this.m_entity).a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
 			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
@@ -165,7 +164,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(handle == this.m_entity)
 			return true;
 
-		if(!this.m_entity.getNavigation().a(handle, inSpeed))
+		if(!NMSUtil.getNavigation(this.m_entity).a(handle, inSpeed))
 		{
 			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
@@ -195,7 +194,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				this.getMind().fixYawAt(inYaw);
 
 			this.m_entity.yaw = inYaw;
-			this.m_entity.az = inYaw;
+			this.m_entity.aO = inYaw;
 		}
 	}
 
@@ -221,7 +220,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			this.getMind().fixHeadYawAt(inHeadYaw);
 
 		this.m_entity.aA = inHeadYaw;
-		this.m_entity.aB = inHeadYaw;
+		this.m_entity.aQ = inHeadYaw;
 	}
 
 	@Override
@@ -230,7 +229,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(!this.isSpawned())
 			return;
 
-		this.m_entity.getControllerLook().a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), 10, this.m_entity.bs());
+		NMSUtil.getControllerLook(this.m_entity).a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), 10, NMSUtil.getMaxHeadRotation(this.m_entity));
 	}
 
 	@Override
@@ -239,7 +238,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(!this.isSpawned())
 			return;
 
-		this.m_entity.getControllerLook().a(((CraftEntity)inEntity).getHandle(), 10, this.m_entity.bs());
+		NMSUtil.getControllerLook(this.m_entity).a(((CraftEntity)inEntity).getHandle(), 10, NMSUtil.getMaxHeadRotation(this.m_entity));
 	}
 
 	@Override
@@ -248,7 +247,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(this.m_entity == null)
 			return;
 
-		this.getHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.m_entity).h();
 	}
 
 	@Override
@@ -278,7 +277,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
 			ReflectionUtil.registerEntityType(this.getType().getEntityClass(), this.getNativeEntityName(), entry.getID());
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
-			this.m_entity = this.m_type.getEntityClass().getConstructor(World.class, de.kumpelblase2.remoteentities.api.RemoteEntity.class).newInstance(worldServer, this);
+			this.m_entity = (EntityInsentient)this.m_type.getEntityClass().getConstructor(World.class, de.kumpelblase2.remoteentities.api.RemoteEntity.class).newInstance(worldServer, this);
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
@@ -395,7 +394,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(this.m_entity instanceof EntityCreature)
 			((EntityCreature)this.m_entity).setPathEntity(inPath);
 
-		return this.m_entity.getNavigation().a(inPath, inSpeed);
+		return NMSUtil.getNavigation(this.m_entity).a(inPath, inSpeed);
 	}
 
 	/**

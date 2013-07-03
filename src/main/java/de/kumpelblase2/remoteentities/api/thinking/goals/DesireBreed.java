@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the animal entity will try to breed a child.
@@ -32,7 +33,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_mate, 10, this.getEntityHandle().bs());
+		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_mate, 10, NMSUtil.getMaxHeadRotation(this.getEntityHandle()));
 		this.getRemoteEntity().move((LivingEntity)this.m_mate.getBukkitEntity());
 		this.m_mateTicks++;
 		if(this.m_mateTicks >= 60 && this.getEntityHandle().e(this.m_mate) < 9D)
@@ -48,7 +49,7 @@ public class DesireBreed extends DesireBase
 			return false;
 
 		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
-		if(!entity.r())
+		if(!entity.bU())
 			return false;
 		else
 		{
@@ -60,7 +61,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_mate.isAlive() && this.m_mate.r() && this.m_mateTicks < 60;
+		return this.m_mate.isAlive() && this.m_mate.bU() && this.m_mateTicks < 60;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -87,19 +88,19 @@ public class DesireBreed extends DesireBase
 
 	protected EntityAgeable createChild()
 	{
-		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate);
+		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate); //TODO create feature/behavior
 
 		if(baby != null)
 		{
 			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 			entity.setAge(6000);
 			this.m_mate.setAge(6000);
-			entity.s();
-			this.m_mate.s();
+			entity.bV();
+			this.m_mate.bV();
 			baby.setAge(-24000);
 			baby.setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
 			entity.world.addEntity(baby, SpawnReason.BREEDING);
-			Random r = entity.aE();
+			Random r = entity.aB();
 			for(int i = 0; i < 7; ++i)
 			{
 				double d0 = r.nextGaussian() * 0.02D;

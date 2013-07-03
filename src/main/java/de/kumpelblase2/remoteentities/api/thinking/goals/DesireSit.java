@@ -1,11 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.EntityTameableAnimal;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAnAnimalException;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the animal will sit when the tamer says so.
@@ -43,7 +44,7 @@ public class DesireSit extends DesireBase
 			if(owner == null)
 				return true;
 
-			return !(this.m_animal.e(owner) < 144 && owner.getGoalTarget() != null) && this.m_canSit;
+			return !(this.m_animal.e(owner) < 144 && NMSUtil.getGoalTarget(owner) != null) && this.m_canSit;
 		}
 	}
 

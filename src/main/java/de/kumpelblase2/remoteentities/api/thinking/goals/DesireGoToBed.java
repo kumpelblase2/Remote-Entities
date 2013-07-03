@@ -1,10 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.Block;
+import net.minecraft.server.v1_6_R1.Block;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.entities.RemotePlayer;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the player will try to find next bed and will go to sleep at night.
@@ -46,7 +47,7 @@ public class DesireGoToBed extends DesireFindBlockBase
 	@Override
 	public boolean update()
 	{
-		if(this.getEntityHandle().getNavigation().f())
+		if(NMSUtil.getNavigation(this.getEntityHandle()).g())
 		{
 			((RemotePlayer)this.m_entity).enterBed(new Location(this.m_entity.getBukkitEntity().getWorld(), this.m_locX, this.m_locY, this.m_locZ));
 			return false;

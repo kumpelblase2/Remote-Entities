@@ -1,7 +1,8 @@
 package de.kumpelblase2.remoteentities.api.pathfinding.checkers;
 
 import org.bukkit.block.BlockFace;
-import de.kumpelblase2.remoteentities.api.pathfinding.*;
+import de.kumpelblase2.remoteentities.api.pathfinding.MoveData;
+import de.kumpelblase2.remoteentities.api.pathfinding.Pathfinder;
 
 public class JumpDownChecker implements MoveChecker
 {

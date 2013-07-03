@@ -36,7 +36,7 @@ public class RemoteCreeper extends RemoteAttackingBaseEntity<Creeper>
 			return;
 
 		this.getBukkitEntity().getWorld().createExplosion(this.getBukkitEntity().getLocation(), 3F * inModifier);
-		this.getBukkitEntity().setHealth(0);
+		this.getBukkitEntity().setHealth((double)0);
 	}
 
 	@Override

@@ -1,15 +1,13 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.Bukkit;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
@@ -56,7 +54,7 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean bh()
+	public boolean bb()
 	{
 		return true;
 	}
@@ -106,16 +104,16 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean a_(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null)
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(!(entity.getBukkitEntity() instanceof Player))
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a_(entity);
+			return super.a(entity);
 		else
 			return false;
 	}

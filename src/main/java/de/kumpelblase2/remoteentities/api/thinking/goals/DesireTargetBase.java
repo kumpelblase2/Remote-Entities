@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import net.minecraft.server.v1_6_R1.*;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -11,6 +11,7 @@ import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class DesireTargetBase extends DesireBase
@@ -25,12 +26,12 @@ public abstract class DesireTargetBase extends DesireBase
 	protected int m_useAttack;
 	protected int m_lastAttackTick;
 	protected int m_notSeeingTarget;
-	
+
 	public DesireTargetBase(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight)
 	{
 		this(inEntity, inDistance, inShouldCheckSight, false);
 	}
-	
+
 	public DesireTargetBase(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
 	{
 		super(inEntity);
@@ -54,14 +55,14 @@ public abstract class DesireTargetBase extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().setGoalTarget(null);
+		NMSUtil.setGoalTarget(this.getEntityHandle(), null);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		EntityLiving target = this.getEntityHandle().getGoalTarget();
-		
+		EntityLiving target = NMSUtil.getGoalTarget(this.getEntityHandle());
+
 		if(target == null)
 			return false;
 		else if(!target.isAlive())
@@ -72,7 +73,7 @@ public abstract class DesireTargetBase extends DesireBase
 		{
 			if(this.m_shouldCheckSight)
 			{
-				if(this.getEntityHandle().getEntitySenses().canSee(target))
+				if(NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(target))
 					this.m_notSeeingTarget = 0;
 				else if(++this.m_notSeeingTarget > 60)
 					return false;
@@ -80,7 +81,7 @@ public abstract class DesireTargetBase extends DesireBase
 			return true;
 		}
 	}
-	
+
 	protected boolean isSuitableTarget(EntityLiving inEntity, boolean inAttackInvulnerablePlayer)
 	{
 		if(inEntity == null)
@@ -89,7 +90,7 @@ public abstract class DesireTargetBase extends DesireBase
 			return false;
 		else if(!inEntity.isAlive())
 			return false;
-		else if(!this.getEntityHandle().a(inEntity.getClass()))
+		else if(!this.canAttackClass(inEntity.getClass()))
 			return false;
 		else
 		{
@@ -97,7 +98,7 @@ public abstract class DesireTargetBase extends DesireBase
 			{
 				if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
 					return false;
-			
+
 				if(inEntity == ((EntityTameableAnimal)this.getEntityHandle()).getOwner())
 					return false;
 			}
@@ -105,16 +106,16 @@ public abstract class DesireTargetBase extends DesireBase
 			{
 				if(inEntity instanceof EntityTameableAnimal && ((EntityTameableAnimal)inEntity).isTamed())
 					return false;
-				
+
 				if(inEntity == ((CraftPlayer)this.m_entity.getFeatures().getFeature(TamingFeature.class).getTamer()).getHandle())
 					return false;
 			}
 			else if(inEntity instanceof EntityHuman && !inAttackInvulnerablePlayer && ((EntityHuman)inEntity).abilities.isInvulnerable)
 				return false;
-				
-			if(!this.getEntityHandle().d(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
+
+			if(!NMSUtil.isInHomeArea(this.getEntityHandle(), MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ)))
 				return false;
-			else if(this.m_shouldCheckSight && !this.getEntityHandle().getEntitySenses().canSee(inEntity))
+			else if(this.m_shouldCheckSight && !NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(inEntity))
 				return false;
 			else
 			{
@@ -122,16 +123,16 @@ public abstract class DesireTargetBase extends DesireBase
 				{
 					if(--this.m_lastAttackTick <= 0)
 						this.m_useAttack = 0;
-					
+
 					if(this.m_useAttack == 0)
 						this.m_useAttack = this.useAttack(inEntity) ? 1 : 2;
-					
+
 					if(this.m_useAttack == 2)
 						return false;
 				}
-				
+
 				EntityTargetEvent.TargetReason reason = EntityTargetEvent.TargetReason.RANDOM_TARGET;
-				
+
 				if(this instanceof DesireDefendVillage)
 				    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
 				else if(this instanceof DesireFindAttackingTarget)
@@ -145,52 +146,60 @@ public abstract class DesireTargetBase extends DesireBase
 				    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
 				else if(this instanceof DesireHelpAttacking)
 				    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
-				
+
 				EntityTargetLivingEntityEvent event = CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
 				if(event.isCancelled() || event.getTarget() == null)
 				{
 				    if(this.getEntityHandle() instanceof EntityCreature)
-				        this.getEntityHandle().setGoalTarget(null);
-				    
+					    NMSUtil.setGoalTarget(this.getEntityHandle(), null);
+
 				    return false;
 				}
 				else if(inEntity.getBukkitEntity() != event.getTarget())
-				    this.getEntityHandle().setGoalTarget((EntityLiving)((CraftEntity) event.getTarget()).getHandle());
-				
+					NMSUtil.setGoalTarget(this.getEntityHandle(), (EntityLiving)((CraftEntity) event.getTarget()).getHandle());
+
 				if(this.getEntityHandle() instanceof EntityCreature)
 				    ((EntityCreature)this.getEntityHandle()).target = ((CraftEntity) event.getTarget()).getHandle();
-				
-				
+
+
 				return true;
 			}
 		}
 	}
-	
+
 	protected boolean useAttack(EntityLiving inEntity)
 	{
-		this.m_lastAttackTick = 10 + this.getEntityHandle().aE().nextInt(5);
-		PathEntity path = this.getEntityHandle().getNavigation().a(inEntity);
-		
+		this.m_lastAttackTick = 10 + this.getEntityHandle().aB().nextInt(5);
+		PathEntity path = NMSUtil.getNavigation(this.getEntityHandle()).a(inEntity);
+
 		if(path == null)
 			return false;
 		else
 		{
 			PathPoint lastPoint = path.c();
-			
+
 			if(lastPoint == null)
 				return false;
 			else
 			{
 				int distX = lastPoint.a - MathHelper.floor(inEntity.locX);
 				int distY = lastPoint.c - MathHelper.floor(inEntity.locZ);
-				
+
 				return (distX * distX + distY * distY) <= 2.25D;
 			}
 		}
 	}
-	
+
+	protected boolean canAttackClass(Class inClass)
+	{
+		if(this.getEntityHandle() instanceof EntityInsentient)
+			return ((EntityInsentient)this.getEntityHandle()).a(inClass);
+		else
+			return inClass != EntityGhast.class;
+	}
+
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

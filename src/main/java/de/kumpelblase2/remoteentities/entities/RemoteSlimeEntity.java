@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -71,32 +71,30 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	protected void bq()
+	protected void bh()
 	{
-		this.bn();
+		this.bk();
 		if(this.m_target != null)
-		{
 			this.a(this.m_target, 10.0F, 20.0F);
-		}
 
 		// --- Taken from EntitySlime.java#103 - #121
 		if (this.onGround && this.m_jumpDelay-- <= 0) {
-            this.m_jumpDelay = this.j();
+            this.m_jumpDelay = this.bH();
             if (this.m_target != null) {
                 this.m_jumpDelay /= 3;
             }
 
-            this.bG = true;
-            if (this.q()) {
-                this.world.makeSound(this, this.n(), this.ba(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.bd = true;
+            if (this.bO()) {
+	            this.makeSound(this.bL(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.random.nextFloat() * 2.0F;
-            this.bE = (float)this.getSize();
+            this.be = 1.0F - this.random.nextFloat() * 2.0F;
+            this.bf = (float)this.getSize();
         } else {
-            this.bG = false;
+            this.bd = false;
             if (this.onGround) {
-                this.bD = this.bE = 0.0F;
+                this.be = this.bf = 0.0F;
             }
         }
 		// ---
@@ -139,16 +137,16 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean a_(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null)
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(!(entity.getBukkitEntity() instanceof Player))
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a_(entity);
+			return super.a(entity);
 		else
 			return false;
 	}
@@ -161,7 +159,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean bh()
+	public boolean bb()
 	{
 		return true;
 	}

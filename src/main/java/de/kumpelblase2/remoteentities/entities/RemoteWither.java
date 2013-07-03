@@ -14,6 +14,6 @@ public class RemoteWither extends RemoteAttackingBaseEntity<Wither>
 	@Override
 	public String getNativeEntityName()
 	{
-		return "Wither";
+		return "WitherBoss";
 	}
 }

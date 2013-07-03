@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 
 public class NullNetServerHandler extends PlayerConnection
 {

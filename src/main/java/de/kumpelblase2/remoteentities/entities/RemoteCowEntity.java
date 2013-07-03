@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -14,8 +14,6 @@ import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 {
 	private final RemoteEntity m_remoteEntity;
-	protected int m_lastBouncedId;
-	protected long m_lastBouncedTime;
 
 	public RemoteCowEntity(World world)
 	{
@@ -96,16 +94,16 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean a_(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null)
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(!(entity.getBukkitEntity() instanceof Player))
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a_(entity);
+			return super.a(entity);
 		else
 			return false;
 	}
@@ -122,7 +120,7 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(inEntityFor), 1),
+					new DesireItem(new DesireSwim(inEntityFor), 0),
 					new DesireItem(new DesirePanic(inEntityFor), 1),
 					new DesireItem(new DesireBreed(inEntityFor), 2),
 					new DesireItem(new DesireTempt(inEntityFor, Item.WHEAT.id, false), 3),
