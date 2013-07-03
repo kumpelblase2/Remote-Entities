@@ -1,13 +1,14 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EntityWolf;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EntityWolf;
 import org.bukkit.Material;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -41,9 +42,9 @@ public class DesireBegForItem extends DesireBase
 	public void startExecuting()
 	{
 		if(this.getEntityHandle() instanceof EntityWolf)
-			((EntityWolf)this.getEntityHandle()).m(true);
+			((EntityWolf)this.getEntityHandle()).n(true);
 
-		this.m_ticks = 40 + this.getEntityHandle().aE().nextInt(40);
+		this.m_ticks = 40 + this.getEntityHandle().aB().nextInt(40);
 	}
 
 	@Override
@@ -51,13 +52,13 @@ public class DesireBegForItem extends DesireBase
 	{
 		this.m_nearestPlayer = null;
 		if(this.getEntityHandle() instanceof EntityWolf)
-			((EntityWolf)this.getEntityHandle()).m(false);
+			((EntityWolf)this.getEntityHandle()).n(false);
 	}
 
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, this.getEntityHandle().bs());
+		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_nearestPlayer.locX, this.m_nearestPlayer.locY + this.m_nearestPlayer.getHeadHeight(), this.m_nearestPlayer.locZ, 10F, NMSUtil.getMaxHeadRotation(this.getEntityHandle()));
 		this.m_ticks--;
 		return true;
 	}
@@ -99,7 +100,7 @@ public class DesireBegForItem extends DesireBase
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

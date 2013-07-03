@@ -22,7 +22,7 @@ public class DesireData implements ConfigurationSerializable
 	public DesireData(Desire inDesire, int inPriority)
 	{
 		this.type = inDesire.getClass().getName();
-		this.parameters = inDesire.getSerializeableData();
+		this.parameters = inDesire.getSerializableData();
 		this.priority = inPriority;
 	}
 

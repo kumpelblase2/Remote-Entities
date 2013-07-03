@@ -2,10 +2,11 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * This desire is aimed for villages to accept flowers given by iron golems.
@@ -45,7 +46,7 @@ public class DesireAcceptFlower extends DesireBase
 				while(it.hasNext())
 				{
 					EntityIronGolem golem = it.next();
-					if(golem.o() > 0)
+					if(golem.bR() > 0)
 					{
 						this.m_nearestGolem = golem;
 						break;
@@ -65,7 +66,7 @@ public class DesireAcceptFlower extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_takeFlowerTick = this.getEntityHandle().aE().nextInt(320);
+		this.m_takeFlowerTick = this.getEntityHandle().aB().nextInt(320);
 		this.m_takeFlower = false;
 		this.m_nearestGolem.getNavigation().g();
 	}
@@ -74,24 +75,26 @@ public class DesireAcceptFlower extends DesireBase
 	public void stopExecuting()
 	{
 		this.m_nearestGolem = null;
-		this.getEntityHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
 	}
 
 	@Override
 	public boolean update()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		if(this.m_nearestGolem.o() == this.m_takeFlowerTick)
+		NMSUtil.getControllerLook(entity).a(this.m_nearestGolem, 30, 30);
+		if(this.m_nearestGolem.bR() == this.m_takeFlowerTick)
 		{
-			entity.getNavigation().a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());
+			NMSUtil.getNavigation(entity).a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());
 			this.m_takeFlower = true;
 		}
 
 		if(this.m_takeFlower && entity.e(this.m_nearestGolem) < 4)
 		{
 			this.m_nearestGolem.a(false);
-			entity.getNavigation().g();
+			NMSUtil.getNavigation(entity).h();
 		}
+
 		return true;
 	}
 }

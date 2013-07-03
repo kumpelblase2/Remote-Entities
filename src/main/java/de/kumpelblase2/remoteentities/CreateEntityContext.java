@@ -22,7 +22,7 @@ public class CreateEntityContext
 	private boolean m_stationary = false;
 	private boolean m_pushable = true;
 	private float m_speed = -1;
-	private int m_maxHealth = -1;
+	private double m_maxHealth = -1;
 	private int m_pathfindingRange = -1;
 	private final List<DesireItem> m_movementDesires;
 	private final List<DesireItem> m_actionDesires;
@@ -152,7 +152,7 @@ public class CreateEntityContext
 	 * @param inMaxHealth	Max Health
 	 * @return				Context
 	 */
-	public CreateEntityContext withMaxHealth(int inMaxHealth)
+	public CreateEntityContext withMaxHealth(double inMaxHealth)
 	{
 		this.m_maxHealth = inMaxHealth;
 		return this;

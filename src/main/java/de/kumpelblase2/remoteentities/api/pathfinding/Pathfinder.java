@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
 import java.util.*;
-import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_6_R1.EntityLiving;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
@@ -9,6 +9,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.events.RemoteAsyncPathFindEvent;
 import de.kumpelblase2.remoteentities.api.events.RemotePathCancelEvent;
 import de.kumpelblase2.remoteentities.api.pathfinding.checkers.*;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public class Pathfinder
@@ -142,7 +143,7 @@ public class Pathfinder
 		RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(this.m_entity, this.getLastPath());
 		Bukkit.getPluginManager().callEvent(event);
 		this.m_currentPath = event.getPath();
-		this.m_entity.getHandle().getNavigation().a(this.m_currentPath.toNMSPath(), this.m_entity.getSpeed());
+		NMSUtil.getNavigation(this.m_entity.getHandle()).a(this.m_currentPath.toNMSPath(), this.m_entity.getSpeed());
 		return true;
 	}
 
@@ -158,7 +159,7 @@ public class Pathfinder
 		RemoteAsyncPathFindEvent event = new RemoteAsyncPathFindEvent(this.m_entity, this.getLastPath());
 		Bukkit.getPluginManager().callEvent(event);
 		this.m_currentPath = event.getPath();
-		this.m_entity.getHandle().getNavigation().a(this.m_currentPath.toNMSPath(), inSpeed);
+		NMSUtil.getNavigation(this.m_entity.getHandle()).a(this.m_currentPath.toNMSPath(), inSpeed);
 		return true;
 	}
 
@@ -180,7 +181,7 @@ public class Pathfinder
 						return;
 
 					Pathfinder.this.m_currentPath = event.getPath();
-					Pathfinder.this.m_entity.getHandle().getNavigation().a(Pathfinder.this.m_currentPath.toNMSPath(), Pathfinder.this.m_entity.getSpeed());
+					NMSUtil.getNavigation(Pathfinder.this.m_entity.getHandle()).a(Pathfinder.this.m_currentPath.toNMSPath(), Pathfinder.this.m_entity.getSpeed());
 				}
 			}
 		});
@@ -206,7 +207,7 @@ public class Pathfinder
 
 					Pathfinder.this.m_currentPath = event.getPath();
 					Pathfinder.this.m_currentPath.setCustomSpeed(inSpeed);
-					Pathfinder.this.m_entity.getHandle().getNavigation().a(Pathfinder.this.m_currentPath.toNMSPath(), inSpeed);
+					NMSUtil.getNavigation(Pathfinder.this.m_entity.getHandle()).a(Pathfinder.this.m_currentPath.toNMSPath(), inSpeed);
 				}
 			}
 		});
@@ -356,7 +357,7 @@ public class Pathfinder
 			return;
 
 		EntityLiving entity = this.getEntity().getHandle();
-		if(!entity.getNavigation().f() || entity.getControllerMove().a())
+		if(!NMSUtil.getNavigation(this.m_entity.getHandle()).g() || NMSUtil.getControllerMove(this.m_entity.getHandle()).a())
 			return;
 
 		BlockNode next = this.m_currentPath.next();
@@ -368,10 +369,10 @@ public class Pathfinder
 
 		double yDist = next.getY() - entity.locY;
 		if(yDist > 0)
-			entity.getControllerJump().a();
+			NMSUtil.getNavigation(entity).a();
 
 		Vector moveVec = WorldUtilities.addEntityWidth(this.m_entity, next);
-		entity.getControllerMove().a(moveVec.getX(), moveVec.getY(), moveVec.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
+		NMSUtil.getControllerMove(entity).a(moveVec.getX(), moveVec.getY(), moveVec.getZ(), (this.m_currentPath.hasCustomSpeed() ? this.m_currentPath.getCustomSpeed() : this.m_entity.getSpeed()));
 
 		if(this.m_currentPath.isDone())
 			this.cancelPath(CancelReason.END);

@@ -2,18 +2,18 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.*;
 
 @SuppressWarnings("rawtypes")
 public class NMSClassMap
 {
 	private static final Map<Class, Class> s_classes;
-	
+
 	static
 	{
 		s_classes = new HashMap<Class, Class>();
-		s_classes.put(org.bukkit.entity.Entity.class, net.minecraft.server.v1_5_R3.Entity.class);
+		s_classes.put(org.bukkit.entity.Entity.class, net.minecraft.server.v1_6_R1.Entity.class);
 		s_classes.put(LivingEntity.class, EntityLiving.class);
 		s_classes.put(Creature.class, EntityCreature.class);
 		s_classes.put(Monster.class, EntityMonster.class);
@@ -21,7 +21,7 @@ public class NMSClassMap
 		s_classes.put(Tameable.class, EntityTameableAnimal.class);
 		s_classes.put(Ageable.class, EntityAgeable.class);
 		s_classes.put(Flying.class, EntityFlying.class);
-		
+
 		s_classes.put(Bat.class, EntityBat.class);
 		s_classes.put(Blaze.class, EntityBlaze.class);
 		s_classes.put(CaveSpider.class, EntityCaveSpider.class);
@@ -50,8 +50,9 @@ public class NMSClassMap
 		s_classes.put(Wither.class, EntityWither.class);
 		s_classes.put(Wolf.class, EntityWolf.class);
 		s_classes.put(Zombie.class, EntityZombie.class);
+		s_classes.put(Horse.class, EntityHorse.class);
 	}
-	
+
 	public static Class getNMSClass(Class inClass)
 	{
 		Class bukkit = null;

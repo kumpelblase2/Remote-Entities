@@ -1,10 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -58,8 +59,8 @@ public class DesireInteractDoor extends DesireBase
 		if(!this.getEntityHandle().positionChanged)
 			return false;
 
-		Navigation nav = this.getEntityHandle().getNavigation();
-		PathEntity path = nav.d();
+		Navigation nav = NMSUtil.getNavigation(this.getEntityHandle());
+		PathEntity path = nav.e();
 		if(path != null && !path.b() && nav.c())
 		{
 			for(int i = 0; i < Math.min(path.e() + 2, path.d()); ++i)
@@ -104,7 +105,7 @@ public class DesireInteractDoor extends DesireBase
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

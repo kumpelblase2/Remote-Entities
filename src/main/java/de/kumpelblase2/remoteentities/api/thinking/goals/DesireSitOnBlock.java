@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -33,7 +33,7 @@ public class DesireSitOnBlock extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aE().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
+		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aB().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class DesireSitOnBlock extends DesireBase
 		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 		this.m_currentSitTick = 0;
 		this.m_actionTicks = 0;
-		this.m_maxSitTicks = this.m_ocelot.aE().nextInt(this.m_ocelot.aE().nextInt(1200) + 1200) + 1200;
+		this.m_maxSitTicks = this.m_ocelot.aB().nextInt(this.m_ocelot.aB().nextInt(1200) + 1200) + 1200;
 		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
 			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
 	}
@@ -122,7 +122,7 @@ public class DesireSitOnBlock extends DesireBase
 			if(type == Block.BURNING_FURNACE.id)
 				return true;
 
-			if(type == Block.BED.id && !BlockBed.e_(data))
+			if(type == Block.BED.id && !BlockBed.f_(data))
 				return true;
 		}
 

@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.ItemStack;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -55,7 +56,7 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.cd();
+				ItemStack item = this.m_nearPlayer.bt();
 				return item != null && item.id == this.m_itemId;
 			}
 		}
@@ -95,26 +96,26 @@ public class DesireTempt extends DesireBase
 		this.m_y = this.m_nearPlayer.locY;
 		this.m_z = this.m_nearPlayer.locZ;
 		this.m_isTempted = true;
-		this.m_avoidWaterState = this.getEntityHandle().getNavigation().a();
-		this.getEntityHandle().getNavigation().a(false);
+		this.m_avoidWaterState = NMSUtil.getNavigation(this.getEntityHandle()).a();
+		NMSUtil.getNavigation(this.getEntityHandle()).a(false);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
 		this.m_nearPlayer = null;
-		this.getEntityHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
 		this.m_delayTicks = 100;
 		this.m_isTempted = false;
-		this.getEntityHandle().getNavigation().a(this.m_avoidWaterState);
+		NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_avoidWaterState);
 	}
 
 	@Override
 	public boolean update()
 	{
-		this.getEntityHandle().getControllerLook().a(this.m_nearPlayer, 30, this.getEntityHandle().bs());
+		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_nearPlayer, 30, NMSUtil.getMaxHeadRotation(this.getEntityHandle()));
 		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
-			this.getEntityHandle().getNavigation().g();
+			NMSUtil.getNavigation(this.getEntityHandle()).h();
 		else
 			this.getRemoteEntity().move(this.m_nearPlayer.getBukkitEntity());
 
@@ -127,7 +128,7 @@ public class DesireTempt extends DesireBase
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

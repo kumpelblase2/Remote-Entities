@@ -1,13 +1,14 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -48,10 +49,10 @@ public class DesireMoveThroughVillage extends DesireBase
 					return false;
 				else
 				{
-					boolean flag = entity.getNavigation().c();
-					entity.getNavigation().b(false);
-					this.m_path = entity.getNavigation().a(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ);
-					entity.getNavigation().b(flag);
+					boolean flag = NMSUtil.getNavigation(entity).c();
+					NMSUtil.getNavigation(entity).b(false);
+					this.m_path = NMSUtil.getNavigation(entity).a(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ);
+					NMSUtil.getNavigation(entity).b(flag);
 					if(this.m_path != null)
 						return true;
 					else
@@ -62,9 +63,9 @@ public class DesireMoveThroughVillage extends DesireBase
 							return false;
 						else
 						{
-							entity.getNavigation().b(false);
-							this.m_path = entity.getNavigation().a(vec.c, vec.d, vec.e);
-							entity.getNavigation().b(flag);
+							NMSUtil.getNavigation(entity).b(false);
+							this.m_path = NMSUtil.getNavigation(entity).a(vec.c, vec.d, vec.e);
+							NMSUtil.getNavigation(entity).b(flag);
 							Vec3D.a.release(vec);
 							return this.m_path != null;
 						}
@@ -77,7 +78,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		if(this.getEntityHandle().getNavigation().f())
+		if(NMSUtil.getNavigation(this.getEntityHandle()).g())
 			return false;
 		else
 		{
@@ -95,7 +96,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		if(this.getEntityHandle().getNavigation().f() || this.getEntityHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
+		if(NMSUtil.getNavigation(this.getEntityHandle()).g() || this.getEntityHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
 			this.m_doors.add(this.m_nextDoor);
 	}
 
@@ -147,7 +148,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

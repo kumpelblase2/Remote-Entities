@@ -1,8 +1,9 @@
 package de.kumpelblase2.remoteentities.api.features;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.persistence.SerializableData;
 
-public interface Feature
+public interface Feature extends SerializableData
 {
 	/**
 	 * Gets the name of the feature

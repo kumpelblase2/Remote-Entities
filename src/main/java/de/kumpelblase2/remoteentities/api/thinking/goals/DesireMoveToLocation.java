@@ -5,6 +5,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
@@ -32,7 +33,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

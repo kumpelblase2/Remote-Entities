@@ -1,11 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Random;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will try to find a dark place to be instead of remaining at a sunny spot.
@@ -62,13 +63,13 @@ public class DesireAvoidSun extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
 	}
 
 	protected Vec3D getShadowPlace()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		Random r = entity.aE();
+		Random r = entity.aB();
 
 		for(int i = 0; i < 10; i++)
 		{

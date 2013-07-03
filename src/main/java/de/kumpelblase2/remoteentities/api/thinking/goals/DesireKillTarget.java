@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.PathEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftLivingEntity;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.PathEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will move towards the target and try to kill it.
@@ -45,7 +46,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		if(!this.m_entity.getBukkitEntity().getLocation().getWorld().getName().equals(this.m_target.getBukkitEntity().getWorld().getName()))
 			return false;
 
-		this.m_path = this.getEntityHandle().getNavigation().a(this.m_target);
+		this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_target);
 		return this.m_path != null;
 	}
 
@@ -65,17 +66,17 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().getNavigation().g();
+		NMSUtil.getNavigation(this.getEntityHandle()).h();
 	}
 
 	@Override
 	public boolean update()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		entity.getControllerLook().a(this.m_target, 30, 30);
+		NMSUtil.getControllerLook(entity).a(this.m_target, 30, 30);
 		if(--this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.aE().nextInt(7);
+			this.m_moveTick = 4 + entity.aB().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.getRemoteEntity().getSpeed());
 		}
 
@@ -84,8 +85,8 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
 			this.m_attackTick = 20;
-			if(entity.bG() != null)
-				this.getEntityHandle().bK();
+			if(entity.aV() != null)
+				this.getEntityHandle().aR();
 
 			this.attack((LivingEntity)this.m_target.getBukkitEntity());
 		}

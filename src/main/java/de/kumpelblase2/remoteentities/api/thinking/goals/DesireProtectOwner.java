@@ -1,11 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.EntityTameableAnimal;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotTameableException;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will target the entity which is attacking the tamer of this entity.
@@ -40,7 +41,7 @@ public class DesireProtectOwner extends DesireTamedBase
 				return false;
 			else
 			{
-				this.m_ownerAttacker = owner.aF();
+				this.m_ownerAttacker = owner.getLastDamager();
 				return this.isSuitableTarget(this.m_ownerAttacker, false);
 			}
 		}
@@ -49,7 +50,7 @@ public class DesireProtectOwner extends DesireTamedBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().setGoalTarget(this.m_ownerAttacker);
+		NMSUtil.setGoalTarget(this.getEntityHandle(), this.m_ownerAttacker);
 		super.startExecuting();
 	}
 }

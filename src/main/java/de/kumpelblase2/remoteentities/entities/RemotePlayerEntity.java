@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -17,6 +17,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	protected EntityLiving m_target;
+	protected Navigation m_navigation;
+	protected EntitySenses m_senses;
+	protected ControllerJump m_controllerJump;
+	protected ControllerLook m_controllerLook;
+	protected ControllerMove m_controllerMove;
 
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager)
 	{
@@ -31,13 +36,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		{
 		}
 
-		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
-		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 		this.Y = 1;
-		this.getNavigation().e(true);
 		this.fauxSleeping = true;
+		this.m_navigation = new PlayerNavigation(this, this.world);
+		this.m_senses = new PlayerSenses(this);
+		this.m_controllerJump = new PlayerControllerJump(this);
+		this.m_controllerMove = new PlayerControllerMove(this);
+		this.m_controllerLook = new PlayerControllerLook(this);
 	}
 
 	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
@@ -63,7 +70,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	{
 		this.yaw = this.az;
 		super.l_();
-		super.g();
+		this.h();
 
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
@@ -72,10 +79,10 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
         if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
             motX = motY = motZ = 0;
 
-		Navigation navigation = getNavigation();
-        if(!navigation.f())
+		Navigation navigation = this.getNavigation();
+        if(!navigation.g())
         {
-            navigation.e();
+            navigation.h();
             this.applyMovement();
         }
         //End Citizens
@@ -93,32 +100,32 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		getControllerMove().c();
 		getControllerLook().a();
 		getControllerJump().b();
-		e(this.getRemoteEntity().getSpeed());
+		getNavigation().f();
 		//End Citizens
 
-		if(this.bG)
+		if(this.bd)
 		{
             boolean inLiquid = G() || I();
             if (inLiquid)
                 this.motY += 0.04;
-            else if (this.onGround && this.bC == 0)
+            else if (this.onGround && this.aV == 0)
             {
                 this.motY = 0.6;
-                this.bD = 10;
+                this.be = 10;
             }
         }
 		else
-            this.bD = 0;
+            this.be = 0;
 
-		this.bC *= 0.98F;
-		this.bD *= 0.98F;
-		this.bE *= 0.9F;
+		this.aV *= 0.98F;
+		this.be *= 0.98F;
+		this.bf *= 0.9F;
 
         float prev = this.aN;
-		this.aN *= this.bE() * this.getRemoteEntity().getSpeed();
-		this.e(this.bC, this.bD);
+		this.aN *= this.a(GenericAttributes.a).e() * this.getRemoteEntity().getSpeed();
+		this.e(this.aV, this.be);
 		this.aN = prev;
-		this.az = this.yaw;
+		this.aO = this.yaw;
 	}
 
 	@Override
@@ -128,7 +135,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 
 	@Override
-	public boolean bh()
+	public boolean bb()
 	{
 		return true;
 	}
@@ -170,16 +177,16 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 
 	@Override
-	public boolean a_(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null)
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(!(entity.getBukkitEntity() instanceof Player))
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a_(entity);
+			return super.a(entity);
 		else
 			return false;
 	}
@@ -191,13 +198,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		super.die(damagesource);
 	}
 
-	@Override
 	public EntityLiving getGoalTarget()
 	{
 		return this.m_target;
 	}
 
-	@Override
 	public void setGoalTarget(EntityLiving inEntity)
 	{
 		this.m_target = inEntity;
@@ -229,5 +234,30 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[0];
+	}
+
+	public Navigation getNavigation()
+	{
+		return this.m_navigation;
+	}
+
+	public ControllerLook getControllerLook()
+	{
+		return this.m_controllerLook;
+	}
+
+	public ControllerMove getControllerMove()
+	{
+		return this.m_controllerMove;
+	}
+
+	public ControllerJump getControllerJump()
+	{
+		return this.m_controllerJump;
+	}
+
+	public EntitySenses getEntitySenses()
+	{
+		return this.m_senses;
 	}
 }

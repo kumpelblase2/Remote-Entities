@@ -1,11 +1,12 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.Vec3D;
+import net.minecraft.server.v1_6_R1.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will move around in panic when it gets damaged.
@@ -25,7 +26,7 @@ public class DesirePanic extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || (this.getEntityHandle().aF() == null && !this.getEntityHandle().isBurning()))
+		if(this.getEntityHandle() == null || (this.getEntityHandle().getLastDamager() == null && !this.getEntityHandle().isBurning()))
 			return false;
 		else
 		{
@@ -52,6 +53,6 @@ public class DesirePanic extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
 	}
 }

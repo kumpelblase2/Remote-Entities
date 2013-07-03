@@ -1,12 +1,13 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.ChunkCoordinates;
-import net.minecraft.server.v1_5_R3.Vec3D;
+import net.minecraft.server.v1_6_R1.ChunkCoordinates;
+import net.minecraft.server.v1_6_R1.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class DesireMoveTowardsRestriction extends DesireBase
 {
@@ -23,11 +24,11 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().aL())
+		if(this.getEntityHandle() == null || NMSUtil.isInHomeArea(this.getEntityHandle()))
 			return false;
 		else
 		{
-			ChunkCoordinates chunkCoords = this.getEntityHandle().aM();
+			ChunkCoordinates chunkCoords = NMSUtil.getChunkCoordinates(this.getEntityHandle());
 			Vec3D vec = RandomPositionGenerator.a(this.getEntityHandle(), 16, 7, this.getEntityHandle().world.getVec3DPool().create(chunkCoords.x, chunkCoords.y, chunkCoords.z));
 			if(vec == null)
 				return false;
@@ -45,7 +46,7 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getEntityHandle().getNavigation().f();
+		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
 	}
 
 	@Override

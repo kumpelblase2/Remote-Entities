@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializableData;
 
-public interface Desire
+public interface Desire extends SerializableData
 {
 	/**
 	 * Gets the entity having this desire
@@ -63,11 +63,4 @@ public interface Desire
 	 * @return true if it can continue, false if not
 	 */
 	public boolean canContinue();
-
-	/**
-	 * Returns all the parameters that can be serialized
-	 *
-	 * @return Serializeable parameters
-	 */
-	public ParameterData[] getSerializeableData();
 }

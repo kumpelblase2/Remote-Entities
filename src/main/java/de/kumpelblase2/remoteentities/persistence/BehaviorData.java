@@ -20,7 +20,7 @@ public class BehaviorData implements ConfigurationSerializable
 	public BehaviorData(Behavior inBehavior)
 	{
 		this.type = inBehavior.getClass().getName();
-		this.parameters = inBehavior.getSerializeableData();
+		this.parameters = inBehavior.getSerializableData();
 	}
 
 	@SuppressWarnings("unchecked")

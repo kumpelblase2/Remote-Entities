@@ -1,8 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class DesireRestrictOpenDoor extends DesireBase
 {
@@ -42,15 +43,15 @@ public class DesireRestrictOpenDoor extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getEntityHandle().getNavigation().b(false);
-		this.getEntityHandle().getNavigation().c(false);
+		NMSUtil.getNavigation(this.getEntityHandle()).b(false);
+		NMSUtil.getNavigation(this.getEntityHandle()).c(false);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
-		this.getEntityHandle().getNavigation().b(true);
-		this.getEntityHandle().getNavigation().c(true);
+		NMSUtil.getNavigation(this.getEntityHandle()).b(true);
+		NMSUtil.getNavigation(this.getEntityHandle()).c(true);
 		this.m_door = null;
 	}
 

@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.io.IOException;
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 
 public class RemoteEntityNetworkManager extends NetworkManager
 {
@@ -15,7 +15,7 @@ public class RemoteEntityNetworkManager extends NetworkManager
 			{
 				return false;
 			}
-		}, server.F().getPrivate());
+		}, server.H().getPrivate());
 	}
 
 	@Override

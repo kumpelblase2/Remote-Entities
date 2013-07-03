@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_5_R3.*;
+import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -63,7 +63,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 		if(this.getRemoteEntity().isStationary())
 		{
 			// --- Taken from EntityEnderDragon.java#77 - #81
-			if(this.health <= 0)
+			if(this.getHealth() <= 0)
 			{
 				float f = (this.random.nextFloat() - 0.5F) * 8.0F;
 				float d05 = (this.random.nextFloat() - 0.5F) * 4.0F;
@@ -142,16 +142,16 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	}
 
 	@Override
-	public boolean a_(EntityHuman entity)
+	public boolean a(EntityHuman entity)
 	{
 		if(this.getRemoteEntity() == null)
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(!(entity.getBukkitEntity() instanceof Player))
-			return super.a_(entity);
+			return super.a(entity);
 
 		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a_(entity);
+			return super.a(entity);
 		else
 			return false;
 	}
@@ -164,7 +164,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	}
 
 	@Override
-	public boolean bh()
+	public boolean bb()
 	{
 		return true;
 	}
