@@ -441,12 +441,6 @@ public class TempBatEntity extends EntityBat
 	}
 
 	@Override
-	public float getScaledHealth()
-	{
-		return 0;
-	}
-
-	@Override
 	public boolean isBaby()
 	{
 		return false;
