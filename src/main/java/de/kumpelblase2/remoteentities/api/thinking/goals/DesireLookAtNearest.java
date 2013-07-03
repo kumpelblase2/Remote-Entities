@@ -90,7 +90,7 @@ public class DesireLookAtNearest extends DesireBase
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		List<ParameterData> thisData = ReflectionUtil.getParameterDataForClass(this);
 		return thisData.toArray(new ParameterData[thisData.size()]);

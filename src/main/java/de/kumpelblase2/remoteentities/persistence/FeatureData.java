@@ -6,33 +6,25 @@ import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.api.features.Feature;
 
-public class DesireData implements ConfigurationSerializable
+public class FeatureData implements ConfigurationSerializable
 {
 	public String type;
 	public ParameterData[] parameters;
-	public int priority;
 
-	public DesireData()
+	public FeatureData()
 	{
 	}
 
-	public DesireData(Desire inDesire, int inPriority)
+	public FeatureData(Feature inFeature)
 	{
-		this.type = inDesire.getClass().getName();
-		this.parameters = inDesire.getSerializableData();
-		this.priority = inPriority;
-	}
-
-	public DesireData(DesireItem item)
-	{
-		this(item.getDesire(), item.getPriority());
+		this.type = inFeature.getClass().getName();
+		this.parameters = inFeature.getSerializableData();
 	}
 
 	@SuppressWarnings("unchecked")
-	public DesireData(Map<String, Object> inData)
+	public FeatureData(Map<String, Object> inData)
 	{
 		this.type = (String)inData.get("type");
 		List<Map<String, Object>> parameterData = (List<Map<String, Object>>)inData.get("parameters");
@@ -48,7 +40,6 @@ public class DesireData implements ConfigurationSerializable
 			ParameterData paramData = new ParameterData(param);
 			this.parameters[paramData.pos] = paramData;
 		}
-		this.priority = (Integer)inData.get("priority");
 	}
 
 	@Override
@@ -61,18 +52,18 @@ public class DesireData implements ConfigurationSerializable
 		{
 			parameterData.add(param.serialize());
 		}
+
 		data.put("parameters", parameterData);
-		data.put("priority", this.priority);
 		return data;
 	}
 
 	@SuppressWarnings("unchecked")
-	public DesireItem create(RemoteEntity inEntity)
+	public Feature create(RemoteEntity inEntity)
 	{
 		try
 		{
-			Class<? extends Desire> c = (Class<? extends Desire>)Class.forName(this.type);
-			Constructor<? extends Desire> con = c.getConstructor(this.getParameterClasses());
+			Class<? extends Feature> c = (Class<? extends Feature>)Class.forName(this.type);
+			Constructor<? extends Feature> con = c.getConstructor(this.getParameterClasses());
 			if(con == null)
 				return null;
 
@@ -86,12 +77,11 @@ public class DesireData implements ConfigurationSerializable
 				else
 					values[i] = EntityData.objectParser.deserialize(this.parameters[i]);
 			}
-			Desire d = con.newInstance(values);
-			return new DesireItem(d, this.priority);
+			return con.newInstance(values);
 		}
 		catch(Exception e)
 		{
-			RemoteEntities.getInstance().getLogger().warning("Error when trying to deserialize desire with type " + this.type + ": ");
+			RemoteEntities.getInstance().getLogger().warning("Error when trying to deserialize feature with type " + this.type + ": ");
 			RemoteEntities.getInstance().getLogger().warning(e.getMessage());
 			return null;
 		}

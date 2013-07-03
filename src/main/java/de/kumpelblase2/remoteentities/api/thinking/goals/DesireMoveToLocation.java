@@ -49,7 +49,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	}
 
 	@Override
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

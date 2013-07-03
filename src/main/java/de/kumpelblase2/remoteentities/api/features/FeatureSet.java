@@ -65,4 +65,19 @@ public class FeatureSet
 		}
 		return null;
 	}
+
+	/**
+	 * Gets the amount of features on this entity.
+	 *
+	 * @return  feature count
+	 */
+	public int size()
+	{
+		return this.m_features.size();
+	}
+
+	public List<Feature> getAllFeatures()
+	{
+		return this.m_features;
+	}
 }

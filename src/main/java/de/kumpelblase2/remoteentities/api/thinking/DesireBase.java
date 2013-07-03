@@ -80,7 +80,7 @@ public abstract class DesireBase implements Desire
 			this.getNavigation().a(inPath, inSpeed);
 	}
 
-	public ParameterData[] getSerializeableData()
+	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}

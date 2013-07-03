@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.api.thinking;
 
 import org.bukkit.event.Listener;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializableData;
 
-public interface Behavior extends Listener, Runnable
+public interface Behavior extends Listener, Runnable, SerializableData
 {
 	/**
 	 * Gets the name of the behavior
@@ -29,11 +29,4 @@ public interface Behavior extends Listener, Runnable
 	 * @return entity
 	 */
 	public RemoteEntity getRemoteEntity();
-
-	/**
-	 * Returns all the parameters that can be serialized
-	 *
-	 * @return Serializeable parameters
-	 */
-	public ParameterData[] getSerializeableData();
 }

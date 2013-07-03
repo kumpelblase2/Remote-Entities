@@ -5,6 +5,8 @@ import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_6_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.Inventory;
+import de.kumpelblase2.remoteentities.utilities.ItemSerialization;
 
 /**
  * This class is used to serialize and deserialize any kind of object
@@ -52,6 +54,8 @@ public class ObjectParser
 			return this.getNMSEntity(inObject);
 		else if(inType.isAssignableFrom(LivingEntity.class))
 			return this.getEntity(inObject);
+		else if(inType.isAssignableFrom(Inventory.class))
+			return this.getInventory((String)inObject);
 		else if(inType.isAssignableFrom(IEntitySerializer.class))
 		{
 			try
@@ -76,7 +80,7 @@ public class ObjectParser
 			sb.append("[");
 			for(Object aData : data)
 			{
-				sb.append(this.getSerializedObject(aData).toString());
+				sb.append("'").append(this.getSerializedObject(aData).toString()).append("'");
 				sb.append(",");
 			}
 			sb.setCharAt(sb.length(), ']');
@@ -99,6 +103,8 @@ public class ObjectParser
 			return ((LivingEntity)inObject).getUniqueId().toString();
 		else if(inObject instanceof Class)
 			return ((Class)inObject).getName();
+		else if(inObject instanceof Inventory)
+			return this.serializeInventory((Inventory)inObject);
 		else
 			return inObject.toString();
 	}
@@ -184,5 +190,15 @@ public class ObjectParser
 			}
 		}
 		return null;
+	}
+
+	protected Object getInventory(String inObject)
+	{
+		return ItemSerialization.fromString(inObject);
+	}
+
+	protected String serializeInventory(Inventory inInventory)
+	{
+		return ItemSerialization.toString(inInventory);
 	}
 }
