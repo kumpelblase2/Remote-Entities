@@ -88,7 +88,7 @@ public class DesireBreed extends DesireBase
 
 	protected EntityAgeable createChild()
 	{
-		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate);
+		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate); //TODO create feature/behavior
 
 		if(baby != null)
 		{

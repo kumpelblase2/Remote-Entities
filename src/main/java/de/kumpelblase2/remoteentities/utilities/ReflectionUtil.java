@@ -4,10 +4,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.PathfinderGoalSelector;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
-import de.kumpelblase2.remoteentities.entities.RemotePlayerEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 

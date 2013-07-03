@@ -14,8 +14,6 @@ import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 {
 	private final RemoteEntity m_remoteEntity;
-	protected int m_lastBouncedId;
-	protected long m_lastBouncedTime;
 
 	public RemoteCowEntity(World world)
 	{
@@ -122,7 +120,7 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(inEntityFor), 1),
+					new DesireItem(new DesireSwim(inEntityFor), 0),
 					new DesireItem(new DesirePanic(inEntityFor), 1),
 					new DesireItem(new DesireBreed(inEntityFor), 2),
 					new DesireItem(new DesireTempt(inEntityFor, Item.WHEAT.id, false), 3),

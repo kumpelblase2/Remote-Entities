@@ -9,7 +9,7 @@ import org.bukkit.entity.*;
 public class NMSClassMap
 {
 	private static final Map<Class, Class> s_classes;
-	
+
 	static
 	{
 		s_classes = new HashMap<Class, Class>();
@@ -21,7 +21,7 @@ public class NMSClassMap
 		s_classes.put(Tameable.class, EntityTameableAnimal.class);
 		s_classes.put(Ageable.class, EntityAgeable.class);
 		s_classes.put(Flying.class, EntityFlying.class);
-		
+
 		s_classes.put(Bat.class, EntityBat.class);
 		s_classes.put(Blaze.class, EntityBlaze.class);
 		s_classes.put(CaveSpider.class, EntityCaveSpider.class);
@@ -50,8 +50,9 @@ public class NMSClassMap
 		s_classes.put(Wither.class, EntityWither.class);
 		s_classes.put(Wolf.class, EntityWolf.class);
 		s_classes.put(Zombie.class, EntityZombie.class);
+		s_classes.put(Horse.class, EntityHorse.class);
 	}
-	
+
 	public static Class getNMSClass(Class inClass)
 	{
 		Class bukkit = null;

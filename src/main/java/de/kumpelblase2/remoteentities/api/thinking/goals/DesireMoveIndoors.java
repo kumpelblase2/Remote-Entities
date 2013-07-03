@@ -30,7 +30,7 @@ public class DesireMoveIndoors extends DesireBase
 		if(entity == null)
 			return false;
 
-		if((!entity.world.v() || entity.world.P()) && !entity.world.worldProvider.f)
+		if((!entity.world.v() || entity.world.Q()) && !entity.world.worldProvider.g)
 		{
 			if(entity.aB().nextInt(50) != 0)
 				return false;

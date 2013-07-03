@@ -40,7 +40,7 @@ public class DesireLookAtNearest extends DesireBase
 		this.m_minDist = inMinDistance;
 		this.m_minDistSquared = this.m_minDist * this.m_minDist;
 		this.m_lookPossibility = inPossibility;
-		this.m_type = DesireType.FULL_CONCENTRATION;
+		this.m_type = DesireType.HAPPINESS;
 	}
 
 	@Override
@@ -86,10 +86,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		if(!this.m_target.isAlive())
-			return false;
-
-		return this.getEntityHandle().e(this.m_target) <= this.m_minDistSquared && this.m_lookTicks > 0;
+		return this.m_target.isAlive() && this.getEntityHandle().e(this.m_target) <= this.m_minDistSquared && this.m_lookTicks > 0;
 	}
 
 	@Override

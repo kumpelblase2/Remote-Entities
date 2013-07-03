@@ -62,7 +62,7 @@ public class DesireMakeLove extends DesireBase
 	public void startExecuting()
 	{
 		this.m_loveTick = 300;
-		this.m_villager.i(true);
+		this.m_villager.j(true);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class DesireMakeLove extends DesireBase
 	{
 		this.m_nearestVillage = null;
 		this.m_partner = null;
-		this.m_villager.i(false);
+		this.m_villager.j(false);
 	}
 
 	@Override

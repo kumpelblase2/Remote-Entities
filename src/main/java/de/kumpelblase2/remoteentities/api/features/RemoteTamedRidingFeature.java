@@ -3,13 +3,26 @@ package de.kumpelblase2.remoteentities.api.features;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public class RemoteTamingFeature extends RemoteFeature implements TamingFeature
+public class RemoteTamedRidingFeature extends RemoteFeature implements TamedRidingFeature
 {
+	protected boolean m_isRideable = false;
 	protected Player m_tamer;
 
-	public RemoteTamingFeature(RemoteEntity inEntity)
+	public RemoteTamedRidingFeature(RemoteEntity inEntity)
 	{
-		super("TAMING", inEntity);
+		super("TAMEDRIDING", inEntity);
+	}
+
+	@Override
+	public boolean isPreparedToRide()
+	{
+		return this.m_isRideable;
+	}
+
+	@Override
+	public void setRideable(boolean inStatus)
+	{
+		this.m_isRideable = inStatus;
 	}
 
 	@Override

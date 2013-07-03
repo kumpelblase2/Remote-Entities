@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.UUID;
 import net.minecraft.server.v1_6_R1.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;

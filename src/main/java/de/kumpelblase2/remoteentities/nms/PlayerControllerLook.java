@@ -2,7 +2,6 @@ package de.kumpelblase2.remoteentities.nms;
 
 import net.minecraft.server.v1_6_R1.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class PlayerControllerLook extends ControllerLook
 {

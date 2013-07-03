@@ -34,6 +34,7 @@ public class RemoteEntityType
 	public static final RemoteEntityType Witch = new RemoteEntityType("Witch", RemoteWitch.class, RemoteWitchEntity.class, false);
 	public static final RemoteEntityType Wither = new RemoteEntityType("Wither", RemoteWither.class, RemoteWitherEntity.class, false);
 	public static final RemoteEntityType Bat = new RemoteEntityType("Bat", RemoteBat.class, RemoteBatEntity.class, false);
+	public static final RemoteEntityType Horse = new RemoteEntityType("Horse", RemoteHorse.class, RemoteHorseEntity.class, false);
 
 	private static List<RemoteEntityType> values = new ArrayList<RemoteEntityType>();
 	private static RemoteEntityType[] lastConvert = null;

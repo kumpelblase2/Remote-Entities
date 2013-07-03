@@ -30,14 +30,12 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		this.m_remoteEntity = inRemoteEntity;
 		new PathfinderGoalSelectorHelper(this.goalSelector).clearGoals();
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
+		this.bp = new DesireSitTemp(this.getRemoteEntity());
 		try
 		{
-			Field temptField = EntityOcelot.class.getDeclaredField("e");
+			Field temptField = EntityOcelot.class.getDeclaredField("bq");
 			temptField.setAccessible(true);
 			temptField.set(this, new DesireTemptTemp(this.getRemoteEntity()));
-			Field sitField = EntityTameableAnimal.class.getDeclaredField("d");
-			sitField.setAccessible(true);
-			sitField.set(this, new DesireSitTemp(this.getRemoteEntity()));
 		}
 		catch(Exception e)
 		{

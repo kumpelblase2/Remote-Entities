@@ -132,7 +132,7 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityLiving.class, 16, false, true, 0), 1)
+				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityInsentient.class, 16, false, true, 0), 1)
 		};
 	}
 }

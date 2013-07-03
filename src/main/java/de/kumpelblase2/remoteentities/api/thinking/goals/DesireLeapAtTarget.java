@@ -38,12 +38,7 @@ public class DesireLeapAtTarget extends DesireBase
 		else
 		{
 			double dist = this.getEntityHandle().e(this.m_target);
-			if(dist >= 4 && dist <= 16)
-			{
-				return this.getEntityHandle().onGround && this.getEntityHandle().aB().nextInt(5) == 0;
-			}
-			else
-				return false;
+			return dist >= 4 && dist <= 16 && this.getEntityHandle().onGround && this.getEntityHandle().aB().nextInt(5) == 0;
 		}
 	}
 

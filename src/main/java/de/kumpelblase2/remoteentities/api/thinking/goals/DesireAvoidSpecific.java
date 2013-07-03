@@ -23,12 +23,19 @@ public class DesireAvoidSpecific extends DesireBase
 	protected float m_farSpeed;
 	@SerializeAs(pos = 2)
 	protected float m_closeSpeed;
+	@SerializeAs(pos = 5)
+	protected boolean m_ignoreOutOfSight;
 	protected Entity m_closestEntity;
 	protected PathEntity m_path;
 	protected EntitySelectorViewable m_selector;
 
-	@SuppressWarnings("unchecked")
 	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
+	{
+		this(inEntity, inMinDistance, inCloseSpeed, inFarSpeed, inToAvoid, true);
+	}
+
+	@SuppressWarnings("unchecked")
+	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid, boolean inIgnoreOutOfSight)
 	{
 		super(inEntity);
 		if(Entity.class.isAssignableFrom(inToAvoid))
@@ -40,6 +47,7 @@ public class DesireAvoidSpecific extends DesireBase
 		this.m_farSpeed = inFarSpeed;
 		this.m_closeSpeed = inCloseSpeed;
 		this.m_selector = new EntitySelectorViewable(this.getEntityHandle());
+		this.m_ignoreOutOfSight = inIgnoreOutOfSight;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
@@ -96,26 +104,24 @@ public class DesireAvoidSpecific extends DesireBase
             this.m_closestEntity = (Entity)var1.get(0);
         }
 
-        if (!NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(this.m_closestEntity))
+		if(!this.m_ignoreOutOfSight && !NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(this.m_closestEntity))
+			return false;
+
+        Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a.create(this.m_closestEntity.locX, this.m_closestEntity.locY, this.m_closestEntity.locZ));
+
+        if (var2 == null)
             return false;
+        else if (this.m_closestEntity.e(var2.c, var2.d, var2.e) < this.m_closestEntity.e(this.getEntityHandle()))
+        {
+            Vec3D.a.release(var2);
+            return false;
+        }
         else
         {
-            Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a.create(this.m_closestEntity.locX, this.m_closestEntity.locY, this.m_closestEntity.locZ));
-
-            if (var2 == null)
-                return false;
-            else if (this.m_closestEntity.e(var2.c, var2.d, var2.e) < this.m_closestEntity.e(this.getEntityHandle()))
-            {
-	            Vec3D.a.release(var2);
-                return false;
-            }
-            else
-            {
-                this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(var2.c, var2.d, var2.e);
-	            boolean returnValue = this.m_path != null && this.m_path.b(var2);
-	            Vec3D.a.release(var2);
-                return returnValue;
-            }
+            this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(var2.c, var2.d, var2.e);
+            boolean returnValue = this.m_path != null && this.m_path.b(var2);
+            Vec3D.a.release(var2);
+            return returnValue;
         }
 	}
 

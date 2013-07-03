@@ -72,31 +72,17 @@ public class DesireFindNearestTarget extends DesireTargetBase
 			return false;
 		else
 		{
-			if(this.m_targetClass == EntityHuman.class)
+			List<EntityLiving> entities = this.getEntityHandle().world.a(this.m_targetClass, this.getEntityHandle().boundingBox.grow(this.m_distance, 4, this.m_distance), this.m_selector);
+			Collections.sort(entities, this.m_comparator);
+			for(EntityLiving entity : entities)
 			{
-				EntityHuman human = this.getEntityHandle().world.findNearbyVulnerablePlayer(this.getEntityHandle(), this.m_distance);
-
-				if(this.isSuitableTarget(human, false))
+				if(this.isSuitableTarget(entity, false))
 				{
-					this.m_target = human;
+					this.m_target = entity;
 					return true;
 				}
 			}
-			else
-			{
-				List<EntityLiving> entities = this.getEntityHandle().world.a(this.m_targetClass, this.getEntityHandle().boundingBox.grow(this.m_distance, 4, this.m_distance), this.m_selector);
-				Collections.sort(entities, this.m_comparator);
-				Iterator<EntityLiving> it = entities.iterator();
-				while(it.hasNext())
-				{
-					EntityLiving entity = it.next();
-					if(this.isSuitableTarget(entity, false))
-					{
-						this.m_target = entity;
-						return true;
-					}
-				}
-			}
+
 			return false;
 		}
 	}

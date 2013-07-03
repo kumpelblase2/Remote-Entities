@@ -142,7 +142,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 					new DesireItem(new DesireInteract(inEntityFor, EntityHuman.class, 3), 9),
 					new DesireItem(new DesireInteract(inEntityFor, EntityVillager.class, 5), 9),
 					new DesireItem(new DesireWanderAround(inEntityFor), 9),
-					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityLiving.class, 8), 10)
+					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityInsentient.class, 8), 10)
 			};
 		}
 		catch(Exception e)

@@ -1,15 +1,13 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import net.minecraft.server.v1_6_R1.*;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityInteractEvent;
-import de.kumpelblase2.remoteentities.api.events.RemoteEntityTouchEvent;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.api.thinking.Mind;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 

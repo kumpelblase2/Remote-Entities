@@ -88,7 +88,7 @@ public class DesirePlay extends DesireBase
 	public void startExecuting()
 	{
 		if(this.m_friend != null)
-			this.m_villager.j(true);
+			this.m_villager.k(true);
 
 		this.m_playTick = 1000;
 	}
@@ -96,7 +96,7 @@ public class DesirePlay extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.m_villager.j(false);
+		this.m_villager.k(false);
 		this.m_friend = null;
 	}
 
