@@ -7,7 +7,7 @@ import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 /**
  * Using this desire the villager will look at the player which is trading with it.
  */
-public class DesireLookAtTrader extends DesireLookAtNearest //TODO how about a feature/behavior?
+public class DesireLookAtTrader extends DesireLookAtNearest
 {
 	public DesireLookAtTrader(RemoteEntity inEntity, float inMinDistance)
 	{

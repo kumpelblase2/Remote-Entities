@@ -19,8 +19,7 @@ import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.*;
-import de.kumpelblase2.remoteentities.api.features.FeatureSet;
-import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
+import de.kumpelblase2.remoteentities.api.features.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 import de.kumpelblase2.remoteentities.utilities.*;
@@ -547,6 +546,13 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 	boolean onInteract(Player inEntity)
 	{
+		if(this.getFeatures().hasFeature(TradingFeature.class))
+		{
+			TradingFeature feature = this.getFeatures().getFeature(TradingFeature.class);
+			feature.openFor(inEntity);
+			return false;
+		}
+
 		if(this.getMind() == null)
 			return true;
 
