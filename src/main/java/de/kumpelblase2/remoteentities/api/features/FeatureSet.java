@@ -30,6 +30,7 @@ public class FeatureSet
 	public void addFeature(Feature inFeature)
 	{
 		this.removeFeature(inFeature.getClass());
+		inFeature.onAdd();
 		this.m_features.add(inFeature);
 	}
 
@@ -45,7 +46,10 @@ public class FeatureSet
 		{
 			Feature feature = it.next();
 			if(feature.getClass().equals(inType) || inType.isAssignableFrom(feature.getClass()))
+			{
+				feature.onRemove();
 				it.remove();
+			}
 		}
 	}
 

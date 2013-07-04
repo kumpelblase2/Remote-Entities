@@ -29,6 +29,16 @@ public class RemoteFeature implements Feature
 		return this.m_entity;
 	}
 
+	@Override
+	public void onAdd()
+	{
+	}
+
+	@Override
+	public void onRemove()
+	{
+	}
+
 	public ParameterData[] getSerializableData()
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);

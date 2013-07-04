@@ -18,4 +18,14 @@ public interface Feature extends SerializableData
 	 * @return entity
 	 */
 	public RemoteEntity getEntity();
+
+	/**
+	 * Method that gets executed when the behavior gets added to the entity
+	 */
+	public void onAdd();
+
+	/**
+	 * Method that gets executed when the behavior gets removed from the entity
+	 */
+	public void onRemove();
 }
