@@ -33,7 +33,7 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
+		return !this.getNavigation().g();
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class DesireAvoidSun extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
+		return !this.getNavigation().g();
 	}
 
 	protected Vec3D getShadowPlace()

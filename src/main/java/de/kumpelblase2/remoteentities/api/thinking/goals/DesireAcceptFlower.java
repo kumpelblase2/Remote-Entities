@@ -75,7 +75,7 @@ public class DesireAcceptFlower extends DesireBase
 	public void stopExecuting()
 	{
 		this.m_nearestGolem = null;
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 	}
 
 	@Override
@@ -85,14 +85,14 @@ public class DesireAcceptFlower extends DesireBase
 		NMSUtil.getControllerLook(entity).a(this.m_nearestGolem, 30, 30);
 		if(this.m_nearestGolem.bR() == this.m_takeFlowerTick)
 		{
-			NMSUtil.getNavigation(entity).a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());
+			this.getNavigation().a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());
 			this.m_takeFlower = true;
 		}
 
 		if(this.m_takeFlower && entity.e(this.m_nearestGolem) < 4)
 		{
 			this.m_nearestGolem.a(false);
-			NMSUtil.getNavigation(entity).h();
+			this.getNavigation().h();
 		}
 
 		return true;

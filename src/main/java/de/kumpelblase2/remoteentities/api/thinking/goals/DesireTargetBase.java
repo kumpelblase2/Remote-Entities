@@ -170,7 +170,7 @@ public abstract class DesireTargetBase extends DesireBase
 	protected boolean useAttack(EntityLiving inEntity)
 	{
 		this.m_lastAttackTick = 10 + this.getEntityHandle().aB().nextInt(5);
-		PathEntity path = NMSUtil.getNavigation(this.getEntityHandle()).a(inEntity);
+		PathEntity path = this.getNavigation().a(inEntity);
 
 		if(path == null)
 			return false;

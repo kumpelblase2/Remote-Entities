@@ -109,7 +109,7 @@ public class DesirePlay extends DesireBase
 			if(this.m_villager.e(this.m_friend) > 4)
 				this.getRemoteEntity().move((LivingEntity)this.m_friend.getBukkitEntity());
 		}
-		else if(NMSUtil.getNavigation(m_villager).g())
+		else if(this.getNavigation().g())
 		{
 			Vec3D vec = RandomPositionGenerator.a(this.m_villager, 16, 3);
 

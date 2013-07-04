@@ -70,23 +70,23 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
+		return !this.getNavigation().g() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
 	}
 
 	@Override
 	public void startExecuting()
 	{
 		this.m_moveTick = 0;
-		this.m_avoidWaterState = NMSUtil.getNavigation(this.m_animal).a();
-		NMSUtil.getNavigation(this.m_animal).a(false);
+		this.m_avoidWaterState = this.getNavigation().a();
+		this.getNavigation().a(false);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
 		this.m_owner = null;
-		NMSUtil.getNavigation(this.m_animal).h();
-		NMSUtil.getNavigation(this.m_animal).a(this.m_avoidWaterState);
+		this.getNavigation().h();
+		this.getNavigation().a(this.m_avoidWaterState);
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class DesireFollowTamer extends DesireBase
 								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.w(x + i, y - 1, z + l) && !this.m_animal.world.u(x + i, y, z + l) && !this.m_animal.world.u(x + i, y + 1, z + l))
 								{
 									this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
-									NMSUtil.getNavigation(this.m_animal).h();
+									this.getNavigation().h();
 									return true;
 								}
 							}

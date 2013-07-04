@@ -63,7 +63,7 @@ public class DesireMoveToTarget extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistanceSquared;
+		return !this.getNavigation().g() && this.m_target.isAlive() && this.m_target.e(this.getEntityHandle()) < this.m_minDistanceSquared;
 	}
 
 	@Override

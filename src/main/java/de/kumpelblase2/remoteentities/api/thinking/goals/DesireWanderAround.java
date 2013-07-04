@@ -55,7 +55,7 @@ public class DesireWanderAround extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g();
+		return !this.getNavigation().g();
 	}
 
 	@Override

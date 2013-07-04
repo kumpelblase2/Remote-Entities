@@ -46,7 +46,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		if(!this.m_entity.getBukkitEntity().getLocation().getWorld().getName().equals(this.m_target.getBukkitEntity().getWorld().getName()))
 			return false;
 
-		this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_target);
+		this.m_path = this.getNavigation().a(this.m_target);
 		return this.m_path != null;
 	}
 
@@ -66,7 +66,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 	@Override
 	public void stopExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 	}
 
 	@Override

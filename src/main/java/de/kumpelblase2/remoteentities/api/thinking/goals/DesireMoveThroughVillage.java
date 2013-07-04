@@ -49,10 +49,10 @@ public class DesireMoveThroughVillage extends DesireBase
 					return false;
 				else
 				{
-					boolean flag = NMSUtil.getNavigation(entity).c();
-					NMSUtil.getNavigation(entity).b(false);
-					this.m_path = NMSUtil.getNavigation(entity).a(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ);
-					NMSUtil.getNavigation(entity).b(flag);
+					boolean flag = this.getNavigation().c();
+					this.getNavigation().b(false);
+					this.m_path = this.getNavigation().a(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ);
+					this.getNavigation().b(flag);
 					if(this.m_path != null)
 						return true;
 					else
@@ -63,9 +63,9 @@ public class DesireMoveThroughVillage extends DesireBase
 							return false;
 						else
 						{
-							NMSUtil.getNavigation(entity).b(false);
-							this.m_path = NMSUtil.getNavigation(entity).a(vec.c, vec.d, vec.e);
-							NMSUtil.getNavigation(entity).b(flag);
+							this.getNavigation().b(false);
+							this.m_path = this.getNavigation().a(vec.c, vec.d, vec.e);
+							this.getNavigation().b(flag);
 							Vec3D.a.release(vec);
 							return this.m_path != null;
 						}
@@ -78,7 +78,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		if(NMSUtil.getNavigation(this.getEntityHandle()).g())
+		if(this.getNavigation().g())
 			return false;
 		else
 		{
@@ -96,7 +96,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		if(NMSUtil.getNavigation(this.getEntityHandle()).g() || this.getEntityHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
+		if(this.getNavigation().g() || this.getEntityHandle().e((double)this.m_nextDoor.locX, (double)this.m_nextDoor.locY, (double)this.m_nextDoor.locZ) < 16)
 			this.m_doors.add(this.m_nextDoor);
 	}
 

@@ -59,7 +59,7 @@ public class DesireInteractDoor extends DesireBase
 		if(!this.getEntityHandle().positionChanged)
 			return false;
 
-		Navigation nav = NMSUtil.getNavigation(this.getEntityHandle());
+		Navigation nav = this.getNavigation();
 		PathEntity path = nav.e();
 		if(path != null && !path.b() && nav.c())
 		{

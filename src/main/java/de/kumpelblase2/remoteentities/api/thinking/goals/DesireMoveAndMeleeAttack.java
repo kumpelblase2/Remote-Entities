@@ -65,7 +65,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		else
 		{
 			this.m_target = entityTarget;
-			this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_target);
+			this.m_path = this.getNavigation().a(this.m_target);
 			return this.m_path != null;
 		}
 	}
@@ -82,7 +82,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 			return false;
 
 		if(!this.m_ignoreSight)
-			return !NMSUtil.getNavigation(entity).g();
+			return !this.getNavigation().g();
 		else
 			return NMSUtil.isInHomeArea(entity, MathHelper.floor(this.m_target.locX), MathHelper.floor(this.m_target.locY), MathHelper.floor(this.m_target.locZ));
 	}
@@ -101,7 +101,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
         CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
 
 		this.m_target = null;
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 	}
 
 	@Override

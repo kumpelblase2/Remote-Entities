@@ -96,18 +96,18 @@ public class DesireTempt extends DesireBase
 		this.m_y = this.m_nearPlayer.locY;
 		this.m_z = this.m_nearPlayer.locZ;
 		this.m_isTempted = true;
-		this.m_avoidWaterState = NMSUtil.getNavigation(this.getEntityHandle()).a();
-		NMSUtil.getNavigation(this.getEntityHandle()).a(false);
+		this.m_avoidWaterState = this.getNavigation().a();
+		this.getNavigation().a(false);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
 		this.m_nearPlayer = null;
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 		this.m_delayTicks = 100;
 		this.m_isTempted = false;
-		NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_avoidWaterState);
+		this.getNavigation().a(this.m_avoidWaterState);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class DesireTempt extends DesireBase
 	{
 		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_nearPlayer, 30, NMSUtil.getMaxHeadRotation(this.getEntityHandle()));
 		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
-			NMSUtil.getNavigation(this.getEntityHandle()).h();
+			this.getNavigation().h();
 		else
 			this.getRemoteEntity().move(this.m_nearPlayer.getBukkitEntity());
 

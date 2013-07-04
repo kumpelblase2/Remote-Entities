@@ -65,22 +65,22 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_avoidWaterState = NMSUtil.getNavigation(this.getEntityHandle()).a();
-		NMSUtil.getNavigation(this.getEntityHandle()).a(false);
+		this.m_avoidWaterState =this.getNavigation().a();
+		this.getNavigation().a(false);
 		this.m_moveTick = 0;
 	}
 
 	@Override
 	public void stopExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
-		NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_avoidWaterState);
+		this.getNavigation().h();
+		this.getNavigation().a(this.m_avoidWaterState);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
+		return !this.getNavigation().g() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class DesireFollowSpecific extends DesireBase
 							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.v(x + i, y - 1, z + l) && !this.getEntityHandle().world.t(x + i, y, z + l) && !this.getEntityHandle().world.t(x + i, y + 1, z + l))
 							{
 								this.getEntityHandle().setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.getEntityHandle().yaw, this.getEntityHandle().pitch);
-								NMSUtil.getNavigation(this.getEntityHandle()).h();
+								this.getNavigation().h();
 								return true;
 							}
 						}

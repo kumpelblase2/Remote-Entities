@@ -23,12 +23,12 @@ public class DesireRestrictSun extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).d(true);
+		this.getNavigation().d(true);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).d(false);
+		this.getNavigation().d(false);
 	}
 }

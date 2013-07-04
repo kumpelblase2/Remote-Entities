@@ -26,7 +26,7 @@ public class DesireEatGrass extends DesireBase
 	{
 		this.m_eatTick = 40;
 		this.getEntityHandle().world.broadcastEntityEffect(this.getEntityHandle(), (byte)10);
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 	}
 
 	@Override

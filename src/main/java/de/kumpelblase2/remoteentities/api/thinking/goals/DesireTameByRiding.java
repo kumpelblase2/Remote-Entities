@@ -56,13 +56,13 @@ public class DesireTameByRiding extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_x, this.m_y, this.m_z, this.m_speed);
+		this.getNavigation().a(this.m_x, this.m_y, this.m_z, this.m_speed);
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.getEntityHandle().passenger != null;
+		return !this.getNavigation().g() && this.getEntityHandle().passenger != null;
 	}
 
 	@Override

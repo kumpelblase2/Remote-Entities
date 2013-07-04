@@ -38,14 +38,14 @@ public class DesireOcelotAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_target.isAlive() && (this.getEntityHandle().e(this.m_target) <= 225 && (!NMSUtil.getNavigation(this.getEntityHandle()).g() || this.shouldExecute()));
+		return this.m_target.isAlive() && (this.getEntityHandle().e(this.m_target) <= 225 && (!this.getNavigation().g() || this.shouldExecute()));
 	}
 
 	@Override
 	public void stopExecuting()
 	{
 		this.m_target = null;
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class DesireOcelotAttack extends DesireBase
 		else if(dist < 255)
 			speed = 0.18F;
 
-		NMSUtil.getNavigation(entity).a(this.m_target, speed);
+		this.getNavigation().a(this.m_target, speed);
 		this.m_attackTick = Math.min(this.m_attackTick - 1, 0);
 		if(dist <= minDist)
 		{

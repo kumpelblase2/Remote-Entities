@@ -80,7 +80,7 @@ public class DesireRangedAttack extends DesireBase
 			this.m_inRangeTick = 0;
 
 		if(dist <= this.m_minDistanceSquared && this.m_inRangeTick >= 20)
-			NMSUtil.getNavigation(this.getEntityHandle()).h();
+			this.getNavigation().h();
 		else
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity());
 
@@ -132,7 +132,7 @@ public class DesireRangedAttack extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.shouldExecute() || !NMSUtil.getNavigation(this.getEntityHandle()).g();
+		return this.shouldExecute() || !this.getNavigation().g();
 	}
 
 	protected void shoot(float inStrength)

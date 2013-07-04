@@ -64,7 +64,7 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 			}
 			else
 			{
-				this.m_path = NMSUtil.getNavigation(this.getEntityHandle()).a(var2.c, var2.d, var2.e);
+				this.m_path = this.getNavigation().a(var2.c, var2.d, var2.e);
 				boolean returnValue = this.m_path != null && this.m_path.b(var2);
 				Vec3D.a.release(var2);
 				return returnValue;
@@ -81,13 +81,13 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 	@Override
 	public void stopExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).h();
+		this.getNavigation().h();
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		return !NMSUtil.getNavigation(this.getEntityHandle()).g() && this.m_entityToAvoid.isAlive();
+		return !this.getNavigation().g() && this.m_entityToAvoid.isAlive();
 	}
 
 	@Override
@@ -103,9 +103,9 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 			return false;
 
 		if(this.getEntityHandle().e(this.m_entityToAvoid) > 49)
-			NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_farSpeed);
+			this.getNavigation().a(this.m_farSpeed);
 		else
-			NMSUtil.getNavigation(this.getEntityHandle()).a(this.m_closeSpeed);
+			this.getNavigation().a(this.m_closeSpeed);
 
 		return true;
 	}

@@ -47,7 +47,7 @@ public class DesireGoToBed extends DesireFindBlockBase
 	@Override
 	public boolean update()
 	{
-		if(NMSUtil.getNavigation(this.getEntityHandle()).g())
+		if(this.getNavigation().g())
 		{
 			((RemotePlayer)this.m_entity).enterBed(new Location(this.m_entity.getBukkitEntity().getWorld(), this.m_locX, this.m_locY, this.m_locZ));
 			return false;

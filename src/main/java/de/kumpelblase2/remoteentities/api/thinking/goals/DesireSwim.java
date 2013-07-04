@@ -14,7 +14,7 @@ public class DesireSwim extends DesireBase
 	{
 		super(inEntity);
 		this.m_type = DesireType.MOVEMENT_ADDITION;
-		NMSUtil.getNavigation(this.getEntityHandle()).e(true);
+		this.getNavigation().e(true);
 	}
 
 	@Override

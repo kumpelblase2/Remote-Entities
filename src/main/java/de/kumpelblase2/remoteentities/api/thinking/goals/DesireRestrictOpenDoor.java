@@ -43,15 +43,15 @@ public class DesireRestrictOpenDoor extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).b(false);
-		NMSUtil.getNavigation(this.getEntityHandle()).c(false);
+		this.getNavigation().b(false);
+		this.getNavigation().c(false);
 	}
 
 	@Override
 	public void stopExecuting()
 	{
-		NMSUtil.getNavigation(this.getEntityHandle()).b(true);
-		NMSUtil.getNavigation(this.getEntityHandle()).c(true);
+		this.getNavigation().b(true);
+		this.getNavigation().c(true);
 		this.m_door = null;
 	}
 
