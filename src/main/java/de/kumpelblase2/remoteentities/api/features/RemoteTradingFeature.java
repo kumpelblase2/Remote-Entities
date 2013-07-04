@@ -13,10 +13,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.nms.CustomMerchantInventory;
-import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.persistence.*;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
+@IgnoreSerialization
 public class RemoteTradingFeature extends RemoteFeature implements TradingFeature, Listener
 {
 	protected List<Player> m_tradingPlayers;
