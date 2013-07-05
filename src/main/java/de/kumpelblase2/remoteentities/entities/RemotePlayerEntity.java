@@ -218,7 +218,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	void updateSpawn()
 	{
 		Packet20NamedEntitySpawn packet = new Packet20NamedEntitySpawn(this);
-		for(Player player : WorldUtilities.getNearbyPlayers(this.getBukkitEntity(), 64))
+		for(Player player : this.getBukkitEntity().getLocation().getWorld().getPlayers())
 		{
 			WorldUtilities.sendPacketToPlayer(player, packet);
 		}
