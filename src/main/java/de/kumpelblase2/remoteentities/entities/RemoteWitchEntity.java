@@ -125,6 +125,12 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 		super.die(damagesource);
 	}
 
+	@Override
+	public Entity findTarget()
+	{
+		return this.getGoalTarget();
+	}
+
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {

@@ -126,6 +126,12 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 		super.die(damagesource);
 	}
 
+	@Override
+	public Entity findTarget()
+	{
+		return this.getGoalTarget();
+	}
+
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {

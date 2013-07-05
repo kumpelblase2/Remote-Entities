@@ -120,6 +120,12 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		super.die(damagesource);
 	}
 
+	@Override
+	public Entity findTarget()
+	{
+		return this.getGoalTarget();
+	}
+
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {

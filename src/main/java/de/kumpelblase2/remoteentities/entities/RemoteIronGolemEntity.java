@@ -120,6 +120,12 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 		super.die(damagesource);
 	}
 
+	@Override
+	public Entity findTarget()
+	{
+		return this.getGoalTarget();
+	}
+
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
 	{
 		return new DesireItem[] {

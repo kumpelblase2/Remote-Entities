@@ -127,6 +127,12 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 	}
 
 	@Override
+	public Entity findTarget()
+	{
+		return this.getGoalTarget();
+	}
+
+	@Override
 	public void die(DamageSource damagesource)
 	{
 		((RemoteBaseEntity)this.m_remoteEntity).onDeath();
