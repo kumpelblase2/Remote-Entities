@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.nms;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.server.v1_6_R1.*;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerSenses extends EntitySenses
 {
@@ -13,7 +14,7 @@ public class PlayerSenses extends EntitySenses
 	List unseenEntities = new ArrayList();
 
 	public PlayerSenses(EntityLiving inEntity) {
-		super(null);
+		super(NMSUtil.getTempInsertientEntity());
 		this.entity = inEntity;
 	}
 

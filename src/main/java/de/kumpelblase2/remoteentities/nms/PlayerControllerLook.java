@@ -16,7 +16,7 @@ public class PlayerControllerLook extends ControllerLook
 	private double g;
 
 	public PlayerControllerLook(EntityLiving inEntity) {
-		super(null);
+		super(NMSUtil.getTempInsertientEntity());
 		this.a = inEntity;
 	}
 

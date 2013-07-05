@@ -17,7 +17,7 @@ public class PlayerControllerMove extends ControllerMove
 	private boolean f;
 
 	public PlayerControllerMove(EntityLiving inEntity) {
-		super(getTempEntity(inEntity));
+		super(NMSUtil.getTempInsertientEntity());
 		this.a = inEntity;
 		this.b = inEntity.locX;
 		this.c = inEntity.locY;
@@ -74,16 +74,5 @@ public class PlayerControllerMove extends ControllerMove
 		}
 
 		return f + f3;
-	}
-
-	private static EntityInsentient getTempEntity(EntityLiving inWorldHolder)
-	{
-		if(s_tempEntity != null)
-			return s_tempEntity;
-		else
-		{
-			s_tempEntity = new TempBatEntity(inWorldHolder.world);
-			return s_tempEntity;
-		}
 	}
 }

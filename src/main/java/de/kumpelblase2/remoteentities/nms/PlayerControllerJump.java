@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.nms;
 
 import net.minecraft.server.v1_6_R1.ControllerJump;
 import net.minecraft.server.v1_6_R1.EntityLiving;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerControllerJump extends ControllerJump
 {
@@ -11,7 +12,7 @@ public class PlayerControllerJump extends ControllerJump
 	private boolean b;
 
 	public PlayerControllerJump(EntityLiving inEntity) {
-		super(null);
+		super(NMSUtil.getTempInsertientEntity());
 		this.a = inEntity;
 	}
 

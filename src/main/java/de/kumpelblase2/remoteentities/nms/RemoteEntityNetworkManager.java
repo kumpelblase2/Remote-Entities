@@ -8,7 +8,7 @@ public class RemoteEntityNetworkManager extends NetworkManager
 
 	public RemoteEntityNetworkManager(MinecraftServer server) throws IOException
 	{
-		super(MinecraftServer.getServer().getLogger(), new NullSocket(), "remoteentitiymanager", new Connection()
+		super(server.getLogger(), new NullSocket(), "remoteentitiymanager", new Connection()
 		{
 			@Override
 			public boolean a()

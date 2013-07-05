@@ -5,6 +5,8 @@ import de.kumpelblase2.remoteentities.entities.RemotePlayerEntity;
 
 public class NMSUtil
 {
+	private static EntityInsentient s_tempEntity;
+
 	public static Navigation getNavigation(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityInsentient)
@@ -117,5 +119,17 @@ public class NMSUtil
 	public static boolean canBeSteered(EntityLiving inEntity)
 	{
 		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bu();
+	}
+
+	public static EntityInsentient getTempInsertientEntity()
+	{
+		if(s_tempEntity == null)
+		{
+			s_tempEntity = new EntityInsentient(null)
+			{
+			};
+		}
+
+		return s_tempEntity;
 	}
 }
