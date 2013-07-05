@@ -13,6 +13,7 @@ public interface TradingFeature extends Feature
 	public List<Player> getTradingPlayers();
 	public List<TradeOffer> getOfferings();
 	public void addOffer(ItemStack inOffering, ItemStack inCost);
+	public void addOffer(TradeOffer inOffer);
 	public void removeOffer(TradeOffer inOffer);
 	public void removeOffers(ItemStack inForItem);
 	public void useOffer(TradeOffer inOffer);

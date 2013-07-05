@@ -4,16 +4,16 @@ import java.util.*;
 import net.minecraft.server.v1_6_R1.MerchantRecipe;
 import net.minecraft.server.v1_6_R1.MerchantRecipeList;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.nms.CustomMerchantInventory;
+import de.kumpelblase2.remoteentities.nms.VirtualMerchant;
 import de.kumpelblase2.remoteentities.persistence.*;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 @IgnoreSerialization
@@ -22,7 +22,7 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 	protected List<Player> m_tradingPlayers;
 	@SerializeAs(pos = 2)
 	protected List<TradeOffer> m_offerings;
-	protected final Inventory m_inventory;
+	protected final VirtualMerchant m_merchant;
 	@SerializeAs(pos = 1)
 	protected String m_name;
 	protected MerchantRecipeList m_recipeList;
@@ -47,7 +47,7 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 		super("TRADING", inEntity);
 		this.m_offerings = inOfferings;
 		this.m_tradingPlayers = new ArrayList<Player>();
-		this.m_inventory = new CraftInventory(new CustomMerchantInventory(this));
+		this.m_merchant = new VirtualMerchant(this);
 		this.m_name = inName;
 	}
 
@@ -79,8 +79,11 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 	@Override
 	public void openFor(Player inPlayer)
 	{
+		if(this.m_offerings.size() == 0)
+			return;
+
 		this.m_tradingPlayers.add(inPlayer);
-		inPlayer.openInventory(this.m_inventory);
+		((CraftPlayer)inPlayer).getHandle().openTrade(this.m_merchant, this.getTradeName());
 	}
 
 	@Override
@@ -104,15 +107,27 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 	@Override
 	public void addOffer(ItemStack inOffering, ItemStack inCost)
 	{
-		TradeOffer offer = new TradeOffer(inOffering, inCost);
-		this.m_offerings.add(offer);
+		this.addOffer(new TradeOffer(inOffering, inCost));
+	}
+
+	@Override
+	public void addOffer(TradeOffer inOffer)
+	{
+		this.m_offerings.add(inOffer);
+		if(this.m_recipeList != null)
+			this.populateRecipeList();
 	}
 
 	@Override
 	public void removeOffer(TradeOffer inOffer)
 	{
-		MerchantRecipe recipe = this.getRecipeFromOffer(inOffer);
-		this.m_recipeList.remove(recipe);
+		Iterator it = this.m_recipeList.iterator();
+		while(it.hasNext())
+		{
+			MerchantRecipe recipe = (MerchantRecipe)it.next();
+			if(isSameOffer(inOffer, recipe))
+				it.remove();
+		}
 		this.m_offerings.remove(inOffer);
 	}
 
@@ -149,19 +164,8 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 	{
 		for(TradeOffer offer : this.m_offerings)
 		{
-			if(!offer.getCost().equals(CraftItemStack.asBukkitCopy(inRecipe.getBuyItem1())))
-				continue;
-
-			if((offer.getSecondCost() == null && inRecipe.getBuyItem2() != null) || (offer.getSecondCost() != null && inRecipe.getBuyItem2() == null))
-				continue;
-
-			if(offer.getSecondCost() != null && inRecipe.getBuyItem2() != null && !offer.getSecondCost().equals(CraftItemStack.asBukkitCopy(inRecipe.getBuyItem2())))
-				continue;
-
-			if(!offer.getResult().equals(CraftItemStack.asBukkitCopy(inRecipe.getBuyItem3())))
-				continue;
-
-			return offer;
+			if(isSameOffer(offer, inRecipe))
+				return offer;
 		}
 
 		return null;
@@ -172,19 +176,8 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 		for(Object o : this.m_recipeList)
 		{
 			MerchantRecipe recipe = (MerchantRecipe)o;
-			if(!recipe.getBuyItem1().equals(CraftItemStack.asNMSCopy(inOffer.getCost())))
-				continue;
-
-			if((inOffer.getSecondCost() == null && recipe.getBuyItem2() != null) || (inOffer.getSecondCost() != null && recipe.getBuyItem2() == null))
-				continue;
-
-			if(recipe.getBuyItem2() != null && inOffer.getSecondCost() != null && !recipe.getBuyItem2().equals(CraftItemStack.asNMSCopy(inOffer.getSecondCost())))
-				continue;
-
-			if(!recipe.getBuyItem3().equals(CraftItemStack.asNMSCopy(inOffer.getResult())))
-				continue;
-
-			return recipe;
+			if(isSameOffer(inOffer, recipe))
+				return recipe;
 		}
 
 		return null;
@@ -202,7 +195,7 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 		for(TradeOffer offer : this.m_offerings)
 		{
 			MerchantRecipe recipe = new MerchantRecipe(CraftItemStack.asNMSCopy(offer.getCost()), (offer.getSecondCost() != null ? CraftItemStack.asNMSCopy(offer.getSecondCost()) : null), CraftItemStack.asNMSCopy(offer.getResult()));
-			recipe.a(-7);//reset to 0
+			recipe.a(-7); //reset to 0
 			if(offer.getRemainingUses() == -1)
 				recipe.a(2);
 			else
@@ -219,5 +212,22 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 			return;
 
 		this.closeFor((Player)event.getPlayer());
+	}
+
+	public static boolean isSameOffer(TradeOffer inOffer, MerchantRecipe inRecipe)
+	{
+		if(!NMSUtil.isAboutEqual(inRecipe.getBuyItem1(), CraftItemStack.asNMSCopy(inOffer.getCost())))
+			return false;
+
+		if((inOffer.getSecondCost() == null && inRecipe.getBuyItem2() != null) || (inOffer.getSecondCost() != null && inRecipe.getBuyItem2() == null))
+			return false;
+
+		if(inRecipe.getBuyItem2() != null && inOffer.getSecondCost() != null && !NMSUtil.isAboutEqual(inRecipe.getBuyItem2(), CraftItemStack.asNMSCopy(inOffer.getSecondCost())))
+			return false;
+
+		if(!NMSUtil.isAboutEqual(inRecipe.getBuyItem3(), CraftItemStack.asNMSCopy(inOffer.getResult())))
+			return false;
+
+		return true;
 	}
 }

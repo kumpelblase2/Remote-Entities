@@ -63,6 +63,11 @@ public class TradeOffer
 		return this.m_inStore;
 	}
 
+	public void setRemainingUses(int inRemainingUses)
+	{
+		this.m_inStore = inRemainingUses;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -74,11 +79,17 @@ public class TradeOffer
 
 		TradeOffer tradeOffer = (TradeOffer)o;
 
-		if(!m_cost.equals(tradeOffer.m_cost))
+		if(!m_cost.isSimilar(tradeOffer.m_cost))
 			return false;
 
-		if(!m_result.equals(tradeOffer.m_result))
+		if(!m_result.isSimilar(tradeOffer.m_result))
 			return false;
+
+		if(this.m_cost2 != null)
+		{
+			if(!this.m_cost2.isSimilar(tradeOffer.getSecondCost()))
+				return false;
+		}
 
 		return true;
 	}

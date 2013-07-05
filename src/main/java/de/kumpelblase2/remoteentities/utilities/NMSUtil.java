@@ -132,4 +132,24 @@ public class NMSUtil
 
 		return s_tempEntity;
 	}
+
+	public static boolean isAboutEqual(ItemStack inNMSStack, ItemStack inNMSStack2)
+	{
+		if(inNMSStack.id != inNMSStack2.id)
+			return false;
+
+		if(inNMSStack.usesData() != inNMSStack2.usesData() || inNMSStack.getData() != inNMSStack2.getData())
+			return false;
+
+		if((inNMSStack.tag != null && inNMSStack2.tag == null) || (inNMSStack.tag == null && inNMSStack2.tag != null))
+			return false;
+
+		if(inNMSStack.tag != null && inNMSStack2.tag != null)
+		{
+			if(!inNMSStack2.tag.equals(inNMSStack2.tag))
+				return false;
+		}
+
+		return true;
+	}
 }

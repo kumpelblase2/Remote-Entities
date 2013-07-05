@@ -8,7 +8,7 @@ public class VirtualMerchant implements IMerchant
 {
 	protected final RemoteTradingFeature m_feature;
 
-	protected VirtualMerchant(RemoteTradingFeature inFeature)
+	public VirtualMerchant(RemoteTradingFeature inFeature)
 	{
 		this.m_feature = inFeature;
 	}
@@ -33,7 +33,6 @@ public class VirtualMerchant implements IMerchant
 	@Override
 	public void a(MerchantRecipe inMerchantRecipe)
 	{
-		inMerchantRecipe.f();
 		this.m_feature.useOffer(this.m_feature.getOfferFromRecipe(inMerchantRecipe));
 	}
 

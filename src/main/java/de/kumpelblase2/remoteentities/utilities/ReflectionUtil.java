@@ -78,7 +78,9 @@ public final class ReflectionUtil
 	 *
 	 * @param inEntity	entity
 	 * @return			speed
+	 * @deprecated because of new attribute system
 	 */
+	@Deprecated
 	public static float getSpeed(EntityLiving inEntity)
 	{
 		try
@@ -107,7 +109,9 @@ public final class ReflectionUtil
 	 *
 	 * @param inEntity	entity
 	 * @return			modifier
+	 * @deprecated because of new attribute system
 	 */
+	@Deprecated
 	public static float getSpeedModifier(EntityLiving inEntity)
 	{
 		try
