@@ -11,7 +11,6 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
-import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the villager baby will play around with another baby villager.

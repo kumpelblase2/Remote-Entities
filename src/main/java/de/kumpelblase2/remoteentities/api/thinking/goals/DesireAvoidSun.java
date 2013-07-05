@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will try to find a dark place to be instead of remaining at a sunny spot.

@@ -8,7 +8,6 @@ import de.kumpelblase2.remoteentities.api.features.TamedRidingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotRideableException;
-import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class DesireTameByRiding extends DesireBase
 {

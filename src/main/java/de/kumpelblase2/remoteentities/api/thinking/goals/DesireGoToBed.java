@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.entities.RemotePlayer;
-import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the player will try to find next bed and will go to sleep at night.

@@ -6,7 +6,6 @@ import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
-import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 /**
  * Using this desire the entity will occasionally try and eat either long grass or a grass block.
