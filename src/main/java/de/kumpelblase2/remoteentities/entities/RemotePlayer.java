@@ -62,6 +62,8 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		this.m_entity.world.players.remove(this.m_entity);
 		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 		((RemotePlayerEntity)this.m_entity).updateSpawn();
+		if(this.m_speed != -1)
+			this.setSpeed(this.m_speed);
 	}
 
 	@Override

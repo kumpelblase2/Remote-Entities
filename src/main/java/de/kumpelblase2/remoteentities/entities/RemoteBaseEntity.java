@@ -1,6 +1,5 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import java.lang.reflect.Field;
 import net.minecraft.server.v1_6_R1.*;
 import net.minecraft.server.v1_6_R1.World;
 import org.bukkit.*;
@@ -33,13 +32,13 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected final RemoteEntityType m_type;
 	protected EntityLiving m_entity;
 	protected boolean m_isPushable = true;
-	protected float m_speed;
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
 	protected String m_nameToSpawnwith;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	protected int m_pathfindingRange = 32;
+	protected double m_speed = -1;
 
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -47,15 +46,6 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		this.m_mind = new Mind(this);
 		this.m_features = new FeatureSet();
 		this.m_type = inType;
-		try
-		{
-			Field speed = DefaultEntitySpeed.class.getDeclaredField(this.m_type.name().toUpperCase() + "_SPEED");
-			this.m_speed = speed.getFloat(null);
-		}
-		catch(Exception e)
-		{
-			this.m_speed = 0.25F;
-		}
 		this.m_manager = inManager;
 	}
 
@@ -134,7 +124,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	}
 
 	@Override
-	public boolean move(Location inLocation, float inSpeed)
+	public boolean move(Location inLocation, double inSpeed)
 	{
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
@@ -154,7 +144,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	}
 
 	@Override
-	public boolean move(LivingEntity inEntity, float inSpeed)
+	public boolean move(LivingEntity inEntity, double inSpeed)
 	{
 		if(!this.isSpawned() || this.m_isStationary)
 			return false;
@@ -286,6 +276,9 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				this.getBukkitEntity().setCustomName(this.getName());
 				this.getBukkitEntity().setCustomNameVisible(true);
 			}
+
+			if(this.m_speed != -1)
+				this.setSpeed(this.m_speed);
 		}
 		catch(Exception e)
 		{
@@ -355,15 +348,26 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	}
 
 	@Override
-	public float getSpeed()
+	public double getSpeed()
 	{
-		return this.m_speed;
+		if(this.m_entity == null)
+		{
+			if(this.m_speed != -1)
+				return this.m_speed;
+			else
+				return GenericAttributes.d.b();
+		}
+		else
+			return this.m_entity.a(GenericAttributes.d).e();
 	}
 
 	@Override
-	public void setSpeed(float inSpeed)
+	public void setSpeed(double inSpeed)
 	{
-		this.m_speed = inSpeed;
+		if(this.m_entity == null)
+			this.m_speed = inSpeed;
+		else
+			this.m_entity.a(GenericAttributes.d).a(inSpeed);
 	}
 
 	@Override
@@ -385,7 +389,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	 * @param inSpeed	Speed to walk with
 	 * @return			true if it could use the path, false if not
 	 */
-	public boolean moveWithPath(PathEntity inPath, float inSpeed)
+	public boolean moveWithPath(PathEntity inPath, double inSpeed)
 	{
 		if(this.m_entity == null || inPath == null || this.m_isStationary)
 			return false;

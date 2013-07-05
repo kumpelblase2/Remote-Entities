@@ -67,7 +67,7 @@ public interface RemoteEntity extends Nameable
 	 * @param inSpeed		speed of the entity
 	 * @return				true if it was possible, false if not
 	 */
-	public boolean move(Location inLocation, float inSpeed);
+	public boolean move(Location inLocation, double inSpeed);
 
 	/**
 	 * Tries to move the entity towards another entity
@@ -84,7 +84,7 @@ public interface RemoteEntity extends Nameable
 	 * @param inSpeed	speed of the entity
 	 * @return			true if it was possible, false if not
 	 */
-	public boolean move(LivingEntity inEntity, float inSpeed);
+	public boolean move(LivingEntity inEntity, double inSpeed);
 
 	/**
 	 * Sets that yaw of the entity
@@ -205,14 +205,14 @@ public interface RemoteEntity extends Nameable
 	 *
 	 * @return speed
 	 */
-	public float getSpeed();
+	public double getSpeed();
 
 	/**
 	 * Sets the speed of the entity
 	 *
 	 * @param inSpeed speed
 	 */
-	public void setSpeed(float inSpeed);
+	public void setSpeed(double inSpeed);
 
 	/**
 	 * Gets if the entity is pushable or not
