@@ -26,7 +26,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	@SerializeAs(pos = 2)
 	protected boolean m_ignoreSight;
 	@SerializeAs(pos = 3)
-	protected float m_speed;
+	protected double m_speed;
 
 	public DesireMoveAndMeleeAttack(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight)
 	{
@@ -34,7 +34,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	}
 
 	@SuppressWarnings("unchecked")
-	public DesireMoveAndMeleeAttack(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight, float inSpeed)
+	public DesireMoveAndMeleeAttack(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight, double inSpeed)
 	{
 		super(inEntity);
 		this.m_speed = inSpeed;

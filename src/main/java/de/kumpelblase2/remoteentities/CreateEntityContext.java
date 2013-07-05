@@ -21,7 +21,7 @@ public class CreateEntityContext
 	private final EntityManager m_manager;
 	private boolean m_stationary = false;
 	private boolean m_pushable = true;
-	private float m_speed = -1;
+	private double m_speed = -1;
 	private double m_maxHealth = -1;
 	private int m_pathfindingRange = -1;
 	private final List<DesireItem> m_movementDesires;
@@ -140,7 +140,7 @@ public class CreateEntityContext
 	 * @param inSpeed	Speed
 	 * @return			Context
 	 */
-	public CreateEntityContext withSpeed(float inSpeed)
+	public CreateEntityContext withSpeed(double inSpeed)
 	{
 		this.m_speed  = inSpeed;
 		return this;

@@ -17,7 +17,7 @@ public class EntityData implements ConfigurationSerializable
 	public LocationData location;
 	public boolean stationary;
 	public boolean pushable;
-	public float speed;
+	public double speed;
 	public int pathfindingRange = 32;
 	public DesireData[] actionDesires = new DesireData[0];
 	public DesireData[] movementDesires = new DesireData[0];

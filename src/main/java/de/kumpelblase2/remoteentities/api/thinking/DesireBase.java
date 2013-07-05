@@ -72,7 +72,7 @@ public abstract class DesireBase implements Desire
 		this.m_type = inType;
 	}
 
-	public void movePath(PathEntity inPath, float inSpeed)
+	public void movePath(PathEntity inPath, double inSpeed)
 	{
 		if(this.getRemoteEntity() instanceof RemoteBaseEntity)
 			((RemoteBaseEntity)this.getRemoteEntity()).moveWithPath(inPath, inSpeed);
