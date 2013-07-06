@@ -20,6 +20,7 @@ import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.events.*;
 import de.kumpelblase2.remoteentities.api.features.*;
 import de.kumpelblase2.remoteentities.api.thinking.*;
+import de.kumpelblase2.remoteentities.nms.RemoteSpeedModifier;
 import de.kumpelblase2.remoteentities.persistence.ISingleEntitySerializer;
 import de.kumpelblase2.remoteentities.utilities.*;
 
@@ -39,6 +40,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected long m_lastBouncedTime;
 	protected int m_pathfindingRange = 32;
 	protected double m_speed = -1;
+	protected AttributeModifier m_speedModifier;
 
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -279,6 +281,12 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 			if(this.m_speed != -1)
 				this.setSpeed(this.m_speed);
+
+			if(this.m_speedModifier != null)
+			{
+				this.addSpeedModifier(this.m_speedModifier.d(), (this.m_speedModifier.c() == 0));
+				this.m_speedModifier = null;
+			}
 		}
 		catch(Exception e)
 		{
@@ -368,6 +376,27 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			this.m_speed = inSpeed;
 		else
 			this.m_entity.a(GenericAttributes.d).a(inSpeed);
+	}
+
+	@Override
+	public void removeSpeedModifier()
+	{
+		if(this.m_entity != null)
+			this.m_entity.a(GenericAttributes.d).b(new RemoteSpeedModifier(0, false));
+	}
+
+	@Override
+	public void addSpeedModifier(double inAmount, boolean inAdditive)
+	{
+		RemoteSpeedModifier modifier = new RemoteSpeedModifier(inAmount, inAdditive);
+		if(this.m_entity == null)
+			this.m_speedModifier = modifier;
+		else
+		{
+			AttributeInstance instance = this.m_entity.a(GenericAttributes.b);
+			instance.b(modifier);
+			instance.a(modifier);
+		}
 	}
 
 	@Override

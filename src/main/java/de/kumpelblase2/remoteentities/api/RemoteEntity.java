@@ -215,6 +215,19 @@ public interface RemoteEntity extends Nameable
 	public void setSpeed(double inSpeed);
 
 	/**
+	 * Adds a speed modifier for your entity.
+	 *
+	 * @param inAmount      The amount of how much you want to alter the speed
+	 * @param inAdditive    If it should be additive to the current speed or should be multiplicative
+	 */
+	public void addSpeedModifier(double inAmount, boolean inAdditive);
+
+	/**
+	 * Removes the speed modifier currently on the entity.
+	 */
+	public void removeSpeedModifier();
+
+	/**
 	 * Gets if the entity is pushable or not
 	 *
 	 * @return true if pushable, false if not
