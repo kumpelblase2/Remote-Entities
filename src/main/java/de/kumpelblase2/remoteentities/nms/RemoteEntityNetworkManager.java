@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import net.minecraft.server.v1_6_R1.*;
 
 public class RemoteEntityNetworkManager extends NetworkManager
@@ -16,6 +17,16 @@ public class RemoteEntityNetworkManager extends NetworkManager
 				return false;
 			}
 		}, server.H().getPrivate());
+		try
+		{
+			Field field = NetworkManager.class.getDeclaredField("n");
+			field.setAccessible(true);
+			field.set(this, false);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -34,7 +45,18 @@ public class RemoteEntityNetworkManager extends NetworkManager
 	}
 
 	@Override
+	public void d()
+	{
+	}
+
+	@Override
 	public void a()
 	{
+	}
+
+	@Override
+	public int e()
+	{
+		return 0;
 	}
 }
