@@ -11,18 +11,18 @@ public class RemoteRidingFeature extends RemoteFeature implements RidingFeature
 	@SerializeAs(pos = 1)
 	protected boolean m_isRideable;
 	@SerializeAs(pos = 2)
-	protected int m_rideableChance;
+	protected int m_temper;
 
 	public RemoteRidingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, false, 500);
 	}
 
-	public RemoteRidingFeature(RemoteEntity inEntity, boolean inRideable, int inRideableChance)
+	public RemoteRidingFeature(RemoteEntity inEntity, boolean inRideable, int m_temper)
 	{
 		super("RIDING", inEntity);
 		this.m_isRideable = inRideable;
-		this.m_rideableChance = inRideableChance;
+		this.m_temper = m_temper;
 	}
 
 	@Override
@@ -38,15 +38,15 @@ public class RemoteRidingFeature extends RemoteFeature implements RidingFeature
 	}
 
 	@Override
-	public int getRideableChance()
+	public int getTemper()
 	{
-		return m_rideableChance;
+		return m_temper;
 	}
 
 	@Override
-	public void increaseRideableChance(int inChance)
+	public void increaseTemper(int inTemper)
 	{
-		this.m_rideableChance = MathHelper.a(this.getRideableChance(), 0, 100);
+		this.m_temper = MathHelper.a(this.getTemper(), 0, 100);
 	}
 
 	@Override

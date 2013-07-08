@@ -13,7 +13,7 @@ public class RemoteTamedRidingFeature extends RemoteFeature implements TamedRidi
 	@SerializeAs(pos = 2)
 	protected boolean m_isRideable;
 	@SerializeAs(pos = 3)
-	protected int m_rideableChance;
+	protected int m_temper;
 	@SerializeAs(pos = 1)
 	protected String m_tamer;
 
@@ -27,17 +27,17 @@ public class RemoteTamedRidingFeature extends RemoteFeature implements TamedRidi
 		this(inEntity, inTamer, false, 500);
 	}
 
-	public RemoteTamedRidingFeature(RemoteEntity inEntity, boolean inRideable, int inRideableChance)
+	public RemoteTamedRidingFeature(RemoteEntity inEntity, boolean inRideable, int inTemper)
 	{
-		this(inEntity, null, inRideable, inRideableChance);
+		this(inEntity, null, inRideable, inTemper);
 	}
 
-	public RemoteTamedRidingFeature(RemoteEntity inEntity, String inTamer, boolean inRideable, int inRideableChance)
+	public RemoteTamedRidingFeature(RemoteEntity inEntity, String inTamer, boolean inRideable, int inTemper)
 	{
 		super("TAMEDRIDING", inEntity);
 		this.m_tamer = inTamer;
 		this.m_isRideable = inRideable;
-		this.m_rideableChance = inRideableChance;
+		this.m_temper = inTemper;
 	}
 
 	@Override
@@ -53,15 +53,15 @@ public class RemoteTamedRidingFeature extends RemoteFeature implements TamedRidi
 	}
 
 	@Override
-	public int getRideableChance()
+	public int getTemper()
 	{
-		return this.m_rideableChance;
+		return this.m_temper;
 	}
 
 	@Override
-	public void increaseRideableChance(int inChance)
+	public void increaseTemper(int inTemper)
 	{
-		this.m_rideableChance = MathHelper.a(this.getRideableChance(), 0, 100);
+		this.m_temper = MathHelper.a(this.getTemper(), 0, 100);
 	}
 
 	@Override

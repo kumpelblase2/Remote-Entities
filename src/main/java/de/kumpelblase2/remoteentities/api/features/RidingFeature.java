@@ -17,16 +17,16 @@ public interface RidingFeature extends Feature
 	public void setRideable(boolean inStatus);
 
 	/**
-	 * Gets the chance by that the entity can now be ridden.
+	 * Gets the temper of this entity.
 	 *
 	 * @return  The chance
 	 */
-	public int getRideableChance();
+	public int getTemper();
 
 	/**
-	 * Sets the change by that the entity can now be ridden.
+	 * Sets the temper of the entity.
 	 *
-	 * @param inChance  The chance
+	 * @param inTemper  The temper
 	 */
-	public void increaseRideableChance(int inChance);
+	public void increaseTemper(int inTemper);
 }

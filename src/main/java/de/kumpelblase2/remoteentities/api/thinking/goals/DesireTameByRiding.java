@@ -72,7 +72,7 @@ public class DesireTameByRiding extends DesireBase
 		{
 			if(entity.passenger instanceof EntityHuman)
 			{
-				int i = this.getRideableChance();
+				int i = this.getTemper();
 				int j = 100; //horse.cm()
 
 				if(j > 0 && entity.aB().nextInt(j) < i)
@@ -122,14 +122,14 @@ public class DesireTameByRiding extends DesireBase
 		if(this.getEntityHandle() instanceof EntityHorse)
 			((EntityHorse)this.getEntityHandle()).t(inIncrease);
 		else
-			this.getRemoteEntity().getFeatures().getFeature(RidingFeature.class).increaseRideableChance(inIncrease);
+			this.getRemoteEntity().getFeatures().getFeature(RidingFeature.class).increaseTemper(inIncrease);
 	}
 
-	protected int getRideableChance()
+	protected int getTemper()
 	{
 		if(this.getEntityHandle() instanceof EntityHorse)
 			return ((EntityHorse)this.getEntityHandle()).cg();
 		else
-			return this.getRemoteEntity().getFeatures().getFeature(RidingFeature.class).getRideableChance();
+			return this.getRemoteEntity().getFeatures().getFeature(RidingFeature.class).getTemper();
 	}
 }
