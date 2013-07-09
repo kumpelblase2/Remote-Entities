@@ -133,7 +133,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(!NMSUtil.getNavigation(this.m_entity).a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
-			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), this.getPathfindingRange(), true, false, false, true);
+			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), (float)this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
@@ -157,7 +157,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(!NMSUtil.getNavigation(this.m_entity).a(handle, inSpeed))
 		{
-			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, this.getPathfindingRange(), true, false, false, true);
+			PathEntity path = this.m_entity.world.findPath(this.getHandle(), handle, (float)this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;

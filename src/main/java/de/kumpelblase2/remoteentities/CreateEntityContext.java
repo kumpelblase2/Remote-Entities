@@ -23,7 +23,7 @@ public class CreateEntityContext
 	private boolean m_pushable = true;
 	private double m_speed = -1;
 	private double m_maxHealth = -1;
-	private int m_pathfindingRange = -1;
+	private double m_pathfindingRange = -1;
 	private final List<DesireItem> m_movementDesires;
 	private final List<DesireItem> m_actionDesires;
 
@@ -190,7 +190,7 @@ public class CreateEntityContext
 	 * @param inRange   the range
 	 * @return          context
 	 */
-	public CreateEntityContext withPathfindingRange(int inRange)
+	public CreateEntityContext withPathfindingRange(double inRange)
 	{
 		this.m_pathfindingRange = inRange;
 		return this;
