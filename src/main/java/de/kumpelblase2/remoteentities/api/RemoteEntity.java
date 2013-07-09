@@ -246,14 +246,14 @@ public interface RemoteEntity extends Nameable
 	 *
 	 * @param inRange new range for the pathfinder
 	 */
-	public void setPathfindingRange(int inRange);
+	public void setPathfindingRange(double inRange);
 
 	/**
 	 * Gets the max range for the pathfinder.
 	 *
 	 * @return range
 	 */
-	public int getPathfindingRange();
+	public double getPathfindingRange();
 
 	/**
 	 * Gets the manager that created this entity
