@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.features;
 
-import net.minecraft.server.v1_6_R1.MathHelper;
+import net.minecraft.server.v1_6_R2.MathHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;

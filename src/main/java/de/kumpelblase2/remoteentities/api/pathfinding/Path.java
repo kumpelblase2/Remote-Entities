@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
 import java.util.List;
-import net.minecraft.server.v1_6_R1.PathEntity;
-import net.minecraft.server.v1_6_R1.PathPoint;
+import net.minecraft.server.v1_6_R2.PathEntity;
+import net.minecraft.server.v1_6_R2.PathPoint;
 
 public class Path
 {

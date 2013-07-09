@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -122,7 +122,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.bf *= 0.9F;
 
         float prev = this.aN;
-		this.aN *= this.a(GenericAttributes.a).e() * this.getRemoteEntity().getSpeed();
+		this.aN *= this.getAttributeInstance(GenericAttributes.a).getValue() * this.getRemoteEntity().getSpeed();
 		this.e(this.aV, this.be);
 		this.aN = prev;
 		this.aO = this.yaw;

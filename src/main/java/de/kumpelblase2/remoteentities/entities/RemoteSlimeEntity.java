@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -79,14 +79,14 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 
 		// --- Taken from EntitySlime.java#103 - #121
 		if (this.onGround && this.m_jumpDelay-- <= 0) {
-            this.m_jumpDelay = this.bH();
+            this.m_jumpDelay = this.bL();
             if (this.m_target != null) {
                 this.m_jumpDelay /= 3;
             }
 
             this.bd = true;
-            if (this.bO()) {
-	            this.makeSound(this.bL(), this.aW(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            if (this.bS()) {
+	            this.makeSound(this.bP(), this.aZ(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.be = 1.0F - this.random.nextFloat() * 2.0F;

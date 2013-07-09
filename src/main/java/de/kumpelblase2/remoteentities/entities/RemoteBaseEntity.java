@@ -1,13 +1,13 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R1.*;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R2.World;
 import org.bukkit.*;
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_6_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -366,7 +366,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				return GenericAttributes.d.b();
 		}
 		else
-			return this.m_entity.a(GenericAttributes.d).e();
+			return this.m_entity.getAttributeInstance(GenericAttributes.d).getValue();
 	}
 
 	@Override
@@ -375,14 +375,14 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(this.m_entity == null)
 			this.m_speed = inSpeed;
 		else
-			this.m_entity.a(GenericAttributes.d).a(inSpeed);
+			this.m_entity.getAttributeInstance(GenericAttributes.d).setValue(inSpeed);
 	}
 
 	@Override
 	public void removeSpeedModifier()
 	{
 		if(this.m_entity != null)
-			this.m_entity.a(GenericAttributes.d).b(new RemoteSpeedModifier(0, false));
+			this.m_entity.getAttributeInstance(GenericAttributes.d).b(new RemoteSpeedModifier(0, false));
 	}
 
 	@Override
@@ -393,7 +393,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			this.m_speedModifier = modifier;
 		else
 		{
-			AttributeInstance instance = this.m_entity.a(GenericAttributes.b);
+			AttributeInstance instance = this.m_entity.getAttributeInstance(GenericAttributes.b);
 			instance.b(modifier);
 			instance.a(modifier);
 		}

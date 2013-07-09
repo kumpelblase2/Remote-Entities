@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -46,7 +46,7 @@ public class DesireAcceptFlower extends DesireBase
 				while(it.hasNext())
 				{
 					EntityIronGolem golem = it.next();
-					if(golem.bR() > 0)
+					if(golem.bV() > 0)
 					{
 						this.m_nearestGolem = golem;
 						break;
@@ -66,7 +66,7 @@ public class DesireAcceptFlower extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_takeFlowerTick = this.getEntityHandle().aB().nextInt(320);
+		this.m_takeFlowerTick = this.getEntityHandle().aC().nextInt(320);
 		this.m_takeFlower = false;
 		this.m_nearestGolem.getNavigation().g();
 	}
@@ -83,7 +83,7 @@ public class DesireAcceptFlower extends DesireBase
 	{
 		EntityLiving entity = this.getEntityHandle();
 		NMSUtil.getControllerLook(entity).a(this.m_nearestGolem, 30, 30);
-		if(this.m_nearestGolem.bR() == this.m_takeFlowerTick)
+		if(this.m_nearestGolem.bV() == this.m_takeFlowerTick)
 		{
 			this.getNavigation().a(this.m_nearestGolem, this.getRemoteEntity().getSpeed());
 			this.m_takeFlower = true;

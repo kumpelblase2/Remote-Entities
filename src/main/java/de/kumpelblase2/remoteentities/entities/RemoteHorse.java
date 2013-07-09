@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R1.EntityHorse;
+import net.minecraft.server.v1_6_R2.EntityHorse;
 import org.bukkit.entity.Horse;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;
@@ -26,21 +26,21 @@ public class RemoteHorse extends RemoteBaseEntity<Horse>
 
 	public void setType(HorseType inType)
 	{
-		((EntityHorse)this.m_entity).p(inType.ordinal());
+		((EntityHorse)this.m_entity).setType(inType.ordinal());
 	}
 
 	public HorseType getHorseType()
 	{
-		return HorseType.values()[((EntityHorse)this.m_entity).bP()];
+		return HorseType.values()[((EntityHorse)this.m_entity).getType()];
 	}
 
 	public void setVariant(HorseVariant inVariant)
 	{
-		((EntityHorse)this.m_entity).q(inVariant.getID());
+		((EntityHorse)this.m_entity).setVariant(inVariant.getID());
 	}
 
 	public HorseVariant getVariant()
 	{
-		return HorseVariant.getByID(((EntityHorse)this.m_entity).bQ());
+		return HorseVariant.getByID(((EntityHorse)this.m_entity).getVariant());
 	}
 }

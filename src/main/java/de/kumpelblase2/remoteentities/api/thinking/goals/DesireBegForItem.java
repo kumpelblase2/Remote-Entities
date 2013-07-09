@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.EntityWolf;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntityWolf;
 import org.bukkit.Material;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -42,9 +42,9 @@ public class DesireBegForItem extends DesireBase
 	public void startExecuting()
 	{
 		if(this.getEntityHandle() instanceof EntityWolf)
-			((EntityWolf)this.getEntityHandle()).n(true);
+			((EntityWolf)this.getEntityHandle()).m(true);
 
-		this.m_ticks = 40 + this.getEntityHandle().aB().nextInt(40);
+		this.m_ticks = 40 + this.getEntityHandle().aC().nextInt(40);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class DesireBegForItem extends DesireBase
 	{
 		this.m_nearestPlayer = null;
 		if(this.getEntityHandle() instanceof EntityWolf)
-			((EntityWolf)this.getEntityHandle()).n(false);
+			((EntityWolf)this.getEntityHandle()).m(false);
 	}
 
 	@Override

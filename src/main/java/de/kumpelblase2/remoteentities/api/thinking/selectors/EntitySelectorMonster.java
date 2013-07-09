@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.selectors;
 
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 
 public class EntitySelectorMonster implements IEntitySelector
 {

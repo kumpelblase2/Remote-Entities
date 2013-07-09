@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R1.EntityLiving;
-import net.minecraft.server.v1_6_R1.PathEntity;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftLivingEntity;
+import net.minecraft.server.v1_6_R2.EntityLiving;
+import net.minecraft.server.v1_6_R2.PathEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.*;
@@ -76,7 +76,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		NMSUtil.getControllerLook(entity).a(this.m_target, 30, 30);
 		if(--this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.aB().nextInt(7);
+			this.m_moveTick = 4 + entity.aC().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.getRemoteEntity().getSpeed());
 		}
 
@@ -85,7 +85,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
 			this.m_attackTick = 20;
-			if(entity.aV() != null)
+			if(entity.aY() != null)
 				this.getEntityHandle().aR();
 
 			this.attack((LivingEntity)this.m_target.getBukkitEntity());

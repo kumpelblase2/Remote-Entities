@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -49,7 +49,7 @@ public class DesireBreed extends DesireBase
 			return false;
 
 		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
-		if(!entity.bU())
+		if(!entity.bY())
 			return false;
 		else
 		{
@@ -61,7 +61,7 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_mate.isAlive() && this.m_mate.bU() && this.m_mateTicks < 60;
+		return this.m_mate.isAlive() && this.m_mate.bY() && this.m_mateTicks < 60;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -95,12 +95,12 @@ public class DesireBreed extends DesireBase
 			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
 			entity.setAge(6000);
 			this.m_mate.setAge(6000);
-			entity.bV();
-			this.m_mate.bV();
+			entity.bZ();
+			this.m_mate.bZ();
 			baby.setAge(-24000);
 			baby.setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
 			entity.world.addEntity(baby, SpawnReason.BREEDING);
-			Random r = entity.aB();
+			Random r = entity.aC();
 			for(int i = 0; i < 7; ++i)
 			{
 				double d0 = r.nextGaussian() * 0.02D;

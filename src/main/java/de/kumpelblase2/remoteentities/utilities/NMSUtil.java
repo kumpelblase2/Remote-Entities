@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 import de.kumpelblase2.remoteentities.entities.RemotePlayerEntity;
 
 public class NMSUtil
@@ -78,7 +78,7 @@ public class NMSUtil
 	public static int getMaxHeadRotation(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityInsentient)
-			return ((EntityInsentient)inEntity).bl();
+			return ((EntityInsentient)inEntity).bp();
 		else
 			return 40;
 	}
@@ -86,7 +86,7 @@ public class NMSUtil
 	public static ChunkCoordinates getChunkCoordinates(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityCreature)
-			return ((EntityCreature)inEntity).bL();
+			return ((EntityCreature)inEntity).bP();
 		else if(inEntity instanceof EntityPlayer)
 			return ((EntityPlayer)inEntity).b();
 		else
@@ -100,7 +100,7 @@ public class NMSUtil
 
 	public static boolean isInHomeArea(EntityLiving inEntity)
 	{
-		return !NMSUtil.hasHomeArea(inEntity) || !(inEntity instanceof EntityCreature) || ((EntityCreature)inEntity).bK();
+		return !NMSUtil.hasHomeArea(inEntity) || !(inEntity instanceof EntityCreature) || ((EntityCreature)inEntity).bO();
 	}
 
 	public static boolean isInHomeArea(EntityLiving inEntity, int x, int y, int z)
@@ -111,14 +111,14 @@ public class NMSUtil
 	public static float getHomeRange(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityCreature)
-			return ((EntityCreature)inEntity).bM();
+			return ((EntityCreature)inEntity).bQ();
 		else
 			return 5; //TODO 5 seems weird.
 	}
 
 	public static boolean canBeSteered(EntityLiving inEntity)
 	{
-		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bu();
+		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).by();
 	}
 
 	public static EntityInsentient getTempInsertientEntity()

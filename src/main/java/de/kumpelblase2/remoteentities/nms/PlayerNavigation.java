@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R1.*;
+import net.minecraft.server.v1_6_R2.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerNavigation extends Navigation
@@ -25,7 +25,7 @@ public class PlayerNavigation extends Navigation
 		super(NMSUtil.getTempInsertientEntity(), world);
 		this.a = inEntity;
 		this.b = world;
-		this.e = inEntity.a(GenericAttributes.b);
+		this.e = inEntity.getAttributeInstance(GenericAttributes.b);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class PlayerNavigation extends Navigation
 
 	@Override
 	public float d() {
-		return (float) this.e.e();
+		return (float) this.e.getValue();
 	}
 
 	@Override

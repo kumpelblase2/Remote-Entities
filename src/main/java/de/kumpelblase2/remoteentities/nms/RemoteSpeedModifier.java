@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.util.UUID;
-import net.minecraft.server.v1_6_R1.AttributeModifier;
+import net.minecraft.server.v1_6_R2.AttributeModifier;
 
 public class RemoteSpeedModifier extends AttributeModifier
 {

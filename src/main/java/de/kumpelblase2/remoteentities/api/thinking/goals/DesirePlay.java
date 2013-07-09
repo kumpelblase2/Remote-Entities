@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_6_R1.EntityVillager;
-import net.minecraft.server.v1_6_R1.Vec3D;
+import net.minecraft.server.v1_6_R2.EntityVillager;
+import net.minecraft.server.v1_6_R2.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -40,7 +40,7 @@ public class DesirePlay extends DesireBase
 
 		if(this.m_villager.getAge() >= 0)
 			return false;
-		else if(this.m_villager.aB().nextInt(400) != 0)
+		else if(this.m_villager.aC().nextInt(400) != 0)
 			return false;
 		else
 		{
@@ -51,7 +51,7 @@ public class DesirePlay extends DesireBase
 			while(it.hasNext())
 			{
 				EntityVillager villager = (EntityVillager)it.next();
-				if(villager != this.m_villager && !villager.bR() && villager.getAge() < 0)
+				if(villager != this.m_villager && !villager.bV() && villager.getAge() < 0)
 				{
 					double dist = villager.e(this.m_villager);
 
@@ -87,7 +87,7 @@ public class DesirePlay extends DesireBase
 	public void startExecuting()
 	{
 		if(this.m_friend != null)
-			this.m_villager.k(true);
+			this.m_villager.j(true);
 
 		this.m_playTick = 1000;
 	}
@@ -95,7 +95,7 @@ public class DesirePlay extends DesireBase
 	@Override
 	public void stopExecuting()
 	{
-		this.m_villager.k(false);
+		this.m_villager.j(false);
 		this.m_friend = null;
 	}
 
