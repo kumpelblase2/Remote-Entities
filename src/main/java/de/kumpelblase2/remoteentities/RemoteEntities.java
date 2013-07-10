@@ -17,10 +17,17 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
+	private static final String MINECRAFT_VERSION = "1.6.2";
 
 	@Override
 	public void onEnable()
 	{
+		if(!Bukkit.getServer().getVersion().contains("MC: " + MINECRAFT_VERSION)){
+			this.getLogger().severe("Invalid minecraft version for remote entities. Disabling plugin to prevent issues.");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		s_instance = this;
 		Bukkit.getPluginManager().registerEvents(new DisableListener(), this);
 	}
