@@ -1,8 +1,10 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import net.minecraft.server.v1_6_R2.*;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
+import de.kumpelblase2.remoteentities.api.features.TradingFeature;
+import de.kumpelblase2.remoteentities.utilities.*;
 
 /**
  * Using this desire the villager will look at the player which is trading with it.
@@ -30,7 +32,19 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 	{
 		EntityLiving entity = this.getEntityHandle();
 		if(!(entity instanceof EntityVillager))
+		{
+			if(this.getRemoteEntity().getFeatures().hasFeature(TradingFeature.class))
+			{
+				TradingFeature feature = this.getRemoteEntity().getFeatures().getFeature(TradingFeature.class);
+				if(feature.getTradingPlayers().size() != 0)
+				{
+					this.m_target = ((CraftLivingEntity)feature.getTradingPlayers().get(feature.getTradingPlayers().size() - 1)).getHandle();
+					return true;
+				}
+			}
+
 			return false;
+		}
 		else
 		{
 			EntityVillager villager = (EntityVillager)entity;
@@ -39,6 +53,7 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 				this.m_target = villager.m_();
 				return true;
 			}
+
 			return false;
 		}
 	}
