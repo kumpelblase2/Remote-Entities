@@ -109,10 +109,7 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		if(!(entity.getBukkitEntity() instanceof Player))
 			return super.a(entity);
 
-		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a(entity);
-		else
-			return false;
+		return ((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()) && super.a(entity);
 	}
 
 	@Override

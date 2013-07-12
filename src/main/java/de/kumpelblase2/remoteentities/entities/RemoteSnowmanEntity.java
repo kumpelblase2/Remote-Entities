@@ -106,10 +106,7 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 		if(!(entity.getBukkitEntity() instanceof Player))
 			return super.a(entity);
 
-		if(((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()))
-			return super.a(entity);
-		else
-			return false;
+		return ((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity()) && super.a(entity);
 	}
 
 	@Override
