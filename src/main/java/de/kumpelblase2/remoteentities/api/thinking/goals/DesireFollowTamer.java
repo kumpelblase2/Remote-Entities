@@ -100,21 +100,24 @@ public class DesireFollowTamer extends DesireBase
 				this.m_moveTick = 10;
 				if(!this.getRemoteEntity().move((LivingEntity)this.m_owner.getBukkitEntity()))
 				{
-					if(this.m_animal.e(this.m_owner) >= 144)
+					if(!NMSUtil.isOnLeash(this.m_animal))
 					{
-						int x = MathHelper.floor(this.m_owner.locX) - 2;
-						int z = MathHelper.floor(this.m_owner.locZ) - 2;
-						int y = MathHelper.floor(this.m_owner.boundingBox.b);
-
-						for(int i = 0; i <= 4; i++)
+						if(this.m_animal.e(this.m_owner) >= 144)
 						{
-							for(int l = 0; l <= 4; l++)
+							int x = MathHelper.floor(this.m_owner.locX) - 2;
+							int z = MathHelper.floor(this.m_owner.locZ) - 2;
+							int y = MathHelper.floor(this.m_owner.boundingBox.b);
+
+							for(int i = 0; i <= 4; i++)
 							{
-								if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.w(x + i, y - 1, z + l) && !this.m_animal.world.u(x + i, y, z + l) && !this.m_animal.world.u(x + i, y + 1, z + l))
+								for(int l = 0; l <= 4; l++)
 								{
-									this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
-									this.getNavigation().h();
-									return true;
+									if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.w(x + i, y - 1, z + l) && !this.m_animal.world.u(x + i, y, z + l) && !this.m_animal.world.u(x + i, y + 1, z + l))
+									{
+										this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
+										this.getNavigation().h();
+										return true;
+									}
 								}
 							}
 						}

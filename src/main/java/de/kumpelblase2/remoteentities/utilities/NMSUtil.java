@@ -93,6 +93,14 @@ public class NMSUtil
 			return new ChunkCoordinates(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ));
 	}
 
+	public static boolean isOnLeash(EntityLiving inEntity)
+	{
+		if(inEntity instanceof EntityInsentient)
+			return ((EntityInsentient)inEntity).bH();
+
+		return false;
+	}
+
 	public static boolean hasHomeArea(EntityLiving inEntity)
 	{
 		return inEntity instanceof EntityCreature && ((EntityCreature)inEntity).bO();

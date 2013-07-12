@@ -18,6 +18,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@SerializeAs(pos = 4)
 	protected boolean m_attackNearest;
 	protected EntityLiving m_target;
+	protected int m_lastAttackedTick;
 
 
 	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
@@ -37,7 +38,9 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().getLastDamager(), true);
+		int lastAttackedTick = this.getEntityHandle().aE();
+
+		return lastAttackedTick != this.m_lastAttackedTick && this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().getLastDamager(), true);
 	}
 
 	@Override
@@ -53,6 +56,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 		EntityLiving entity = this.getEntityHandle();
 		NMSUtil.setGoalTarget(entity, entity.getLastDamager());
 		this.m_target = entity.getLastDamager();
+		this.m_lastAttackedTick = this.getEntityHandle().aE();
 
 		if(this.m_attackNearest)
 		{
@@ -64,7 +68,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 			{
 				EntityLiving target = it.next();
 
-				if(this.getEntityHandle() != target && NMSUtil.getGoalTarget(target) == null)
+				if(this.getEntityHandle() != target && NMSUtil.getGoalTarget(target) == null && !target.c(this.getEntityHandle().getLastDamager()))
 					NMSUtil.setGoalTarget(target, entity.getLastDamager());
 			}
 		}

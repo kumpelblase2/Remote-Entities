@@ -15,6 +15,7 @@ import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 public class DesireProtectOwner extends DesireTamedBase
 {
 	protected EntityLiving m_ownerAttacker;
+	protected int m_lastAttackedTick;
 
 	public DesireProtectOwner(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight)
 	{
@@ -42,7 +43,8 @@ public class DesireProtectOwner extends DesireTamedBase
 			else
 			{
 				this.m_ownerAttacker = owner.getLastDamager();
-				return this.isSuitableTarget(this.m_ownerAttacker, false);
+				int lastAttackedTick = owner.aE();
+				return lastAttackedTick != this.m_lastAttackedTick && this.isSuitableTarget(this.m_ownerAttacker, false);
 			}
 		}
 	}
@@ -51,6 +53,7 @@ public class DesireProtectOwner extends DesireTamedBase
 	public void startExecuting()
 	{
 		NMSUtil.setGoalTarget(this.getEntityHandle(), this.m_ownerAttacker);
+		this.m_lastAttackedTick = this.getTamer().aE();
 		super.startExecuting();
 	}
 }
