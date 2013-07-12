@@ -17,13 +17,15 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
-	private static final String MINECRAFT_VERSION = "1.6.2";
+	private static final String COMPATIBLE_VERSION = "1.6.2";
 
 	@Override
 	public void onEnable()
 	{
-		if(!Bukkit.getServer().getVersion().contains("MC: " + MINECRAFT_VERSION)){
-			this.getLogger().severe("Invalid minecraft version for remote entities. Disabling plugin to prevent issues.");
+		String minecraftversion = this.getPresentMinecraftVersion();
+		if(!minecraftversion.equals(COMPATIBLE_VERSION)){
+			this.getLogger().severe("Invalid minecraft version for remote entities (Required: " + COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
+			this.getLogger().severe("Disabling plugin to prevent issues.");
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -41,6 +43,15 @@ public class RemoteEntities extends JavaPlugin
 			manager.unregisterEntityLoader();
 		}
 		s_instance = null;
+	}
+
+	private String getPresentMinecraftVersion()
+	{
+		String fullVersion = Bukkit.getServer().getVersion();
+		String[] split = fullVersion.split("MC: ");
+		split = split[1].split("\\)");
+
+		return split[0];
 	}
 
 	/**
@@ -161,6 +172,16 @@ public class RemoteEntities extends JavaPlugin
 				return entity;
 		}
 		return null;
+	}
+
+	/**
+	 * Returns the minecraft version this version of remote entities is compatible with.
+	 *
+	 * @return  A string representing the version
+	 */
+	public static String getCompatibleMinecraftVersion()
+	{
+		return COMPATIBLE_VERSION;
 	}
 
 	class DisableListener implements Listener
