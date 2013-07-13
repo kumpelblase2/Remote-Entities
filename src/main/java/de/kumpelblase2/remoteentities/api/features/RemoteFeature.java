@@ -8,7 +8,6 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public class RemoteFeature implements Feature
 {
 	protected final String NAME;
-	@SerializeAs(pos = 0, special = "entity")
 	protected RemoteEntity m_entity;
 
 	@Deprecated
