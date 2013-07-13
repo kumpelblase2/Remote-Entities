@@ -19,24 +19,46 @@ public class RemoteTamedRidingFeature extends RemoteFeature implements TamedRidi
 
 	public RemoteTamedRidingFeature()
 	{
-		this(null);
+		this((String)null);
 	}
 
+	public RemoteTamedRidingFeature(String inTamer)
+	{
+		this(inTamer, false, 500);
+	}
+
+	public RemoteTamedRidingFeature(boolean inRideable, int inTemper)
+	{
+		this((String)null, inRideable, inTemper);
+	}
+
+	public RemoteTamedRidingFeature(String inTamer, boolean inRideable, int inTemper)
+	{
+		super("TAMEDRIDING");
+		this.m_tamer = inTamer;
+		this.m_isRideable = inRideable;
+		this.m_temper = inTemper;
+	}
+
+	@Deprecated
 	public RemoteTamedRidingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, null);
 	}
 
+	@Deprecated
 	public RemoteTamedRidingFeature(RemoteEntity inEntity, String inTamer)
 	{
 		this(inEntity, inTamer, false, 500);
 	}
 
+	@Deprecated
 	public RemoteTamedRidingFeature(RemoteEntity inEntity, boolean inRideable, int inTemper)
 	{
 		this(inEntity, null, inRideable, inTemper);
 	}
 
+	@Deprecated
 	public RemoteTamedRidingFeature(RemoteEntity inEntity, String inTamer, boolean inRideable, int inTemper)
 	{
 		super("TAMEDRIDING", inEntity);

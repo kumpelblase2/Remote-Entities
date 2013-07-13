@@ -14,20 +14,34 @@ public class RemoteTamingFeature extends RemoteFeature implements TamingFeature
 
 	public RemoteTamingFeature()
 	{
-		this(null);
+		this((String)null);
 	}
 
+	public RemoteTamingFeature(String inTamer)
+	{
+		super("TAMING");
+		this.m_tamer = inTamer;
+	}
+
+	public RemoteTamingFeature(Player inTamer)
+	{
+		this(inTamer.getName());
+	}
+
+	@Deprecated
 	public RemoteTamingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, (String)null);
 	}
 
+	@Deprecated
 	public RemoteTamingFeature(RemoteEntity inEntity, String inTamer)
 	{
 		super("TAMING", inEntity);
 		this.m_tamer = inTamer;
 	}
 
+	@Deprecated
 	public RemoteTamingFeature(RemoteEntity inEntity, Player inTamer)
 	{
 		this(inEntity, inTamer.getName());

@@ -12,19 +12,22 @@ public class RemoteAgeFeature extends RemoteFeature implements AgeFeature
 
 	public RemoteAgeFeature()
 	{
-		this(null);
+		this(0);
 	}
 
 	public RemoteAgeFeature(int inAge)
 	{
-		this(null, inAge);
+		super("AGE");
+		this.m_age = inAge;
 	}
 
+	@Deprecated
 	public RemoteAgeFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, 0);
 	}
 
+	@Deprecated
 	public RemoteAgeFeature(RemoteEntity inEntity, int inAge)
 	{
 		super("AGE", inEntity);

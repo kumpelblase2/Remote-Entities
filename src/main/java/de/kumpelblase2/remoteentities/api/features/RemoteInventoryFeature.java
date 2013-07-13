@@ -16,20 +16,35 @@ public class RemoteInventoryFeature extends RemoteFeature implements InventoryFe
 
 	public RemoteInventoryFeature()
 	{
-		this(null);
+		this(36);
 	}
 
+	public RemoteInventoryFeature(int inSize)
+	{
+		this((CraftInventoryCustom)null);
+		this.m_size = inSize;
+	}
+
+	public RemoteInventoryFeature(CraftInventoryCustom inInventory)
+	{
+		super("INVENTORY");
+		this.m_inventory = inInventory;
+	}
+
+	@Deprecated
 	public RemoteInventoryFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, 36);
 	}
 
+	@Deprecated
 	public RemoteInventoryFeature(RemoteEntity inEntity, int inSize)
 	{
 		this(inEntity, null);
 		this.m_size = inSize;
 	}
 
+	@Deprecated
 	public RemoteInventoryFeature(RemoteEntity inEntity, CraftInventoryCustom inInventory)
 	{
 		super("INVENTORY", inEntity);

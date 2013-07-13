@@ -29,24 +29,47 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 
 	public RemoteTradingFeature()
 	{
-		this(null);
+		this((String)null);
 	}
 
+	public RemoteTradingFeature(String inName)
+	{
+		this(inName, new ArrayList<TradeOffer>());
+	}
+
+	public RemoteTradingFeature(List<TradeOffer> inOfferings)
+	{
+		this("Trade", inOfferings);
+	}
+
+	public RemoteTradingFeature(String inName, List<TradeOffer> inOfferings)
+	{
+		super("TRADING");
+		this.m_offerings = inOfferings;
+		this.m_tradingPlayers = new ArrayList<Player>();
+		this.m_merchant = new VirtualMerchant(this);
+		this.m_name = inName;
+	}
+
+	@Deprecated
 	public RemoteTradingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, new ArrayList<TradeOffer>());
 	}
 
+	@Deprecated
 	public RemoteTradingFeature(RemoteEntity inEntity, String inName)
 	{
 		this(inEntity, inName, new ArrayList<TradeOffer>());
 	}
 
+	@Deprecated
 	public RemoteTradingFeature(RemoteEntity inEntity, List<TradeOffer> inOfferings)
 	{
 		this(inEntity, "Trade", inOfferings);
 	}
 
+	@Deprecated
 	public RemoteTradingFeature(RemoteEntity inEntity, String inName, List<TradeOffer> inOfferings)
 	{
 		super("TRADING", inEntity);

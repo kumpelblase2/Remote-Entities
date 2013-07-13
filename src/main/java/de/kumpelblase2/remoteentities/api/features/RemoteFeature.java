@@ -11,6 +11,7 @@ public class RemoteFeature implements Feature
 	@SerializeAs(pos = 0, special = "entity")
 	protected RemoteEntity m_entity;
 
+	@Deprecated
 	public RemoteFeature(String inName, RemoteEntity inEntity)
 	{
 		this(inName);

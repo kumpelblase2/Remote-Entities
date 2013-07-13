@@ -15,14 +15,23 @@ public class RemoteRidingFeature extends RemoteFeature implements RidingFeature
 
 	public RemoteRidingFeature()
 	{
-		this(null);
+		this(false, 500);
 	}
 
+	public RemoteRidingFeature(boolean inRideable, int m_temper)
+	{
+		super("RIDING");
+		this.m_isRideable = inRideable;
+		this.m_temper = m_temper;
+	}
+
+	@Deprecated
 	public RemoteRidingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, false, 500);
 	}
 
+	@Deprecated
 	public RemoteRidingFeature(RemoteEntity inEntity, boolean inRideable, int m_temper)
 	{
 		super("RIDING", inEntity);
