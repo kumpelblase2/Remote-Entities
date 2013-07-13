@@ -10,7 +10,6 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public abstract class DesireBase implements Desire
 {
-	@SerializeAs(pos = 0, special = "entity")
 	protected RemoteEntity m_entity;
 	protected DesireType m_type = DesireType.SUBCONSCIOUS;
 	protected boolean m_isContinuous = true;
