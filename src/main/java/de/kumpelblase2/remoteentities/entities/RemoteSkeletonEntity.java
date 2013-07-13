@@ -50,8 +50,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	public void setupStandardGoals()
 	{
 		Mind mind = this.getRemoteEntity().getMind();
-		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
-		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
+		mind.addMovementDesires(getDefaultMovementDesires());
+		mind.addTargetingDesires(getDefaultTargetingDesires());
 	}
 
 	@Override
@@ -123,24 +123,24 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		return this.getGoalTarget();
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(inEntityFor), 1),
-				new DesireItem(new DesireRestrictSun(inEntityFor), 2),
-				new DesireItem(new DesireAvoidSun(inEntityFor), 3),
-				new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.ENTITY_DEFAULT, 60), 4),
-				new DesireItem(new DesireWanderAround(inEntityFor), 5),
-				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 6),
-				new DesireItem(new DesireLookRandomly(inEntityFor), 6)
+				new DesireItem(new DesireSwim(null), 1),
+				new DesireItem(new DesireRestrictSun(null), 2),
+				new DesireItem(new DesireAvoidSun(null), 3),
+				new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.ENTITY_DEFAULT, 60), 4),
+				new DesireItem(new DesireWanderAround(null), 5),
+				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 6),
+				new DesireItem(new DesireLookRandomly(null), 6)
 		};
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, false, false), 1),
-				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 16, false, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 1),
+				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 16, false, true, 0), 2)
 		};
 	}
 }

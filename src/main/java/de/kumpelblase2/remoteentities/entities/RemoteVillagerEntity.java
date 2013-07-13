@@ -54,7 +54,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires());
 	}
 
 	@Override
@@ -120,26 +120,26 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 		super.die(damagesource);
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(inEntityFor), 0),
-					new DesireItem(new DesireAvoidSpecific(inEntityFor, 8f, 0.35f, 0.3f, EntityZombie.class), 1),
-					new DesireItem(new DesireTradeWithPlayer(inEntityFor), 1),
-					new DesireItem(new DesireLookAtTrader(inEntityFor, 8), 1),
-					new DesireItem(new DesireMoveIndoors(inEntityFor), 2),
-					new DesireItem(new DesireRestrictOpenDoor(inEntityFor), 3),
-					new DesireItem(new DesireOpenDoor(inEntityFor, true, false), 4),
-					new DesireItem(new DesireMoveTowardsRestriction(inEntityFor), 5),
-					new DesireItem(new DesireMakeLove(inEntityFor), 6),
-					new DesireItem(new DesireAcceptFlower(inEntityFor), 7),
-					new DesireItem(new DesirePlay(inEntityFor), 8),
-					new DesireItem(new DesireInteract(inEntityFor, EntityHuman.class, 3), 9),
-					new DesireItem(new DesireInteract(inEntityFor, EntityVillager.class, 5), 9),
-					new DesireItem(new DesireWanderAround(inEntityFor), 9),
-					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityInsentient.class, 8), 10)
+					new DesireItem(new DesireSwim(null), 0),
+					new DesireItem(new DesireAvoidSpecific(null, 8f, 0.35f, 0.3f, EntityZombie.class), 1),
+					new DesireItem(new DesireTradeWithPlayer(null), 1),
+					new DesireItem(new DesireLookAtTrader(null, 8), 1),
+					new DesireItem(new DesireMoveIndoors(null), 2),
+					new DesireItem(new DesireRestrictOpenDoor(null), 3),
+					new DesireItem(new DesireOpenDoor(null, true, false), 4),
+					new DesireItem(new DesireMoveTowardsRestriction(null), 5),
+					new DesireItem(new DesireMakeLove(null), 6),
+					new DesireItem(new DesireAcceptFlower(null), 7),
+					new DesireItem(new DesirePlay(null), 8),
+					new DesireItem(new DesireInteract(null, EntityHuman.class, 3), 9),
+					new DesireItem(new DesireInteract(null, EntityVillager.class, 5), 9),
+					new DesireItem(new DesireWanderAround(null), 9),
+					new DesireItem(new DesireLookAtNearest(null, EntityInsentient.class, 8), 10)
 			};
 		}
 		catch(Exception e)
@@ -149,7 +149,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 		}
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[0];
 	}

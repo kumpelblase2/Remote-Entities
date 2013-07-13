@@ -47,8 +47,8 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
-		this.getRemoteEntity().getMind().addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires());
+		this.getRemoteEntity().getMind().addTargetingDesires(getDefaultTargetingDesires());
 	}
 
 	@Override
@@ -120,16 +120,16 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 		super.die(damagesource);
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
-		return new DesireItem[] { new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.SMALL_FIREBALL, 20), 1) };
+		return new DesireItem[] { new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.SMALL_FIREBALL, 20), 1) };
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 64, true, true), 1),
-				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 64, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(null, 64, true, true), 1),
+				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 64, true, 0), 2)
 		};
 	}
 }

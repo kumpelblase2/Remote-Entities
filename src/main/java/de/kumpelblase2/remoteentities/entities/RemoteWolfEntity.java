@@ -52,8 +52,8 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	public void setupStandardGoals()
 	{
 		Mind mind = this.getRemoteEntity().getMind();
-		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
-		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
+		mind.addMovementDesires(getDefaultMovementDesires());
+		mind.addTargetingDesires(getDefaultTargetingDesires());
 	}
 
 	@Override
@@ -125,21 +125,21 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		return this.getGoalTarget();
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(inEntityFor), 1),
-					new DesireItem(new DesireSit(inEntityFor), 2),
-					new DesireItem(new DesireLeapAtTarget(inEntityFor, 0.4F), 3),
-					new DesireItem(new DesireMoveAndMeleeAttack(inEntityFor, null, true), 4),
-					new DesireItem(new DesireFollowTamer(inEntityFor, 2, 10), 5),
-					new DesireItem(new DesireBreed(inEntityFor), 6),
-					new DesireItem(new DesireWanderAround(inEntityFor), 7),
-					new DesireItem(new DesireBegForItem(inEntityFor, 8f, Material.BONE), 8),
-					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 9),
-					new DesireItem(new DesireLookRandomly(inEntityFor), 9)
+					new DesireItem(new DesireSwim(null), 1),
+					new DesireItem(new DesireSit(null), 2),
+					new DesireItem(new DesireLeapAtTarget(null, 0.4F), 3),
+					new DesireItem(new DesireMoveAndMeleeAttack(null, null, true), 4),
+					new DesireItem(new DesireFollowTamer(null, 2, 10), 5),
+					new DesireItem(new DesireBreed(null), 6),
+					new DesireItem(new DesireWanderAround(null), 7),
+					new DesireItem(new DesireBegForItem(null, 8f, Material.BONE), 8),
+					new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 9),
+					new DesireItem(new DesireLookRandomly(null), 9)
 			};
 		}
 		catch(Exception e)
@@ -149,15 +149,15 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		}
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireProtectOwner(inEntityFor, 32, false), 1),
-					new DesireItem(new DesireHelpAttacking(inEntityFor, 32, false), 2),
-					new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, true, true), 3),
-					new DesireItem(new DesireNonTamedFindNearest(inEntityFor, EntitySheep.class, 14, false, true, 750), 4)
+					new DesireItem(new DesireProtectOwner(null, 32, false), 1),
+					new DesireItem(new DesireHelpAttacking(null, 32, false), 2),
+					new DesireItem(new DesireFindAttackingTarget(null, 16, true, true), 3),
+					new DesireItem(new DesireNonTamedFindNearest(null, EntitySheep.class, 14, false, true, 750), 4)
 			};
 		}
 		catch(Exception e)

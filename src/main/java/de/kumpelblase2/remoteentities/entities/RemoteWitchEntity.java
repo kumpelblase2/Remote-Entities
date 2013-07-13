@@ -49,8 +49,8 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 	public void setupStandardGoals()
 	{
 		Mind mind = this.m_remoteEntity.getMind();
-		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
-		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
+		mind.addMovementDesires(getDefaultMovementDesires());
+		mind.addTargetingDesires(getDefaultTargetingDesires());
 	}
 
 	@Override
@@ -128,22 +128,22 @@ public class RemoteWitchEntity extends EntityWitch implements RemoteEntityHandle
 		return this.getGoalTarget();
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(inEntityFor), 1),
-				new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.ENTITY_DEFAULT, 60), 2),
-				new DesireItem(new DesireWanderAround(inEntityFor), 3),
-				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 4),
-				new DesireItem(new DesireLookRandomly(inEntityFor), 5)
+				new DesireItem(new DesireSwim(null), 1),
+				new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.ENTITY_DEFAULT, 60), 2),
+				new DesireItem(new DesireWanderAround(null), 3),
+				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 4),
+				new DesireItem(new DesireLookRandomly(null), 5)
 		};
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, false, false), 1),
-				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityHuman.class, 16, false, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 1),
+				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 16, false, true, 0), 2)
 		};
 	}
 }

@@ -52,8 +52,8 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		try
 		{
 			Mind mind = this.getRemoteEntity().getMind();
-			mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
-			mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
+			mind.addMovementDesires(getDefaultMovementDesires());
+			mind.addTargetingDesires(getDefaultTargetingDesires());
 		}
 		catch(Exception e)
 		{
@@ -136,23 +136,23 @@ public class RemoteCaveSpiderEntity extends EntityCaveSpider implements RemoteEn
 		super.die(damagesource);
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(inEntityFor), 1),
-				new DesireItem(new DesireLeapAtTarget(inEntityFor, 2), 2),
-				new DesireItem(new DesireMoveTowardsRestriction(inEntityFor), 3),
-				new DesireItem(new DesireWanderAround(inEntityFor), 4),
-				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 8), 5),
-				new DesireItem(new DesireLookRandomly(inEntityFor), 6)
+				new DesireItem(new DesireSwim(null), 1),
+				new DesireItem(new DesireLeapAtTarget(null, 2), 2),
+				new DesireItem(new DesireMoveTowardsRestriction(null), 3),
+				new DesireItem(new DesireWanderAround(null), 4),
+				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 5),
+				new DesireItem(new DesireLookRandomly(null), 6)
 		};
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(inEntityFor, 16, false, false), 1),
-				new DesireItem(new DesireFindNearestTargetAtNight(inEntityFor, EntityHuman.class, 16, false, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 1),
+				new DesireItem(new DesireFindNearestTargetAtNight(null, EntityHuman.class, 16, false, true, 0), 2)
 		};
 	}
 }

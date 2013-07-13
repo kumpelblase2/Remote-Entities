@@ -131,7 +131,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires());
 	}
 
 	@Override
@@ -221,14 +221,14 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		}
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(inEntityFor), 0)
+				new DesireItem(new DesireSwim(null), 0)
 		};
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[0];
 	}

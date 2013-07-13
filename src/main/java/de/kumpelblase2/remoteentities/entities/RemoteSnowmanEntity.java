@@ -49,8 +49,8 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 	public void setupStandardGoals()
 	{
 		Mind mind = this.getRemoteEntity().getMind();
-		mind.addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
-		mind.addTargetingDesires(getDefaultTargetingDesires(this.getRemoteEntity()));
+		mind.addMovementDesires(getDefaultMovementDesires());
+		mind.addTargetingDesires(getDefaultTargetingDesires());
 	}
 
 	@Override
@@ -116,20 +116,20 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 		super.die(damagesource);
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireRangedAttack(inEntityFor, RemoteProjectileType.ENTITY_DEFAULT), 1),
-				new DesireItem(new DesireWanderAround(inEntityFor), 2),
-				new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 6), 3),
-				new DesireItem(new DesireLookRandomly(inEntityFor), 4)
+				new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.ENTITY_DEFAULT), 1),
+				new DesireItem(new DesireWanderAround(null), 2),
+				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 6), 3),
+				new DesireItem(new DesireLookRandomly(null), 4)
 		};
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindNearestTarget(inEntityFor, EntityInsentient.class, 16, false, true, 0), 1)
+				new DesireItem(new DesireFindNearestTarget(null, EntityInsentient.class, 16, false, true, 0), 1)
 		};
 	}
 }

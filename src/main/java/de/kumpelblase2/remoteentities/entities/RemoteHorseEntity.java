@@ -37,7 +37,7 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		this.m_remoteEntity.getMind().addMovementDesires(getDefaultMovementDesires(this.m_remoteEntity));
+		this.m_remoteEntity.getMind().addMovementDesires(getDefaultMovementDesires());
 	}
 
 	@Override
@@ -112,19 +112,19 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 		super.die(damagesource);
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(inEntityFor), 0),
-					new DesireItem(new DesirePanic(inEntityFor), 1),
-					new DesireItem(new DesireTameByRiding(inEntityFor), 1),
-					new DesireItem(new DesireBreed(inEntityFor), 2),
-					new DesireItem(new DesireFollowParent(inEntityFor), 4),
-					new DesireItem(new DesireWanderAround(inEntityFor), 6),
-					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 6), 7),
-					new DesireItem(new DesireLookRandomly(inEntityFor), 8)
+					new DesireItem(new DesireSwim(null), 0),
+					new DesireItem(new DesirePanic(null), 1),
+					new DesireItem(new DesireTameByRiding(null), 1),
+					new DesireItem(new DesireBreed(null), 2),
+					new DesireItem(new DesireFollowParent(null), 4),
+					new DesireItem(new DesireWanderAround(null), 6),
+					new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 6), 7),
+					new DesireItem(new DesireLookRandomly(null), 8)
 			};
 		}
 		catch(Exception e)
@@ -134,7 +134,7 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 		}
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[0];
 	}

@@ -46,7 +46,7 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 	@Override
 	public void setupStandardGoals()
 	{
-		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires(this.getRemoteEntity()));
+		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires());
 	}
 
 	@Override
@@ -112,19 +112,19 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 		super.die(damagesource);
 	}
 
-	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultMovementDesires()
 	{
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(inEntityFor), 0),
-					new DesireItem(new DesirePanic(inEntityFor), 1),
-					new DesireItem(new DesireBreed(inEntityFor), 2),
-					new DesireItem(new DesireTempt(inEntityFor, Item.WHEAT.id, false), 3),
-					new DesireItem(new DesireFollowParent(inEntityFor), 4),
-					new DesireItem(new DesireWanderAround(inEntityFor), 5),
-					new DesireItem(new DesireLookAtNearest(inEntityFor, EntityHuman.class, 6), 6),
-					new DesireItem(new DesireLookRandomly(inEntityFor), 7)
+					new DesireItem(new DesireSwim(null), 0),
+					new DesireItem(new DesirePanic(null), 1),
+					new DesireItem(new DesireBreed(null), 2),
+					new DesireItem(new DesireTempt(null, Item.WHEAT.id, false), 3),
+					new DesireItem(new DesireFollowParent(null), 4),
+					new DesireItem(new DesireWanderAround(null), 5),
+					new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 6), 6),
+					new DesireItem(new DesireLookRandomly(null), 7)
 			};
 		}
 		catch(Exception e)
@@ -134,7 +134,7 @@ public class RemoteCowEntity extends EntityCow implements RemoteEntityHandle
 		}
 	}
 
-	public static DesireItem[] getDefaultTargetingDesires(RemoteEntity inEntityFor)
+	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[0];
 	}
