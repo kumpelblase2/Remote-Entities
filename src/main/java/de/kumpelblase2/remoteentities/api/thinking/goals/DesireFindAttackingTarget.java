@@ -20,7 +20,6 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	protected EntityLiving m_target;
 	protected int m_lastAttackedTick;
 
-
 	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);

@@ -58,6 +58,9 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public boolean update()
 	{
+		if(this.m_target == null)
+			return false;
+
 		NMSUtil.getControllerLook(this.getEntityHandle()).a(this.m_target.locX, this.m_target.locY + this.m_target.getHeadHeight(), this.m_target.locZ, 10, NMSUtil.getMaxHeadRotation(this.getEntityHandle()));
 		this.m_lookTicks--;
 		return true;

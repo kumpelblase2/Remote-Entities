@@ -4,7 +4,7 @@ import net.minecraft.server.v1_6_R2.*;
 import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TradingFeature;
-import de.kumpelblase2.remoteentities.utilities.*;
+import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
 
 /**
  * Using this desire the villager will look at the player which is trading with it.
