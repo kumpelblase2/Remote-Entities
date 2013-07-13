@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking;
 
 import java.util.*;
 import org.bukkit.Bukkit;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.events.*;
 
 public class DesireSelector
@@ -9,9 +10,11 @@ public class DesireSelector
 	private final List<DesireItem> m_desires;
 	private final List<DesireItem> m_executingDesires;
 	private int m_delay = 0;
+	private final RemoteEntity m_entity;
 
-	public DesireSelector()
+	public DesireSelector(RemoteEntity inEntity)
 	{
+		this.m_entity = inEntity;
 		this.m_desires = new ArrayList<DesireItem>();
 		this.m_executingDesires = new ArrayList<DesireItem>();
 	}
@@ -98,11 +101,12 @@ public class DesireSelector
 
 	public void addDesire(Desire inDesire, int inPriority)
 	{
-		RemoteDesireAddEvent event = new RemoteDesireAddEvent(inDesire.getRemoteEntity(), inDesire, inPriority);
+		RemoteDesireAddEvent event = new RemoteDesireAddEvent(this.m_entity, inDesire, inPriority);
 		Bukkit.getPluginManager().callEvent(event);
 		if(event.isCancelled())
 			return;
 
+		inDesire.onAdd(this.m_entity);
 		this.m_desires.add(new DesireItem(event.getDesire(), event.getPriority()));
 	}
 

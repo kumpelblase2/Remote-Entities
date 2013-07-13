@@ -13,6 +13,11 @@ public class RemoteRidingFeature extends RemoteFeature implements RidingFeature
 	@SerializeAs(pos = 2)
 	protected int m_temper;
 
+	public RemoteRidingFeature()
+	{
+		this(null);
+	}
+
 	public RemoteRidingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, false, 500);

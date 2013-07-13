@@ -17,6 +17,11 @@ public class RemoteTamedRidingFeature extends RemoteFeature implements TamedRidi
 	@SerializeAs(pos = 1)
 	protected String m_tamer;
 
+	public RemoteTamedRidingFeature()
+	{
+		this(null);
+	}
+
 	public RemoteTamedRidingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, null);

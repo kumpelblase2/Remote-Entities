@@ -9,11 +9,16 @@ public class RemoteFeature implements Feature
 {
 	protected final String NAME;
 	@SerializeAs(pos = 0, special = "entity")
-	protected final RemoteEntity m_entity;
+	protected RemoteEntity m_entity;
 
 	public RemoteFeature(String inName, RemoteEntity inEntity)
 	{
+		this(inName);
 		this.m_entity = inEntity;
+	}
+
+	public RemoteFeature(String inName)
+	{
 		this.NAME = inName;
 	}
 
@@ -32,6 +37,13 @@ public class RemoteFeature implements Feature
 	@Override
 	public void onAdd()
 	{
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		this.m_entity = inEntity;
+		this.onAdd();
 	}
 
 	@Override

@@ -10,6 +10,16 @@ public class RemoteAgeFeature extends RemoteFeature implements AgeFeature
 	@SerializeAs(pos = 1)
 	protected int m_age;
 
+	public RemoteAgeFeature()
+	{
+		this(null);
+	}
+
+	public RemoteAgeFeature(int inAge)
+	{
+		this(null, inAge);
+	}
+
 	public RemoteAgeFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, 0);

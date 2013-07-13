@@ -27,6 +27,11 @@ public class RemoteTradingFeature extends RemoteFeature implements TradingFeatur
 	protected String m_name;
 	protected MerchantRecipeList m_recipeList;
 
+	public RemoteTradingFeature()
+	{
+		this(null);
+	}
+
 	public RemoteTradingFeature(RemoteEntity inEntity)
 	{
 		this(inEntity, new ArrayList<TradeOffer>());

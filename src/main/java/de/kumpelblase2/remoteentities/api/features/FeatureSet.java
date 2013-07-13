@@ -1,10 +1,17 @@
 package de.kumpelblase2.remoteentities.api.features;
 
 import java.util.*;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class FeatureSet
 {
 	protected final List<Feature> m_features = new ArrayList<Feature>();
+	protected final RemoteEntity m_ofEntity;
+
+	public FeatureSet(RemoteEntity inEntity)
+	{
+		this.m_ofEntity = inEntity;
+	}
 
 	/**
 	 * Checks if the entity has a specific kind of feature
@@ -30,7 +37,7 @@ public class FeatureSet
 	public void addFeature(Feature inFeature)
 	{
 		this.removeFeature(inFeature.getClass());
-		inFeature.onAdd();
+		inFeature.onAdd(this.m_ofEntity);
 		this.m_features.add(inFeature);
 	}
 
@@ -80,6 +87,11 @@ public class FeatureSet
 		return this.m_features.size();
 	}
 
+	/**
+	 * Gets all features of the entity.
+	 *
+	 * @return  List of features
+	 */
 	public List<Feature> getAllFeatures()
 	{
 		return this.m_features;

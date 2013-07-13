@@ -13,6 +13,13 @@ public interface Desire extends SerializableData
 	public RemoteEntity getRemoteEntity();
 
 	/**
+	 * This method gets called when the desire gets added to a (different) entity.
+	 *
+	 * @param inEntity  The entity this desire gets added to
+	 */
+	public void onAdd(RemoteEntity inEntity);
+
+	/**
 	 * Gets the type
 	 *
 	 * @return type

@@ -46,7 +46,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	{
 		this.m_id = inID;
 		this.m_mind = new Mind(this);
-		this.m_features = new FeatureSet();
+		this.m_features = new FeatureSet(this);
 		this.m_type = inType;
 		this.m_manager = inManager;
 	}

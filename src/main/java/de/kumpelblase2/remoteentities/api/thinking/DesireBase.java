@@ -11,9 +11,13 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public abstract class DesireBase implements Desire
 {
 	@SerializeAs(pos = 0, special = "entity")
-	protected final RemoteEntity m_entity;
+	protected RemoteEntity m_entity;
 	protected DesireType m_type = DesireType.SUBCONSCIOUS;
 	protected boolean m_isContinuous = true;
+
+	public DesireBase()
+	{
+	}
 
 	public DesireBase(RemoteEntity inEntity)
 	{
@@ -24,6 +28,12 @@ public abstract class DesireBase implements Desire
 	public RemoteEntity getRemoteEntity()
 	{
 		return this.m_entity;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		this.m_entity = inEntity;
 	}
 
 	public EntityLiving getEntityHandle()
