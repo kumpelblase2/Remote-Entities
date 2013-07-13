@@ -15,9 +15,16 @@ public class DesireLookRandomly extends DesireBase
 	protected double m_zDiff;
 	protected int m_lookTick;
 
+	@Deprecated
 	public DesireLookRandomly(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireLookRandomly()
+	{
+		super();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 

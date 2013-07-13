@@ -17,9 +17,16 @@ public class DesireAcceptFlower extends DesireBase
 	protected EntityIronGolem m_nearestGolem;
 	protected int m_takeFlowerTick;
 
+	@Deprecated
 	public DesireAcceptFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireAcceptFlower()
+	{
+		super();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 

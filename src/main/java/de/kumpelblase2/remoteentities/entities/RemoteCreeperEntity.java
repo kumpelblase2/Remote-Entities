@@ -132,21 +132,21 @@ public class RemoteCreeperEntity extends EntityCreeper implements RemoteEntityHa
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(null), 1),
-				new DesireItem(new DesireSwell(null), 2),
-				new DesireItem(new DesireAvoidSpecific(null, 6f, 0.25f, 0.3f, EntityOcelot.class), 3),
-				new DesireItem(new DesireMoveAndMeleeAttack(null, null, false), 4),
-				new DesireItem(new DesireWanderAround(null), 5),
-				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 6),
-				new DesireItem(new DesireLookRandomly(null), 6)
+				new DesireItem(new DesireSwim(), 1),
+				new DesireItem(new DesireSwell(), 2),
+				new DesireItem(new DesireAvoidSpecific(6f, 0.25f, 0.3f, EntityOcelot.class), 3),
+				new DesireItem(new DesireMoveAndMeleeAttack(null, false), 4),
+				new DesireItem(new DesireWanderAround(), 5),
+				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 6),
+				new DesireItem(new DesireLookRandomly(), 6)
 		};
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 16, true, 0), 1),
-				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 2)
+				new DesireItem(new DesireFindNearestTarget(EntityHuman.class, 16, true, 0), 1),
+				new DesireItem(new DesireFindAttackingTarget(16, false, false), 2)
 		};
 	}
 }

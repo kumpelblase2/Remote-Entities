@@ -119,15 +119,15 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(null), 0),
-					new DesireItem(new DesirePanic(null), 1),
-					new DesireItem(new DesireBreed(null), 2),
-					new DesireItem(new DesireTempt(null, Item.WHEAT.id, false), 3),
-					new DesireItem(new DesireFollowParent(null), 4),
-					new DesireItem(new DesireEatGrass(null), 5),
-					new DesireItem(new DesireWanderAround(null), 6),
-					new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 6), 7),
-					new DesireItem(new DesireLookRandomly(null), 8)
+					new DesireItem(new DesireSwim(), 0),
+					new DesireItem(new DesirePanic(), 1),
+					new DesireItem(new DesireBreed(), 2),
+					new DesireItem(new DesireTempt(Item.WHEAT.id, false), 3),
+					new DesireItem(new DesireFollowParent(), 4),
+					new DesireItem(new DesireEatGrass(), 5),
+					new DesireItem(new DesireWanderAround(), 6),
+					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 7),
+					new DesireItem(new DesireLookRandomly(), 8)
 			};
 		}
 		catch(Exception e)

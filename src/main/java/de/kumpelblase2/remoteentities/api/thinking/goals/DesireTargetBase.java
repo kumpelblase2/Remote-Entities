@@ -27,14 +27,33 @@ public abstract class DesireTargetBase extends DesireBase
 	protected int m_lastAttackTick;
 	protected int m_notSeeingTarget;
 
+	@Deprecated
 	public DesireTargetBase(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight)
 	{
 		this(inEntity, inDistance, inShouldCheckSight, false);
 	}
 
+	@Deprecated
 	public DesireTargetBase(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
 	{
 		super(inEntity);
+		this.m_shouldCheckSight = inShouldCheckSight;
+		this.m_distance = inDistance;
+		this.m_distanceSquared = this.m_distance * this.m_distance;
+		this.m_shouldMeleeAttack = inShouldMelee;
+		this.m_useAttack = 0;
+		this.m_lastAttackTick = 0;
+		this.m_notSeeingTarget = 0;
+	}
+
+	public DesireTargetBase(float inDistance, boolean inShouldCheckSight)
+	{
+		this(inDistance, inShouldCheckSight, false);
+	}
+
+	public DesireTargetBase(float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
+	{
+		super();
 		this.m_shouldCheckSight = inShouldCheckSight;
 		this.m_distance = inDistance;
 		this.m_distanceSquared = this.m_distance * this.m_distance;

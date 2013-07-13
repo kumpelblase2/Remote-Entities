@@ -126,21 +126,21 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(null), 1),
-				new DesireItem(new DesireRestrictSun(null), 2),
-				new DesireItem(new DesireAvoidSun(null), 3),
-				new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.ENTITY_DEFAULT, 60), 4),
-				new DesireItem(new DesireWanderAround(null), 5),
-				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 6),
-				new DesireItem(new DesireLookRandomly(null), 6)
+				new DesireItem(new DesireSwim(), 1),
+				new DesireItem(new DesireRestrictSun(), 2),
+				new DesireItem(new DesireAvoidSun(), 3),
+				new DesireItem(new DesireRangedAttack(RemoteProjectileType.ENTITY_DEFAULT, 60), 4),
+				new DesireItem(new DesireWanderAround(), 5),
+				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 6),
+				new DesireItem(new DesireLookRandomly(), 6)
 		};
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 1),
-				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 16, false, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(16, false, false), 1),
+				new DesireItem(new DesireFindNearestTarget(EntityHuman.class, 16, false, true, 0), 2)
 		};
 	}
 }

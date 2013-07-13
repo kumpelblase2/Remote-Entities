@@ -20,6 +20,7 @@ public class DesireOfferFlower extends DesireBase
 	@SerializeAs(pos = 1)
 	protected Class<? extends Entity> m_toOffer;
 
+	@Deprecated
 	public DesireOfferFlower(RemoteEntity inEntity)
 	{
 		super(inEntity);
@@ -27,10 +28,28 @@ public class DesireOfferFlower extends DesireBase
 		this.m_type = DesireType.SUBCONSCIOUS;
 	}
 
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public DesireOfferFlower(RemoteEntity inEntity, Class<?> inToOffer)
 	{
 		this(inEntity);
+		if(Entity.class.isAssignableFrom(inToOffer))
+			this.m_toOffer = (Class<? extends Entity>)inToOffer;
+		else
+			this.m_toOffer = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToOffer);
+	}
+
+	public DesireOfferFlower()
+	{
+		super();
+		this.m_toOffer = EntityVillager.class;
+		this.m_type = DesireType.SUBCONSCIOUS;
+	}
+
+	@SuppressWarnings("unchecked")
+	public DesireOfferFlower(Class<?> inToOffer)
+	{
+		this();
 		if(Entity.class.isAssignableFrom(inToOffer))
 			this.m_toOffer = (Class<? extends Entity>)inToOffer;
 		else

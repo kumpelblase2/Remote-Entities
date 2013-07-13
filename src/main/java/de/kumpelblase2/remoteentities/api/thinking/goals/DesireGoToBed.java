@@ -11,11 +11,13 @@ import de.kumpelblase2.remoteentities.entities.RemotePlayer;
  */
 public class DesireGoToBed extends DesireFindBlockBase
 {
+	@Deprecated
 	public DesireGoToBed(RemotePlayer inEntity)
 	{
 		this(inEntity, 32);
 	}
 
+	@Deprecated
 	public DesireGoToBed(RemotePlayer inEntity, int inRange)
 	{
 		super(inEntity, Block.BED.id, inRange);
@@ -26,6 +28,23 @@ public class DesireGoToBed extends DesireFindBlockBase
 	public DesireGoToBed(RemoteEntity inEntity, int inBlockID, int inRange)
 	{
 		super(inEntity, inBlockID, inRange);
+	}
+
+	public DesireGoToBed()
+	{
+		this(32);
+	}
+
+	public DesireGoToBed(int inRange)
+	{
+		super(Block.BED.id, inRange);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	@Deprecated
+	public DesireGoToBed(int inBlockID, int inRange)
+	{
+		super(inBlockID, inRange);
 	}
 
 	@Override

@@ -224,7 +224,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(null), 0)
+				new DesireItem(new DesireSwim(), 0)
 		};
 	}
 

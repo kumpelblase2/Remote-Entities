@@ -122,14 +122,14 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 
 	public static DesireItem[] getDefaultMovementDesires()
 	{
-		return new DesireItem[] { new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.SMALL_FIREBALL, 20), 1) };
+		return new DesireItem[] { new DesireItem(new DesireRangedAttack(RemoteProjectileType.SMALL_FIREBALL, 20), 1) };
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(null, 64, true, true), 1),
-				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 64, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(64, true, true), 1),
+				new DesireItem(new DesireFindNearestTarget(EntityHuman.class, 64, true, 0), 2)
 		};
 	}
 }

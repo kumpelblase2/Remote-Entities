@@ -16,11 +16,13 @@ public class DesireTameByRiding extends DesireBase
 	protected double m_z;
 	protected double m_speed;
 
+	@Deprecated
 	public DesireTameByRiding(RemoteEntity inEntity)
 	{
 		this(inEntity, 1.2d);
 	}
 
+	@Deprecated
 	public DesireTameByRiding(RemoteEntity inEntity, double inSpeed)
 	{
 		super(inEntity);
@@ -31,9 +33,24 @@ public class DesireTameByRiding extends DesireBase
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
+	public DesireTameByRiding()
+	{
+		this(1.2d);
+	}
+
+	public DesireTameByRiding(double inSpeed)
+	{
+		super();
+		this.m_speed = inSpeed;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
 	@Override
 	public boolean shouldExecute()
 	{
+		if(!(this.getEntityHandle() instanceof EntityHorse) && !this.m_entity.getFeatures().hasFeature(RidingFeature.class))
+			throw new NotRideableException();
+
 		if(!this.canBeRidden() && this.getEntityHandle().passenger != null)
 		{
 			Vec3D vec = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.a(this.getEntityHandle(), 5, 4);

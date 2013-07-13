@@ -24,14 +24,27 @@ public class DesireBegForItem extends DesireBase
 	protected float m_minDistanceSquared;
 	private int m_ticks;
 
+	@Deprecated
 	public DesireBegForItem(RemoteEntity inEntity, Material... inMaterial)
 	{
 		this(inEntity, 5f, inMaterial);
 	}
 
+	@Deprecated
 	public DesireBegForItem(RemoteEntity inEntity, float inMinDistance, Material... inMaterial)
 	{
-		super(inEntity);
+		this(inMinDistance, inMaterial);
+		this.m_entity = inEntity;
+	}
+
+	public DesireBegForItem(Material... inMaterial)
+	{
+		this(5f, inMaterial);
+	}
+
+	public DesireBegForItem(float inMinDistance, Material... inMaterial)
+	{
+		super();
 		this.m_toBeg = inMaterial;
 		this.m_type = DesireType.HAPPINESS;
 		this.m_minDistance = inMinDistance;

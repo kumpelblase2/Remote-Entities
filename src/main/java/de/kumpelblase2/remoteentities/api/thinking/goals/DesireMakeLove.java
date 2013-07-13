@@ -17,9 +17,20 @@ public class DesireMakeLove extends DesireBase
 	protected Village m_nearestVillage;
 	protected int m_loveTick;
 
+	@Deprecated
 	public DesireMakeLove(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityVillager))
+			throw new NotAVillagerException();
+
+		this.m_villager = (EntityVillager)this.getEntityHandle();
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireMakeLove()
+	{
+		super();
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 

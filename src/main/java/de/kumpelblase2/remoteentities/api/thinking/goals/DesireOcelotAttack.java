@@ -15,9 +15,16 @@ public class DesireOcelotAttack extends DesireBase
 	protected int m_attackTick;
 	protected EntityLiving m_target;
 
+	@Deprecated
 	public DesireOcelotAttack(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireOcelotAttack()
+	{
+		super();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 

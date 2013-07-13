@@ -119,17 +119,17 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireRangedAttack(null, RemoteProjectileType.ENTITY_DEFAULT), 1),
-				new DesireItem(new DesireWanderAround(null), 2),
-				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 6), 3),
-				new DesireItem(new DesireLookRandomly(null), 4)
+				new DesireItem(new DesireRangedAttack(RemoteProjectileType.ENTITY_DEFAULT), 1),
+				new DesireItem(new DesireWanderAround(), 2),
+				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 3),
+				new DesireItem(new DesireLookRandomly(), 4)
 		};
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindNearestTarget(null, EntityInsentient.class, 16, false, true, 0), 1)
+				new DesireItem(new DesireFindNearestTarget(EntityInsentient.class, 16, false, true, 0), 1)
 		};
 	}
 }

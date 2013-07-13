@@ -16,9 +16,16 @@ public class DesireMoveIndoors extends DesireBase
 	protected int m_x = -1;
 	protected int m_z = -1;
 
+	@Deprecated
 	public DesireMoveIndoors(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireMoveIndoors()
+	{
+		super();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

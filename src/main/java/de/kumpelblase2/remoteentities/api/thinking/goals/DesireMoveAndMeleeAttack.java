@@ -28,11 +28,13 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	@SerializeAs(pos = 3)
 	protected double m_speed;
 
+	@Deprecated
 	public DesireMoveAndMeleeAttack(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight)
 	{
 		this(inEntity, inToAttack, inIgnoreSight, inEntity.getSpeed());
 	}
 
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public DesireMoveAndMeleeAttack(RemoteEntity inEntity, Class<?> inToAttack, boolean inIgnoreSight, double inSpeed)
 	{
@@ -48,6 +50,36 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 
 		this.m_attackTick = 0;
 		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireMoveAndMeleeAttack(Class<?> inToAttack, boolean inIgnoreSight)
+	{
+		this(inToAttack, inIgnoreSight, -1);
+	}
+
+	@SuppressWarnings("unchecked")
+	public DesireMoveAndMeleeAttack(Class<?> inToAttack, boolean inIgnoreSight, double inSpeed)
+	{
+		super();
+		this.m_speed = inSpeed;
+		this.m_ignoreSight = inIgnoreSight;
+		if(inToAttack == null)
+			this.m_toAttack = Entity.class;
+		else if(Entity.class.isAssignableFrom(inToAttack))
+			this.m_toAttack = (Class<? extends Entity>)inToAttack;
+		else
+			this.m_toAttack = (Class<? extends Entity>)NMSClassMap.getNMSClass(inToAttack);
+
+		this.m_attackTick = 0;
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
+		if(this.m_speed == -1)
+			this.m_speed = inEntity.getSpeed();
 	}
 
 	@Override

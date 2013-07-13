@@ -17,9 +17,16 @@ public class DesireAvoidSun extends DesireBase
 	protected double m_y;
 	protected double m_z;
 
+	@Deprecated
 	public DesireAvoidSun(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireAvoidSun()
+	{
+		super();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

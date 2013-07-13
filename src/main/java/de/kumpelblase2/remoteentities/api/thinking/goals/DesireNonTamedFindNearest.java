@@ -13,9 +13,19 @@ public class DesireNonTamedFindNearest extends DesireFindNearestTarget
 {
 	protected EntityLiving m_animal;
 
+	@Deprecated
 	public DesireNonTamedFindNearest(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
 	{
 		super(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance);
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
+			throw new NotTameableException();
+
+		this.m_animal = this.getEntityHandle();
+	}
+
+	public DesireNonTamedFindNearest(Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
+	{
+		super(inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 

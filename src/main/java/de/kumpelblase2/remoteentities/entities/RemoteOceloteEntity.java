@@ -133,17 +133,17 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(null), 1),
-					new DesireItem(new DesireSit(null), 2),
-					new DesireItem(new DesireTempt(null, Item.RAW_FISH.id, true), 3),
-					new DesireItem(new DesireAvoidSpecific(null, 16F, 0.4F, 0.23F, EntityHuman.class), 4),
-					new DesireItem(new DesireFollowTamer(null, 5, 10), 5),
-					new DesireItem(new DesireSitOnBlock(null), 6),
-					new DesireItem(new DesireLeapAtTarget(null, 0.4F), 7),
-					new DesireItem(new DesireOcelotAttack(null), 8),
-					new DesireItem(new DesireBreed(null), 9),
-					new DesireItem(new DesireWanderAround(null), 10),
-					new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 10F), 11)
+					new DesireItem(new DesireSwim(), 1),
+					new DesireItem(new DesireSit(), 2),
+					new DesireItem(new DesireTempt(Item.RAW_FISH.id, true), 3),
+					new DesireItem(new DesireAvoidSpecific(16F, 0.4F, 0.23F, EntityHuman.class), 4),
+					new DesireItem(new DesireFollowTamer(5, 10), 5),
+					new DesireItem(new DesireSitOnBlock(), 6),
+					new DesireItem(new DesireLeapAtTarget(0.4F), 7),
+					new DesireItem(new DesireOcelotAttack(), 8),
+					new DesireItem(new DesireBreed(), 9),
+					new DesireItem(new DesireWanderAround(), 10),
+					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 10F), 11)
 			};
 		}
 		catch(Exception e)
@@ -158,7 +158,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireNonTamedFindNearest(null, EntityChicken.class, 14, false, true, 750), 1)
+					new DesireItem(new DesireNonTamedFindNearest(EntityChicken.class, 14, false, true, 750), 1)
 			};
 		}
 		catch(Exception e)

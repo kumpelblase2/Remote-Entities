@@ -21,6 +21,7 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 	protected int m_moveTick;
 	protected int m_attackTick = 0;
 
+	@Deprecated
 	public DesireKillTarget(RemoteEntity inEntity, LivingEntity inTarget)
 	{
 		super(inEntity);
@@ -28,9 +29,23 @@ public class DesireKillTarget extends DesireBase implements OneTimeDesire
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
+	@Deprecated
 	public DesireKillTarget(RemoteEntity inEntity, EntityLiving inTarget)
 	{
 		super(inEntity);
+		this.m_target = inTarget;
+	}
+
+	public DesireKillTarget(LivingEntity inTarget)
+	{
+		super();
+		this.m_target = ((CraftLivingEntity)inTarget).getHandle();
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireKillTarget(EntityLiving inTarget)
+	{
+		super();
 		this.m_target = inTarget;
 	}
 

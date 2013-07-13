@@ -14,9 +14,16 @@ public class DesireOpenDoor extends DesireInteractDoor
 	protected boolean m_closeDoor;
 	protected int m_closeTick;
 
+	@Deprecated
 	public DesireOpenDoor(RemoteEntity inEntity, boolean inIronDoor, boolean inCloseDoor)
 	{
 		super(inEntity, inIronDoor);
+		this.m_closeDoor = inCloseDoor;
+	}
+
+	public DesireOpenDoor( boolean inIronDoor, boolean inCloseDoor)
+	{
+		super(inIronDoor);
 		this.m_closeDoor = inCloseDoor;
 	}
 

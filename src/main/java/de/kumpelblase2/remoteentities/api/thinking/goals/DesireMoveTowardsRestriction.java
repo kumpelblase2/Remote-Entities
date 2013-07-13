@@ -15,9 +15,16 @@ public class DesireMoveTowardsRestriction extends DesireBase
 	protected double m_y;
 	protected double m_z;
 
+	@Deprecated
 	public DesireMoveTowardsRestriction(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireMoveTowardsRestriction()
+	{
+		super();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

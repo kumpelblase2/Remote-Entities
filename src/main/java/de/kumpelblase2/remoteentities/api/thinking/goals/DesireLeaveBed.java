@@ -9,9 +9,17 @@ import de.kumpelblase2.remoteentities.entities.RemotePlayer;
  */
 public class DesireLeaveBed extends DesireBase
 {
+	@Deprecated
 	public DesireLeaveBed(RemotePlayer inEntity)
 	{
 		super(inEntity);
+		this.m_isContinuous = false;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireLeaveBed()
+	{
+		super();
 		this.m_isContinuous = false;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}

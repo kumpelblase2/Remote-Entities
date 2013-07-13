@@ -14,9 +14,16 @@ public class DesireEatGrass extends DesireBase
 {
 	protected int m_eatTick;
 
+	@Deprecated
 	public DesireEatGrass(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.FOOD;
+	}
+
+	public DesireEatGrass()
+	{
+		super();
 		this.m_type = DesireType.FOOD;
 	}
 

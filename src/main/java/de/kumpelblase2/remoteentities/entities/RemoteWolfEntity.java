@@ -130,16 +130,16 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(null), 1),
-					new DesireItem(new DesireSit(null), 2),
-					new DesireItem(new DesireLeapAtTarget(null, 0.4F), 3),
-					new DesireItem(new DesireMoveAndMeleeAttack(null, null, true), 4),
-					new DesireItem(new DesireFollowTamer(null, 2, 10), 5),
-					new DesireItem(new DesireBreed(null), 6),
-					new DesireItem(new DesireWanderAround(null), 7),
-					new DesireItem(new DesireBegForItem(null, 8f, Material.BONE), 8),
-					new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 9),
-					new DesireItem(new DesireLookRandomly(null), 9)
+					new DesireItem(new DesireSwim(), 1),
+					new DesireItem(new DesireSit(), 2),
+					new DesireItem(new DesireLeapAtTarget(0.4F), 3),
+					new DesireItem(new DesireMoveAndMeleeAttack(null, true), 4),
+					new DesireItem(new DesireFollowTamer(2, 10), 5),
+					new DesireItem(new DesireBreed(), 6),
+					new DesireItem(new DesireWanderAround(), 7),
+					new DesireItem(new DesireBegForItem(8f, Material.BONE), 8),
+					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 9),
+					new DesireItem(new DesireLookRandomly(), 9)
 			};
 		}
 		catch(Exception e)
@@ -154,10 +154,10 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireProtectOwner(null, 32, false), 1),
-					new DesireItem(new DesireHelpAttacking(null, 32, false), 2),
-					new DesireItem(new DesireFindAttackingTarget(null, 16, true, true), 3),
-					new DesireItem(new DesireNonTamedFindNearest(null, EntitySheep.class, 14, false, true, 750), 4)
+					new DesireItem(new DesireProtectOwner(32, false), 1),
+					new DesireItem(new DesireHelpAttacking(32, false), 2),
+					new DesireItem(new DesireFindAttackingTarget(16, true, true), 3),
+					new DesireItem(new DesireNonTamedFindNearest(EntitySheep.class, 14, false, true, 750), 4)
 			};
 		}
 		catch(Exception e)

@@ -20,9 +20,20 @@ public class DesireSitOnBlock extends DesireBase
 	protected int m_actionTicks = 0;
 	protected int m_maxSitTicks = 0;
 
+	@Deprecated
 	public DesireSitOnBlock(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityOcelot))
+			throw new NotAnOcelotException();
+
+		this.m_ocelot = (EntityOcelot)this.getEntityHandle();
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	public DesireSitOnBlock()
+	{
+		super();
 		if(!(this.getEntityHandle() instanceof EntityOcelot))
 			throw new NotAnOcelotException();
 

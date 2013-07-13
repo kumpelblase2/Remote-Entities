@@ -125,21 +125,21 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 		try
 		{
 			return new DesireItem[] {
-					new DesireItem(new DesireSwim(null), 0),
-					new DesireItem(new DesireAvoidSpecific(null, 8f, 0.35f, 0.3f, EntityZombie.class), 1),
-					new DesireItem(new DesireTradeWithPlayer(null), 1),
-					new DesireItem(new DesireLookAtTrader(null, 8), 1),
-					new DesireItem(new DesireMoveIndoors(null), 2),
-					new DesireItem(new DesireRestrictOpenDoor(null), 3),
-					new DesireItem(new DesireOpenDoor(null, true, false), 4),
-					new DesireItem(new DesireMoveTowardsRestriction(null), 5),
-					new DesireItem(new DesireMakeLove(null), 6),
-					new DesireItem(new DesireAcceptFlower(null), 7),
-					new DesireItem(new DesirePlay(null), 8),
-					new DesireItem(new DesireInteract(null, EntityHuman.class, 3), 9),
-					new DesireItem(new DesireInteract(null, EntityVillager.class, 5), 9),
-					new DesireItem(new DesireWanderAround(null), 9),
-					new DesireItem(new DesireLookAtNearest(null, EntityInsentient.class, 8), 10)
+					new DesireItem(new DesireSwim(), 0),
+					new DesireItem(new DesireAvoidSpecific(8f, 0.35f, 0.3f, EntityZombie.class), 1),
+					new DesireItem(new DesireTradeWithPlayer(), 1),
+					new DesireItem(new DesireLookAtTrader(8), 1),
+					new DesireItem(new DesireMoveIndoors(), 2),
+					new DesireItem(new DesireRestrictOpenDoor(), 3),
+					new DesireItem(new DesireOpenDoor(true, false), 4),
+					new DesireItem(new DesireMoveTowardsRestriction(), 5),
+					new DesireItem(new DesireMakeLove(), 6),
+					new DesireItem(new DesireAcceptFlower(), 7),
+					new DesireItem(new DesirePlay(), 8),
+					new DesireItem(new DesireInteract(EntityHuman.class, 3), 9),
+					new DesireItem(new DesireInteract(EntityVillager.class, 5), 9),
+					new DesireItem(new DesireWanderAround(), 9),
+					new DesireItem(new DesireLookAtNearest(EntityInsentient.class, 8), 10)
 			};
 		}
 		catch(Exception e)

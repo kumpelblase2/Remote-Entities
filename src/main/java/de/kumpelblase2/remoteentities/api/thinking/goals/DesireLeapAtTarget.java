@@ -19,9 +19,17 @@ public class DesireLeapAtTarget extends DesireBase
 	protected float m_yMotion;
 	protected EntityLiving m_target;
 
+	@Deprecated
 	public DesireLeapAtTarget(RemoteEntity inEntity, float inYMotion)
 	{
 		super(inEntity);
+		this.m_yMotion = inYMotion;
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	public DesireLeapAtTarget(float inYMotion)
+	{
+		super();
 		this.m_yMotion = inYMotion;
 		this.m_type = DesireType.OCCASIONAL_URGE;
 	}

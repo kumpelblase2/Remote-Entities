@@ -16,9 +16,16 @@ public class DesirePanic extends DesireBase
 	protected double m_y;
 	protected double m_z;
 
+	@Deprecated
 	public DesirePanic(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesirePanic()
+	{
+		super();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

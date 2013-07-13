@@ -132,20 +132,20 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(null), 1),
-				new DesireItem(new DesireLeapAtTarget(null, 2), 2),
-				new DesireItem(new DesireMoveTowardsRestriction(null), 3),
-				new DesireItem(new DesireWanderAround(null), 4),
-				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 5),
-				new DesireItem(new DesireLookRandomly(null), 6)
+				new DesireItem(new DesireSwim(), 1),
+				new DesireItem(new DesireLeapAtTarget(2), 2),
+				new DesireItem(new DesireMoveTowardsRestriction(), 3),
+				new DesireItem(new DesireWanderAround(), 4),
+				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 5),
+				new DesireItem(new DesireLookRandomly(), 6)
 		};
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 1),
-				new DesireItem(new DesireFindNearestTargetAtNight(null, EntityHuman.class, 16, false, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(16, false, false), 1),
+				new DesireItem(new DesireFindNearestTargetAtNight(EntityHuman.class, 16, false, true, 0), 2)
 		};
 	}
 }

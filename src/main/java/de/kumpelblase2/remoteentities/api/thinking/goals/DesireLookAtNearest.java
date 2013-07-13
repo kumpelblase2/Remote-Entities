@@ -24,15 +24,36 @@ public class DesireLookAtNearest extends DesireBase
 	@SerializeAs(pos = 3)
 	protected float m_lookPossibility;
 
+	@Deprecated
 	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
 	{
 		this(inEntity, inTarget, inMinDistance, 0.02F);
 	}
 
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public DesireLookAtNearest(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance, float inPossibility)
 	{
 		super(inEntity);
+		if(Entity.class.isAssignableFrom(inTarget))
+			this.m_toLookAt = (Class<? extends Entity>)inTarget;
+		else
+			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);
+		this.m_minDist = inMinDistance;
+		this.m_minDistSquared = this.m_minDist * this.m_minDist;
+		this.m_lookPossibility = inPossibility;
+		this.m_type = DesireType.HAPPINESS;
+	}
+
+	public DesireLookAtNearest(Class<?> inTarget, float inMinDistance)
+	{
+		this(inTarget, inMinDistance, 0.02F);
+	}
+
+	@SuppressWarnings("unchecked")
+	public DesireLookAtNearest(Class<?> inTarget, float inMinDistance, float inPossibility)
+	{
+		super();
 		if(Entity.class.isAssignableFrom(inTarget))
 			this.m_toLookAt = (Class<? extends Entity>)inTarget;
 		else

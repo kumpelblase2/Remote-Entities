@@ -16,9 +16,20 @@ public class DesireSit extends DesireBase
 	protected EntityTameableAnimal m_animal;
 	protected boolean m_canSit = false;
 
+	@Deprecated
 	public DesireSit(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))
+			throw new NotAnAnimalException();
+
+		this.m_animal = (EntityTameableAnimal)this.getEntityHandle();
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	public DesireSit()
+	{
+		super();
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))
 			throw new NotAnAnimalException();
 

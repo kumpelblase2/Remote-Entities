@@ -29,15 +29,28 @@ public class DesireAvoidSpecific extends DesireBase
 	protected PathEntity m_path;
 	protected EntitySelectorViewable m_selector;
 
+	@Deprecated
 	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
 	{
 		this(inEntity, inMinDistance, inCloseSpeed, inFarSpeed, inToAvoid, true);
 	}
 
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public DesireAvoidSpecific(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid, boolean inIgnoreOutOfSight)
 	{
-		super(inEntity);
+		this(inMinDistance, inCloseSpeed, inFarSpeed, inToAvoid, inIgnoreOutOfSight);
+		this.m_entity = inEntity;
+	}
+
+	public DesireAvoidSpecific(float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
+	{
+		this(inMinDistance, inCloseSpeed, inFarSpeed, inToAvoid, true);
+	}
+
+	public DesireAvoidSpecific(float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid, boolean inIgnoreOutOfSight)
+	{
+		super();
 		if(Entity.class.isAssignableFrom(inToAvoid))
 			this.m_toAvoid = (Class<? extends Entity>)inToAvoid;
 		else

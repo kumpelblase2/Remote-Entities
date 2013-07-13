@@ -22,9 +22,16 @@ public class DesireInteractDoor extends DesireBase
 	protected float m_entityX;
 	protected float m_entityZ;
 
+	@Deprecated
 	public DesireInteractDoor(RemoteEntity inEntity, boolean inIronDoor)
 	{
 		super(inEntity);
+		this.m_ironDoor = inIronDoor;
+	}
+
+	public DesireInteractDoor(boolean inIronDoor)
+	{
+		super();
 		this.m_ironDoor = inIronDoor;
 	}
 

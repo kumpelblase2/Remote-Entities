@@ -8,9 +8,15 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
  */
 public class DesireRestrictSun extends DesireBase
 {
+	@Deprecated
 	public DesireRestrictSun(RemoteEntity inEntity)
 	{
 		super(inEntity);
+	}
+
+	public DesireRestrictSun()
+	{
+		super();
 	}
 
 	@Override

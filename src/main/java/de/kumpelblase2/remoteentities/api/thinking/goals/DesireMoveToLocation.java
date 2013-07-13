@@ -16,9 +16,17 @@ public class DesireMoveToLocation extends DesireBase implements OneTimeDesire
 	@SerializeAs(pos = 1)
 	private Location m_targetLocation;
 
+	@Deprecated
 	public DesireMoveToLocation(RemoteEntity inEntity, Location inTargetLocation)
 	{
 		super(inEntity);
+		this.m_targetLocation = inTargetLocation;
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireMoveToLocation(Location inTargetLocation)
+	{
+		super();
 		this.m_targetLocation = inTargetLocation;
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}

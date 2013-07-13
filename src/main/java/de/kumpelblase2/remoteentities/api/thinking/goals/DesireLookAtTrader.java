@@ -11,6 +11,7 @@ import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
  */
 public class DesireLookAtTrader extends DesireLookAtNearest
 {
+	@Deprecated
 	public DesireLookAtTrader(RemoteEntity inEntity, float inMinDistance)
 	{
 		super(inEntity, EntityHuman.class, inMinDistance);
@@ -21,6 +22,22 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 	public DesireLookAtTrader(RemoteEntity inEntity, Class<?> inTarget, float inMinDistance)
 	{
 		this(inEntity, inMinDistance);
+		if(Entity.class.isAssignableFrom(inTarget))
+			this.m_toLookAt = (Class<? extends Entity>)inTarget;
+		else
+			this.m_toLookAt = (Class<? extends Entity>)NMSClassMap.getNMSClass(inTarget);
+	}
+
+	public DesireLookAtTrader(float inMinDistance)
+	{
+		super(EntityHuman.class, inMinDistance);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Deprecated
+	public DesireLookAtTrader(Class<?> inTarget, float inMinDistance)
+	{
+		this(inMinDistance);
 		if(Entity.class.isAssignableFrom(inTarget))
 			this.m_toLookAt = (Class<? extends Entity>)inTarget;
 		else

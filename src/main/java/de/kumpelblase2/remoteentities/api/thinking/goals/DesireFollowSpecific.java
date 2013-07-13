@@ -28,14 +28,32 @@ public class DesireFollowSpecific extends DesireBase
 	protected boolean m_avoidWaterState;
 	protected int m_moveTick;
 
+	@Deprecated
 	public DesireFollowSpecific(RemoteEntity inEntity, LivingEntity inToFollow, float inMinDistance, float inMaxDistance)
 	{
 		this(inEntity, ((CraftLivingEntity)inToFollow).getHandle(), inMinDistance, inMaxDistance);
 	}
 
+	@Deprecated
 	public DesireFollowSpecific(RemoteEntity inEntity, EntityLiving inToFollow, float inMinDistance, float inMaxDistance)
 	{
 		super(inEntity);
+		this.m_toFollow = inToFollow;
+		this.m_type = DesireType.FULL_CONCENTRATION;
+		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
+		this.m_maxDistance = inMaxDistance;
+		this.m_maxDistanceSquared = this.m_maxDistance * this.m_maxDistance;
+	}
+
+	public DesireFollowSpecific(LivingEntity inToFollow, float inMinDistance, float inMaxDistance)
+	{
+		this(((CraftLivingEntity)inToFollow).getHandle(), inMinDistance, inMaxDistance);
+	}
+
+	public DesireFollowSpecific(EntityLiving inToFollow, float inMinDistance, float inMaxDistance)
+	{
+		super();
 		this.m_toFollow = inToFollow;
 		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_minDistance = inMinDistance;

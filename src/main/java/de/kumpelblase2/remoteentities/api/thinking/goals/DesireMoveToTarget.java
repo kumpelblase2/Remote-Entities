@@ -25,9 +25,18 @@ public class DesireMoveToTarget extends DesireBase
 	protected double m_y;
 	protected double m_z;
 
+	@Deprecated
 	public DesireMoveToTarget(RemoteEntity inEntity, float inMinDistance)
 	{
 		super(inEntity);
+		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireMoveToTarget(float inMinDistance)
+	{
+		super();
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_type = DesireType.PRIMAL_INSTINCT;

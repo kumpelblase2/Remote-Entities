@@ -21,14 +21,28 @@ public class DesireFollowCarrotStick extends DesireBase
 	protected int m_speedBoostTime = 0;
 	protected int m_maxSpeedBoostTime = 0;
 
+	@Deprecated
 	public DesireFollowCarrotStick(RemoteEntity inEntity)
 	{
 		this(inEntity, 10);
 	}
 
+	@Deprecated
 	public DesireFollowCarrotStick(RemoteEntity inEntity, float inMaxSpeed)
 	{
 		super(inEntity);
+		this.m_maxSpeed = inMaxSpeed;
+		this.m_type = DesireType.FOOD;
+	}
+
+	public DesireFollowCarrotStick()
+	{
+		this(10);
+	}
+
+	public DesireFollowCarrotStick(float inMaxSpeed)
+	{
+		super();
 		this.m_maxSpeed = inMaxSpeed;
 		this.m_type = DesireType.FOOD;
 	}

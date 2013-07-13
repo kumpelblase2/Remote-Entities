@@ -20,6 +20,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	protected EntityLiving m_target;
 	protected int m_lastAttackedTick;
 
+	@Deprecated
 	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
@@ -27,9 +28,24 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
+	@Deprecated
 	public DesireFindAttackingTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, boolean inAttackNearest)
 	{
 		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
+		this.m_attackNearest = inAttackNearest;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireFindAttackingTarget(float inDistance, boolean inShouldCheckSight, boolean inAttackNearest)
+	{
+		super(inDistance, inShouldCheckSight);
+		this.m_attackNearest = inAttackNearest;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireFindAttackingTarget(float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, boolean inAttackNearest)
+	{
+		super(inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_attackNearest = inAttackNearest;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}

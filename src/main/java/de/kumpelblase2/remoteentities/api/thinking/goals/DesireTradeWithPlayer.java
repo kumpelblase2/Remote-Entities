@@ -14,9 +14,20 @@ public class DesireTradeWithPlayer extends DesireBase
 {
 	protected EntityVillager m_villager;
 
+	@Deprecated
 	public DesireTradeWithPlayer(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityVillager))
+			throw new NotAVillagerException();
+
+		this.m_villager = (EntityVillager)this.getEntityHandle();
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	public DesireTradeWithPlayer()
+	{
+		super();
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 

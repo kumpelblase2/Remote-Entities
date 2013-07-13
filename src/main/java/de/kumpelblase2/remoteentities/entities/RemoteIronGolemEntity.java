@@ -126,23 +126,23 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireMoveAndMeleeAttack(null, null, true), 1),
-				new DesireItem(new DesireMoveToTarget(null, 32), 2),
-				new DesireItem(new DesireMoveThroughVillage(null, true), 3),
-				new DesireItem(new DesireMoveTowardsRestriction(null), 4),
-				new DesireItem(new DesireOfferFlower(null), 5),
-				new DesireItem(new DesireWanderAround(null), 6),
-				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 6), 7),
-				new DesireItem(new DesireLookRandomly(null), 8)
+				new DesireItem(new DesireMoveAndMeleeAttack(null, true), 1),
+				new DesireItem(new DesireMoveToTarget(32), 2),
+				new DesireItem(new DesireMoveThroughVillage(true), 3),
+				new DesireItem(new DesireMoveTowardsRestriction(), 4),
+				new DesireItem(new DesireOfferFlower(), 5),
+				new DesireItem(new DesireWanderAround(), 6),
+				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 7),
+				new DesireItem(new DesireLookRandomly(), 8)
 		};
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireDefendVillage(null), 1),
-				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 2),
-				new DesireItem(new DesireFindNearestTarget(null, EntityMonster.class, 16, false, true, 0), 3)
+				new DesireItem(new DesireDefendVillage(), 1),
+				new DesireItem(new DesireFindAttackingTarget(16, false, false), 2),
+				new DesireItem(new DesireFindNearestTarget(EntityMonster.class, 16, false, true, 0), 3)
 		};
 	}
 }

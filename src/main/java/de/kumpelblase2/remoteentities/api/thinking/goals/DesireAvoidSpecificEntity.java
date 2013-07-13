@@ -27,14 +27,27 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 	protected PathEntity m_path;
 	protected EntitySelectorViewable m_selector;
 
+	@Deprecated
 	public DesireAvoidSpecificEntity(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, org.bukkit.entity.Entity inToAvoid)
 	{
 		this(inEntity, inMinDistance, inCloseSpeed, inFarSpeed, ((CraftEntity)inToAvoid).getHandle());
 	}
 
+	@Deprecated
 	public DesireAvoidSpecificEntity(RemoteEntity inEntity, float inMinDistance, float inCloseSpeed, float inFarSpeed, Entity inToAvoid)
 	{
-		super(inEntity);
+		this(inMinDistance, inCloseSpeed, inFarSpeed, inToAvoid);
+		this.m_entity = inEntity;
+	}
+
+	public DesireAvoidSpecificEntity(float inMinDistance, float inCloseSpeed, float inFarSpeed, org.bukkit.entity.Entity inToAvoid)
+	{
+		this(inMinDistance, inCloseSpeed, inFarSpeed, ((CraftEntity)inToAvoid).getHandle());
+	}
+
+	public DesireAvoidSpecificEntity(float inMinDistance, float inCloseSpeed, float inFarSpeed, Entity inToAvoid)
+	{
+		super();
 		this.m_entityToAvoid = inToAvoid;
 		this.m_minDistance = inMinDistance;
 		this.m_closeSpeed = inCloseSpeed;

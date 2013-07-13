@@ -12,9 +12,15 @@ public class DesireDestroyDoor extends DesireInteractDoor
 	protected int m_breakTick;
 	protected int m_lastBreak = -1;
 
+	@Deprecated
 	public DesireDestroyDoor(RemoteEntity inEntity, boolean inIronDoor)
 	{
 		super(inEntity, inIronDoor);
+	}
+
+	public DesireDestroyDoor(boolean inIronDoor)
+	{
+		super(inIronDoor);
 	}
 
 	@Override

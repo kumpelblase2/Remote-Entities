@@ -19,6 +19,7 @@ public abstract class DesireBase implements Desire
 	{
 	}
 
+	@Deprecated
 	public DesireBase(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;

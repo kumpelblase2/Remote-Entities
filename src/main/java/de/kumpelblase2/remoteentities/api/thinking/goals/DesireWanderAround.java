@@ -17,9 +17,16 @@ public class DesireWanderAround extends DesireBase
 	protected double m_yPos;
 	protected double m_zPos;
 
+	@Deprecated
 	public DesireWanderAround(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireWanderAround()
+	{
+		super();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

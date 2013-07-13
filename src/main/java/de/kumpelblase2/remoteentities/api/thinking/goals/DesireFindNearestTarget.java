@@ -24,20 +24,51 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	protected IEntitySelector m_selector;
 	protected boolean m_onlyAtNight;
 
+	@Deprecated
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, false, inChance);
 	}
 
+	@Deprecated
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
 	{
 		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance, null);
 	}
 
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public DesireFindNearestTarget(RemoteEntity inEntity, Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance, IEntitySelector inSelector)
 	{
-		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
+		this(inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance, inSelector);
+	}
+
+	@Deprecated
+	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
+	}
+
+	@Deprecated
+	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChange, IEntitySelector inSelector)
+	{
+		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChange, inSelector);
+	}
+
+	public DesireFindNearestTarget(Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, int inChance)
+	{
+		this(inTargetClass, inDistance, inShouldCheckSight, false, inChance);
+	}
+
+	public DesireFindNearestTarget(Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance)
+	{
+		this(inTargetClass, inDistance, inShouldCheckSight, inShouldMelee, inChance, null);
+	}
+
+	@SuppressWarnings("unchecked")
+	public DesireFindNearestTarget(Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance, IEntitySelector inSelector)
+	{
+		super(inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_comparator = new DistanceComparator(this.getEntityHandle());
 		this.m_targetChance = inChance;
 		if(Entity.class.isAssignableFrom(inTargetClass))
@@ -50,14 +81,14 @@ public class DesireFindNearestTarget extends DesireTargetBase
 		this.m_selector = inSelector;
 	}
 
-	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
+	public DesireFindNearestTarget(float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChance)
 	{
-		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
+		this(inTargetClass, inDistance, inShouldCheckSight, inMelee, inChance);
 	}
 
-	public DesireFindNearestTarget(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChange, IEntitySelector inSelector)
+	public DesireFindNearestTarget(float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChange, IEntitySelector inSelector)
 	{
-		this(inEntity, inTargetClass, inDistance, inShouldCheckSight, inMelee, inChange, inSelector);
+		this(inTargetClass, inDistance, inShouldCheckSight, inMelee, inChange, inSelector);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -17,9 +17,16 @@ public class DesireBreed extends DesireBase
 	protected EntityAnimal m_mate;
 	protected int m_mateTicks = 0;
 
+	@Deprecated
 	public DesireBreed(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireBreed()
+	{
+		super();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 

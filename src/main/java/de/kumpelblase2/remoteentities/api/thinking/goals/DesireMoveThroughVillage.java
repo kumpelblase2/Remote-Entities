@@ -21,9 +21,17 @@ public class DesireMoveThroughVillage extends DesireBase
 	protected VillageDoor m_nextDoor;
 	protected final List<VillageDoor> m_doors = new ArrayList<VillageDoor>();
 
+	@Deprecated
 	public DesireMoveThroughVillage(RemoteEntity inEntity, boolean inOnlyNight)
 	{
 		super(inEntity);
+		this.m_onlyNight = inOnlyNight;
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireMoveThroughVillage(boolean inOnlyNight)
+	{
+		super();
 		this.m_onlyNight = inOnlyNight;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}

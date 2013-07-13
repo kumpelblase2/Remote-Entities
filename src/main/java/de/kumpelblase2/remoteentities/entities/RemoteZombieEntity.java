@@ -132,24 +132,24 @@ public class RemoteZombieEntity extends EntityZombie implements RemoteEntityHand
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireSwim(null), 0),
-				new DesireItem(new DesireDestroyDoor(null, false), 1),
-				new DesireItem(new DesireMoveAndMeleeAttack(null, EntityHuman.class, false), 2),
-				new DesireItem(new DesireMoveAndMeleeAttack(null, EntityVillager.class, true), 3),
-				new DesireItem(new DesireMoveTowardsRestriction(null), 4),
-				new DesireItem(new DesireMoveThroughVillage(null, false), 5),
-				new DesireItem(new DesireWanderAround(null), 6),
-				new DesireItem(new DesireLookAtNearest(null, EntityHuman.class, 8), 7),
-				new DesireItem(new DesireLookRandomly(null), 7)
+				new DesireItem(new DesireSwim(), 0),
+				new DesireItem(new DesireDestroyDoor(false), 1),
+				new DesireItem(new DesireMoveAndMeleeAttack(EntityHuman.class, false), 2),
+				new DesireItem(new DesireMoveAndMeleeAttack(EntityVillager.class, true), 3),
+				new DesireItem(new DesireMoveTowardsRestriction(), 4),
+				new DesireItem(new DesireMoveThroughVillage(false), 5),
+				new DesireItem(new DesireWanderAround(), 6),
+				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 7),
+				new DesireItem(new DesireLookRandomly(), 7)
 		};
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()
 	{
 		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(null, 16, false, false), 1),
-				new DesireItem(new DesireFindNearestTarget(null, EntityHuman.class, 16, false, true, 0), 2),
-				new DesireItem(new DesireFindNearestTarget(null, EntityVillager.class, 16, false, true, 0), 2)
+				new DesireItem(new DesireFindAttackingTarget(16, false, false), 1),
+				new DesireItem(new DesireFindNearestTarget(EntityHuman.class, 16, false, true, 0), 2),
+				new DesireItem(new DesireFindNearestTarget(EntityVillager.class, 16, false, true, 0), 2)
 		};
 	}
 }

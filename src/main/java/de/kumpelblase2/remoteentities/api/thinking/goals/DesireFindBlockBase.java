@@ -21,14 +21,28 @@ public abstract class DesireFindBlockBase extends DesireBase
 	@SerializeAs(pos = 2)
 	private int m_range;
 
+	@Deprecated
 	public DesireFindBlockBase(RemoteEntity inEntity, int inBlockID)
 	{
 		this(inEntity, inBlockID, 32);
 	}
 
+	@Deprecated
 	public DesireFindBlockBase(RemoteEntity inEntity, int inBlockID, int inRange)
 	{
 		super(inEntity);
+		this.m_blockID = inBlockID;
+		this.m_range = inRange;
+	}
+
+	public DesireFindBlockBase(int inBlockID)
+	{
+		this(inBlockID, 32);
+	}
+
+	public DesireFindBlockBase(int inBlockID, int inRange)
+	{
+		super();
 		this.m_blockID = inBlockID;
 		this.m_range = inRange;
 	}

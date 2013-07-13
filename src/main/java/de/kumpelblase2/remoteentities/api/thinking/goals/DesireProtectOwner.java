@@ -17,9 +17,20 @@ public class DesireProtectOwner extends DesireTamedBase
 	protected EntityLiving m_ownerAttacker;
 	protected int m_lastAttackedTick;
 
+	@Deprecated
 	public DesireProtectOwner(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight)
 	{
 		super(inEntity, inDistance, inShouldCheckSight);
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
+			throw new NotTameableException();
+
+		this.m_animal = this.getEntityHandle();
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesireProtectOwner(float inDistance, boolean inShouldCheckSight)
+	{
+		super(inDistance, inShouldCheckSight);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 

@@ -21,9 +21,20 @@ public class DesirePlay extends DesireBase
 	protected EntityVillager m_friend;
 	protected int m_playTick;
 
+	@Deprecated
 	public DesirePlay(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityVillager))
+			throw new NotAVillagerException();
+
+		this.m_villager = (EntityVillager)this.getEntityHandle();
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	public DesirePlay()
+	{
+		super();
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 

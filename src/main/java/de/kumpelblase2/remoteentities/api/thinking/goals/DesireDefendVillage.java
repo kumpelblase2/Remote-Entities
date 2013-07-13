@@ -14,14 +14,27 @@ public class DesireDefendVillage extends DesireTargetBase
 {
 	protected EntityLiving m_nextTarget;
 
+	@Deprecated
 	public DesireDefendVillage(RemoteEntity inEntity)
 	{
 		this(inEntity, 16f, false, true);
 	}
 
+	@Deprecated
 	public DesireDefendVillage(RemoteEntity inEntity, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
 	{
-		super(inEntity, inDistance, inShouldCheckSight, inShouldMelee);
+		this(inDistance, inShouldCheckSight, inShouldMelee);
+		this.m_entity = inEntity;
+	}
+
+	public DesireDefendVillage()
+	{
+		this(16f, false, true);
+	}
+
+	public DesireDefendVillage(float inDistance, boolean inShouldCheckSight, boolean inShouldMelee)
+	{
+		super(inDistance, inShouldCheckSight, inShouldMelee);
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 

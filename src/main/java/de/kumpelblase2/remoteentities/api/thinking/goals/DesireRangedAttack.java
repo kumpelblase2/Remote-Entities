@@ -31,24 +31,55 @@ public class DesireRangedAttack extends DesireBase
 	protected float m_minDistance;
 	protected float m_minDistanceSquared;
 
+	@Deprecated
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType)
 	{
 		this(inEntity, inProjectileType, 60);
 	}
 
+	@Deprecated
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay)
 	{
 		this(inEntity, inProjectileType, inDelay, 8);
 	}
 
+	@Deprecated
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inDelay, float inMinDistance)
 	{
 		this(inEntity, inProjectileType, inDelay, inDelay, inMinDistance);
 	}
 
+	@Deprecated
 	public DesireRangedAttack(RemoteEntity inEntity, RemoteProjectileType inProjectileType, int inMinDelay, int inMaxDelay, float inMinDistance)
 	{
 		super(inEntity);
+		this.m_projectileType = inProjectileType;
+		this.m_shootMinDelay = inMinDelay;
+		this.m_shootMaxDelay = inMaxDelay;
+		this.m_minDistance = inMinDistance;
+		this.m_minDistanceSquared = inMinDistance * inMinDistance;
+		this.m_type = DesireType.FULL_CONCENTRATION;
+		this.m_shootTicks = -1;
+	}
+
+	public DesireRangedAttack(RemoteProjectileType inProjectileType)
+	{
+		this(inProjectileType, 60);
+	}
+
+	public DesireRangedAttack(RemoteProjectileType inProjectileType, int inDelay)
+	{
+		this(inProjectileType, inDelay, 8);
+	}
+
+	public DesireRangedAttack(RemoteProjectileType inProjectileType, int inDelay, float inMinDistance)
+	{
+		this(inProjectileType, inDelay, inDelay, inMinDistance);
+	}
+
+	public DesireRangedAttack(RemoteProjectileType inProjectileType, int inMinDelay, int inMaxDelay, float inMinDistance)
+	{
+		super();
 		this.m_projectileType = inProjectileType;
 		this.m_shootMinDelay = inMinDelay;
 		this.m_shootMaxDelay = inMaxDelay;

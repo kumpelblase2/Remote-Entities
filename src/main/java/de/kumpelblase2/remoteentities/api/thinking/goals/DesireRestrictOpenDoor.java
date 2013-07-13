@@ -8,9 +8,15 @@ public class DesireRestrictOpenDoor extends DesireBase
 {
 	protected VillageDoor m_door;
 
+	@Deprecated
 	public DesireRestrictOpenDoor(RemoteEntity inEntity)
 	{
 		super(inEntity);
+	}
+
+	public DesireRestrictOpenDoor()
+	{
+		super();
 	}
 
 	@Override

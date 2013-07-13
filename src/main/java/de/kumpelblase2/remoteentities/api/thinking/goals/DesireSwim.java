@@ -10,9 +10,17 @@ import de.kumpelblase2.remoteentities.utilities.NMSUtil;
  */
 public class DesireSwim extends DesireBase
 {
+	@Deprecated
 	public DesireSwim(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		this.m_type = DesireType.MOVEMENT_ADDITION;
+		this.getNavigation().e(true);
+	}
+
+	public DesireSwim()
+	{
+		super();
 		this.m_type = DesireType.MOVEMENT_ADDITION;
 		this.getNavigation().e(true);
 	}

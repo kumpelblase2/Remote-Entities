@@ -30,9 +30,18 @@ public class DesireTempt extends DesireBase
 	protected boolean m_isTempted;
 	protected boolean m_avoidWaterState;
 
+	@Deprecated
 	public DesireTempt(RemoteEntity inEntity, int inItemId, boolean inScaredByMovement)
 	{
 		super(inEntity);
+		this.m_itemId = inItemId;
+		this.m_scaredByMovement = inScaredByMovement;
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	public DesireTempt(int inItemId, boolean inScaredByMovement)
+	{
+		super();
 		this.m_itemId = inItemId;
 		this.m_scaredByMovement = inScaredByMovement;
 		this.m_type = DesireType.FULL_CONCENTRATION;

@@ -20,9 +20,17 @@ public class DesireWanderAroundArea extends DesireWanderAround
 	@SerializeAs(pos = 2)
 	protected Location m_midSpot;
 
+	@Deprecated
 	public DesireWanderAroundArea(RemoteEntity inEntity, int inRadius, Location inMidPoint)
 	{
 		super(inEntity);
+		this.m_Radius = inRadius;
+		this.m_midSpot = inMidPoint;
+	}
+
+	public DesireWanderAroundArea(int inRadius, Location inMidPoint)
+	{
+		super();
 		this.m_Radius = inRadius;
 		this.m_midSpot = inMidPoint;
 	}

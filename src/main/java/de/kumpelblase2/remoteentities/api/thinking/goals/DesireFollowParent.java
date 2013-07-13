@@ -17,9 +17,19 @@ public class DesireFollowParent extends DesireBase
 	protected EntityAnimal m_parent;
 	protected int m_moveTick;
 
+	@Deprecated
 	public DesireFollowParent(RemoteEntity inEntity)
 	{
 		super(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityAnimal))
+			throw new CantBreedException();
+
+		this.m_animal = (EntityAnimal)this.getEntityHandle();
+	}
+
+	public DesireFollowParent()
+	{
+		super();
 		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			throw new CantBreedException();
 
