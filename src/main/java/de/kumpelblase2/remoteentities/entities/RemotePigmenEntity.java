@@ -50,8 +50,8 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 	public void setupStandardGoals()
 	{
 		Mind mind = this.getRemoteEntity().getMind();
-		mind.addMovementDesires(getDefaultMovementDesires());
-		mind.addTargetingDesires(getDefaultTargetingDesires());
+		mind.addMovementDesires(RemoteZombieEntity.getDefaultMovementDesires());
+		mind.addTargetingDesires(RemoteZombieEntity.getDefaultTargetingDesires());
 	}
 
 	@Override
@@ -121,29 +121,5 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 	public Entity findTarget()
 	{
 		return this.getGoalTarget();
-	}
-
-	public static DesireItem[] getDefaultMovementDesires()
-	{
-		return new DesireItem[] {
-				new DesireItem(new DesireSwim(), 0),
-				new DesireItem(new DesireDestroyDoor(false), 1),
-				new DesireItem(new DesireMoveAndMeleeAttack(EntityHuman.class, false), 2),
-				new DesireItem(new DesireMoveAndMeleeAttack(EntityVillager.class, true), 3),
-				new DesireItem(new DesireMoveTowardsRestriction(), 4),
-				new DesireItem(new DesireMoveThroughVillage(false), 5),
-				new DesireItem(new DesireWanderAround(), 6),
-				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 7),
-				new DesireItem(new DesireLookRandomly(), 7)
-		};
-	}
-
-	public static DesireItem[] getDefaultTargetingDesires()
-	{
-		return new DesireItem[] {
-				new DesireItem(new DesireFindAttackingTarget(16, false, false), 1),
-				new DesireItem(new DesireFindNearestTarget(EntityHuman.class, 16, false, true, 0), 2),
-				new DesireItem(new DesireFindNearestTarget(EntityVillager.class, 16, false, true, 0), 2)
-		};
 	}
 }
