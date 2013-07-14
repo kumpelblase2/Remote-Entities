@@ -57,12 +57,12 @@ public class DesireMakeLove extends DesireBase
 				return false;
 			else
 			{
-				EntityVillager partner = (EntityVillager)this.m_villager.world.a(EntityVillager.class, this.m_villager.boundingBox.grow(8, 3, 8));
+				Entity partner = this.m_villager.world.a(EntityVillager.class, this.m_villager.boundingBox.grow(8, 3, 8), this.m_villager);
 				if(partner == null)
 					return false;
 				else
 				{
-					this.m_partner = partner;
+					this.m_partner = (EntityVillager)partner;
 					return this.m_partner.getAge() == 0;
 				}
 			}
