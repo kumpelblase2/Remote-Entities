@@ -8,12 +8,16 @@ import de.kumpelblase2.remoteentities.api.features.TamedRidingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotRideableException;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class DesireTameByRiding extends DesireBase
 {
 	protected double m_x;
 	protected double m_y;
 	protected double m_z;
+	@SerializeAs(pos = 1)
 	protected double m_speed;
 
 	@Deprecated
@@ -148,5 +152,11 @@ public class DesireTameByRiding extends DesireBase
 			return ((EntityHorse)this.getEntityHandle()).getTemper();
 		else
 			return this.getRemoteEntity().getFeatures().getFeature(RidingFeature.class).getTemper();
+	}
+
+	@Override
+	public ParameterData[] getSerializableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

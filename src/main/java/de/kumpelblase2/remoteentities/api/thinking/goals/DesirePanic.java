@@ -6,6 +6,9 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
  * Using this desire the entity will move around in panic when it gets damaged.
@@ -15,6 +18,8 @@ public class DesirePanic extends DesireBase
 	protected double m_x;
 	protected double m_y;
 	protected double m_z;
+	@SerializeAs(pos = 1)
+	protected double m_speed;
 
 	@Deprecated
 	public DesirePanic(RemoteEntity inEntity)
@@ -25,7 +30,13 @@ public class DesirePanic extends DesireBase
 
 	public DesirePanic()
 	{
+		this(-1);
+	}
+
+	public DesirePanic(double inSpeed)
+	{
 		super();
+		this.m_speed = inSpeed;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
@@ -53,12 +64,18 @@ public class DesirePanic extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x, this.m_y, this.m_z));
+		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x, this.m_y, this.m_z), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 	}
 
 	@Override
 	public boolean canContinue()
 	{
 		return !this.getNavigation().g();
+	}
+
+	@Override
+	public ParameterData[] getSerializableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

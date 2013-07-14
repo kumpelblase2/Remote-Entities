@@ -75,14 +75,6 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	}
 
 	@Override
-	public void onAdd(RemoteEntity inEntity)
-	{
-		super.onAdd(inEntity);
-		if(this.m_speed == -1)
-			this.m_speed = inEntity.getSpeed();
-	}
-
-	@Override
 	public boolean shouldExecute()
 	{
 		if(this.getEntityHandle() == null)
@@ -122,7 +114,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.movePath(this.m_path, this.m_speed);
+		this.movePath(this.m_path, (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 		this.m_moveTick = 0;
 	}
 
@@ -144,7 +136,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		if((this.m_ignoreSight || NMSUtil.getEntitySenses(entity).canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 4 + entity.aC().nextInt(7);
-			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), this.m_speed);
+			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 		}
 
 		this.m_attackTick = Math.max(this.m_attackTick - 1, 0);
