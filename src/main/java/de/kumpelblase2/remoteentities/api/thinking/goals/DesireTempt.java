@@ -17,7 +17,7 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public class DesireTempt extends DesireBase
 {
 	@SerializeAs(pos = 1)
-	protected int m_itemId;
+	protected int m_itemID;
 	@SerializeAs(pos = 2)
 	protected boolean m_scaredByMovement;
 	protected double m_x;
@@ -29,22 +29,30 @@ public class DesireTempt extends DesireBase
 	protected int m_delayTicks;
 	protected boolean m_isTempted;
 	protected boolean m_avoidWaterState;
+	@SerializeAs(pos = 3)
+	protected double m_speed;
 
 	@Deprecated
-	public DesireTempt(RemoteEntity inEntity, int inItemId, boolean inScaredByMovement)
+	public DesireTempt(RemoteEntity inEntity, int inItemID, boolean inScaredByMovement)
 	{
 		super(inEntity);
-		this.m_itemId = inItemId;
+		this.m_itemID = inItemID;
 		this.m_scaredByMovement = inScaredByMovement;
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
-	public DesireTempt(int inItemId, boolean inScaredByMovement)
+	public DesireTempt(int inItemID, boolean inScaredByMovement)
+	{
+		this(inItemID, inScaredByMovement, -1);
+	}
+
+	public DesireTempt(int inItemID, boolean inScaredByMovement, double inSpeed)
 	{
 		super();
-		this.m_itemId = inItemId;
+		this.m_itemID = inItemID;
 		this.m_scaredByMovement = inScaredByMovement;
 		this.m_type = DesireType.FULL_CONCENTRATION;
+		this.m_speed = inSpeed;
 	}
 
 	@Override
@@ -66,7 +74,7 @@ public class DesireTempt extends DesireBase
 			else
 			{
 				ItemStack item = this.m_nearPlayer.bx();
-				return item != null && item.id == this.m_itemId;
+				return item != null && item.id == this.m_itemID;
 			}
 		}
 	}
@@ -126,7 +134,7 @@ public class DesireTempt extends DesireBase
 		if(this.getEntityHandle().e(this.m_nearPlayer) < 6.25)
 			this.getNavigation().h();
 		else
-			this.getRemoteEntity().move(this.m_nearPlayer.getBukkitEntity());
+			this.getRemoteEntity().move(this.m_nearPlayer.getBukkitEntity(), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 
 		return false;
 	}

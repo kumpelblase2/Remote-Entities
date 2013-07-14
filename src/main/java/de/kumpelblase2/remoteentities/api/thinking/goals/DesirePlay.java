@@ -11,6 +11,9 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.exceptions.NotAVillagerException;
 import de.kumpelblase2.remoteentities.nms.RandomPositionGenerator;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
  * Using this desire the villager baby will play around with another baby villager.
@@ -20,6 +23,8 @@ public class DesirePlay extends DesireBase
 	protected EntityVillager m_villager;
 	protected EntityVillager m_friend;
 	protected int m_playTick;
+	@SerializeAs(pos = 1)
+	protected double m_speed;
 
 	@Deprecated
 	public DesirePlay(RemoteEntity inEntity)
@@ -34,12 +39,18 @@ public class DesirePlay extends DesireBase
 
 	public DesirePlay()
 	{
+		this(-1);
+	}
+
+	public DesirePlay(double inSpeed)
+	{
 		super();
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 
 		this.m_villager = (EntityVillager)this.getEntityHandle();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
+		this.m_speed = inSpeed;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -117,7 +128,7 @@ public class DesirePlay extends DesireBase
 		if(this.m_friend != null)
 		{
 			if(this.m_villager.e(this.m_friend) > 4)
-				this.getRemoteEntity().move((LivingEntity)this.m_friend.getBukkitEntity());
+				this.getRemoteEntity().move((LivingEntity)this.m_friend.getBukkitEntity(), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 		}
 		else if(this.getNavigation().g())
 		{
@@ -126,9 +137,15 @@ public class DesirePlay extends DesireBase
 			if(vec == null)
 				return true;
 
-			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
+			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.c, vec.d, vec.e), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 			Vec3D.a.release(vec);
 		}
 		return true;
+	}
+
+	@Override
+	public ParameterData[] getSerializableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }

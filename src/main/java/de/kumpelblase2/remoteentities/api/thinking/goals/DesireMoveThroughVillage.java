@@ -20,6 +20,8 @@ public class DesireMoveThroughVillage extends DesireBase
 	protected PathEntity m_path;
 	protected VillageDoor m_nextDoor;
 	protected final List<VillageDoor> m_doors = new ArrayList<VillageDoor>();
+	@SerializeAs(pos = 2)
+	protected double m_speed;
 
 	@Deprecated
 	public DesireMoveThroughVillage(RemoteEntity inEntity, boolean inOnlyNight)
@@ -31,9 +33,15 @@ public class DesireMoveThroughVillage extends DesireBase
 
 	public DesireMoveThroughVillage(boolean inOnlyNight)
 	{
+		this(inOnlyNight, -1);
+	}
+
+	public DesireMoveThroughVillage(boolean inOnlyNight, double inSpeed)
+	{
 		super();
 		this.m_onlyNight = inOnlyNight;
 		this.m_type = DesireType.PRIMAL_INSTINCT;
+		this.m_speed = inSpeed;
 	}
 
 	@Override

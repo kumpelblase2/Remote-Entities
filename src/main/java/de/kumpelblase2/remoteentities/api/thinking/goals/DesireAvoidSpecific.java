@@ -20,9 +20,9 @@ public class DesireAvoidSpecific extends DesireBase
 	@SerializeAs(pos = 1)
 	protected float m_minDistance;
 	@SerializeAs(pos = 3)
-	protected float m_farSpeed;
+	protected double m_farSpeed;
 	@SerializeAs(pos = 2)
-	protected float m_closeSpeed;
+	protected double m_closeSpeed;
 	@SerializeAs(pos = 5)
 	protected boolean m_ignoreOutOfSight;
 	protected Entity m_closestEntity;
@@ -43,12 +43,13 @@ public class DesireAvoidSpecific extends DesireBase
 		this.m_entity = inEntity;
 	}
 
-	public DesireAvoidSpecific(float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid)
+	public DesireAvoidSpecific(float inMinDistance, double inCloseSpeed, double inFarSpeed, Class<?> inToAvoid)
 	{
 		this(inMinDistance, inCloseSpeed, inFarSpeed, inToAvoid, true);
 	}
 
-	public DesireAvoidSpecific(float inMinDistance, float inCloseSpeed, float inFarSpeed, Class<?> inToAvoid, boolean inIgnoreOutOfSight)
+	@SuppressWarnings("unchecked")
+	public DesireAvoidSpecific(float inMinDistance, double inCloseSpeed, double inFarSpeed, Class<?> inToAvoid, boolean inIgnoreOutOfSight)
 	{
 		super();
 		if(Entity.class.isAssignableFrom(inToAvoid))
