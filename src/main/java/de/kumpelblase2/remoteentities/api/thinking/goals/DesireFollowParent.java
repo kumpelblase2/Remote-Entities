@@ -7,6 +7,9 @@ import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.exceptions.CantBreedException;
+import de.kumpelblase2.remoteentities.persistence.ParameterData;
+import de.kumpelblase2.remoteentities.persistence.SerializeAs;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 /**
  * Using this desire the entity will try and always be near its parent.
@@ -16,6 +19,8 @@ public class DesireFollowParent extends DesireBase
 	protected EntityAnimal m_animal;
 	protected EntityAnimal m_parent;
 	protected int m_moveTick;
+	@SerializeAs(pos = 1)
+	protected double m_speed;
 
 	@Deprecated
 	public DesireFollowParent(RemoteEntity inEntity)
@@ -29,12 +34,16 @@ public class DesireFollowParent extends DesireBase
 
 	public DesireFollowParent()
 	{
+		this(-1);
+	}
+
+	public DesireFollowParent(double inSpeed)
+	{
 		super();
 		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			throw new CantBreedException();
 
 		this.m_animal = (EntityAnimal)this.getEntityHandle();
-
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -108,8 +117,14 @@ public class DesireFollowParent extends DesireBase
 		if(--this.m_moveTick <= 0)
 		{
 			this.m_moveTick = 10;
-			this.getRemoteEntity().move((LivingEntity)this.m_parent.getBukkitEntity());
+			this.getRemoteEntity().move((LivingEntity)this.m_parent.getBukkitEntity(), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 		}
 		return true;
+	}
+
+	@Override
+	public ParameterData[] getSerializableData()
+	{
+		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
 }
