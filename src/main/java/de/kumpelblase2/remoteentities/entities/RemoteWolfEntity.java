@@ -157,7 +157,7 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 					new DesireItem(new DesireProtectOwner(32, false), 1),
 					new DesireItem(new DesireHelpAttacking(32, false), 2),
 					new DesireItem(new DesireFindAttackingTarget(16, true, true), 3),
-					new DesireItem(new DesireNonTamedFindNearest(EntitySheep.class, 14, false, true, 750), 4)
+					new DesireItem(new DesireNonTamedFindNearest(EntitySheep.class, 14, false, true, 200), 4)
 			};
 		}
 		catch(Exception e)

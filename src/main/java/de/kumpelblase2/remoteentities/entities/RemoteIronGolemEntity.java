@@ -128,7 +128,7 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 		return new DesireItem[] {
 				new DesireItem(new DesireMoveAndMeleeAttack(null, true), 1),
 				new DesireItem(new DesireMoveToTarget(32), 2),
-				new DesireItem(new DesireMoveThroughVillage(true), 3),
+				new DesireItem(new DesireMoveThroughVillage(true, 0.6D), 3),
 				new DesireItem(new DesireMoveTowardsRestriction(), 4),
 				new DesireItem(new DesireOfferFlower(), 5),
 				new DesireItem(new DesireWanderAround(), 6),

@@ -133,7 +133,7 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 	{
 		return new DesireItem[] {
 				new DesireItem(new DesireSwim(), 1),
-				new DesireItem(new DesireLeapAtTarget(2), 2),
+				new DesireItem(new DesireLeapAtTarget(1), 2),
 				new DesireItem(new DesireMoveTowardsRestriction(), 3),
 				new DesireItem(new DesireWanderAround(), 4),
 				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 5),

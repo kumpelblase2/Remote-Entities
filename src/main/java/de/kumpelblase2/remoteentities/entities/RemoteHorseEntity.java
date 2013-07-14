@@ -118,8 +118,8 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 		{
 			return new DesireItem[] {
 					new DesireItem(new DesireSwim(), 0),
-					new DesireItem(new DesirePanic(), 1),
-					new DesireItem(new DesireTameByRiding(), 1),
+					new DesireItem(new DesirePanic(1.2D), 1),
+					new DesireItem(new DesireTameByRiding(1.2D), 1),
 					new DesireItem(new DesireBreed(), 2),
 					new DesireItem(new DesireFollowParent(), 4),
 					new DesireItem(new DesireWanderAround(), 6),

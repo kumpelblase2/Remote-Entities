@@ -120,10 +120,10 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 		{
 			return new DesireItem[] {
 					new DesireItem(new DesireSwim(), 1),
-					new DesireItem(new DesirePanic(), 1),
+					new DesireItem(new DesirePanic(2.0D), 1),
 					new DesireItem(new DesireBreed(), 2),
-					new DesireItem(new DesireTempt(Item.WHEAT.id, false), 3),
-					new DesireItem(new DesireFollowParent(), 4),
+					new DesireItem(new DesireTempt(Item.WHEAT.id, false, 1.25D), 3),
+					new DesireItem(new DesireFollowParent(1.25D), 4),
 					new DesireItem(new DesireWanderAround(), 5),
 					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 6),
 					new DesireItem(new DesireLookRandomly(), 7)

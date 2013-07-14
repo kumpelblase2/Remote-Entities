@@ -130,11 +130,11 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 		{
 			return new DesireItem[] {
 					new DesireItem(new DesireSwim(), 0),
-					new DesireItem(new DesirePanic(), 1),
-					new DesireItem(new DesireFollowCarrotStick(0.34f), 2),
+					new DesireItem(new DesirePanic(1.25D), 1),
+					new DesireItem(new DesireFollowCarrotStick(0.3f), 2),
 					new DesireItem(new DesireBreed(), 3),
-					new DesireItem(new DesireTempt(Item.CARROT.id, false), 4),
-					new DesireItem(new DesireTempt(Item.CARROT_STICK.id, false), 4),
+					new DesireItem(new DesireTempt(Item.CARROT.id, false, 1.2D), 4),
+					new DesireItem(new DesireTempt(Item.CARROT_STICK.id, false, 1.2D), 4),
 					new DesireItem(new DesireFollowParent(), 5),
 					new DesireItem(new DesireWanderAround(), 6),
 					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 7),

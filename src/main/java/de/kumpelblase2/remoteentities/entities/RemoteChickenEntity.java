@@ -120,10 +120,10 @@ public class RemoteChickenEntity extends EntityChicken implements RemoteEntityHa
 		{
 			return new DesireItem[] {
 					new DesireItem(new DesireSwim(), 1),
-					new DesireItem(new DesirePanic(), 1),
+					new DesireItem(new DesirePanic(1.4D), 1),
 					new DesireItem(new DesireBreed(), 2),
 					new DesireItem(new DesireTempt(Item.SEEDS.id, false), 3),
-					new DesireItem(new DesireFollowParent(), 4),
+					new DesireItem(new DesireFollowParent(1.1D), 4),
 					new DesireItem(new DesireWanderAround(), 5),
 					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 6),
 					new DesireItem(new DesireLookRandomly(), 7)

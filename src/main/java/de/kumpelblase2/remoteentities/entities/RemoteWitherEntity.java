@@ -132,7 +132,7 @@ public class RemoteWitherEntity extends EntityWither implements RemoteEntityHand
 	{
 		return new DesireItem[] {
 				new DesireItem(new DesireSwim(), 1),
-				new DesireItem(new DesireRangedAttack(RemoteProjectileType.ENTITY_DEFAULT, 60), 2),
+				new DesireItem(new DesireRangedAttack(RemoteProjectileType.ENTITY_DEFAULT, 40, 20), 2),
 				new DesireItem(new DesireWanderAround(), 3),
 				new DesireItem(new DesireLookAtNearest(EntityHuman.class, 8), 4),
 				new DesireItem(new DesireLookRandomly(), 5)

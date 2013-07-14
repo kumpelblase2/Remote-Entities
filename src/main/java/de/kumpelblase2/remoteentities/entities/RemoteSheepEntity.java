@@ -120,9 +120,9 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 		{
 			return new DesireItem[] {
 					new DesireItem(new DesireSwim(), 0),
-					new DesireItem(new DesirePanic(), 1),
+					new DesireItem(new DesirePanic(1.25D), 1),
 					new DesireItem(new DesireBreed(), 2),
-					new DesireItem(new DesireTempt(Item.WHEAT.id, false), 3),
+					new DesireItem(new DesireTempt(Item.WHEAT.id, false, 1.1D), 3),
 					new DesireItem(new DesireFollowParent(), 4),
 					new DesireItem(new DesireEatGrass(), 5),
 					new DesireItem(new DesireWanderAround(), 6),
