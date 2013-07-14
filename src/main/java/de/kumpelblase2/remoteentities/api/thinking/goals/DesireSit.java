@@ -30,11 +30,17 @@ public class DesireSit extends DesireBase
 	public DesireSit()
 	{
 		super();
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal))
 			throw new NotAnAnimalException();
 
 		this.m_animal = (EntityTameableAnimal)this.getEntityHandle();
-		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
 
 	@Override

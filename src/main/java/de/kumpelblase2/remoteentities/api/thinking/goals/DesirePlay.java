@@ -45,12 +45,18 @@ public class DesirePlay extends DesireBase
 	public DesirePlay(double inSpeed)
 	{
 		super();
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+		this.m_speed = inSpeed;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 
 		this.m_villager = (EntityVillager)this.getEntityHandle();
-		this.m_type = DesireType.PRIMAL_INSTINCT;
-		this.m_speed = inSpeed;
 	}
 
 	@SuppressWarnings("rawtypes")

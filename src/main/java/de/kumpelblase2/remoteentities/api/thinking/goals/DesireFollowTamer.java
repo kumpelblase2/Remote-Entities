@@ -48,15 +48,21 @@ public class DesireFollowTamer extends DesireBase
 	public DesireFollowTamer(float inMinDistance, float inMaxDistance)
 	{
 		super();
-		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
-			throw new NotTameableException();
-
-		this.m_animal = this.getEntityHandle();
 		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSquared = this.m_minDistance * this.m_minDistance;
 		this.m_maxDistance = inMaxDistance;
 		this.m_maxDistanceSquared = this.m_maxDistance * this.m_maxDistance;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
+			throw new NotTameableException();
+
+		this.m_animal = this.getEntityHandle();
 	}
 
 	@Override

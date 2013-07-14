@@ -40,6 +40,13 @@ public class DesireFollowParent extends DesireBase
 	public DesireFollowParent(double inSpeed)
 	{
 		super();
+		this.m_speed = inSpeed;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityAnimal))
 			throw new CantBreedException();
 

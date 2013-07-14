@@ -52,8 +52,14 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 		this.m_minDistance = inMinDistance;
 		this.m_closeSpeed = inCloseSpeed;
 		this.m_farSpeed = inFarSpeed;
-		this.m_selector = new EntitySelectorViewable(this.getEntityHandle());
 		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
+		this.m_selector = new EntitySelectorViewable(this.getEntityHandle());
 	}
 
 	@Override

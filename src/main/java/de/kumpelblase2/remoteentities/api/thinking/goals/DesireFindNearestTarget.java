@@ -69,7 +69,6 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	public DesireFindNearestTarget(Class<?> inTargetClass, float inDistance, boolean inShouldCheckSight, boolean inShouldMelee, int inChance, IEntitySelector inSelector)
 	{
 		super(inDistance, inShouldCheckSight, inShouldMelee);
-		this.m_comparator = new DistanceComparator(this.getEntityHandle());
 		this.m_targetChance = inChance;
 		if(Entity.class.isAssignableFrom(inTargetClass))
 			this.m_targetClass = (Class<? extends Entity>)inTargetClass;
@@ -89,6 +88,13 @@ public class DesireFindNearestTarget extends DesireTargetBase
 	public DesireFindNearestTarget(float inDistance, boolean inShouldCheckSight, boolean inMelee, Class<? extends EntityLiving> inTargetClass, int inChange, IEntitySelector inSelector)
 	{
 		this(inTargetClass, inDistance, inShouldCheckSight, inMelee, inChange, inSelector);
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
+		this.m_comparator = new DistanceComparator(this.getEntityHandle());
 	}
 
 	@SuppressWarnings("unchecked")

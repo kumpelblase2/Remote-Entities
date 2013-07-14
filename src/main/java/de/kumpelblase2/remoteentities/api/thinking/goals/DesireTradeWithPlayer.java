@@ -28,11 +28,17 @@ public class DesireTradeWithPlayer extends DesireBase
 	public DesireTradeWithPlayer()
 	{
 		super();
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 
 		this.m_villager = (EntityVillager)this.getEntityHandle();
-		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
 
 	@Override

@@ -34,11 +34,17 @@ public class DesireSitOnBlock extends DesireBase
 	public DesireSitOnBlock()
 	{
 		super();
+		this.m_type = DesireType.OCCASIONAL_URGE;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityOcelot))
 			throw new NotAnOcelotException();
 
 		this.m_ocelot = (EntityOcelot)this.getEntityHandle();
-		this.m_type = DesireType.OCCASIONAL_URGE;
 	}
 
 	@Override

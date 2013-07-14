@@ -31,11 +31,17 @@ public class DesireMakeLove extends DesireBase
 	public DesireMakeLove()
 	{
 		super();
+		this.m_type = DesireType.FULL_CONCENTRATION;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityVillager))
 			throw new NotAVillagerException();
 
 		this.m_villager = (EntityVillager)this.getEntityHandle();
-		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
 
 	@Override

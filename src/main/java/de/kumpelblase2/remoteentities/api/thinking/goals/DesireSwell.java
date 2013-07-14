@@ -53,15 +53,21 @@ public class DesireSwell extends DesireBase
 	public DesireSwell(int inMinDistance, int inMaxDistance)
 	{
 		super();
-		if(!(this.getEntityHandle() instanceof EntityCreeper))
-			throw new NotACreeperException();
-
-		this.m_creeper = (EntityCreeper)this.getEntityHandle();
 		this.m_type = DesireType.PRIMAL_INSTINCT;
 		this.m_minDistance = inMinDistance;
 		this.m_minDistanceSqr = inMinDistance * inMinDistance;
 		this.m_maxDistance = inMaxDistance;
 		this.m_maxDistanceSqr = inMaxDistance * inMaxDistance;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
+		if(!(this.getEntityHandle() instanceof EntityCreeper))
+			throw new NotACreeperException();
+
+		this.m_creeper = (EntityCreeper)this.getEntityHandle();
 	}
 
 	@Override

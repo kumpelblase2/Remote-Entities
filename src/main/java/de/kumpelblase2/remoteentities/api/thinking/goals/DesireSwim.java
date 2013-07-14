@@ -22,6 +22,12 @@ public class DesireSwim extends DesireBase
 	{
 		super();
 		this.m_type = DesireType.MOVEMENT_ADDITION;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		this.getNavigation().e(true);
 	}
 

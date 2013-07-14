@@ -30,11 +30,17 @@ public class DesireHelpAttacking extends DesireTamedBase
 	public DesireHelpAttacking(float inDistance, boolean inShouldCheckSight)
 	{
 		super(inDistance, inShouldCheckSight);
+		this.m_type = DesireType.PRIMAL_INSTINCT;
+	}
+
+	@Override
+	public void onAdd(RemoteEntity inEntity)
+	{
+		super.onAdd(inEntity);
 		if(!(this.getEntityHandle() instanceof EntityTameableAnimal) && !this.getRemoteEntity().getFeatures().hasFeature(TamingFeature.class))
 			throw new NotTameableException();
 
 		this.m_animal = this.getEntityHandle();
-		this.m_type = DesireType.PRIMAL_INSTINCT;
 	}
 
 	@Override
