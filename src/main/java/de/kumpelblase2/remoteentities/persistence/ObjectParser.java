@@ -1,8 +1,6 @@
 package de.kumpelblase2.remoteentities.persistence;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import net.minecraft.server.v1_6_R2.EntityLiving;
 
