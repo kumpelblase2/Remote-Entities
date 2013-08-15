@@ -5,7 +5,7 @@ import java.net.Socket;
 
 class NullSocket extends Socket
 {
-	private final byte[] buffer = new byte[0];
+	private final byte[] buffer = new byte[50];
 
 	@Override
 	public InputStream getInputStream()
@@ -16,6 +16,6 @@ class NullSocket extends Socket
 	@Override
 	public OutputStream getOutputStream()
 	{
-		return new ByteArrayOutputStream(1);
+		return new ByteArrayOutputStream(10);
 	}
 }
