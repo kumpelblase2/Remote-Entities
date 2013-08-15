@@ -210,8 +210,10 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(this.isStationary())
 			this.getMind().fixHeadYawAt(inHeadYaw);
 
-		this.m_entity.aA = inHeadYaw;
+		this.m_entity.aP = inHeadYaw;
 		this.m_entity.aQ = inHeadYaw;
+		if(!(this.m_entity instanceof EntityHuman))
+			this.m_entity.aN = inHeadYaw;
 	}
 
 	@Override
