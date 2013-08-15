@@ -9,8 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import de.kumpelblase2.remoteentities.api.DespawnReason;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
 
 public class RemoteEntities extends JavaPlugin
@@ -31,6 +30,7 @@ public class RemoteEntities extends JavaPlugin
 		}
 
 		s_instance = this;
+		RemoteEntityType.update();
 		Bukkit.getPluginManager().registerEvents(new DisableListener(), this);
 	}
 

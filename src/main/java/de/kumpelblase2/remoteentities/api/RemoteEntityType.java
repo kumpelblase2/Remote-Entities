@@ -50,6 +50,8 @@ public class RemoteEntityType
 		this.m_entityClass = inEntityClass;
 		this.m_remoteClass = inRemoteClass;
 		this.m_isNamed = inNamed;
+		if(!values.contains(this))
+			values.add(this);
 	}
 
 	public Class<? extends RemoteEntity> getRemoteClass()
@@ -137,8 +139,10 @@ public class RemoteEntityType
 		if(valueOf(inType.name()) != null)
 			return false;
 
-		values.add(inType);
-		convert();
+		if(!values.contains(inType))
+			values.add(inType);
+
+		update();
 		return true;
 	}
 
@@ -155,7 +159,7 @@ public class RemoteEntityType
 					return false;
 
 				it.remove();
-				convert();
+				update();
 				return true;
 			}
 			pos++;
@@ -167,7 +171,7 @@ public class RemoteEntityType
 	{
 		for(RemoteEntityType type : values())
 		{
-			if(type.getEntityClass().equals(inEntityClass) || type.getEntityClass().getSuperclass().equals(inEntityClass))
+			if(type.getEntityClass().equals(inEntityClass) || type.getEntityClass().getSuperclass().equals(inEntityClass) || type.getEntityClass().isAssignableFrom(inEntityClass))
 				return type;
 		}
 		return null;
@@ -183,7 +187,7 @@ public class RemoteEntityType
 		return null;
 	}
 
-	private static void convert()
+	public static void update()
 	{
 		lastConvert = values.toArray(new RemoteEntityType[values.size()]);
 	}
