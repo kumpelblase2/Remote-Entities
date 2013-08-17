@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.server.v1_6_R2.EntityLiving;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
@@ -13,6 +15,19 @@ import de.kumpelblase2.remoteentities.utilities.ItemSerialization;
  */
 public class ObjectParser
 {
+	private static Map<String, Class<?>> s_primitives = new HashMap<String, Class<?>>();
+
+	static
+	{
+		s_primitives.put("byte", byte.class);
+		s_primitives.put("short", short.class);
+		s_primitives.put("char", char.class);
+		s_primitives.put("int", int.class);
+		s_primitives.put("long", long.class);
+		s_primitives.put("float", float.class);
+		s_primitives.put("double", double.class);
+	}
+
 	@SuppressWarnings("rawtypes")
 	public Object deserialize(ParameterData inData)
 	{
@@ -114,6 +129,9 @@ public class ObjectParser
 	{
 		try
 		{
+			if(s_primitives.containsKey(inName))
+				return s_primitives.get(inName);
+
 			return Class.forName(inName);
 		}
 		catch(Exception e)
