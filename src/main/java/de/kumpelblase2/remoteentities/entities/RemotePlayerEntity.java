@@ -36,7 +36,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		{
 		}
 
-		this.aW().b(GenericAttributes.b).setValue(8.0);
+		this.aW().b(GenericAttributes.b).setValue(16);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 		this.Y = 1;
