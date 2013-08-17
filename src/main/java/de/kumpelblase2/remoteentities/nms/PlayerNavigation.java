@@ -94,7 +94,7 @@ public class PlayerNavigation extends Navigation
 	public boolean a(Entity entity, double d0) {
 		PathEntity pathentity = this.a(entity);
 
-		return pathentity != null ? this.a(pathentity, d0) : false;
+		return pathentity != null && this.a(pathentity, d0);
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class PlayerNavigation extends Navigation
 			}
 
 			if (!this.g()) {
-				Vec3D vec3d = this.c.a((Entity) this.a);
+				Vec3D vec3d = this.c.a(this.a);
 
 				if (vec3d != null) {
 					NMSUtil.getControllerMove(this.a).a(vec3d.c, vec3d.d, vec3d.e, this.d);
@@ -273,8 +273,8 @@ public class PlayerNavigation extends Navigation
 				k -= 2;
 				double d4 = 1.0D / Math.abs(d0);
 				double d5 = 1.0D / Math.abs(d1);
-				double d6 = (double) (l * 1) - vec3d.c;
-				double d7 = (double) (i1 * 1) - vec3d.e;
+				double d6 = (double) l - vec3d.c;
+				double d7 = (double) i1 - vec3d.e;
 
 				if (d0 >= 0.0D) {
 					++d6;
