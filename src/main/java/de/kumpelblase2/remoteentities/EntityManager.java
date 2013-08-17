@@ -52,7 +52,7 @@ public class EntityManager
 					}
 					else
 					{
-						entity.getHandle().y();
+						entity.getHandle().x();
 						if(entity.getHandle().dead)
 						{
 							if(entity.despawn(DespawnReason.DEATH))

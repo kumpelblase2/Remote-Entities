@@ -75,17 +75,14 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;
 
-		//Taken from Citizens2#EntityHumanNPC.java#129 - #138
+		//Taken from Citizens2#EntityHumanNPC.java#129 - #138 - slightly modified.
         if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
             motX = motY = motZ = 0;
 
 		this.updateControllers();
 		Navigation navigation = this.getNavigation();
         if(!navigation.g())
-        {
-            navigation.h();
             this.applyMovement();
-        }
         //End Citizens
 
         if(this.getRemoteEntity() != null)
