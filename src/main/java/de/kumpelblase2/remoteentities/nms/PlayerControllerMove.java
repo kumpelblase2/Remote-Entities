@@ -17,7 +17,7 @@ public class PlayerControllerMove extends ControllerMove
 	private boolean f;
 
 	public PlayerControllerMove(EntityLiving inEntity) {
-		super(NMSUtil.getTempInsertientEntity());
+		super(NMSUtil.getTempInsentientEntity());
 		this.a = inEntity;
 		this.b = inEntity.locX;
 		this.c = inEntity.locY;

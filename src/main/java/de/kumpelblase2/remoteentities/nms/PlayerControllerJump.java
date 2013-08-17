@@ -12,7 +12,7 @@ public class PlayerControllerJump extends ControllerJump
 	private boolean b;
 
 	public PlayerControllerJump(EntityLiving inEntity) {
-		super(NMSUtil.getTempInsertientEntity());
+		super(NMSUtil.getTempInsentientEntity());
 		this.a = inEntity;
 	}
 

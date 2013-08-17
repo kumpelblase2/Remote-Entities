@@ -14,7 +14,7 @@ public class PlayerSenses extends EntitySenses
 	List unseenEntities = new ArrayList();
 
 	public PlayerSenses(EntityLiving inEntity) {
-		super(NMSUtil.getTempInsertientEntity());
+		super(NMSUtil.getTempInsentientEntity());
 		this.entity = inEntity;
 	}
 

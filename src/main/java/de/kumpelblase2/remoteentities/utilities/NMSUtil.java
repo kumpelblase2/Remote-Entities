@@ -129,7 +129,7 @@ public class NMSUtil
 		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).by();
 	}
 
-	public static EntityInsentient getTempInsertientEntity()
+	public static EntityInsentient getTempInsentientEntity()
 	{
 		if(s_tempEntity == null)
 		{

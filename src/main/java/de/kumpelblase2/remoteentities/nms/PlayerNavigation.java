@@ -22,7 +22,7 @@ public class PlayerNavigation extends Navigation
 	private boolean m;
 
 	public PlayerNavigation(EntityLiving inEntity, World world) {
-		super(NMSUtil.getTempInsertientEntity(), world);
+		super(NMSUtil.getTempInsentientEntity(), world);
 		this.a = inEntity;
 		this.b = world;
 		this.e = inEntity.getAttributeInstance(GenericAttributes.b);
