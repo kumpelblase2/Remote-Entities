@@ -79,6 +79,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
         if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
             motX = motY = motZ = 0;
 
+		this.updateControllers();
 		Navigation navigation = this.getNavigation();
         if(!navigation.g())
         {
@@ -91,17 +92,20 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
         	this.getRemoteEntity().getMind().tick();
 	}
 
-	public void applyMovement()
+	private void updateControllers()
 	{
-		if(this.m_remoteEntity.isStationary())
-			return;
-
 		//Taken from Citizens2#NMS.java#259 - #262
 		getControllerMove().c();
 		getControllerLook().a();
 		getControllerJump().b();
 		getNavigation().f();
 		//End Citizens
+	}
+
+	private void applyMovement()
+	{
+		if(this.m_remoteEntity.isStationary())
+			return;
 
 		if(this.bd)
 		{
