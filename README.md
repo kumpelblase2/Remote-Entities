@@ -3,6 +3,10 @@ Remote-Entities
 
 A library that enables you to control and customize entities in minecraft.
 
+Pull-Requests
+=============
+PRs should always follow my code style: https://github.com/kumpelblase2/Remote-Entities/wiki/Code-Style
+
 
 Builds
 ======
