@@ -123,6 +123,24 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		return this.getGoalTarget();
 	}
 
+	@Override
+	protected String r()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+	}
+
+	@Override
+	protected String aN()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.HURT);
+	}
+
+	@Override
+	protected String aO()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.DEATH);
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {

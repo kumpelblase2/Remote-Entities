@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Slime;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteSlime extends RemoteAttackingBaseEntity<Slime>
@@ -21,5 +22,10 @@ public class RemoteSlime extends RemoteAttackingBaseEntity<Slime>
 	public String getNativeEntityName()
 	{
 		return "Slime";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
 	}
 }

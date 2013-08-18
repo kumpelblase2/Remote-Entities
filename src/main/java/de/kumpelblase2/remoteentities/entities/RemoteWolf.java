@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Wolf;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteWolf extends RemoteAttackingBaseEntity<Wolf>
@@ -21,5 +22,15 @@ public class RemoteWolf extends RemoteAttackingBaseEntity<Wolf>
 	public String getNativeEntityName()
 	{
 		return "Wolf";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		//TODO
+		this.setSound(EntitySound.HURT, "mob.wolf.hurt");
+		this.setSound(EntitySound.DEATH, "mob.wolf.death");
+		this.setSound(EntitySound.STEP, "mob.wolf.step");
+		this.setSound(EntitySound.SHAKE, "mob.wolf.shake");
 	}
 }

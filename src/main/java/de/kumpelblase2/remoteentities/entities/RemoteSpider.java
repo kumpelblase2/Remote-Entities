@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Spider;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class  RemoteSpider extends RemoteAttackingBaseEntity<Spider>
@@ -21,5 +22,14 @@ public class  RemoteSpider extends RemoteAttackingBaseEntity<Spider>
 	public String getNativeEntityName()
 	{
 		return "Spider";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		this.setSound(EntitySound.RANDOM, "mob.spider.say");
+		this.setSound(EntitySound.HURT, "mob.spider.say");
+		this.setSound(EntitySound.DEATH, "mob.spider.death");
+		this.setSound(EntitySound.STEP, "mob.spider.step");
 	}
 }

@@ -5,8 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.api.thinking.Mind;
@@ -123,6 +122,24 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	public Entity findTarget()
 	{
 		return this.getGoalTarget();
+	}
+
+	@Override
+	protected String r()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+	}
+
+	@Override
+	protected String aN()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.HURT);
+	}
+
+	@Override
+	protected String aO()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	public static DesireItem[] getDefaultMovementDesires()

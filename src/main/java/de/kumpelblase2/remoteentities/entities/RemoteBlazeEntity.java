@@ -120,6 +120,24 @@ public class RemoteBlazeEntity extends EntityBlaze implements RemoteEntityHandle
 		super.die(damagesource);
 	}
 
+	@Override
+	protected String r()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+	}
+
+	@Override
+	protected String aN()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.HURT);
+	}
+
+	@Override
+	protected String aO()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.DEATH);
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] { new DesireItem(new DesireRangedAttack(RemoteProjectileType.SMALL_FIREBALL, 20), 1) };

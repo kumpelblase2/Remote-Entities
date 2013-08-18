@@ -275,4 +275,28 @@ public interface RemoteEntity extends Nameable
 	 * @return	true if the entity could get saved, false if not
 	 */
 	public boolean save();
+
+	/**
+	 * Gets the sound that should play for the specific sound type.
+	 *
+	 * @param inType    The type of the sound
+	 * @return          The name of the sound
+	 */
+	public String getSound(EntitySound inType);
+
+	/**
+	 * Checks if the entity has a specific sound.
+	 *
+	 * @param inType    The type of the sound
+	 * @return          true if it has it, false if not
+	 */
+	public boolean hasSound(EntitySound inType);
+
+	/**
+	 * Sets the sound name for the specific type of sound
+	 *
+	 * @param inType    Sound type to change
+	 * @param inSound   The new name for the sound
+	 */
+	public void setSound(EntitySound inType, String inSound);
 }

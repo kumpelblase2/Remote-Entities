@@ -43,4 +43,10 @@ public class RemoteHorse extends RemoteBaseEntity<Horse>
 	{
 		return HorseVariant.getByID(((EntityHorse)this.m_entity).getVariant());
 	}
+
+	@Override
+	protected void setupSounds()
+	{
+		//TODO
+	}
 }

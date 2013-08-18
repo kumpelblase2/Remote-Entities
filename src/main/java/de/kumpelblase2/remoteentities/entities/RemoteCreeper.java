@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Creeper;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteCreeper extends RemoteAttackingBaseEntity<Creeper>
@@ -43,5 +44,13 @@ public class RemoteCreeper extends RemoteAttackingBaseEntity<Creeper>
 	public String getNativeEntityName()
 	{
 		return "Creeper";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		this.setSound(EntitySound.RANDOM, "mob.creeper.say");
+		this.setSound(EntitySound.DEATH, "mob.creeper.death");
+		this.setSound(EntitySound.FUSE, "random.fuse");
 	}
 }

@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteChicken extends RemoteBaseEntity
@@ -9,7 +10,7 @@ public class RemoteChicken extends RemoteBaseEntity
 	{
 		this(inID, null, inManager);
 	}
-	
+
 	public RemoteChicken(int inID, RemoteChickenEntity inEntity, EntityManager inManager)
 	{
 		super(inID, RemoteEntityType.Chicken, inManager);
@@ -20,5 +21,14 @@ public class RemoteChicken extends RemoteBaseEntity
 	public String getNativeEntityName()
 	{
 		return "Chicken";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		this.setSound(EntitySound.RANDOM, "mob.chicken.say");
+		this.setSound(EntitySound.HURT, "mob.chicken.hurt");
+		this.setSound(EntitySound.DEATH, "mob.chicken.hurt");
+		this.setSound(EntitySound.STEP, "mob.chicken.step");
 	}
 }

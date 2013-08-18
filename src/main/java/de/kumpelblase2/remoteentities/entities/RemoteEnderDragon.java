@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
@@ -67,5 +68,13 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 	public String getNativeEntityName()
 	{
 		return "EnderDragon";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		this.setSound(EntitySound.RANDOM, "mob.enderdragon.growl");
+		this.setSound(EntitySound.HURT, "mob.enderdragon.hit");
+		this.setSound(EntitySound.WINGS, "mob.enderdragon.wings");
 	}
 }

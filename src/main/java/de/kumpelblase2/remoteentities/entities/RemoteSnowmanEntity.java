@@ -116,6 +116,24 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 		super.die(damagesource);
 	}
 
+	@Override
+	protected String r()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+	}
+
+	@Override
+	protected String aN()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.HURT);
+	}
+
+	@Override
+	protected String aO()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.DEATH);
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {

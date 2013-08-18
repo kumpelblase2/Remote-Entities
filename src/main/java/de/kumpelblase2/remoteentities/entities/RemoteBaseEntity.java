@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.util.EnumMap;
+import java.util.Map;
 import net.minecraft.server.v1_6_R2.*;
 import net.minecraft.server.v1_6_R2.World;
 import org.bukkit.*;
@@ -41,6 +43,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected int m_pathfindingRange = 32;
 	protected double m_speed = -1;
 	protected AttributeModifier m_speedModifier;
+	protected Map<EntitySound, String> m_sounds;
 
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -49,6 +52,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		this.m_features = new FeatureSet(this);
 		this.m_type = inType;
 		this.m_manager = inManager;
+		this.m_sounds = new EnumMap<EntitySound, String>(EntitySound.class);
+		this.setupSounds();
 	}
 
 	@Override
@@ -500,6 +505,24 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		return false;
 	}
 
+	@Override
+	public String getSound(EntitySound inType)
+	{
+		return this.m_sounds.get(inType);
+	}
+
+	@Override
+	public boolean hasSound(EntitySound inType)
+	{
+		return this.getSound(inType) != null;
+	}
+
+	@Override
+	public void setSound(EntitySound inType, String inSound)
+	{
+		this.m_sounds.put(inType, inSound);
+	}
+
 	public String getName()
 	{
 		if(!this.isSpawned())
@@ -603,4 +626,6 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		}
 		return true;
 	}
+
+	protected abstract void setupSounds();
 }

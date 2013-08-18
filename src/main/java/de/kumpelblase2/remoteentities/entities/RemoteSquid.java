@@ -21,4 +21,9 @@ public class RemoteSquid extends RemoteBaseEntity
 	{
 		return "Squid";
 	}
+
+	@Override
+	protected void setupSounds()
+	{
+	}
 }

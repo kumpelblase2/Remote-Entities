@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Bat;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteBat extends RemoteAttackingBaseEntity<Bat>
@@ -21,5 +22,13 @@ public class RemoteBat extends RemoteAttackingBaseEntity<Bat>
 	public String getNativeEntityName()
 	{
 		return "Bat";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		this.setSound(EntitySound.SLEEPING, "mob.bat.idle");
+		this.setSound(EntitySound.HURT, "mob.bat.hurt");
+		this.setSound(EntitySound.DEATH, "mob.bat.death");
 	}
 }

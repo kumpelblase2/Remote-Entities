@@ -5,8 +5,7 @@ import net.minecraft.server.v1_6_R2.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
@@ -143,6 +142,24 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	public boolean be()
 	{
 		return true;
+	}
+
+	@Override
+	protected String r()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+	}
+
+	@Override
+	protected String aN()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.HURT);
+	}
+
+	@Override
+	protected String aO()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	public static DesireItem[] getDefaultMovementDesires()

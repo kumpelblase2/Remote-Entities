@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.MagmaCube;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteLavaSlime extends RemoteAttackingBaseEntity<MagmaCube>
@@ -21,5 +22,11 @@ public class RemoteLavaSlime extends RemoteAttackingBaseEntity<MagmaCube>
 	public String getNativeEntityName()
 	{
 		return "LavaSlime";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		//TODO
 	}
 }

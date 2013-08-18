@@ -52,7 +52,7 @@ public class RemoteEntityType
 		this.m_isNamed = inNamed;
 		if(values == null)
 			values = new ArrayList<RemoteEntityType>();
-		
+
 		if(!values.contains(this))
 			values.add(this);
 	}

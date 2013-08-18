@@ -2,6 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Ocelot;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteOcelote extends RemoteAttackingBaseEntity<Ocelot>
@@ -21,5 +22,13 @@ public class RemoteOcelote extends RemoteAttackingBaseEntity<Ocelot>
 	public String getNativeEntityName()
 	{
 		return "Ozelot";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		//TODO
+		this.setSound(EntitySound.HURT, "mob.cat.hitt");
+		this.setSound(EntitySound.DEATH, "mob.cat.hitt");
 	}
 }

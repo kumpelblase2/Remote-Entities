@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteSheep extends RemoteBaseEntity
@@ -20,5 +21,15 @@ public class RemoteSheep extends RemoteBaseEntity
 	public String getNativeEntityName()
 	{
 		return "Sheep";
+	}
+
+	@Override
+	protected void setupSounds()
+	{
+		this.setSound(EntitySound.RANDOM, "mob.sheep.say");
+		this.setSound(EntitySound.HURT, "mob.sheep.say");
+		this.setSound(EntitySound.DEATH, "mob.sheep.say");
+		this.setSound(EntitySound.STEP, "mob.sheep.step");
+		this.setSound(EntitySound.SHEAR, "mob.sheep.shear");
 	}
 }
