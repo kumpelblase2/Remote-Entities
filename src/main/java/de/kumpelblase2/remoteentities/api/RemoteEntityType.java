@@ -36,7 +36,7 @@ public class RemoteEntityType
 	public static final RemoteEntityType Bat = new RemoteEntityType("Bat", RemoteBat.class, RemoteBatEntity.class, false);
 	public static final RemoteEntityType Horse = new RemoteEntityType("Horse", RemoteHorse.class, RemoteHorseEntity.class, false);
 
-	private static List<RemoteEntityType> values = new ArrayList<RemoteEntityType>();
+	private static List<RemoteEntityType> values;
 	private static RemoteEntityType[] lastConvert = null;
 
 	private Class<? extends EntityLiving> m_entityClass;
@@ -50,6 +50,9 @@ public class RemoteEntityType
 		this.m_entityClass = inEntityClass;
 		this.m_remoteClass = inRemoteClass;
 		this.m_isNamed = inNamed;
+		if(values == null)
+			values = new ArrayList<RemoteEntityType>();
+		
 		if(!values.contains(this))
 			values.add(this);
 	}
