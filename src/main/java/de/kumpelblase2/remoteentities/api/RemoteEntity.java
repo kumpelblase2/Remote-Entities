@@ -1,5 +1,6 @@
 package de.kumpelblase2.remoteentities.api;
 
+import java.util.Map;
 import net.minecraft.server.v1_6_R2.EntityLiving;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -278,6 +279,8 @@ public interface RemoteEntity extends Nameable
 
 	/**
 	 * Gets the sound that should play for the specific sound type.
+	 * When more than one sound is registered for that type, a random one will be selected.
+	 * @see RemoteEntity#getSound(EntitySound, String)
 	 *
 	 * @param inType    The type of the sound
 	 * @return          The name of the sound
@@ -285,7 +288,27 @@ public interface RemoteEntity extends Nameable
 	public String getSound(EntitySound inType);
 
 	/**
-	 * Checks if the entity has a specific sound.
+	 * Gets the sound with the specific key from the sounds that are registered on the type of sound.
+	 * When only one sound is registered, it will return null.
+	 *
+	 * @param inType    Type of sound
+	 * @param inKey     Identifier for the sound
+	 * @return          The sound name or null if it wasn't found
+	 */
+	public String getSound(EntitySound inType, String inKey);
+
+	/**
+	 * Gets all sounds registered for this type of sound.
+	 * If only a single sound with no key was registered, it will still return a map and the only entry will be the sound with key 'default'.
+	 *
+	 * @param inType    The type of sound
+	 * @return          Sounds for this type
+	 */
+	public Map<String, String> getSounds(EntitySound inType);
+
+	/**
+	 * Checks if the entity has at least one sound registered for that type.
+	 * @see RemoteEntity#hasSound(EntitySound, String)
 	 *
 	 * @param inType    The type of the sound
 	 * @return          true if it has it, false if not
@@ -293,10 +316,40 @@ public interface RemoteEntity extends Nameable
 	public boolean hasSound(EntitySound inType);
 
 	/**
-	 * Sets the sound name for the specific type of sound
+	 * Checks if the entity has a sound with that key registered for the specific sound type.
+	 *
+	 * @param inType    Type of the sound
+	 * @param inKey     Identifier for the sound
+	 * @return          True if it has, false if not
+	 */
+	public boolean hasSound(EntitySound inType, String inKey);
+
+	/**
+	 * Sets the sound name for the specific type of sound.
+	 * When more than one should has been registered on this type, it will override all previously added sounds.
 	 *
 	 * @param inType    Sound type to change
 	 * @param inSound   The new name for the sound
 	 */
 	public void setSound(EntitySound inType, String inSound);
+
+	/**
+	 * Registers a sound with the key for the specific sound type.
+	 * If a single sound without key was registered earlier it will be overridden.
+	 *
+	 * @param inType    Type of the sound
+	 * @param inKey     Identifier for the sound
+	 * @param inSound   The sound
+	 */
+	public void setSound(EntitySound inType, String inKey, String inSound);
+
+	/**
+	 * Registers the map of sounds for the specific sound type.
+	 * If a single sound without key was registered earlier it will be overridden.
+	 *
+	 *
+	 * @param inType    Type of the sound
+	 * @param inSounds  The sounds
+	 */
+	public void setSounds(EntitySound inType, Map<String, String> inSounds);
 }

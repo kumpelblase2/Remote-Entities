@@ -1,7 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 import net.minecraft.server.v1_6_R2.*;
 import net.minecraft.server.v1_6_R2.World;
 import org.bukkit.*;
@@ -42,7 +41,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected long m_lastBouncedTime;
 	protected double m_speed = -1;
 	protected AttributeModifier m_speedModifier;
-	protected Map<EntitySound, String> m_sounds;
+	protected Map<EntitySound, Object> m_sounds;
 
 	public RemoteBaseEntity(int inID, RemoteEntityType inType, EntityManager inManager)
 	{
@@ -51,7 +50,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		this.m_features = new FeatureSet(this);
 		this.m_type = inType;
 		this.m_manager = inManager;
-		this.m_sounds = new EnumMap<EntitySound, String>(EntitySound.class);
+		this.m_sounds = new EnumMap<EntitySound, Object>(EntitySound.class);
 		this.setupSounds();
 	}
 
@@ -507,7 +506,43 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	@Override
 	public String getSound(EntitySound inType)
 	{
-		return this.m_sounds.get(inType);
+		Object sound = this.m_sounds.get(inType);
+		if(sound instanceof String)
+			return (String)sound;
+		else
+		{
+			Random generator = new Random();
+			Object[] values = this.m_sounds.values().toArray();
+			return (String)values[generator.nextInt(values.length)];
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public String getSound(EntitySound inType, String inKey)
+	{
+		Object sounds = this.m_sounds.get(inType);
+		if(!(sounds instanceof Map))
+			return null;
+
+		return ((Map<String, String>)sounds).get(inKey);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, String> getSounds(EntitySound inType)
+	{
+		Object sounds = this.m_sounds.get(inType);
+		if(sounds instanceof String)
+		{
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("default", (String)sounds);
+			return map;
+		}
+		else
+		{
+			return (Map<String, String>)sounds;
+		}
 	}
 
 	@Override
@@ -517,9 +552,36 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	}
 
 	@Override
+	public boolean hasSound(EntitySound inType, String inKey)
+	{
+		return this.getSound(inType, inKey) != null;
+	}
+
+	@Override
 	public void setSound(EntitySound inType, String inSound)
 	{
 		this.m_sounds.put(inType, inSound);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setSound(EntitySound inType, String inKey, String inSound)
+	{
+		Object sounds = this.m_sounds.get(inType);
+		if(sounds instanceof String)
+		{
+			Map<String, String> map = new HashMap<String, String>();
+			map.put(inKey, inSound);
+			this.m_sounds.put(inType, map);
+		}
+		else
+			((Map<String, String>)sounds).put(inKey, inSound);
+	}
+
+	@Override
+	public void setSounds(EntitySound inType, Map<String, String> inSounds)
+	{
+		this.m_sounds.put(inType, inSounds);
 	}
 
 	public String getName()
