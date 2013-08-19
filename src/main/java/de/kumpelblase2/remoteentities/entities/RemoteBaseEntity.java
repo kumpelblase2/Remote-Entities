@@ -40,7 +40,6 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected String m_nameToSpawnwith;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
-	protected int m_pathfindingRange = 32;
 	protected double m_speed = -1;
 	protected AttributeModifier m_speedModifier;
 	protected Map<EntitySound, String> m_sounds;
