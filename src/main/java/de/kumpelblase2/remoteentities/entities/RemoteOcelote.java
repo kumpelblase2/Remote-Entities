@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.entity.Ocelot;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;
@@ -27,7 +29,11 @@ public class RemoteOcelote extends RemoteAttackingBaseEntity<Ocelot>
 	@Override
 	protected void setupSounds()
 	{
-		//TODO
+		Map<String, String> randoms = new HashMap<String, String>();
+		randoms.put("purr", "mob.cat.purr");
+		randoms.put("purreow", "mob.cat.purreow");
+		randoms.put("meow", "mob.cat.meow");
+		this.setSounds(EntitySound.RANDOM, randoms);
 		this.setSound(EntitySound.HURT, "mob.cat.hitt");
 		this.setSound(EntitySound.DEATH, "mob.cat.hitt");
 	}

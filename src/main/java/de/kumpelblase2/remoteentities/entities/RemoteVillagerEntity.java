@@ -122,7 +122,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	@Override
 	protected String r()
 	{
-		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+		return (this.bW() ? this.m_remoteEntity.getSound(EntitySound.RANDOM, "haggle") : this.m_remoteEntity.getSound(EntitySound.RANDOM, "idle"));
 	}
 
 	@Override

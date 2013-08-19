@@ -127,7 +127,20 @@ public class RemoteWolfEntity extends EntityWolf implements RemoteEntityHandle
 	@Override
 	protected String r()
 	{
-		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+		if(this.isAlive())
+			return this.m_remoteEntity.getSound(EntitySound.RANDOM, "growl");
+		else
+		{
+			if(this.random.nextInt(3) == 0)
+			{
+				if(this.isTamed() && this.datawatcher.getFloat(18) < 10.0F)
+					return this.m_remoteEntity.getSound(EntitySound.RANDOM, "whine");
+				else
+					return this.m_remoteEntity.getSound(EntitySound.RANDOM, "panting");
+			}
+			else
+				return this.m_remoteEntity.getSound(EntitySound.RANDOM, "bark");
+		}
 	}
 
 	@Override

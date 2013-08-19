@@ -130,7 +130,21 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	@Override
 	protected String r()
 	{
-		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
+		if(this.isTamed())
+		{
+			if(this.bY())
+				return this.m_remoteEntity.getSound(EntitySound.RANDOM, "purr");
+			else
+			{
+				if(this.random.nextInt(4) == 0)
+					return this.m_remoteEntity.getSound(EntitySound.RANDOM, "purreow");
+				else
+					return this.m_remoteEntity.getSound(EntitySound.RANDOM, "meow");
+
+			}
+		}
+		else
+			return "";
 	}
 
 	@Override
