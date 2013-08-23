@@ -111,6 +111,32 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 		super.die(damagesource);
 	}
 
+	@Override
+	protected void b(float f) {
+		//Taken from EntityHorse.java#276 - 297
+		//modified to work with custom sounds
+		if (f > 1.0F) {
+			this.makeSound(this.m_remoteEntity.getSound(EntitySound.LAND), 0.4F, 1.0F);
+		}
+
+		int i = MathHelper.f(f * 0.5F - 3.0F);
+
+		if (i > 0) {
+			this.damageEntity(DamageSource.FALL, (float) i);
+			if (this.passenger != null) {
+				this.passenger.damageEntity(DamageSource.FALL, (float) i);
+			}
+
+			int j = this.world.getTypeId(MathHelper.floor(this.locX), MathHelper.floor(this.locY - 0.2D - (double) this.lastYaw), MathHelper.floor(this.locZ));
+
+			if (j > 0) {
+				StepSound stepsound = Block.byId[j].stepSound;
+
+				this.world.makeSound(this, stepsound.getStepSound(), stepsound.getVolume1() * 0.5F, stepsound.getVolume2() * 0.75F);
+			}
+		}
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		try

@@ -160,6 +160,18 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 		return true;
 	}
 
+	@Override
+	protected String aN()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.HURT, (this.getSize() > 1 ? "big" : "small"));
+	}
+
+	@Override
+	protected String aO()
+	{
+		return this.m_remoteEntity.getSound(EntitySound.DEATH, (this.getSize() > 1 ? "big" : "small"));
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[0];

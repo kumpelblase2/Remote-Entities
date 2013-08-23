@@ -122,7 +122,7 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	@Override
 	protected String r()
 	{
-		return (this.bW() ? this.m_remoteEntity.getSound(EntitySound.RANDOM, "haggle") : this.m_remoteEntity.getSound(EntitySound.RANDOM, "idle"));
+		return this.m_remoteEntity.getSound(EntitySound.RANDOM, (this.bW() ? "haggle" : "idle"));
 	}
 
 	@Override
@@ -135,6 +135,20 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	protected String aO()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
+	}
+
+	@Override
+	public void a_(ItemStack itemstack) {
+		//Taken from EntityVillager.java#264 - 273
+		//modified to work with custom sounds
+		if (!this.world.isStatic && this.a_ > -this.o() + 20) {
+			this.a_ = -this.o();
+			if (itemstack != null) {
+				this.makeSound(this.m_remoteEntity.getSound(EntitySound.YES), this.aZ(), this.ba());
+			} else {
+				this.makeSound(this.m_remoteEntity.getSound(EntitySound.NO), this.aZ(), this.ba());
+			}
+		}
 	}
 
 	public static DesireItem[] getDefaultMovementDesires()

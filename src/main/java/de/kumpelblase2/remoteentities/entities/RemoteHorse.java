@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.server.v1_6_R2.EntityHorse;
 import org.bukkit.entity.Horse;
 import de.kumpelblase2.remoteentities.EntityManager;
@@ -47,6 +49,6 @@ public class RemoteHorse extends RemoteBaseEntity<Horse>
 	@Override
 	protected void setupSounds()
 	{
-		//TODO
+		this.setSound(EntitySound.LAND, "mob.horse.land");
 	}
 }

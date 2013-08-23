@@ -30,6 +30,5 @@ public class RemotePigmen extends RemoteAttackingBaseEntity<PigZombie>
 		this.setSound(EntitySound.RANDOM, "mob.zombiepig.zpig");
 		this.setSound(EntitySound.HURT, "mob.zombiepig.zpighurt");
 		this.setSound(EntitySound.DEATH, "mob.zombiepig.zpigdeath");
-		this.setSound(EntitySound.ANGRY, "mob.zombiepig.zpigangry");
 	}
 }

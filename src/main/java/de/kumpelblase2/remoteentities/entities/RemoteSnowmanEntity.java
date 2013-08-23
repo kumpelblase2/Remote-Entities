@@ -134,6 +134,21 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
+	@Override
+	public void a(EntityLiving entityliving, float f) {
+		//Taken from EntitySnowman.java#62 - 72
+		//modified to work with custom sounds
+		EntitySnowball entitysnowball = new EntitySnowball(this.world, this);
+		double d0 = entityliving.locX - this.locX;
+		double d1 = entityliving.locY + (double) entityliving.getHeadHeight() - 1.100000023841858D - entitysnowball.locY;
+		double d2 = entityliving.locZ - this.locZ;
+		float f1 = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
+
+		entitysnowball.shoot(d0, d1 + (double) f1, d2, 1.6F, 12.0F);
+		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aC().nextFloat() * 0.4F + 0.8F));
+		this.world.addEntity(entitysnowball);
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {

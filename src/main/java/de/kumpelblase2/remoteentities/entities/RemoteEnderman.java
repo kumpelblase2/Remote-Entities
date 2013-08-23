@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.entity.Enderman;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;
@@ -29,11 +31,12 @@ public class RemoteEnderman extends RemoteAttackingBaseEntity<Enderman>
 	@Override
 	protected void setupSounds()
 	{
-		this.setSound(EntitySound.RANDOM, "mob.endermen.idle");
+		Map<String, String> random = new HashMap<String, String>();
+		random.put("idle", "mob.endermen.idle");
+		random.put("scream", "mob.endermen.scream");
+		this.setSounds(EntitySound.RANDOM, random);
 		this.setSound(EntitySound.HURT, "mob.endermen.hit");
 		this.setSound(EntitySound.DEATH, "mob.endermen.death");
-		this.setSound(EntitySound.STARE, "mob.endermen.stare");
 		this.setSound(EntitySound.TELEPORT, "mob.endermen.portal");
-		this.setSound(EntitySound.SCREAM, "mob.endermen.scream");
 	}
 }

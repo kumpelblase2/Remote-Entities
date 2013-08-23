@@ -31,6 +31,5 @@ public class RemoteIronGolem extends RemoteAttackingBaseEntity<IronGolem>
 		this.setSound(EntitySound.HURT, "mob.irongolem.hit");
 		this.setSound(EntitySound.DEATH, "mob.irongolem.death");
 		this.setSound(EntitySound.STEP, "mob.irongolem.walk");
-		this.setSound(EntitySound.THROW, "mob.irongolem.throw");
 	}
 }

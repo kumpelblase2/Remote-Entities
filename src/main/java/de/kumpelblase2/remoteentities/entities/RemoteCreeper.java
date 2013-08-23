@@ -51,6 +51,5 @@ public class RemoteCreeper extends RemoteAttackingBaseEntity<Creeper>
 	{
 		this.setSound(EntitySound.RANDOM, "mob.creeper.say");
 		this.setSound(EntitySound.DEATH, "mob.creeper.death");
-		this.setSound(EntitySound.FUSE, "random.fuse");
 	}
 }

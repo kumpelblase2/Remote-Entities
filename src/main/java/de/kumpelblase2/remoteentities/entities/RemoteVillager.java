@@ -34,7 +34,6 @@ public class RemoteVillager extends RemoteBaseEntity
 		this.setSounds(EntitySound.RANDOM, randoms);
 		this.setSound(EntitySound.HURT, "mob.villager.hit");
 		this.setSound(EntitySound.DEATH, "mob.villager.death");
-		this.setSound(EntitySound.STEP, "mob.cow.step");
 		this.setSound(EntitySound.YES, "mob.villager.yes");
 		this.setSound(EntitySound.NO, "mob.villager.no");
 	}

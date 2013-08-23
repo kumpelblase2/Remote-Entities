@@ -38,6 +38,5 @@ public class RemoteWolf extends RemoteAttackingBaseEntity<Wolf>
 		this.setSound(EntitySound.HURT, "mob.wolf.hurt");
 		this.setSound(EntitySound.DEATH, "mob.wolf.death");
 		this.setSound(EntitySound.STEP, "mob.wolf.step");
-		this.setSound(EntitySound.SHAKE, "mob.wolf.shake");
 	}
 }

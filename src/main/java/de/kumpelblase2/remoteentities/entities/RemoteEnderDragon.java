@@ -75,6 +75,5 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 	{
 		this.setSound(EntitySound.RANDOM, "mob.enderdragon.growl");
 		this.setSound(EntitySound.HURT, "mob.enderdragon.hit");
-		this.setSound(EntitySound.WINGS, "mob.enderdragon.wings");
 	}
 }

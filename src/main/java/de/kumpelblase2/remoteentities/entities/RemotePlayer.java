@@ -118,7 +118,5 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	@Override
 	protected void setupSounds()
 	{
-		this.setSound(EntitySound.EAT, "random.eat");
-		this.setSound(EntitySound.DRINK, "random.drink");
 	}
 }

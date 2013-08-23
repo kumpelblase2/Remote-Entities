@@ -1,5 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.entity.Slime;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;
@@ -27,5 +29,12 @@ public class RemoteSlime extends RemoteAttackingBaseEntity<Slime>
 	@Override
 	protected void setupSounds()
 	{
+		Map<String, String> hurt = new HashMap<String, String>();
+		hurt.put("big", "mob.slime.big");
+		hurt.put("small", "mob.slime.small");
+		this.setSounds(EntitySound.HURT, hurt);
+		this.setSounds(EntitySound.DEATH, new HashMap<String, String>(hurt));
+		this.setSound(EntitySound.ATTACK, "mob.attack");
+		this.setSounds(EntitySound.STEP, new HashMap<String, String>(hurt));
 	}
 }

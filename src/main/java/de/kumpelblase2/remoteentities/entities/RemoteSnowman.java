@@ -30,5 +30,6 @@ public class RemoteSnowman extends RemoteAttackingBaseEntity<Snowman>
 		this.setSound(EntitySound.RANDOM, "none");
 		this.setSound(EntitySound.HURT, "none");
 		this.setSound(EntitySound.DEATH, "none");
+		this.setSound(EntitySound.ATTACK, "random.bow");
 	}
 }

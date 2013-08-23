@@ -32,5 +32,6 @@ public class RemoteSkeleton extends RemoteAttackingBaseEntity<Skeleton>
 		this.setSound(EntitySound.HURT, "mob.skeleton.hurt");
 		this.setSound(EntitySound.DEATH, "mob.skeleton.death");
 		this.setSound(EntitySound.STEP, "mob.skeleton.step");
+		this.setSound(EntitySound.ATTACK, "random.bow");
 	}
 }

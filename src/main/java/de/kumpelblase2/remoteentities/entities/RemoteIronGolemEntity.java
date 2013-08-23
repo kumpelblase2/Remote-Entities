@@ -140,6 +140,12 @@ public class RemoteIronGolemEntity extends EntityIronGolem implements RemoteEnti
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
+	@Override
+	protected void a(int i, int j, int k, int l)
+	{
+		this.makeSound(this.m_remoteEntity.getSound(EntitySound.STEP), 0.15F, 1.0F);
+	}
+
 	public static DesireItem[] getDefaultMovementDesires()
 	{
 		return new DesireItem[] {

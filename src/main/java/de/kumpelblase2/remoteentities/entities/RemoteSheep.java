@@ -30,6 +30,5 @@ public class RemoteSheep extends RemoteBaseEntity
 		this.setSound(EntitySound.HURT, "mob.sheep.say");
 		this.setSound(EntitySound.DEATH, "mob.sheep.say");
 		this.setSound(EntitySound.STEP, "mob.sheep.step");
-		this.setSound(EntitySound.SHEAR, "mob.sheep.shear");
 	}
 }
