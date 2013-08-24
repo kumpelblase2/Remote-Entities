@@ -2,9 +2,13 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
 import net.minecraft.server.v1_6_R2.*;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
+import de.kumpelblase2.remoteentities.api.features.AgeFeature;
+import de.kumpelblase2.remoteentities.api.features.MateFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
@@ -14,7 +18,7 @@ import de.kumpelblase2.remoteentities.utilities.NMSUtil;
  */
 public class DesireBreed extends DesireBase
 {
-	protected EntityAnimal m_mate;
+	protected EntityLiving m_mate;
 	protected int m_mateTicks = 0;
 
 	@Deprecated
@@ -52,61 +56,116 @@ public class DesireBreed extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(!(this.getEntityHandle() instanceof EntityAnimal))
-			return false;
-
-		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
-		if(!entity.bY())
-			return false;
-		else
+		if(this.getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
 		{
-			this.m_mate = this.getNextAnimal();
-			return this.m_mate != null;
+			MateFeature feature = this.getRemoteEntity().getFeatures().getFeature(MateFeature.class);
+			if(!feature.isAffected())
+				return false;
+			else
+			{
+				this.m_mate = this.getNextAnimal();
+				return this.m_mate != null;
+			}
 		}
+		else if(this.getEntityHandle() instanceof EntityAnimal)
+		{
+			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
+			if(!entity.bY())
+				return false;
+			else
+			{
+				this.m_mate = this.getNextAnimal();
+				return this.m_mate != null;
+			}
+		}
+
+		return false;
 	}
 
 	@Override
 	public boolean canContinue()
 	{
-		return this.m_mate.isAlive() && this.m_mate.bY() && this.m_mateTicks < 60;
+		return this.m_mate.isAlive() && /*this.m_mate.bY() &&*/ this.m_mateTicks < 60;
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected EntityAnimal getNextAnimal()
+	protected EntityLiving getNextAnimal()
 	{
 		double range = 8;
 		List entities = this.getEntityHandle().world.a(this.getEntityHandle().getClass(), this.getEntityHandle().boundingBox.grow(range, range, range));
 		Iterator it = entities.iterator();
 		double nearestRange = Double.MAX_VALUE;
-		EntityAnimal nearest = null;
-		EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
+		EntityLiving nearest = null;
+		EntityLiving entity = this.getEntityHandle();
 		while(it.hasNext())
 		{
-			EntityAnimal mate = (EntityAnimal)it.next();
+			EntityLiving mate = (EntityLiving)it.next();
 			double currentRange;
-			if(entity.mate(mate) && (currentRange = entity.e(mate)) < nearestRange)
+			if(this.getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
 			{
-				nearest = mate;
-				nearestRange = currentRange;
+				MateFeature feature = this.getRemoteEntity().getFeatures().getFeature(MateFeature.class);
+				if(feature.isPossiblePartner((LivingEntity)mate.getBukkitEntity()) && (currentRange = entity.e(mate)) < nearestRange)
+				{
+					nearest = mate;
+					nearestRange = currentRange;
+				}
+			}
+			else if(entity instanceof EntityAnimal)
+			{
+				if(mate instanceof EntityAnimal)
+				{
+					if(((EntityAnimal)entity).mate((EntityAnimal)mate) && (currentRange = entity.e(mate)) < nearestRange)
+					{
+						nearest = mate;
+						nearestRange = currentRange;
+					}
+				}
 			}
 		}
 		return nearest;
 	}
 
-	protected EntityAgeable createChild()
+	protected EntityLiving createChild()
 	{
-		EntityAgeable baby = ((EntityAnimal)this.getEntityHandle()).createChild(this.m_mate); //TODO create feature/behavior
+		LivingEntity baby = null;
+		if(this.getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
+		{
+			MateFeature feature = this.getRemoteEntity().getFeatures().getFeature(MateFeature.class);
+			baby = feature.makeBaby();
+		}
+		else if(this.getEntityHandle() instanceof EntityAnimal)
+			baby = (LivingEntity)((EntityAnimal)this.getEntityHandle()).createChild((EntityAnimal)this.m_mate).getBukkitEntity();
 
 		if(baby != null)
 		{
-			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
-			entity.setAge(6000);
-			this.m_mate.setAge(6000);
-			entity.bZ();
-			this.m_mate.bZ();
-			baby.setAge(-24000);
-			baby.setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
-			entity.world.addEntity(baby, SpawnReason.BREEDING);
+			if(this.getRemoteEntity().getFeatures().hasFeature(AgeFeature.class))
+				this.getRemoteEntity().getFeatures().getFeature(AgeFeature.class).setAge(6000);
+			else
+				((EntityAnimal)this.getEntityHandle()).setAge(6000);
+
+			if(this.m_mate instanceof RemoteEntityHandle && ((RemoteEntityHandle)this.m_mate).getRemoteEntity().getFeatures().hasFeature(AgeFeature.class))
+				((RemoteEntityHandle)this.m_mate).getRemoteEntity().getFeatures().getFeature(AgeFeature.class).setAge(6000);
+			else if(this.m_mate instanceof EntityAnimal)
+				((EntityAnimal)this.m_mate).setAge(6000);
+
+			if(this.getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
+				this.getRemoteEntity().getFeatures().getFeature(MateFeature.class).resetAffection();
+			else
+				((EntityAnimal)this.getEntityHandle()).bZ();
+
+			if(this.m_mate instanceof RemoteEntityHandle && ((RemoteEntityHandle)this.m_mate).getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
+				((RemoteEntityHandle)this.m_mate).getRemoteEntity().getFeatures().getFeature(MateFeature.class).resetAffection();
+			else if(this.m_mate instanceof EntityAnimal)
+				((EntityAnimal)this.m_mate).bZ();
+
+			EntityLiving entity = this.getEntityHandle();
+			if(baby instanceof RemoteEntityHandle && ((RemoteEntityHandle)baby).getRemoteEntity().getFeatures().hasFeature(AgeFeature.class))
+				((RemoteEntityHandle)baby).getRemoteEntity().getFeatures().getFeature(AgeFeature.class).setAge(-24000);
+			else if(baby instanceof EntityAgeable)
+				((EntityAgeable)baby).setAge(-24000);
+
+			((CraftLivingEntity)baby).getHandle().setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
+			entity.world.addEntity(((CraftLivingEntity)baby).getHandle(), SpawnReason.BREEDING);
 			Random r = entity.aC();
 			for(int i = 0; i < 7; ++i)
 			{
@@ -118,8 +177,9 @@ public class DesireBreed extends DesireBase
 			}
 
 			entity.world.addEntity(new EntityExperienceOrb(entity.world, entity.locX, entity.locY, entity.locZ, r.nextInt(7) + 1));
+			return ((CraftLivingEntity)baby).getHandle();
 		}
 
-		return baby;
+		return null;
 	}
 }
