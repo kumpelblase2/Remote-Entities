@@ -121,7 +121,7 @@ public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 	@Override
 	protected String r()
 	{
-		return (this.bJ() && this.random.nextInt(4) != 0 ? null : this.m_remoteEntity.getSound(EntitySound.RANDOM));
+		return (this.bJ() && this.random.nextInt(4) != 0 ? null : this.m_remoteEntity.getSound(EntitySound.SLEEPING));
 	}
 
 	@Override
@@ -134,6 +134,24 @@ public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 	protected String aO()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
+	}
+
+	@Override
+	public void bh()
+	{
+		//taken from EntityInsentient.java#373 - 402
+		//removed profilers and modified to work properly
+		++this.aV;
+		this.bo();
+		this.getEntitySenses().a();
+		this.targetSelector.a();
+		this.goalSelector.a();
+		this.world.methodProfiler.b();
+		this.getNavigation().f();
+		this.bj();
+		this.getControllerMove().c();
+		this.getControllerLook().a();
+		this.getControllerJump().b();
 	}
 
 	public static DesireItem[] getDefaultMovementDesires()
