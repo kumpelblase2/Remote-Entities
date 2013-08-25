@@ -7,7 +7,9 @@ import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.api.thinking.RideBehavior;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteEnderDragonEntity extends EntityEnderDragon implements RemoteEntityHandle
 {
@@ -70,6 +72,23 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	            this.world.addParticle("largeexplode", this.locX + (double) f, this.locY + 2.0D + (double) d05, this.locZ + (double) f1, 0.0D, 0.0D, 0.0D);
 			}
 			// ---
+			return;
+		}
+		else if(this.getRemoteEntity().getMind().hasBehaviour("Ride"))
+		{
+			float[] mot = new float[] { 0, 0, 0 };
+			if(this.passenger instanceof EntityLiving)
+			{
+				if(ReflectionUtil.isJumping((EntityLiving)this.passenger))
+					mot[2] = 0.5f;
+				else if(((EntityLiving)this.passenger).pitch >= 40)
+					mot[2] = -0.15f;
+			}
+
+			((RideBehavior)this.getRemoteEntity().getMind().getBehaviour("Ride")).ride(mot);
+			super.e(mot[0], mot[1]);
+			this.motY = mot[2];
+			this.m_remoteEntity.setYaw((this.yaw < 0 ? this.yaw + 180 : this.yaw - 180));
 			return;
 		}
 
@@ -138,6 +157,16 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 			return;
 
 		super.move(d0, d1, d2);
+	}
+
+	@Override
+	public void e(float inXMotion, float inZMotion)
+	{
+		float[] motion = new float[] { inXMotion, inZMotion };
+		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
+			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
+
+		super.e(motion[0], motion[1]);
 	}
 
 	@Override

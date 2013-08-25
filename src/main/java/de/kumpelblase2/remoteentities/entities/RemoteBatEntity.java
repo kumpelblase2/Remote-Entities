@@ -7,7 +7,9 @@ import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
+import de.kumpelblase2.remoteentities.api.thinking.RideBehavior;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 {
@@ -84,6 +86,25 @@ public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 			return;
 
 		super.move(d0, d1, d2);
+	}
+
+	@Override
+	public void e(float inXMotion, float inZMotion)
+	{
+		float[] motion = new float[] { inXMotion, inZMotion, 0 };
+		if(this.passenger instanceof EntityLiving)
+		{
+			if(ReflectionUtil.isJumping((EntityLiving)this.passenger))
+				motion[2] = 0.5f;
+			else if(((EntityLiving)this.passenger).pitch >= 40)
+				motion[2] = -0.15f;
+		}
+
+		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
+			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
+
+		super.e(motion[0], motion[1]);
+		this.motY = motion[2];
 	}
 
 	@Override

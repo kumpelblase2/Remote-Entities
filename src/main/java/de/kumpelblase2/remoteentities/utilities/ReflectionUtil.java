@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import com.avaje.ebeaninternal.server.lucene.FieldFactory;
 import net.minecraft.server.v1_6_R2.EntityLiving;
 import net.minecraft.server.v1_6_R2.PathfinderGoalSelector;
 import de.kumpelblase2.remoteentities.RemoteEntities;
@@ -132,6 +133,28 @@ public final class ReflectionUtil
 		catch(Exception e)
 		{
 			return 0F;
+		}
+	}
+
+	public static boolean isJumping(EntityLiving inEntity)
+	{
+		try
+		{
+			Field jump;
+			if(s_cachedFields.containsKey("jump"))
+				jump = s_cachedFields.get("jump");
+			else
+			{
+				jump = EntityLiving.class.getDeclaredField("bd");
+				jump.setAccessible(true);
+				s_cachedFields.put("jump", jump);
+			}
+
+			return jump.getBoolean(inEntity);
+		}
+		catch(Exception e)
+		{
+			return false;
 		}
 	}
 

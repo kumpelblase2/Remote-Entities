@@ -6,8 +6,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
-import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
-import de.kumpelblase2.remoteentities.api.thinking.Mind;
+import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
 
 public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityHandle
@@ -81,6 +80,17 @@ public class RemotePigmenEntity extends EntityPigZombie implements RemoteEntityH
 			return;
 
 		super.move(d0, d1, d2);
+	}
+
+	@Override
+	public void e(float inXMotion, float inZMotion)
+	{
+		float[] motion = new float[] { inXMotion, inZMotion, 0 };
+		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
+			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
+
+		super.e(motion[0], motion[1]);
+		this.motY = motion[2];
 	}
 
 	@Override

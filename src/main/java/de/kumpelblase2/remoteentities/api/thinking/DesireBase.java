@@ -4,7 +4,6 @@ import net.minecraft.server.v1_6_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.entities.RemoteBaseEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
-import de.kumpelblase2.remoteentities.persistence.SerializeAs;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
