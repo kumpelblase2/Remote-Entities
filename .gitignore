@@ -20,3 +20,4 @@ snapshots/*
 *.idea
 *.iml
 .idea/*
+out/*
