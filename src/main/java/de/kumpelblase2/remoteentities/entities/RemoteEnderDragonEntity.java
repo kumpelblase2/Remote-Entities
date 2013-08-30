@@ -77,14 +77,6 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 		else if(this.getRemoteEntity().getMind().hasBehaviour("Ride"))
 		{
 			float[] mot = new float[] { 0, 0, 0 };
-			if(this.passenger instanceof EntityLiving)
-			{
-				if(ReflectionUtil.isJumping((EntityLiving)this.passenger))
-					mot[2] = 0.5f;
-				else if(((EntityLiving)this.passenger).pitch >= 40)
-					mot[2] = -0.15f;
-			}
-
 			((RideBehavior)this.getRemoteEntity().getMind().getBehaviour("Ride")).ride(mot);
 			super.e(mot[0], mot[1]);
 			this.motY = mot[2];

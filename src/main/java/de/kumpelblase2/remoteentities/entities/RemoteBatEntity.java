@@ -92,14 +92,6 @@ public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 	public void e(float inXMotion, float inZMotion)
 	{
 		float[] motion = new float[] { inXMotion, inZMotion, 0 };
-		if(this.passenger instanceof EntityLiving)
-		{
-			if(ReflectionUtil.isJumping((EntityLiving)this.passenger))
-				motion[2] = 0.5f;
-			else if(((EntityLiving)this.passenger).pitch >= 40)
-				motion[2] = -0.15f;
-		}
-
 		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
 			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
 
