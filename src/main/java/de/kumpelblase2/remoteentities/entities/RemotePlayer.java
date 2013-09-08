@@ -114,6 +114,14 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	{
 		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 1));
 	}
+	
+	/**
+     * Send the hurt animation to nearby players.
+     */
+	public void fakeDamage()
+	{
+		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 2));
+	}
 
 	@Override
 	protected void setupSounds()
