@@ -94,7 +94,8 @@ public class CreateEntityContext
 	 */
 	public CreateEntityContext withFeatures(Feature... inFeatures)
 	{
-		this.m_features = new ArrayList<Feature>(Arrays.asList(inFeatures));
+		this.m_features.clear();
+		this.m_features.addAll(Arrays.asList(inFeatures));
 		return this;
 	}
 
@@ -106,7 +107,8 @@ public class CreateEntityContext
 	 */
 	public CreateEntityContext withBehaviors(Behavior... inBehaviors)
 	{
-		this.m_behaviors = new ArrayList<Behavior>(Arrays.asList(inBehaviors));
+		this.m_behaviors.clear();
+		this.m_behaviors.addAll(Arrays.asList(inBehaviors));
 		return this;
 	}
 
@@ -202,6 +204,7 @@ public class CreateEntityContext
 	 * @return					Created entity
 	 * @throws NoTypeException	When no type is specified
 	 * @throws NoNameException	When no name is specified while trying to spawn a named entity
+	 * @throws InternalError    When an error occurred during creation process
 	 */
 	public RemoteEntity create()
 	{
@@ -221,6 +224,9 @@ public class CreateEntityContext
 		}
 		else
 			created = this.m_manager.createEntity(this.m_type, this.m_id);
+
+		if(created == null)
+			throw new InternalError("Was not able to create entity with given type and id. Type was " + this.m_type + " and id " + this.m_id);
 
 		for(Feature feature : this.m_features)
 		{
