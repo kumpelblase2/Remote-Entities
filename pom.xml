@@ -30,11 +30,11 @@
     <distributionManagement>
         <repository>
             <id>remoteentities-ftp</id>
-            <url>ftp://ftp.infinityblade.de/httpdocs/remoteentities/releases</url>
+            <url>ftp://ftp.infinityblade.de/remoteentities/releases</url>
         </repository>
         <snapshotRepository>
             <id>remoteentities-ftp</id>
-            <url>ftp://ftp.infinityblade.de/httpdocs/remoteentities/snapshots</url>
+            <url>ftp://ftp.infinityblade.de/remoteentities/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
