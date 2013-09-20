@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R2.*;
-import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
+import net.minecraft.server.v1_6_R3.*;
+import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
 import de.kumpelblase2.remoteentities.api.features.RemoteTradingFeature;
 
 public class VirtualMerchant implements IMerchant

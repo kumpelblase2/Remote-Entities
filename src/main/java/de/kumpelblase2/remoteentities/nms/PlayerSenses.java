@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.nms;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerSenses extends EntitySenses

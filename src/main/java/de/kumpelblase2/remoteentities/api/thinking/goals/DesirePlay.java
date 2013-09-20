@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_6_R2.EntityVillager;
-import net.minecraft.server.v1_6_R2.Vec3D;
+import net.minecraft.server.v1_6_R3.EntityVillager;
+import net.minecraft.server.v1_6_R3.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -68,7 +68,7 @@ public class DesirePlay extends DesireBase
 
 		if(this.m_villager.getAge() >= 0)
 			return false;
-		else if(this.m_villager.aC().nextInt(400) != 0)
+		else if(this.m_villager.aD().nextInt(400) != 0)
 			return false;
 		else
 		{

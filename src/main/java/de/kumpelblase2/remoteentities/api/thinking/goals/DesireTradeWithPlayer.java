@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R2.EntityHuman;
-import net.minecraft.server.v1_6_R2.EntityVillager;
+import net.minecraft.server.v1_6_R3.EntityHuman;
+import net.minecraft.server.v1_6_R3.EntityVillager;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -49,7 +49,7 @@ public class DesireTradeWithPlayer extends DesireBase
 
 		if(!this.getEntityHandle().isAlive())
 			return false;
-		else if(this.getEntityHandle().G())
+		else if(this.getEntityHandle().H())
 			return false;
 		else if(!this.getEntityHandle().onGround)
 			return false;

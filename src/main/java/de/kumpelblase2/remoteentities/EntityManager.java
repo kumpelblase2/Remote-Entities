@@ -4,10 +4,10 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-import net.minecraft.server.v1_6_R2.EntityLiving;
+import net.minecraft.server.v1_6_R3.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_6_R2.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.world.ChunkLoadEvent;
@@ -52,7 +52,7 @@ public class EntityManager
 					}
 					else
 					{
-						entity.getHandle().x();
+						entity.getHandle().y();
 						if(entity.getHandle().dead)
 						{
 							if(entity.despawn(DespawnReason.DEATH))

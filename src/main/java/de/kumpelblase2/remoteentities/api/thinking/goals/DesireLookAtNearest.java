@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.List;
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -67,7 +67,7 @@ public class DesireLookAtNearest extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_lookTicks = 40 + this.getEntityHandle().aC().nextInt(40);
+		this.m_lookTicks = 40 + this.getEntityHandle().aD().nextInt(40);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class DesireLookAtNearest extends DesireBase
 		if(entity == null)
 			return false;
 
-		if(entity.aC().nextFloat() >= this.m_lookPossibility)
+		if(entity.aD().nextFloat() >= this.m_lookPossibility)
 			return false;
 		else
 		{

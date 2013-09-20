@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.entities;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.server.v1_6_R2.EntityHorse;
+import net.minecraft.server.v1_6_R3.EntityHorse;
 import org.bukkit.entity.Horse;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.*;

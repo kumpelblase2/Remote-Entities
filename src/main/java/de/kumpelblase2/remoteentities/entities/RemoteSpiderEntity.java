@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -53,7 +53,7 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 	}
 
 	@Override
-	public boolean be()
+	public boolean bf()
 	{
 		return true;
 	}
@@ -145,13 +145,13 @@ public class RemoteSpiderEntity extends EntitySpider implements RemoteEntityHand
 	}
 
 	@Override
-	protected String aN()
+	protected String aO()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aO()
+	protected String aP()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}

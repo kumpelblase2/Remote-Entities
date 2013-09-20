@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerNavigation extends Navigation
@@ -208,7 +208,7 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private int k() {
-		if (this.a.G() && this.m) {
+		if (this.a.H() && this.m) {
 			int i = (int) this.a.boundingBox.b;
 			int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
 			int k = 0;
@@ -234,7 +234,7 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private boolean m() {
-		return this.a.G() || this.a.I();
+		return this.a.H() || this.a.I();
 	}
 
 	private void n() {
@@ -335,7 +335,7 @@ public class PlayerNavigation extends Navigation
 
 						Material material = Block.byId[k2].material;
 
-						if (material == Material.WATER && !this.a.G()) {
+						if (material == Material.WATER && !this.a.H()) {
 							return false;
 						}
 

@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R2.EntityLiving;
+import net.minecraft.server.v1_6_R3.EntityLiving;
 import de.kumpelblase2.remoteentities.entities.*;
 
 public class RemoteEntityType

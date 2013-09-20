@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R2.WorldServer;
+import net.minecraft.server.v1_6_R3.WorldServer;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.*;

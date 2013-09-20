@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.io.*;
 import java.math.BigInteger;
-import net.minecraft.server.v1_6_R2.*;
-import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftInventoryCustom;
-import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftItemStack;
+import net.minecraft.server.v1_6_R3.*;
+import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftInventoryCustom;
+import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -60,7 +60,7 @@ public class ItemSerialization {
 
 			// IsEmpty
 			if (!inputObject.isEmpty()) {
-				inventory.setItem(i, CraftItemStack.asBukkitCopy(net.minecraft.server.v1_6_R2.ItemStack.createStack(inputObject)));
+				inventory.setItem(i, CraftItemStack.asBukkitCopy(net.minecraft.server.v1_6_R3.ItemStack.createStack(inputObject)));
 			}
 		}
 

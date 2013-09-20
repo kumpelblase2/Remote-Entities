@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import de.kumpelblase2.remoteentities.entities.RemotePlayerEntity;
 
 public class NMSUtil

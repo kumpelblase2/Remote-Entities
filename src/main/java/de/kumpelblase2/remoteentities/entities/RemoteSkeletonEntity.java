@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -140,13 +140,13 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	}
 
 	@Override
-	protected String aN()
+	protected String aO()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aO()
+	protected String aP()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
@@ -161,8 +161,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		//Taken from EntitySkeleton.java#204 - 224
 		//modified to work with custom sounds
 		EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty * 4));
-		int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.aY());
-		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.aY());
+		int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.aZ());
+		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.aZ());
 
 		entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty * 0.11F));
 		if (i > 0) {
@@ -173,11 +173,11 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 			entityarrow.a(j);
 		}
 
-		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.aY()) > 0 || this.getSkeletonType() == 1) {
+		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.aZ()) > 0 || this.getSkeletonType() == 1) {
 			entityarrow.setOnFire(100);
 		}
 
-		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aC().nextFloat() * 0.4F + 0.8F));
+		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aD().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(entityarrow);
 	}
 

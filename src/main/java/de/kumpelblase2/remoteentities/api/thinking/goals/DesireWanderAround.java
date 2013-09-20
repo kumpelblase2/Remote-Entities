@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R2.EntityTameableAnimal;
-import net.minecraft.server.v1_6_R2.Vec3D;
+import net.minecraft.server.v1_6_R3.EntityTameableAnimal;
+import net.minecraft.server.v1_6_R3.Vec3D;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -38,7 +38,7 @@ public class DesireWanderAround extends DesireBase
 
 		if(this.getEntityHandle().aH() >= 100)
 			return false;
-		else if(this.getEntityHandle().aC().nextInt(120) != 0)
+		else if(this.getEntityHandle().aD().nextInt(120) != 0)
 			return false;
 		else if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isSitting())
 			return false;

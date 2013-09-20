@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R2.EntityHuman;
-import net.minecraft.server.v1_6_R2.ItemStack;
+import net.minecraft.server.v1_6_R3.EntityHuman;
+import net.minecraft.server.v1_6_R3.ItemStack;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -73,7 +73,7 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.bx();
+				ItemStack item = this.m_nearPlayer.by();
 				return item != null && item.id == this.m_itemID;
 			}
 		}

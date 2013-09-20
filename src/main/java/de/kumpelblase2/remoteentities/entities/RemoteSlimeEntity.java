@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -71,9 +71,9 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	protected void bh()
+	protected void bi()
 	{
-		this.bk();
+		this.bl();
 		if(this.m_target != null)
 			this.a(this.m_target, 10.0F, 20.0F);
 
@@ -86,7 +86,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 
             this.bd = true;
             if (this.bS()) {
-	            this.makeSound(this.bP(), this.aZ(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+	            this.makeSound(this.bP(), this.ba(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.be = 1.0F - this.random.nextFloat() * 2.0F;
@@ -167,19 +167,19 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean be()
+	public boolean bf()
 	{
 		return true;
 	}
 
 	@Override
-	protected String aN()
+	protected String aO()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT, (this.getSize() > 1 ? "big" : "small"));
 	}
 
 	@Override
-	protected String aO()
+	protected String aP()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH, (this.getSize() > 1 ? "big" : "small"));
 	}

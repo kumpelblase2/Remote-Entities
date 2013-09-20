@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -37,7 +37,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		{
 		}
 
-		this.aW().b(GenericAttributes.b).setValue(16);
+		this.aX().b(GenericAttributes.b).setValue(16);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
 		this.Y = 1;
@@ -138,7 +138,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 
 	@Override
-	public boolean be()
+	public boolean bf()
 	{
 		return true;
 	}

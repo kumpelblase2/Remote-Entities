@@ -16,7 +16,7 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
-	private static final String COMPATIBLE_VERSION = "1.6.2";
+	private static final String COMPATIBLE_VERSION = "1.6.4";
 
 	@Override
 	public void onEnable()

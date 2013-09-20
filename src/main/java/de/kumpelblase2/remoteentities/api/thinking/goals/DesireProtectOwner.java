@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R2.EntityLiving;
-import net.minecraft.server.v1_6_R2.EntityTameableAnimal;
+import net.minecraft.server.v1_6_R3.EntityLiving;
+import net.minecraft.server.v1_6_R3.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -60,7 +60,7 @@ public class DesireProtectOwner extends DesireTamedBase
 			else
 			{
 				this.m_ownerAttacker = owner.getLastDamager();
-				int lastAttackedTick = owner.aE();
+				int lastAttackedTick = owner.aF();
 				return lastAttackedTick != this.m_lastAttackedTick && this.isSuitableTarget(this.m_ownerAttacker, false);
 			}
 		}
@@ -70,7 +70,7 @@ public class DesireProtectOwner extends DesireTamedBase
 	public void startExecuting()
 	{
 		NMSUtil.setGoalTarget(this.getEntityHandle(), this.m_ownerAttacker);
-		this.m_lastAttackedTick = this.getTamer().aE();
+		this.m_lastAttackedTick = this.getTamer().aF();
 		super.startExecuting();
 	}
 }

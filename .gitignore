@@ -21,3 +21,5 @@ snapshots/*
 *.iml
 .idea/*
 out/*
+
+src/main/resources/rebel.xml
