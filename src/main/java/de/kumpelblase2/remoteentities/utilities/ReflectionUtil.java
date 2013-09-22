@@ -4,9 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-import com.avaje.ebeaninternal.server.lucene.FieldFactory;
 import net.minecraft.server.v1_6_R3.EntityLiving;
-import net.minecraft.server.v1_6_R3.PathfinderGoalSelector;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -23,7 +21,7 @@ public final class ReflectionUtil
 	 * @param inSelectorName	name of the selector (targetSelector or movementSelector)
 	 * @param inNewSelector		new selector
 	 */
-	public static void replaceGoalSelector(EntityLiving inEntity, String inSelectorName, PathfinderGoalSelector inNewSelector)
+	public static void replaceGoalSelector(Object inEntity, String inSelectorName, Object inNewSelector)
 	{
 		try
 		{
@@ -74,69 +72,7 @@ public final class ReflectionUtil
         }
 	}
 
-	/**
-	 * Gets the speed of an entity
-	 *
-	 * @param inEntity	entity
-	 * @return			speed
-	 * @deprecated because of new attribute system
-	 */
-	@Deprecated
-	public static float getSpeed(EntityLiving inEntity)
-	{
-		try
-		{
-			if(s_cachedFields.containsKey("speed"))
-			{
-				Field speed = s_cachedFields.get("speed");
-				return speed.getFloat(inEntity);
-			}
-			else
-			{
-				Field speed = inEntity.getClass().getDeclaredField("bI");
-				speed.setAccessible(true);
-				s_cachedFields.put("speed", speed);
-				return speed.getFloat(inEntity);
-			}
-		}
-		catch(Exception e)
-		{
-			return 0F;
-		}
-	}
-
-	/**
-	 * Gets the speed modifier of an entity
-	 *
-	 * @param inEntity	entity
-	 * @return			modifier
-	 * @deprecated because of new attribute system
-	 */
-	@Deprecated
-	public static float getSpeedModifier(EntityLiving inEntity)
-	{
-		try
-		{
-			if(s_cachedFields.containsKey("speedModifier"))
-			{
-				Field speed = s_cachedFields.get("speedModifier");
-				return speed.getFloat(inEntity);
-			}
-			else
-			{
-				Field speed = inEntity.getClass().getDeclaredField("bQ");
-				speed.setAccessible(true);
-				s_cachedFields.put("speedModifier", speed);
-				return speed.getFloat(inEntity);
-			}
-		}
-		catch(Exception e)
-		{
-			return 0F;
-		}
-	}
-
-	public static boolean isJumping(EntityLiving inEntity)
+	public static boolean isJumping(Object inEntity)
 	{
 		try
 		{
