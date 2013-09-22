@@ -3,8 +3,10 @@ package de.kumpelblase2.remoteentities.utilities;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.*;
-import net.minecraft.server.v1_6_R3.EntityLiving;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -61,7 +63,7 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
 
-            Method a = net.minecraft.server.v1_6_R3.EntityTypes.class.getDeclaredMethod("a", args);
+            Method a = Class.forName("net.minecraft.server." + RemoteEntities.getMinecraftRevision() + ".EntityTypes").getDeclaredMethod("a", args);
             a.setAccessible(true);
 
             a.invoke(a, inClass, name, inID);
@@ -87,7 +89,7 @@ public final class ReflectionUtil
 				jump = s_cachedFields.get("jump");
 			else
 			{
-				jump = EntityLiving.class.getDeclaredField("bd");
+				jump = Class.forName("net.minecraft.server." + RemoteEntities.getMinecraftRevision() + ".EntityLiving").getDeclaredField("bd");
 				jump.setAccessible(true);
 				s_cachedFields.put("jump", jump);
 			}
@@ -142,5 +144,39 @@ public final class ReflectionUtil
 			clazz = clazz.getSuperclass();
 		}
 		return parameters;
+	}
+
+	public static String getMinecraftRevision()
+	{
+		try
+		{
+			String name = "net.minecraft.server";
+			String path = name.replace('.', '/');
+
+			URL pkg = ClassLoader.getSystemClassLoader().getResource(path);
+			String jarPath;
+			if(pkg != null)
+			{
+				jarPath = pkg.getPath().replaceFirst("!.*", "").replaceFirst("file:", "");
+				JarFile jar = new JarFile(jarPath);
+				Enumeration<JarEntry> entries = jar.entries();
+				while(entries.hasMoreElements())
+				{
+					JarEntry entry = entries.nextElement();
+					String entryName = entry.getName().replace('/', '.').replace('\\', '.');
+					if(!entryName.endsWith(".class") && entryName.startsWith(name) && entryName.length() > name.length() + 1)
+					{
+						entryName = entryName.replaceFirst("net.minecraft.server.", "").split(".")[0];
+						return entryName;
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

@@ -11,16 +11,20 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import de.kumpelblase2.remoteentities.api.*;
 import de.kumpelblase2.remoteentities.exceptions.PluginNotEnabledException;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
 	private static final String COMPATIBLE_VERSION = "1.6.4";
+	private static String MINECRAFT_REVISION;
 
 	@Override
 	public void onEnable()
 	{
+		MINECRAFT_REVISION = ReflectionUtil.getMinecraftRevision();
+		System.out.println(MINECRAFT_REVISION);
 		String minecraftversion = this.getPresentMinecraftVersion();
 		if(!minecraftversion.equals(COMPATIBLE_VERSION)){
 			this.getLogger().severe("Invalid minecraft version for remote entities (Required: " + COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
@@ -182,6 +186,11 @@ public class RemoteEntities extends JavaPlugin
 	public static String getCompatibleMinecraftVersion()
 	{
 		return COMPATIBLE_VERSION;
+	}
+
+	public static String getMinecraftRevision()
+	{
+		return MINECRAFT_REVISION;
 	}
 
 	class DisableListener implements Listener
