@@ -59,7 +59,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 			else
 			{
 				this.m_ownerTarget = owner.aG();
-				int lastAttackTick = owner.aF();
+				int lastAttackTick = owner.aH();
 				return lastAttackTick != this.m_lastAttackTick && this.isSuitableTarget(this.m_ownerTarget, false);
 			}
 		}
@@ -69,7 +69,7 @@ public class DesireHelpAttacking extends DesireTamedBase
 	public void startExecuting()
 	{
 		NMSUtil.setGoalTarget(this.getEntityHandle(), this.m_ownerTarget);
-		this.m_lastAttackTick = this.getTamer().aF();
+		this.m_lastAttackTick = this.getTamer().aH();
 		super.startExecuting();
 	}
 }

@@ -145,7 +145,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		{
 			this.m_attackTick = 20;
 			if(entity.aZ() != null)
-				this.getEntityHandle().aR();
+				this.getEntityHandle().aV();
 
 			this.attack(this.m_target.getBukkitEntity());
 		}

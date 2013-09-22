@@ -94,7 +94,7 @@ public class DesireTameByRiding extends DesireBase
 			if(entity.passenger instanceof EntityHuman)
 			{
 				int i = this.getTemper();
-				int j = 100; //horse.cm()
+				int j = 100; //horse.getMaxDomestication()
 
 				if(j > 0 && entity.aD().nextInt(j) < i)
 				{

@@ -234,7 +234,7 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private boolean m() {
-		return this.a.H() || this.a.I();
+		return this.a.H() || this.a.J();
 	}
 
 	private void n() {
