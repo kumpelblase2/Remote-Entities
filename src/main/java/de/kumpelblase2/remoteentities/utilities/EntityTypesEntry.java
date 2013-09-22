@@ -2,7 +2,6 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-import net.minecraft.server.v1_6_R3.EntityTypes;
 
 public class EntityTypesEntry
 {
@@ -29,9 +28,10 @@ public class EntityTypesEntry
 	{
 		  try
 		  {
-			  Field classMap = EntityTypes.class.getDeclaredField("b");
+			  Class entityTypes = ReflectionUtil.getNMSClassByName("EntityTypes");
+			  Field classMap = entityTypes.getDeclaredField("b");
 			  classMap.setAccessible(true);
-			  Field idMap = EntityTypes.class.getDeclaredField("e");
+			  Field idMap = entityTypes.getDeclaredField("e");
 			  idMap.setAccessible(true);
 			  Class entityClass = (Class)((Map)classMap.get(null)).get(inEntity);
 			  Integer id = (Integer)((Map)idMap.get(null)).get(entityClass);

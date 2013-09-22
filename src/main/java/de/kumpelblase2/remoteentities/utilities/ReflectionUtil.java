@@ -141,6 +141,7 @@ public final class ReflectionUtil
 					}
 				}
 			}
+
 			clazz = clazz.getSuperclass();
 		}
 		return parameters;
@@ -171,6 +172,20 @@ public final class ReflectionUtil
 					}
 				}
 			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static Class getNMSClassByName(String inName)
+	{
+		try
+		{
+			return Class.forName("net.minecraft.server." + RemoteEntities.getMinecraftRevision() + "." + inName);
 		}
 		catch(Exception e)
 		{
