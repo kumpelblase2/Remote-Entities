@@ -72,6 +72,12 @@ public final class ReflectionUtil
         }
 	}
 
+	/**
+	 * Checks if the entity is jumping.
+	 *
+	 * @param inEntity  The entity to check
+	 * @return          True if it is, otherwise false
+	 */
 	public static boolean isJumping(Object inEntity)
 	{
 		try
