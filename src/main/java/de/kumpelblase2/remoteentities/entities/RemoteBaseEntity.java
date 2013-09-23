@@ -663,7 +663,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		this.getMind().clearTargetingDesires();
 	}
 
-	boolean onInteract(Player inEntity)
+	boolean onInteract(Player inEntity, boolean inLeftClick)
 	{
 		if(this.getFeatures().hasFeature(TradingFeature.class))
 		{
@@ -677,7 +677,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(this.getMind().canFeel())
 		{
-			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this, inEntity);
+			RemoteEntityInteractEvent event = new RemoteEntityInteractEvent(this, inEntity, inLeftClick);
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isCancelled())
 				return false;
@@ -686,6 +686,11 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				((InteractBehavior)this.getMind().getBehaviour("Interact")).onInteract(inEntity);
 		}
 		return true;
+	}
+
+	boolean onInteract(Player inEntity)
+	{
+		return this.onInteract(inEntity, true);
 	}
 
 	protected abstract void setupSounds();

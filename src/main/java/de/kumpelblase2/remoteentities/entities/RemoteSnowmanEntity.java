@@ -120,6 +120,18 @@ public class RemoteSnowmanEntity extends EntitySnowman implements RemoteEntityHa
 	}
 
 	@Override
+	public boolean c(EntityLiving entity)
+	{
+		if(this.getRemoteEntity() == null)
+			return super.c(entity);
+
+		if(!(entity.getBukkitEntity() instanceof Player))
+			return super.c(entity);
+
+		return ((RemoteBaseEntity)this.m_remoteEntity).onInteract((Player)entity.getBukkitEntity(), false) && super.c(entity);
+	}
+
+	@Override
 	public void die(DamageSource damagesource)
 	{
 		((RemoteBaseEntity)this.m_remoteEntity).onDeath();
