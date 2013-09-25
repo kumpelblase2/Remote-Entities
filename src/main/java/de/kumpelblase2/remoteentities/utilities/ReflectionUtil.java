@@ -3,10 +3,8 @@ package de.kumpelblase2.remoteentities.utilities;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+import org.bukkit.Bukkit;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -149,36 +147,9 @@ public final class ReflectionUtil
 
 	public static String getMinecraftRevision()
 	{
-		try
-		{
-			String name = "net.minecraft.server";
-			String path = name.replace('.', '/');
-
-			URL pkg = ClassLoader.getSystemClassLoader().getResource(path);
-			String jarPath;
-			if(pkg != null)
-			{
-				jarPath = pkg.getPath().replaceFirst("!.*", "").replaceFirst("file:", "");
-				JarFile jar = new JarFile(jarPath);
-				Enumeration<JarEntry> entries = jar.entries();
-				while(entries.hasMoreElements())
-				{
-					JarEntry entry = entries.nextElement();
-					String entryName = entry.getName().replace('/', '.').replace('\\', '.');
-					if(!entryName.endsWith(".class") && entryName.startsWith(name) && entryName.length() > name.length() + 1)
-					{
-						entryName = entryName.replaceFirst("net.minecraft.server.", "").split(".")[0];
-						return entryName;
-					}
-				}
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		return null;
+		Class serverClass = Bukkit.getServer().getClass();
+		String remaining = serverClass.getPackage().getName().replace("org.bukkit.craftbukkit.", "");
+		return remaining.split("\\.")[0];
 	}
 
 	public static Class getNMSClassByName(String inName)

@@ -24,7 +24,6 @@ public class RemoteEntities extends JavaPlugin
 	public void onEnable()
 	{
 		MINECRAFT_REVISION = ReflectionUtil.getMinecraftRevision();
-		System.out.println(MINECRAFT_REVISION);
 		String minecraftversion = this.getPresentMinecraftVersion();
 		if(!minecraftversion.equals(COMPATIBLE_VERSION)){
 			this.getLogger().severe("Invalid minecraft version for remote entities (Required: " + COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
