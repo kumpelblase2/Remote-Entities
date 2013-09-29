@@ -308,19 +308,13 @@ public class EntityManager
 		if(!this.isRemoteEntity(inEntity))
 			return null;
 
-		if(inEntity.hasMetadata("remoteentity"))
-		{
-			for(MetadataValue value : inEntity.getMetadata("remoteentity"))
-			{
-				if(value.getOwningPlugin() == this.m_plugin)
-				{
-					if(!(value.value() instanceof RemoteEntity))
-						continue;
-
-					return (RemoteEntity)value.value();
-				}
-			}
-		}
+        for (RemoteEntity remoteEntity : this.getAllEntities())
+        {
+            if (remoteEntity.getBukkitEntity() == inEntity)
+            {
+                return remoteEntity;
+            }
+        }
 
 		EntityLiving entityHandle = ((CraftLivingEntity)inEntity).getHandle();
 		return ((RemoteEntityHandle)entityHandle).getRemoteEntity();
