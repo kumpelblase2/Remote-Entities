@@ -109,7 +109,6 @@ public final class ReflectionUtil
 	public static List<ParameterData> getParameterDataForClass(Object inClass)
 	{
 		Class<?> clazz = inClass.getClass();
-		System.out.println(clazz.toString());
 		List<ParameterData> parameters = new ArrayList<ParameterData>();
 		Set<String> membersLooked = new HashSet<String>();
 		while(clazz != Object.class && clazz != Desire.class)
