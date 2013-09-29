@@ -311,9 +311,7 @@ public class EntityManager
         for (RemoteEntity remoteEntity : this.getAllEntities())
         {
             if (remoteEntity.getBukkitEntity() == inEntity)
-            {
                 return remoteEntity;
-            }
         }
 
 		EntityLiving entityHandle = ((CraftLivingEntity)inEntity).getHandle();
