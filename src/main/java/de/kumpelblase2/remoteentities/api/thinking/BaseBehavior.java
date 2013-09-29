@@ -8,7 +8,7 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public abstract class BaseBehavior implements Behavior
 {
 	protected String m_name;
-	@SerializeAs(pos = 0, special = "entity")
+	@SerializeAs(pos = 1, special = "entity")
 	protected final RemoteEntity m_entity;
 
 	public BaseBehavior(RemoteEntity inEntity)

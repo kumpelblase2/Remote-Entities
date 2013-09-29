@@ -38,6 +38,10 @@ public class BehaviorData implements ConfigurationSerializable
 		for(Map<String, Object> param : parameterData)
 		{
 			ParameterData paramData = new ParameterData(param);
+            if(paramData.pos == -1)
+            {
+
+            }
 			this.parameters[paramData.pos] = paramData;
 		}
 	}
