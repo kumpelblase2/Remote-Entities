@@ -324,7 +324,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		if(event.isCancelled() && inReason != DespawnReason.PLUGIN_DISABLE)
 			return false;
 
-		if(inReason != DespawnReason.CHUNK_UNLOAD)
+		if(inReason != DespawnReason.CHUNK_UNLOAD && inReason != DespawnReason.NAME_CHANGE)
 		{
 			for(Behavior behaviour : this.getMind().getBehaviours())
 			{
