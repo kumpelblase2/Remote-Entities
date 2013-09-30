@@ -128,7 +128,7 @@ public final class ReflectionUtil
 						try
 						{
 							Object value = field.get(inClass);
-							parameters.add(new ParameterData(sas.pos() - 1, field.getType().getName(), value, sas.special()));
+							parameters.add(new ParameterData(Math.max(0, sas.pos() - 1), field.getType().getName(), value, sas.special()));
 							break;
 						}
 						catch(Exception e)
