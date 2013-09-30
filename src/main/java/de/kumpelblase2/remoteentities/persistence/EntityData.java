@@ -105,7 +105,7 @@ public class EntityData implements ConfigurationSerializable
 		this.pushable = (Boolean)inData.get("pushable");
 		this.speed = ((Double)inData.get("speed")).floatValue();
 		if(inData.containsKey("pathfindingRange"))
-			this.pathfindingRange = (Integer)inData.get("pathfindingRange");
+			this.pathfindingRange = (Double)inData.get("pathfindingRange");
 
 		List<Map<String, Object>> dataList = (List<Map<String, Object>>)inData.get("actionDesires");
 		this.actionDesires = new DesireData[dataList.size()];

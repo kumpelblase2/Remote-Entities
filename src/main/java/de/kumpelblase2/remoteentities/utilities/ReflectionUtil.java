@@ -109,7 +109,6 @@ public final class ReflectionUtil
 	public static List<ParameterData> getParameterDataForClass(Object inClass)
 	{
 		Class<?> clazz = inClass.getClass();
-		System.out.println(clazz.toString());
 		List<ParameterData> parameters = new ArrayList<ParameterData>();
 		Set<String> membersLooked = new HashSet<String>();
 		while(clazz != Object.class && clazz != Desire.class)
@@ -129,7 +128,7 @@ public final class ReflectionUtil
 						try
 						{
 							Object value = field.get(inClass);
-							parameters.add(new ParameterData(sas.pos() - 1, field.getType().getName(), value, sas.special()));
+							parameters.add(new ParameterData(Math.max(0, sas.pos() - 1), field.getType().getName(), value, sas.special()));
 							break;
 						}
 						catch(Exception e)
