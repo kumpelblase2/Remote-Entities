@@ -188,6 +188,13 @@ public class RemoteEntities extends JavaPlugin
 		return COMPATIBLE_VERSION;
 	}
 
+	/**
+	 * Gets the current revision of the minecraft server that is used by bukkit.
+	 * These normally come in the format x_y_Rz .
+	 * Whereas x and y are the first two numbers of the minecraft version and z shows how many times the internal minecraft server code has been changed.
+	 *
+	 * @return  Revision string
+	 */
 	public static String getMinecraftRevision()
 	{
 		return MINECRAFT_REVISION;
