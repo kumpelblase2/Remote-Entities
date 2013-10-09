@@ -1,6 +1,5 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.EntitySpider;
 import org.bukkit.entity.CaveSpider;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;

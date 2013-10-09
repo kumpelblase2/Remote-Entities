@@ -7,7 +7,8 @@ import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.DespawnReason;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
 
 public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
@@ -114,7 +115,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	{
 		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 1));
 	}
-	
+
 	/**
      * Send the hurt animation to nearby players.
      */

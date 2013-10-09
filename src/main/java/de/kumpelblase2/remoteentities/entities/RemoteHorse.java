@@ -2,7 +2,8 @@ package de.kumpelblase2.remoteentities.entities;
 
 import org.bukkit.entity.Horse;
 import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.api.EntitySound;
+import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
 public class RemoteHorse extends RemoteBaseEntity<Horse>
 {
