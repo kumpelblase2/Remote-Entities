@@ -9,7 +9,6 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.api.thinking.RideBehavior;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
-import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteEnderDragonEntity extends EntityEnderDragon implements RemoteEntityHandle
 {
