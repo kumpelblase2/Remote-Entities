@@ -1,15 +1,14 @@
 package de.kumpelblase2.remoteentities;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R3.WorldServer;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.*;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import de.kumpelblase2.remoteentities.api.*;
+import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 class ChunkEntityLoader implements Listener
 {
@@ -32,11 +31,7 @@ class ChunkEntityLoader implements Listener
 				continue;
 
 			if(entity.getBukkitEntity().getLocation().getChunk() == c && entity.getHandle() != null)
-			{
-				WorldServer ws = ((CraftWorld)c.getWorld()).getHandle();
-				if(!ws.tracker.trackedEntities.b(entity.getHandle().id))
-					ws.addEntity(entity.getHandle());
-			}
+				WorldUtilities.updateEntityTracking(entity, c);
 		}
 
 		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable() {

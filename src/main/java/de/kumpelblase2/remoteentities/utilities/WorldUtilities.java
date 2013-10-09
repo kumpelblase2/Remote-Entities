@@ -3,8 +3,10 @@ package de.kumpelblase2.remoteentities.utilities;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.server.v1_6_R3.*;
+import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -88,5 +90,12 @@ public class WorldUtilities
 	public static void sendPacketToPlayer(Player inPlayer, Packet inPacket)
 	{
 		((CraftPlayer)inPlayer).getHandle().playerConnection.sendPacket(inPacket);
+	}
+
+	public static void updateEntityTracking(RemoteEntity inEntity, Chunk inChunk)
+	{
+		WorldServer ws = ((CraftWorld)inChunk.getWorld()).getHandle();
+		if(!ws.tracker.trackedEntities.b(inEntity.getHandle().id))
+			ws.addEntity(inEntity.getHandle());
 	}
 }

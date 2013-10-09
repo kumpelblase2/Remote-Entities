@@ -1,6 +1,10 @@
 package de.kumpelblase2.remoteentities.utilities;
 
 import net.minecraft.server.v1_6_R3.*;
+import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
+import org.bukkit.entity.LivingEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
 import de.kumpelblase2.remoteentities.entities.RemotePlayerEntity;
 
 public class NMSUtil
@@ -159,5 +163,19 @@ public class NMSUtil
 		}
 
 		return true;
+	}
+
+	public static RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
+	{
+		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
+		if(!(handle instanceof RemoteEntityHandle))
+			return null;
+
+		return ((RemoteEntityHandle)handle).getRemoteEntity();
+	}
+
+	public static Class<? extends EntityLiving> getNMSClassFromEntity(LivingEntity inEntity)
+	{
+		return ((CraftLivingEntity)inEntity).getHandle().getClass();
 	}
 }

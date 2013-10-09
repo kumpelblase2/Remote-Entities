@@ -4,10 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-import net.minecraft.server.v1_6_R3.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.world.ChunkLoadEvent;
@@ -18,6 +16,7 @@ import de.kumpelblase2.remoteentities.api.events.RemoteEntityCreateEvent;
 import de.kumpelblase2.remoteentities.exceptions.NoNameException;
 import de.kumpelblase2.remoteentities.persistence.EntityData;
 import de.kumpelblase2.remoteentities.persistence.IEntitySerializer;
+import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class EntityManager
 {
@@ -288,12 +287,8 @@ public class EntityManager
 		}
 		else
 		{
-			EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
-			if(!(handle instanceof RemoteEntityHandle))
-				return false;
-
-			RemoteEntityHandle h = (RemoteEntityHandle)handle;
-			return h.getRemoteEntity().getManager() == this;
+			RemoteEntity entity = NMSUtil.getRemoteEntityFromEntity(inEntity);
+			return entity.getManager() == this;
 		}
 	}
 
@@ -314,8 +309,7 @@ public class EntityManager
                 return remoteEntity;
         }
 
-		EntityLiving entityHandle = ((CraftLivingEntity)inEntity).getHandle();
-		return ((RemoteEntityHandle)entityHandle).getRemoteEntity();
+		return NMSUtil.getRemoteEntityFromEntity(inEntity);
 	}
 
 	/**
@@ -382,7 +376,7 @@ public class EntityManager
 	 */
 	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity, boolean inDeleteOld) //TODO copy more shit from entity
 	{
-		RemoteEntityType type = RemoteEntityType.getByEntityClass(((CraftLivingEntity)inEntity).getHandle().getClass());
+		RemoteEntityType type = RemoteEntityType.getByEntityClass(NMSUtil.getNMSClassFromEntity(inEntity));
 		if(type == null)
 			return null;
 
