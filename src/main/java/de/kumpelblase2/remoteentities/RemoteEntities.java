@@ -1,7 +1,9 @@
 package de.kumpelblase2.remoteentities;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.net.URL;
+import java.util.*;
+import javassist.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -17,25 +19,147 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
-	private static final String COMPATIBLE_VERSION = "1.6.4";
-	private static final String COMPATIBLE_REVISION = "1_6_R3";
+	private static String COMPATIBLE_VERSION = "1.6.4";
+	private static String COMPATIBLE_REVISION = "v1_6_R3";
+	private static final String VERSION_FILE = "http://repo.infinityblade.de/re_versions.txt";
 	private static String MINECRAFT_REVISION;
+	private final ClassPool m_pool = new ClassPool();
+	private final Set<String> m_classesToLoad = new HashSet<String>();
 
 	@Override
 	public void onEnable()
 	{
+		this.checkConfig();
+		this.checkClasses();
 		MINECRAFT_REVISION = ReflectionUtil.getMinecraftRevision();
 		String minecraftversion = this.getPresentMinecraftVersion();
-		if(!minecraftversion.equals(COMPATIBLE_VERSION) && !MINECRAFT_REVISION.equals(COMPATIBLE_REVISION)){
-			this.getLogger().severe("Invalid minecraft version for remote entities (Required: " + COMPATIBLE_VERSION + " ; Present: " + minecraftversion + ").");
-			this.getLogger().severe("Disabling plugin to prevent issues.");
-			Bukkit.getPluginManager().disablePlugin(this);
-			return;
+		VersionCheck:
+		{
+			if(!minecraftversion.equals(COMPATIBLE_VERSION) && !MINECRAFT_REVISION.equals(COMPATIBLE_REVISION))
+			{
+				this.getLogger().severe("Invalid minecraft version for remote entities (Present: " + minecraftversion + ").");
+				if(this.isAutoUpdateEnabled())
+				{
+					Set<String> versions = new HashSet<String>();
+					try
+					{
+						Scanner s = new Scanner(new URL(VERSION_FILE).openStream());
+						while(s.hasNextLine())
+						{
+							versions.add(s.nextLine());
+						}
+
+						s.close();
+						if(versions.contains(MINECRAFT_REVISION))
+						{
+							this.getLogger().info("Version found online for MC " + minecraftversion + ". Initializing updating process.");
+							s = new Scanner(new URL("http://repo.infinityblade.de/re_classes.txt").openStream());
+							List<String> classes = new ArrayList<String>();
+							while(s.hasNextLine())
+							{
+								classes.add(s.nextLine());
+							}
+
+							ClassPath cp = new URLClassPath("repo.infinityblade.de", 80, "/re/" + MINECRAFT_REVISION + "/", "de.kumpelblase2.remoteentities.");
+							this.m_pool.insertClassPath(cp);
+							for(String className : classes)
+							{
+								if(className != null && className.length() > 0)
+								{
+									CtClass ctclass = this.m_pool.get(className);
+									ctclass.writeFile(new File(this.getDataFolder(), "sources").getAbsolutePath());
+								}
+							}
+
+							this.getConfig().set("COMPATIBLE_REVISION", MINECRAFT_REVISION);
+							this.getConfig().set("COMPATIBLE_VERSION", minecraftversion);
+							this.saveConfig();
+
+							this.getLogger().info("Loaded new classes. Please restart the server to apply changes.");
+
+							break VersionCheck;
+						}
+						else
+							this.getLogger().info("No new version found online.");
+					}
+					catch(Exception e)
+					{
+						this.getLogger().info("Unable to do online version check, aborting.");
+						e.printStackTrace();
+					}
+				}
+
+				this.getLogger().severe("Disabling plugin to prevent issues.");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+			else
+			{
+				try
+				{
+					ClassPath cp = this.m_pool.insertClassPath(new File(this.getDataFolder(), "sources/").getAbsolutePath());
+					for(String className : this.m_classesToLoad)
+					{
+						CtClass ctclass = this.m_pool.makeClass(cp.find(className.substring(className.lastIndexOf(".") + 1, className.length())).openStream());
+						ctclass.toClass();
+					}
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 
 		s_instance = this;
 		RemoteEntityType.update();
 		Bukkit.getPluginManager().registerEvents(new DisableListener(), this);
+	}
+
+	private void checkClasses()
+	{
+		File sources = new File(this.getDataFolder(), "sources/");
+		if(!sources.exists())
+		{
+			sources.mkdirs();
+			try
+			{
+				BufferedReader reader = new BufferedReader(new InputStreamReader(this.getResource("re_classes.txt")));
+				String line;
+				while((line = reader.readLine()) != null)
+				{
+					this.m_classesToLoad.add(line);
+				}
+
+				for(String className : this.m_classesToLoad)
+				{
+					this.m_pool.get(className).writeFile(sources.getAbsolutePath());
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void checkConfig()
+	{
+		this.getConfig().set("autoUpdateSources", this.getConfig().get("autoUpdateSources", false));
+		COMPATIBLE_REVISION = this.getConfig().getString("COMPATIBLE_REVISION", "1_6_R3");
+		COMPATIBLE_VERSION = this.getConfig().getString("COMPATIBLE_VERSION", "1.6.4");
+		this.saveConfig();
+	}
+
+	public boolean isAutoUpdateEnabled()
+	{
+		return this.getConfig().getBoolean("autoUpdateSources");
+	}
+
+	public void setAutoUpdateEnabled(boolean inEnabled)
+	{
+		this.getConfig().set("autoUpdateSources", inEnabled);
+		this.getLogger().info("RemoteEntities auto updating has been enabled.");
 	}
 
 	@Override

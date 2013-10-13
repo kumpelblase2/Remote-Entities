@@ -288,7 +288,7 @@ public class EntityManager
 		else
 		{
 			RemoteEntity entity = NMSUtil.getRemoteEntityFromEntity(inEntity);
-			return entity.getManager() == this;
+			return entity != null && entity.getManager() == this;
 		}
 	}
 
