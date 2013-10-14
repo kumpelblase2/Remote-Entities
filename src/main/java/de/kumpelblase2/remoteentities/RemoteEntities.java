@@ -118,6 +118,9 @@ public class RemoteEntities extends JavaPlugin
 
 	private void checkClasses()
 	{
+		if(!this.isAutoUpdateEnabled())
+			return;
+
 		File sources = new File(this.getDataFolder(), "sources/");
 		if(!sources.exists())
 		{
