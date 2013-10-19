@@ -107,7 +107,7 @@ public class NMSUtil
 
 	public static boolean hasHomeArea(EntityLiving inEntity)
 	{
-		return inEntity instanceof EntityCreature && ((EntityCreature)inEntity).bO();
+		return inEntity instanceof EntityCreature && ((EntityCreature)inEntity).bS();
 	}
 
 	public static boolean isInHomeArea(EntityLiving inEntity)
