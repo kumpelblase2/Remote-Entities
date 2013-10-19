@@ -61,7 +61,7 @@ public final class ReflectionUtil
             args[1] = String.class;
             args[2] = int.class;
 
-            Method a = Class.forName("net.minecraft.server." + RemoteEntities.getMinecraftRevision() + ".EntityTypes").getDeclaredMethod("a", args);
+            Method a = getNMSClassByName("EntityTypes").getDeclaredMethod("a", args);
             a.setAccessible(true);
 
             a.invoke(a, inClass, name, inID);
@@ -87,7 +87,7 @@ public final class ReflectionUtil
 				jump = s_cachedFields.get("jump");
 			else
 			{
-				jump = Class.forName("net.minecraft.server." + RemoteEntities.getMinecraftRevision() + ".EntityLiving").getDeclaredField("bd");
+				jump = getNMSClassByName("EntityLiving").getDeclaredField("bd");
 				jump.setAccessible(true);
 				s_cachedFields.put("jump", jump);
 			}
@@ -151,7 +151,7 @@ public final class ReflectionUtil
 		return remaining.split("\\.")[0];
 	}
 
-	public static Class getNMSClassByName(String inName)
+	public static Class<?> getNMSClassByName(String inName)
 	{
 		try
 		{
