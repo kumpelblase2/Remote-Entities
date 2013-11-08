@@ -6,7 +6,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
-public abstract class DamageBehavior extends BaseBehavior
+public abstract class DamageBehavior extends EventBehavior
 {
 	public DamageBehavior(RemoteEntity inEntity)
 	{
@@ -18,12 +18,6 @@ public abstract class DamageBehavior extends BaseBehavior
 	public void onRemove()
 	{
 		EntityDamageEvent.getHandlerList().unregister(this);
-	}
-
-	@Override
-	public void onAdd()
-	{
-		Bukkit.getPluginManager().registerEvents(this, this.m_entity.getManager().getPlugin());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
