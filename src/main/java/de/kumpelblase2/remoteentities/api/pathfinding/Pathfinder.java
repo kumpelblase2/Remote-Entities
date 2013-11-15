@@ -14,7 +14,7 @@ import de.kumpelblase2.remoteentities.utilities.WorldUtilities;
 
 public class Pathfinder
 {
-	private final Set<BlockNode> m_openList;
+	private final TreeSet<BlockNode> m_openList;
 	private final Set<BlockNode> m_closedList;
 	private final List<MoveChecker> m_checkers;
 	private HeuristicType m_heuristicType = HeuristicType.MANHATTAN;
@@ -45,7 +45,7 @@ public class Pathfinder
 
 	public Pathfinder(RemoteEntity inEntity)
 	{
-		this.m_openList = new HashSet<BlockNode>();
+		this.m_openList = new TreeSet<BlockNode>(new NodeComparator());
 		this.m_closedList = new HashSet<BlockNode>();
 		this.m_checkers = new ArrayList<MoveChecker>();
 		this.m_entity = inEntity;
@@ -80,7 +80,7 @@ public class Pathfinder
 			if(this.m_openList.size() <= 0)
 				return PathResult.NO_PATH;
 
-			next = this.getNodeWithLowestFScore(end);
+			next = this.m_openList.first();
 			this.m_openList.remove(next);
 			this.m_closedList.add(next);
 
@@ -212,29 +212,6 @@ public class Pathfinder
 			}
 		});
 		return true;
-	}
-
-	protected BlockNode getNodeWithLowestFScore(BlockNode inEnd)
-	{
-		BlockNode currentSmallest = null;
-		double currentScore = 0;
-
-		for(BlockNode n : this.m_openList)
-		{
-			if(n.getHScore() == -1)
-				n.calculateHScore(inEnd);
-
-			if(n.getGScore() == -1)
-				n.calculateGScore();
-
-			if(currentScore == 0 || n.getFScore() < currentScore)
-			{
-				currentScore = n.getFScore();
-				currentSmallest = n;
-			}
-		}
-
-		return currentSmallest;
 	}
 
 	protected Set<BlockNode> getNearNodes(BlockNode inCurrent, BlockNode inEnd)
