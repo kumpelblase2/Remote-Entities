@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.*;
 import javassist.*;
 import org.bukkit.Bukkit;
+import org.bukkit.command.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,53 +41,14 @@ public class RemoteEntities extends JavaPlugin
 				this.getLogger().severe("Invalid minecraft version for remote entities (Present: " + minecraftversion + ").");
 				if(this.isAutoUpdateEnabled())
 				{
-					Set<String> versions = new HashSet<String>();
-					try
+					if(this.isVersionOnline(MINECRAFT_REVISION))
 					{
-						Scanner s = new Scanner(new URL(VERSION_FILE).openStream());
-						while(s.hasNextLine())
-						{
-							versions.add(s.nextLine());
-						}
-
-						s.close();
-						if(versions.contains(MINECRAFT_REVISION))
-						{
-							this.getLogger().info("Version found online for MC " + minecraftversion + ". Initializing updating process.");
-							s = new Scanner(new URL("http://repo.infinityblade.de/re_classes.txt").openStream());
-							List<String> classes = new ArrayList<String>();
-							while(s.hasNextLine())
-							{
-								classes.add(s.nextLine());
-							}
-
-							ClassPath cp = new URLClassPath("repo.infinityblade.de", 80, "/re/" + MINECRAFT_REVISION + "/", "de.kumpelblase2.remoteentities.");
-							this.m_pool.insertClassPath(cp);
-							for(String className : classes)
-							{
-								if(className != null && className.length() > 0)
-								{
-									CtClass ctclass = this.m_pool.get(className);
-									ctclass.writeFile(new File(this.getDataFolder(), "sources").getAbsolutePath());
-								}
-							}
-
-							this.getConfig().set("COMPATIBLE_REVISION", MINECRAFT_REVISION);
-							this.getConfig().set("COMPATIBLE_VERSION", minecraftversion);
-							this.saveConfig();
-
-							this.getLogger().info("Loaded new classes. Please restart the server to apply changes.");
-
-							break VersionCheck;
-						}
-						else
-							this.getLogger().info("No new version found online.");
+						this.getLogger().info("Version found online for MC " + minecraftversion + ". Initializing updating process.");
+						this.updateTo(MINECRAFT_REVISION, minecraftversion);
+						break VersionCheck;
 					}
-					catch(Exception e)
-					{
-						this.getLogger().info("Unable to do online version check, aborting.");
-						e.printStackTrace();
-					}
+					else
+						this.getLogger().info("No new version found online.");
 				}
 
 				this.getLogger().severe("Disabling plugin to prevent issues.");
@@ -325,6 +287,97 @@ public class RemoteEntities extends JavaPlugin
 	public static String getMinecraftRevision()
 	{
 		return MINECRAFT_REVISION;
+	}
+
+	private Set<String> getOnlineVersions()
+	{
+		Scanner s = null;
+		Set<String> versions = new HashSet<String>();
+		try
+		{
+			s = new Scanner(new URL(VERSION_FILE).openStream());
+			while(s.hasNextLine())
+			{
+				versions.add(s.nextLine());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(s != null)
+				s.close();
+		}
+
+		return versions;
+	}
+
+	public boolean isVersionOnline(String inVersion)
+	{
+		return this.getOnlineVersions().contains(inVersion);
+	}
+
+	public void updateTo(String inRevision, String inVersion)
+	{
+		Scanner s = null;
+		try
+		{
+			s = new Scanner(new URL("http://repo.infinityblade.de/re_classes.txt").openStream());
+			List<String> classes = new ArrayList<String>();
+			while(s.hasNextLine())
+			{
+				classes.add(s.nextLine());
+			}
+
+			ClassPath cp = new URLClassPath("repo.infinityblade.de", 80, "/re/" + inRevision + "/", "de.kumpelblase2.remoteentities.");
+			this.m_pool.insertClassPath(cp);
+			for(String className : classes)
+			{
+				if(className != null && className.length() > 0)
+				{
+					CtClass ctclass = this.m_pool.get(className);
+					ctclass.writeFile(new File(this.getDataFolder(), "sources").getAbsolutePath());
+				}
+			}
+
+			this.getConfig().set("COMPATIBLE_REVISION", inRevision);
+			this.getConfig().set("COMPATIBLE_VERSION", inVersion);
+			this.saveConfig();
+
+			this.getLogger().info("Loaded new classes. Please restart the server to apply changes.");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(s != null)
+				s.close();
+		}
+	}
+
+	@Override
+	public boolean onCommand(CommandSender inSender, Command inCommand, String inLabel, String[] inArgs)
+	{
+		if(inCommand.getName().equals("remoteentities"))
+		{
+			if(inArgs.length == 0)
+				inSender.sendMessage("Please provide arguments.");
+			else
+			{
+				if(inArgs[0].equalsIgnoreCase("rebuild"))
+				{
+					if(inSender instanceof ConsoleCommandSender)
+						this.updateTo(MINECRAFT_REVISION, COMPATIBLE_VERSION);
+					else
+						inSender.sendMessage("Only the console can do that.");
+				}
+			}
+		}
+		return true;
 	}
 
 	class DisableListener implements Listener

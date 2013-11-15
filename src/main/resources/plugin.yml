@@ -2,3 +2,8 @@ main: ${project.groupId}.${project.artifactId}.${project.name}
 author: kumpelblase2
 name: ${project.name}
 version: ${project.version}
+commands:
+    remoteentities:
+        description: Commands for remote entities
+        usage: /<command> <action>
+        aliases: [re]
