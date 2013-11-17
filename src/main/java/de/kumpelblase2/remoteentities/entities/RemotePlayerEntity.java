@@ -120,15 +120,12 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		else
             this.be = 0;
 
-		this.aV *= 0.98F;
 		this.be *= 0.98F;
-		this.bf *= 0.9F;
+		this.bf *= 0.98F;
+		this.bg *= 0.9F;
 
-        float prev = this.aN;
-		this.aN *= this.getAttributeInstance(GenericAttributes.a).getValue() * this.getRemoteEntity().getSpeed();
-		this.e(this.aV, this.be);
-		this.aN = prev;
-		this.aO = this.yaw;
+		this.e(this.be, this.bf);
+		this.getRemoteEntity().setHeadYaw(this.yaw);
 	}
 
 	@Override
