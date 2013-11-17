@@ -5,6 +5,7 @@ import net.minecraft.server.v1_6_R3.*;
 import net.minecraft.server.v1_6_R3.World;
 import org.bukkit.*;
 import org.bukkit.Chunk;
+import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_6_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
@@ -131,7 +132,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	@Override
 	public boolean move(Location inLocation, double inSpeed)
 	{
-		if(!this.isSpawned() || this.m_isStationary)
+		if(!this.isSpawned() || this.m_isStationary || NMSUtil.isOnLeash(this.getHandle()))
 			return false;
 
 		if(!NMSUtil.getNavigation(this.m_entity).a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
@@ -151,7 +152,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	@Override
 	public boolean move(LivingEntity inEntity, double inSpeed)
 	{
-		if(!this.isSpawned() || this.m_isStationary)
+		if(!this.isSpawned() || this.m_isStationary || NMSUtil.isOnLeash(this.getHandle()))
 			return false;
 
 		EntityLiving handle = ((CraftLivingEntity)inEntity).getHandle();
@@ -273,7 +274,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
 			ReflectionUtil.registerEntityType(this.getType().getEntityClass(), this.getNativeEntityName(), entry.getID());
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
-			this.m_entity = (EntityInsentient)this.m_type.getEntityClass().getConstructor(World.class, de.kumpelblase2.remoteentities.api.RemoteEntity.class).newInstance(worldServer, this);
+			this.m_entity = this.m_type.getEntityClass().getConstructor(World.class, RemoteEntity.class).newInstance(worldServer, this);
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
@@ -283,6 +284,9 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				this.getBukkitEntity().setCustomName(this.getName());
 				this.getBukkitEntity().setCustomNameVisible(true);
 			}
+
+			if(!inLocation.getBlock().getRelative(BlockFace.DOWN).isEmpty())
+				this.m_entity.onGround = true;
 
 			if(this.m_speed != -1)
 				this.setSpeed(this.m_speed);
@@ -398,7 +402,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			this.m_speedModifier = modifier;
 		else
 		{
-			AttributeInstance instance = this.m_entity.getAttributeInstance(GenericAttributes.b);
+			AttributeInstance instance = this.m_entity.getAttributeInstance(GenericAttributes.d);
 			instance.b(modifier);
 			instance.a(modifier);
 		}
