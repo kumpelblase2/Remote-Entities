@@ -290,6 +290,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 			if(this.m_speed != -1)
 				this.setSpeed(this.m_speed);
+			else
+				this.setSpeed(0.7d);
 
 			if(this.m_speedModifier != null)
 			{
