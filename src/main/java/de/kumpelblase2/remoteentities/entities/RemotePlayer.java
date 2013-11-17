@@ -64,6 +64,8 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		((RemotePlayerEntity)this.m_entity).updateSpawn();
 		if(this.m_speed != -1)
 			this.setSpeed(this.m_speed);
+		else
+			this.setSpeed(0.7d);
 
 		if(this.m_speedModifier != null)
 		{
