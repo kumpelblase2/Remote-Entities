@@ -95,12 +95,12 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 	@Override
 	public void e(float inXMotion, float inZMotion)
 	{
-		float[] motion = new float[] { inXMotion, inZMotion, 0 };
+		float[] motion = new float[] { inXMotion, inZMotion, (float)this.motY };
 		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
 			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
 
+		this.motY = (double)motion[2];
 		super.e(motion[0], motion[1]);
-		this.motY = motion[2];
 	}
 
 	@Override

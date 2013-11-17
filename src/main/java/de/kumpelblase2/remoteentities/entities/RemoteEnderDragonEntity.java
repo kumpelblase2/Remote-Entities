@@ -153,10 +153,11 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	@Override
 	public void e(float inXMotion, float inZMotion)
 	{
-		float[] motion = new float[] { inXMotion, inZMotion };
+		float[] motion = new float[] { inXMotion, inZMotion, (float)this.motY };
 		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
 			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
 
+		this.motY = (double)motion[2];
 		super.e(motion[0], motion[1]);
 	}
 
