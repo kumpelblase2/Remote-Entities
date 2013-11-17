@@ -208,7 +208,7 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private int k() {
-		if (this.a.H() && this.m) {
+		if (this.a.G() && this.m) {
 			int i = (int) this.a.boundingBox.b;
 			int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
 			int k = 0;
@@ -234,7 +234,7 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private boolean m() {
-		return this.a.H() || this.a.J();
+		return this.a.G() || this.a.I();
 	}
 
 	private void n() {
@@ -273,8 +273,8 @@ public class PlayerNavigation extends Navigation
 				k -= 2;
 				double d4 = 1.0D / Math.abs(d0);
 				double d5 = 1.0D / Math.abs(d1);
-				double d6 = (double) l - vec3d.c;
-				double d7 = (double) i1 - vec3d.e;
+				double d6 = (double) (l) - vec3d.c;
+				double d7 = (double) (i1) - vec3d.e;
 
 				if (d0 >= 0.0D) {
 					++d6;
@@ -335,7 +335,7 @@ public class PlayerNavigation extends Navigation
 
 						Material material = Block.byId[k2].material;
 
-						if (material == Material.WATER && !this.a.H()) {
+						if (material == Material.WATER && !this.a.G()) {
 							return false;
 						}
 
