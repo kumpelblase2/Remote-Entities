@@ -3,6 +3,7 @@ package de.kumpelblase2.remoteentities.entities;
 import net.minecraft.server.v1_6_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -54,7 +55,6 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 			return;
 
 		inLocation = event.getSpawnLocation();
-
 		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new PlayerInteractManager(worldServer), this);
 		worldServer.addEntity(m_entity);
@@ -62,6 +62,9 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		this.m_entity.world.players.remove(this.m_entity);
 		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 		((RemotePlayerEntity)this.m_entity).updateSpawn();
+		if(!inLocation.getBlock().getRelative(BlockFace.DOWN).isEmpty())
+			this.m_entity.onGround = true;
+
 		if(this.m_speed != -1)
 			this.setSpeed(this.m_speed);
 		else
