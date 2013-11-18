@@ -10,8 +10,8 @@ public class PlayerSenses extends EntitySenses
 	// --- Taken from minecraft/EntitySenses.java
 	// --- Modified to work with an entity living
 	EntityLiving entity;
-	List seenEntities = new ArrayList();
-	List unseenEntities = new ArrayList();
+	List<Entity> seenEntities = new ArrayList<Entity>();
+	List<Entity> unseenEntities = new ArrayList<Entity>();
 
 	public PlayerSenses(EntityLiving inEntity) {
 		super(NMSUtil.getTempInsentientEntity());

@@ -8,9 +8,11 @@ import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
+import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
+import de.kumpelblase2.remoteentities.nms.CustomPlayerAbilities;
 
 public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 {
@@ -68,13 +70,20 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		if(this.m_speed != -1)
 			this.setSpeed(this.m_speed);
 		else
-			this.setSpeed(0.7d);
+			this.setSpeed(1d);
 
 		if(this.m_speedModifier != null)
 		{
 			this.addSpeedModifier(this.m_speedModifier.d(), (this.m_speedModifier.c() == 0));
 			this.m_speedModifier = null;
 		}
+	}
+
+	@Override
+	public void setSpeed(double inSpeed)
+	{
+		super.setSpeed(inSpeed);
+		((CustomPlayerAbilities)((RemotePlayerEntity)this.m_entity).abilities).setWalkSpeed((float)inSpeed);
 	}
 
 	@Override
