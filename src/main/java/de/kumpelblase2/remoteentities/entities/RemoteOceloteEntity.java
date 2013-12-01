@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -64,9 +64,9 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -150,11 +150,11 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		if(this.isTamed())
 		{
-			if(this.bY())
+			if(this.cc())
 				return this.m_remoteEntity.getSound(EntitySound.RANDOM, "purr");
 			else
 			{
@@ -170,13 +170,13 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
@@ -188,7 +188,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 			return new DesireItem[] {
 					new DesireItem(new DesireSwim(), 1),
 					new DesireItem(new DesireSit(), 2),
-					new DesireItem(new DesireTempt(Item.RAW_FISH.id, true, 0.6D), 3),
+					new DesireItem(new DesireTempt(Item.b(Items.RAW_FISH), true, 0.6D), 3),
 					new DesireItem(new DesireAvoidSpecific(16F, 1.33D, 0.8D, EntityHuman.class), 4),
 					new DesireItem(new DesireFollowTamer(5, 10), 5),
 					new DesireItem(new DesireSitOnBlock(), 6),

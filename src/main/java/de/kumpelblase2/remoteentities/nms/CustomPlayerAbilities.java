@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R3.NBTTagCompound;
-import net.minecraft.server.v1_6_R3.PlayerAbilities;
+import net.minecraft.server.v1_7_R1.NBTTagCompound;
+import net.minecraft.server.v1_7_R1.PlayerAbilities;
 
 public class CustomPlayerAbilities extends PlayerAbilities
 {

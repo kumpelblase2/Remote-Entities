@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -52,7 +52,7 @@ public class DesireMakeLove extends DesireBase
 
 		if(this.m_villager.getAge() != 0)
 			return false;
-		else if(this.m_villager.aD().nextInt(500) != 0)
+		else if(this.m_villager.aI().nextInt(500) != 0)
 			return false;
 		else
 		{
@@ -103,10 +103,10 @@ public class DesireMakeLove extends DesireBase
 		this.m_villager.getControllerLook().a(this.m_partner, 10, 30);
 		if(this.m_villager.e(this.m_partner) > 2.25)
 			this.getRemoteEntity().move((LivingEntity)this.m_partner);
-		else if(this.m_loveTick == 0 && this.m_partner.bU())
+		else if(this.m_loveTick == 0 && this.m_partner.bY())
 			this.createBaby();
 
-		if(this.m_villager.aD().nextInt(35) == 0)
+		if(this.m_villager.aI().nextInt(35) == 0)
 			this.m_villager.world.broadcastEntityEffect(this.m_villager, (byte)12);
 
 		return true;

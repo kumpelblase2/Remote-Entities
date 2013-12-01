@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.persistence;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.server.v1_6_R3.EntityLiving;
+import net.minecraft.server.v1_7_R1.EntityLiving;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Inventory;

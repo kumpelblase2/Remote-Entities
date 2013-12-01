@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -62,9 +62,9 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -148,25 +148,25 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	@Override
-	protected void a(int i, int j, int k, int l)
+	protected void a(int i, int j, int k, Block l)
 	{
 		this.makeSound(this.m_remoteEntity.getSound(EntitySound.STEP), 0.15F, 1.0F);
 	}
@@ -180,8 +180,8 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 					new DesireItem(new DesirePanic(1.25D), 1),
 					new DesireItem(new DesireFollowCarrotStick(0.3f), 2),
 					new DesireItem(new DesireBreed(), 3),
-					new DesireItem(new DesireTempt(Item.CARROT.id, false, 1.2D), 4),
-					new DesireItem(new DesireTempt(Item.CARROT_STICK.id, false, 1.2D), 4),
+					new DesireItem(new DesireTempt(Item.b(Items.CARROT), false, 1.2D), 4),
+					new DesireItem(new DesireTempt(Item.b(Items.CARROT_STICK), false, 1.2D), 4),
 					new DesireItem(new DesireFollowParent(), 5),
 					new DesireItem(new DesireWanderAround(), 6),
 					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 7),

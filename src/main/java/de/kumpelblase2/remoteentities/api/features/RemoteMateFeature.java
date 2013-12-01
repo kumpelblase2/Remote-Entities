@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.features;
 
-import net.minecraft.server.v1_6_R3.EntityAnimal;
-import net.minecraft.server.v1_6_R3.EntityLiving;
+import net.minecraft.server.v1_7_R1.EntityAnimal;
+import net.minecraft.server.v1_7_R1.EntityLiving;
 import org.bukkit.entity.LivingEntity;
 
 public abstract class RemoteMateFeature extends RemoteFeature implements MateFeature
@@ -35,13 +35,13 @@ public abstract class RemoteMateFeature extends RemoteFeature implements MateFea
 	public boolean isAffected()
 	{
 		EntityLiving handle = this.m_entity.getHandle();
-		return !(handle instanceof EntityAnimal) || ((EntityAnimal)handle).bY();
+		return !(handle instanceof EntityAnimal) || ((EntityAnimal)handle).cc();
 	}
 
 	@Override
 	public void resetAffection()
 	{
 		if(this.m_entity.getHandle() instanceof EntityAnimal)
-			((EntityAnimal)this.m_entity.getHandle()).bZ();
+			((EntityAnimal)this.m_entity.getHandle()).cd();
 	}
 }

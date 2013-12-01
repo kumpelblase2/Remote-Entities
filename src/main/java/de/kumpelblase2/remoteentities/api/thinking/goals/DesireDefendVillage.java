@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
@@ -46,7 +46,7 @@ public class DesireDefendVillage extends DesireTargetBase
 
 		Village nextVillage;
 		if(this.getEntityHandle() instanceof EntityIronGolem)
-			nextVillage = ((EntityIronGolem)this.getEntityHandle()).bT();
+			nextVillage = ((EntityIronGolem)this.getEntityHandle()).bX();
 		else
 			nextVillage = WorldUtilities.getClosestVillage(this.getEntityHandle());
 
@@ -57,7 +57,7 @@ public class DesireDefendVillage extends DesireTargetBase
 			this.m_nextTarget = nextVillage.b(this.getEntityHandle());
 			if(!this.isSuitableTarget(this.m_nextTarget, false))
 			{
-				if(this.getEntityHandle().aD().nextInt(20) == 0)
+				if(this.getEntityHandle().aI().nextInt(20) == 0)
 				{
 					this.m_nextTarget = nextVillage.c(this.getEntityHandle());
 					return this.isSuitableTarget(this.m_nextTarget, false);

@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -52,9 +52,9 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -138,25 +138,25 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	@Override
-	protected void a(int i, int j, int k, int l)
+	protected void a(int i, int j, int k, Block l)
 	{
 		this.makeSound(this.m_remoteEntity.getSound(EntitySound.STEP), 0.15F, 1.0F);
 	}
@@ -169,7 +169,7 @@ public class RemoteMushroomEntity extends EntityMushroomCow implements RemoteEnt
 					new DesireItem(new DesireSwim(), 1),
 					new DesireItem(new DesirePanic(2.0D), 1),
 					new DesireItem(new DesireBreed(), 2),
-					new DesireItem(new DesireTempt(Item.WHEAT.id, false, 1.25D), 3),
+					new DesireItem(new DesireTempt(Item.b(Items.WHEAT), false, 1.25D), 3),
 					new DesireItem(new DesireFollowParent(1.25D), 4),
 					new DesireItem(new DesireWanderAround(), 5),
 					new DesireItem(new DesireLookAtNearest(EntityHuman.class, 6), 6),

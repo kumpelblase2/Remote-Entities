@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.EntityLiving;
+import net.minecraft.server.v1_7_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -34,7 +34,7 @@ public class DesireLookRandomly extends DesireBase
 		if(this.getEntityHandle() == null)
 			return false;
 
-		return this.getEntityHandle().aD().nextFloat() < 0.02F;
+		return this.getEntityHandle().aI().nextFloat() < 0.02F;
 	}
 
 	@Override
@@ -46,11 +46,11 @@ public class DesireLookRandomly extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		double d = 6.283185307179586D * this.getEntityHandle().aD().nextDouble();
+		double d = 6.283185307179586D * this.getEntityHandle().aI().nextDouble();
 
 		this.m_xDiff = Math.cos(d);
 		this.m_zDiff = Math.sin(d);
-		this.m_lookTick = 20 + this.getEntityHandle().aD().nextInt(20);
+		this.m_lookTick = 20 + this.getEntityHandle().aI().nextInt(20);
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R3.*;
-import net.minecraft.server.v1_6_R3.World;
+import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R1.World;
 import org.bukkit.*;
 import org.bukkit.Chunk;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;

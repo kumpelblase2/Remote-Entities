@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -106,16 +106,16 @@ public class DesireFollowCarrotStick extends DesireBase
 		if(entity.onGround)
 		{
 			f2 = 0.54600006F;
-			int id = entity.world.getTypeId(MathHelper.d(x), MathHelper.d(y) - 1, MathHelper.d(z));
-			if(id > 0)
-				f2 = Block.byId[id].frictionFactor * 0.91f;
+			Block block = entity.world.getType(MathHelper.d(x), MathHelper.d(y) - 1, MathHelper.d(z));
+			if(block.getMaterial() != Material.AIR)
+				f2 = block.frictionFactor * 0.91f;
 		}
 
 
 		float f3 = 0.16277136F / (f2 * f2 * f2);
         float f4 = MathHelper.sin(entity.yaw * 3.1415927F / 180.0F);
         float f5 = MathHelper.cos(entity.yaw * 3.1415927F / 180.0F);
-        float f6 = entity.bg() * f3;
+        float f6 = entity.bl() * f3;
         float f7 = Math.max(speed, 1.0F);
 
         f7 = f6 / f7;
@@ -149,24 +149,24 @@ public class DesireFollowCarrotStick extends DesireBase
         PathPoint point = new PathPoint(MathHelper.d(entity.width + 1), MathHelper.d(entity.length + passenger.length + 1), MathHelper.d(entity.width + 1));
         if(x != nextX || z != nextZ)
         {
-        	int type1 = entity.world.getTypeId(x, y, z);
-        	int type2 = entity.world.getTypeId(x, y - 1, z);
-        	boolean isStep = this.isStep(type1) || Block.byId[type1] == null && this.isStep(type2);
+        	Block type1 = entity.world.getType(x, y, z);
+        	Block type2 = entity.world.getType(x, y - 1, z);
+        	boolean isStep = this.isStep(type1) || type1 == null && this.isStep(type2);
 
         	if(!isStep && Pathfinder.a(entity, nextX, y, nextZ, point, false, false, true) == 0 && Pathfinder.a(entity, x, y + 1, z, point, false, false, true) == 1 && Pathfinder.a(entity, nextX, y + 1, nextZ, point, false, false, true) == 1)
 		        NMSUtil.getControllerLook(entity).a();
         }
 
-        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aD().nextFloat() < 0.006f && !this.m_speedBoosted)
+        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aI().nextFloat() < 0.006f && !this.m_speedBoosted)
         {
-        	ItemStack item = passenger.aZ();
+        	ItemStack item = passenger.be();
 
-        	if(item != null && item.id == Item.CARROT_STICK.id)
+        	if(item != null && item.getItem() == Items.CARROT_STICK)
         	{
         		item.damage(1, passenger);
         		if(item.count == 0)
         		{
-        			ItemStack newItem = new ItemStack(Item.FISHING_ROD);
+        			ItemStack newItem = new ItemStack(Items.FISHING_ROD);
         			newItem.setTag(item.tag);
         			passenger.inventory.items[passenger.inventory.itemInHandIndex] = newItem;
         		}
@@ -186,7 +186,7 @@ public class DesireFollowCarrotStick extends DesireBase
 	{
 		this.m_speedBoosted = true;
 		this.m_speedBoostTime = 0;
-		this.m_maxSpeedBoostTime = this.getEntityHandle().aD().nextInt(841) + 140;
+		this.m_maxSpeedBoostTime = this.getEntityHandle().aI().nextInt(841) + 140;
 	}
 
 	public boolean isControlledByPlayer()
@@ -194,9 +194,9 @@ public class DesireFollowCarrotStick extends DesireBase
 		return !this.isSpeedBoosted() && this.m_currentSpeed > this.m_maxSpeed * 0.3;
 	}
 
-	protected boolean isStep(int inType)
+	protected boolean isStep(Block inType)
 	{
-		return Block.byId[inType] != null && (Block.byId[inType].d() == 10 || Block.byId[inType] instanceof BlockStepAbstract);
+		return inType != null && (inType.b() == 10 || inType instanceof BlockStepAbstract);
 	}
 
 	@Override

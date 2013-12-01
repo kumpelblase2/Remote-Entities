@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -70,7 +70,7 @@ public class DesireBreed extends DesireBase
 		else if(this.getEntityHandle() instanceof EntityAnimal)
 		{
 			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
-			if(!entity.bY())
+			if(!entity.cc())
 				return false;
 			else
 			{
@@ -151,12 +151,12 @@ public class DesireBreed extends DesireBase
 			if(this.getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
 				this.getRemoteEntity().getFeatures().getFeature(MateFeature.class).resetAffection();
 			else
-				((EntityAnimal)this.getEntityHandle()).bZ();
+				((EntityAnimal)this.getEntityHandle()).cd();
 
 			if(this.m_mate instanceof RemoteEntityHandle && ((RemoteEntityHandle)this.m_mate).getRemoteEntity().getFeatures().hasFeature(MateFeature.class))
 				((RemoteEntityHandle)this.m_mate).getRemoteEntity().getFeatures().getFeature(MateFeature.class).resetAffection();
 			else if(this.m_mate instanceof EntityAnimal)
-				((EntityAnimal)this.m_mate).bZ();
+				((EntityAnimal)this.m_mate).cd();
 
 			EntityLiving entity = this.getEntityHandle();
 			if(baby instanceof RemoteEntityHandle && ((RemoteEntityHandle)baby).getRemoteEntity().getFeatures().hasFeature(AgeFeature.class))
@@ -166,7 +166,7 @@ public class DesireBreed extends DesireBase
 
 			((CraftLivingEntity)baby).getHandle().setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
 			entity.world.addEntity(((CraftLivingEntity)baby).getHandle(), SpawnReason.BREEDING);
-			Random r = entity.aD();
+			Random r = entity.aI();
 			for(int i = 0; i < 7; ++i)
 			{
 				double d0 = r.nextGaussian() * 0.02D;

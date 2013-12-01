@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
@@ -82,7 +82,7 @@ public class NMSUtil
 	public static int getMaxHeadRotation(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityInsentient)
-			return ((EntityInsentient)inEntity).bp();
+			return ((EntityInsentient)inEntity).x();
 		else
 			return 40;
 	}
@@ -90,9 +90,9 @@ public class NMSUtil
 	public static ChunkCoordinates getChunkCoordinates(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityCreature)
-			return ((EntityCreature)inEntity).bP();
+			return ((EntityCreature)inEntity).bT();
 		else if(inEntity instanceof EntityPlayer)
-			return ((EntityPlayer)inEntity).b();
+			return ((EntityPlayer)inEntity).getChunkCoordinates();
 		else
 			return new ChunkCoordinates(MathHelper.floor(inEntity.locX), MathHelper.floor(inEntity.locY), MathHelper.floor(inEntity.locZ));
 	}
@@ -112,7 +112,7 @@ public class NMSUtil
 
 	public static boolean isInHomeArea(EntityLiving inEntity)
 	{
-		return !NMSUtil.hasHomeArea(inEntity) || !(inEntity instanceof EntityCreature) || ((EntityCreature)inEntity).bO();
+		return !NMSUtil.hasHomeArea(inEntity) || !(inEntity instanceof EntityCreature) || ((EntityCreature)inEntity).bS();
 	}
 
 	public static boolean isInHomeArea(EntityLiving inEntity, int x, int y, int z)
@@ -123,14 +123,14 @@ public class NMSUtil
 	public static float getHomeRange(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityCreature)
-			return ((EntityCreature)inEntity).bQ();
+			return ((EntityCreature)inEntity).bU();
 		else
 			return 5; //TODO 5 seems weird.
 	}
 
 	public static boolean canBeSteered(EntityLiving inEntity)
 	{
-		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).by();
+		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bC();
 	}
 
 	public static EntityInsentient getTempInsentientEntity()
@@ -147,7 +147,7 @@ public class NMSUtil
 
 	public static boolean isAboutEqual(ItemStack inNMSStack, ItemStack inNMSStack2)
 	{
-		if(inNMSStack.id != inNMSStack2.id)
+		if(!inNMSStack.doMaterialsMatch(inNMSStack2))
 			return false;
 
 		if(inNMSStack.usesData() != inNMSStack2.usesData() || inNMSStack.getData() != inNMSStack2.getData())

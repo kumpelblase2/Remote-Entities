@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -51,15 +51,15 @@ public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 
 	@Override
-	public boolean bf()
+	public boolean bk()
 	{
 		return true;
 	}
@@ -143,30 +143,30 @@ public class RemoteBatEntity extends EntityBat implements RemoteEntityHandle
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
-		return (this.bJ() && this.random.nextInt(4) != 0 ? null : this.m_remoteEntity.getSound(EntitySound.SLEEPING));
+		return (this.bN() && this.random.nextInt(4) != 0 ? null : this.m_remoteEntity.getSound(EntitySound.SLEEPING));
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	@Override
-	public void bi()
+	public void bq()
 	{
 		//taken from EntityInsentient.java#373 - 402
 		//removed profilers and modified to work properly
 		++this.aV;
-		this.u();
+		this.w();
 		this.getEntitySenses().a();
 		this.targetSelector.a();
 		this.goalSelector.a();

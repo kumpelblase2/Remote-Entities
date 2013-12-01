@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Random;
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -47,7 +47,7 @@ public class DesireAvoidSun extends DesireBase
 			return false;
 		else if(!entity.isBurning())
 			return false;
-		else if(!entity.world.l(MathHelper.floor(entity.locX), (int)entity.boundingBox.b, MathHelper.floor(entity.locZ)))
+		else if(!entity.world.i(MathHelper.floor(entity.locX), (int)entity.boundingBox.b, MathHelper.floor(entity.locZ)))
 			return false;
 		else
 		{
@@ -75,7 +75,7 @@ public class DesireAvoidSun extends DesireBase
 	protected Vec3D getShadowPlace()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		Random r = entity.aD();
+		Random r = entity.aI();
 
 		for(int i = 0; i < 10; i++)
 		{
@@ -85,12 +85,12 @@ public class DesireAvoidSun extends DesireBase
 
 			if(entity instanceof EntityCreature)
 			{
-				if(!entity.world.l(x, y, z) && ((EntityCreature)entity).a(x, y, z) < 0.0F)
+				if(!entity.world.i(x, y, z) && ((EntityCreature)entity).a(x, y, z) < 0.0F)
 					return entity.world.getVec3DPool().create(x, y, z);
 			}
 			else
 			{
-				if(!entity.world.l(x, y, z) && (0.5F - entity.world.q(x, y, z)) < 0.0F)
+				if(!entity.world.i(x, y, z) && (0.5F - entity.world.n(x, y, z)) < 0.0F)
 					return entity.world.getVec3DPool().create(x, y, z);
 			}
 		}

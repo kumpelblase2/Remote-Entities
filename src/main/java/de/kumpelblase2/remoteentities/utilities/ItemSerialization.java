@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.io.*;
 import java.math.BigInteger;
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftInventoryCustom;
-import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftItemStack;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftInventoryCustom;
+import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,7 +38,7 @@ public class ItemSerialization {
 		}
 
 		// Now save the list
-		NBTBase.a(itemList, dataOutput);
+		//NBTBase.a(itemList, dataOutput);
 
 		// Serialize that array
 		return new BigInteger(1, outputStream.toByteArray()).toString(32);
@@ -52,15 +52,15 @@ public class ItemSerialization {
 	 */
 	public static Inventory fromString(String data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(new BigInteger(data, 32).toByteArray());
-		NBTTagList itemList = (NBTTagList) NBTBase.a(new DataInputStream(inputStream));
+		NBTTagList itemList = new NBTTagList();/*(NBTTagList) NBTBase.a(new DataInputStream(inputStream)); TODO*/
 		Inventory inventory = new CraftInventoryCustom(null, itemList.size());
 
 		for (int i = 0; i < itemList.size(); i++) {
-			NBTTagCompound inputObject = (NBTTagCompound) itemList.get(i);
+			NBTTagCompound inputObject = itemList.get(i);
 
 			// IsEmpty
 			if (!inputObject.isEmpty()) {
-				inventory.setItem(i, CraftItemStack.asBukkitCopy(net.minecraft.server.v1_6_R3.ItemStack.createStack(inputObject)));
+				inventory.setItem(i, CraftItemStack.asBukkitCopy(net.minecraft.server.v1_7_R1.ItemStack.createStack(inputObject)));
 			}
 		}
 

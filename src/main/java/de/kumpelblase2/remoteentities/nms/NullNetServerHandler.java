@@ -1,61 +1,52 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 
 public class NullNetServerHandler extends PlayerConnection
 {
-	public NullNetServerHandler(MinecraftServer minecraftserver, INetworkManager inetworkmanager, EntityPlayer entityplayer)
+	public NullNetServerHandler(MinecraftServer minecraftserver, NetworkManager inetworkmanager, EntityPlayer entityplayer)
 	{
 		super(minecraftserver, inetworkmanager, entityplayer);
 	}
-	
+
 	@Override
-    public void a(Packet102WindowClick packet) {
+    public void a(PacketPlayInWindowClick packet) {
     }
 
     @Override
-    public void a(Packet106Transaction packet) {
+    public void a(PacketPlayInTransaction packet) {
     }
 
     @Override
-    public void a(Packet10Flying packet) {
+    public void a(PacketPlayInFlying packet) {
     }
 
     @Override
-    public void a(Packet130UpdateSign packet) {
+    public void a(PacketPlayInUpdateSign packet) {
     }
 
     @Override
-    public void a(Packet14BlockDig packet) {
+    public void a(PacketPlayInBlockDig packet) {
     }
 
     @Override
-    public void a(Packet15Place packet) {
+    public void a(PacketPlayInBlockPlace packet) {
     }
 
-    @Override
-    public void a(Packet16BlockItemSwitch packet) {
-    }
+	@Override
+	public void disconnect(String s)
+	{
+	}
 
-    @Override
-    public void a(Packet255KickDisconnect packet) {
-    }
+	@Override
+	public void a(PacketPlayInHeldItemSlot packetplayinhelditemslot)
+	{
+	}
 
-    @Override
-    public void a(Packet28EntityVelocity packet) {
-    }
-
-    @Override
-    public void a(Packet3Chat packet) {
-    }
-
-    @Override
-    public void a(Packet51MapChunk packet) {
-    }
-
-    @Override
-    public void a(String string, Object[] objects) {
-    }
+	@Override
+	public void a(PacketPlayInChat packetplayinchat)
+	{
+	}
 
     @Override
     public void sendPacket(Packet packet) {

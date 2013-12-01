@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -63,30 +63,30 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
 
 	@Override
-	protected void bi()
+	protected void bq()
 	{
-		this.bl();
+		this.w();
 		if(this.m_target != null)
 			this.a(this.m_target, 10.0F, 20.0F);
 
 		// --- Taken from EntitySlime.java#103 - #121
 		if (this.onGround && this.m_jumpDelay-- <= 0) {
-			this.m_jumpDelay = this.bL();
+			this.m_jumpDelay = this.bP();
 			if (this.m_target != null) {
 				this.m_jumpDelay /= 3;
 			}
 
 			this.bd = true;
-			if (this.bS()) {
-				this.makeSound(this.bP(), this.ba(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+			if (this.bW()) {
+				this.makeSound(this.bT(), this.bf(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 			}
 
 			this.be = 1.0F - this.random.nextFloat() * 2.0F;
@@ -179,19 +179,19 @@ public class RemoteLavaSlimeEntity extends EntityMagmaCube implements RemoteEnti
 	}
 
 	@Override
-	public boolean bf()
+	public boolean bk()
 	{
 		return true;
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT, (this.getSize() > 1 ? "big" : "small"));
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH, (this.getSize() > 1 ? "big" : "small"));
 	}

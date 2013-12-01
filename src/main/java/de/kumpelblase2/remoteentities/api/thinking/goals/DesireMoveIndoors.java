@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -36,9 +36,9 @@ public class DesireMoveIndoors extends DesireBase
 		if(entity == null)
 			return false;
 
-		if((!entity.world.v() || entity.world.Q()) && !entity.world.worldProvider.g)
+		if((!entity.world.v() || entity.world.P()) && !entity.world.worldProvider.g)
 		{
-			if(entity.aD().nextInt(50) != 0)
+			if(entity.aI().nextInt(50) != 0)
 				return false;
 			else if(this.m_x != -1 && entity.e(this.m_x, entity.locY, this.m_z) < 4)
 				return false;

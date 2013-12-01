@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R3.InventoryMerchant;
+import net.minecraft.server.v1_7_R1.InventoryMerchant;
 import de.kumpelblase2.remoteentities.api.features.RemoteTradingFeature;
 
 public class CustomMerchantInventory extends InventoryMerchant
@@ -14,7 +14,7 @@ public class CustomMerchantInventory extends InventoryMerchant
 	}
 
 	@Override
-	public String getName()
+	public String getInventoryName()
 	{
 		return this.m_feature.getTradeName();
 	}

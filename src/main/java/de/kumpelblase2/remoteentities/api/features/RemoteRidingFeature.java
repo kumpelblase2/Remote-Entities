@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.features;
 
-import net.minecraft.server.v1_6_R3.MathHelper;
+import net.minecraft.server.v1_7_R1.MathHelper;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;

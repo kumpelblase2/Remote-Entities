@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.EntityLiving;
-import net.minecraft.server.v1_6_R3.EntityTameableAnimal;
+import net.minecraft.server.v1_7_R1.EntityLiving;
+import net.minecraft.server.v1_7_R1.EntityTameableAnimal;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -51,7 +51,7 @@ public class DesireSit extends DesireBase
 
 		if(!this.m_animal.isTamed())
 			return false;
-		else if(this.m_animal.H())
+		else if(this.m_animal.M())
 			return false;
 		else if(!this.m_animal.onGround)
 			return false;

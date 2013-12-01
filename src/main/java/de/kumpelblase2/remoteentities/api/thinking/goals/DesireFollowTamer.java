@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -133,7 +133,7 @@ public class DesireFollowTamer extends DesireBase
 							{
 								for(int l = 0; l <= 4; l++)
 								{
-									if((i < 1 || l < 1 || i > 3 || l > 3) && this.m_animal.world.w(x + i, y - 1, z + l) && !this.m_animal.world.u(x + i, y, z + l) && !this.m_animal.world.u(x + i, y + 1, z + l))
+									if((i < 1 || l < 1 || i > 3 || l > 3) && World.a(this.m_animal.world, x + i, y - 1, z + l) && !this.m_animal.world.getType(x + i, y, z + l).r() && !this.m_animal.world.getType(x + i, y + 1, z + l).r())
 									{
 										this.m_animal.setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.m_animal.yaw, this.m_animal.pitch);
 										this.getNavigation().h();

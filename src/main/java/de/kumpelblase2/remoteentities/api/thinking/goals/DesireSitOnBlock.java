@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -50,7 +50,7 @@ public class DesireSitOnBlock extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aD().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
+		return this.m_ocelot != null && this.m_ocelot.isTamed() && !this.m_ocelot.isSitting() && this.m_ocelot.aI().nextDouble() <= 0.006500000134110451D && this.isSitableBlockInRange();
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class DesireSitOnBlock extends DesireBase
 		this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), this.m_x + 0.5D, this.m_y + 1, this.m_z + 0.5D));
 		this.m_currentSitTick = 0;
 		this.m_actionTicks = 0;
-		this.m_maxSitTicks = this.m_ocelot.aD().nextInt(this.m_ocelot.aD().nextInt(1200) + 1200) + 1200;
+		this.m_maxSitTicks = this.m_ocelot.aI().nextInt(this.m_ocelot.aI().nextInt(1200) + 1200) + 1200;
 		if(this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class) != null)
 			this.getRemoteEntity().getMind().getMovementDesire(DesireSit.class).canSit(false);
 	}
@@ -125,21 +125,21 @@ public class DesireSitOnBlock extends DesireBase
 
 	protected boolean isSitableBlock(World world, int x, int y, int z)
 	{
-		int type = world.getTypeId(x, y, z);
+		Block type = world.getType(x, y, z);
 		int data = world.getData(x, y, z);
 
-		if(type == Block.CHEST.id)
+		if(type == Blocks.CHEST)
 		{
 			TileEntityChest chest = (TileEntityChest)world.getTileEntity(x, y, z);
-			if(chest.h < 1)
+			if(chest.o < 1)
 				return true;
 		}
 		else
 		{
-			if(type == Block.BURNING_FURNACE.id)
+			if(type == Blocks.BURNING_FURNACE)
 				return true;
 
-			if(type == Block.BED.id && !BlockBed.f_(data))
+			if(type == Blocks.BED && !BlockBed.c(data)) //TODO -> was f_ before and c is probably wrong
 				return true;
 		}
 

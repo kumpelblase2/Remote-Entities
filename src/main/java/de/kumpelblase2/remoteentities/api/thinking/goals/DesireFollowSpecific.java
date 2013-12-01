@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.EntityLiving;
-import net.minecraft.server.v1_6_R3.MathHelper;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R1.EntityLiving;
+import net.minecraft.server.v1_7_R1.MathHelper;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -120,7 +120,7 @@ public class DesireFollowSpecific extends DesireBase
 					{
 						for(int l = 0; l <= 4; l++)
 						{
-							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.v(x + i, y - 1, z + l) && !this.getEntityHandle().world.t(x + i, y, z + l) && !this.getEntityHandle().world.t(x + i, y + 1, z + l))
+							if((i < 1 || l < 1 || i > 3 || l > 3) && this.getEntityHandle().world.q(x + i, y - 1, z + l) && !this.getEntityHandle().world.t(x + i, y, z + l) && !this.getEntityHandle().world.t(x + i, y + 1, z + l))
 							{
 								this.getEntityHandle().setPositionRotation((x + i + 0.5), y, (z + l + 0.5), this.getEntityHandle().yaw, this.getEntityHandle().pitch);
 								this.getNavigation().h();

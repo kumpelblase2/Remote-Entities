@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerControllerLook extends ControllerLook

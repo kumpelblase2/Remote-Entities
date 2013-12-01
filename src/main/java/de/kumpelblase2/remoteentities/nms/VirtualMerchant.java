@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import de.kumpelblase2.remoteentities.api.features.RemoteTradingFeature;
 
 public class VirtualMerchant implements IMerchant
@@ -19,7 +19,7 @@ public class VirtualMerchant implements IMerchant
 	}
 
 	@Override
-	public EntityHuman m_()
+	public EntityHuman b()
 	{
 		return ((CraftPlayer)this.m_feature.getTradingPlayers().get(0)).getHandle();
 	}

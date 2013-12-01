@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -58,9 +58,9 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -144,19 +144,19 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.RANDOM, (this.bW() ? "haggle" : "idle"));
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
@@ -165,12 +165,12 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	public void a_(ItemStack itemstack) {
 		//Taken from EntityVillager.java#264 - 273
 		//modified to work with custom sounds
-		if (!this.world.isStatic && this.a_ > -this.o() + 20) {
-			this.a_ = -this.o();
+		if (!this.world.isStatic && this.a_ > -this.q() + 20) {
+			this.a_ = -this.q();
 			if (itemstack != null) {
-				this.makeSound(this.m_remoteEntity.getSound(EntitySound.YES), this.ba(), this.bb());
+				this.makeSound(this.m_remoteEntity.getSound(EntitySound.YES), this.bf(), this.bg());
 			} else {
-				this.makeSound(this.m_remoteEntity.getSound(EntitySound.NO), this.ba(), this.bb());
+				this.makeSound(this.m_remoteEntity.getSound(EntitySound.NO), this.bf(), this.bg());
 			}
 		}
 	}

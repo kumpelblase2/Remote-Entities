@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.EntityHuman;
-import net.minecraft.server.v1_6_R3.EntityWolf;
+import net.minecraft.server.v1_7_R1.EntityHuman;
+import net.minecraft.server.v1_7_R1.EntityWolf;
 import org.bukkit.Material;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -57,7 +57,7 @@ public class DesireBegForItem extends DesireBase
 		if(this.getEntityHandle() instanceof EntityWolf)
 			((EntityWolf)this.getEntityHandle()).m(true);
 
-		this.m_ticks = 40 + this.getEntityHandle().aD().nextInt(40);
+		this.m_ticks = 40 + this.getEntityHandle().aI().nextInt(40);
 	}
 
 	@Override

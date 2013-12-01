@@ -1,9 +1,9 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_6_R3.event.CraftEventFactory;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -188,7 +188,7 @@ public abstract class DesireTargetBase extends DesireBase
 
 	protected boolean useAttack(EntityLiving inEntity)
 	{
-		this.m_lastAttackTick = 10 + this.getEntityHandle().aD().nextInt(5);
+		this.m_lastAttackTick = 10 + this.getEntityHandle().aI().nextInt(5);
 		PathEntity path = this.getNavigation().a(inEntity);
 
 		if(path == null)

@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.features;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R3.MerchantRecipe;
-import net.minecraft.server.v1_6_R3.MerchantRecipeList;
+import net.minecraft.server.v1_7_R1.MerchantRecipe;
+import net.minecraft.server.v1_7_R1.MerchantRecipeList;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.InventoryCloseEvent;

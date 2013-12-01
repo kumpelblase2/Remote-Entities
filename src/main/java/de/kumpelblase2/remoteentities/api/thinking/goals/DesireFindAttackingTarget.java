@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -53,7 +53,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		int lastAttackedTick = this.getEntityHandle().aF();
+		int lastAttackedTick = this.getEntityHandle().aK();
 
 		return lastAttackedTick != this.m_lastAttackedTick && this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().getLastDamager(), true);
 	}
@@ -71,7 +71,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 		EntityLiving entity = this.getEntityHandle();
 		NMSUtil.setGoalTarget(entity, entity.getLastDamager());
 		this.m_target = entity.getLastDamager();
-		this.m_lastAttackedTick = this.getEntityHandle().aF();
+		this.m_lastAttackedTick = this.getEntityHandle().aK();
 
 		if(this.m_attackNearest)
 		{

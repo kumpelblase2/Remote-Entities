@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -50,9 +50,9 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -151,10 +151,10 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 				this.passenger.damageEntity(DamageSource.FALL, (float) i);
 			}
 
-			int j = this.world.getTypeId(MathHelper.floor(this.locX), MathHelper.floor(this.locY - 0.2D - (double) this.lastYaw), MathHelper.floor(this.locZ));
+			Block j = this.world.getType(MathHelper.floor(this.locX), MathHelper.floor(this.locY - 0.2D - (double) this.lastYaw), MathHelper.floor(this.locZ));
 
-			if (j > 0) {
-				StepSound stepsound = Block.byId[j].stepSound;
+			if (j.getMaterial() != Material.AIR) {
+				StepSound stepsound = j.stepSound;
 
 				this.world.makeSound(this, stepsound.getStepSound(), stepsound.getVolume1() * 0.5F, stepsound.getVolume2() * 0.75F);
 			}

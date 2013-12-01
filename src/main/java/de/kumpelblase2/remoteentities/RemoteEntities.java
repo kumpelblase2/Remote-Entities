@@ -20,8 +20,8 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
-	private static String COMPATIBLE_VERSION = "1.6.4";
-	private static String COMPATIBLE_REVISION = "v1_6_R3";
+	private static String COMPATIBLE_VERSION = "1.7.2";
+	private static String COMPATIBLE_REVISION = "v1_7_R1";
 	private static final String VERSION_FILE = "http://repo.infinityblade.de/re_versions.txt";
 	private static String MINECRAFT_REVISION;
 	private final ClassPool m_pool = new ClassPool();
@@ -111,8 +111,8 @@ public class RemoteEntities extends JavaPlugin
 	private void checkConfig()
 	{
 		this.getConfig().set("autoUpdateSources", this.getConfig().get("autoUpdateSources", false));
-		COMPATIBLE_REVISION = this.getConfig().getString("COMPATIBLE_REVISION", "1_6_R3");
-		COMPATIBLE_VERSION = this.getConfig().getString("COMPATIBLE_VERSION", "1.6.4");
+		COMPATIBLE_REVISION = this.getConfig().getString("COMPATIBLE_REVISION", "1_7_R1");
+		COMPATIBLE_VERSION = this.getConfig().getString("COMPATIBLE_VERSION", "1.7.2");
 		this.saveConfig();
 	}
 

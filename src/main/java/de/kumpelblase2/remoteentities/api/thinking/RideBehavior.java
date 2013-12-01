@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import net.minecraft.server.v1_6_R3.EntityLiving;
+import net.minecraft.server.v1_7_R1.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -44,7 +44,7 @@ public abstract class RideBehavior extends BaseBehavior
 
 		this.m_entity.setYaw(entity.passenger.yaw);
 		this.m_entity.setPitch(entity.passenger.pitch);
-		entity.Y = 0.5f;
+		entity.X = 0.5f;
 		if(inMotion[0] == 0)
 			inMotion[0] = ((EntityLiving)entity.passenger).be * 0.5f;
 

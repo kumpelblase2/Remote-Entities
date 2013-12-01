@@ -51,7 +51,7 @@ public class EntityManager
 					}
 					else
 					{
-						entity.getHandle().y();
+						entity.getHandle().C();
 						if(entity.getHandle().dead)
 						{
 							if(entity.despawn(DespawnReason.DEATH))
@@ -335,9 +335,9 @@ public class EntityManager
 
 		for(RemoteEntity entity : this.getAllEntities())
 		{
-			if(entity instanceof Nameable)
+			if(entity != null)
 			{
-				if(((Nameable)entity).getName().equals(inName))
+				if(entity.getName().equals(inName))
 					entities.add(entity);
 			}
 		}

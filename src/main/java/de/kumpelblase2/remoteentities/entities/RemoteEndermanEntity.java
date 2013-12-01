@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -50,9 +50,9 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -136,31 +136,31 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 	}
 
 	@Override
-	public boolean bf()
+	public boolean bk()
 	{
 		return true;
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.RANDOM, (this.bX() ? "scream" : "idle"));
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	@Override
-	protected boolean j(double d0, double d1, double d2) {
+	protected boolean k(double d0, double d1, double d2) {
 		//Taken from EntityEnderman.java#206 - 263
 		// modified to use custom sounds
 		double d3 = this.locX;
@@ -174,14 +174,13 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 		int i = MathHelper.floor(this.locX);
 		int j = MathHelper.floor(this.locY);
 		int k = MathHelper.floor(this.locZ);
-		int l;
 
 		if (this.world.isLoaded(i, j, k)) {
 			boolean flag1 = false;
 
 			while (!flag1 && j > 0) {
-				l = this.world.getTypeId(i, j - 1, k);
-				if (l != 0 && Block.byId[l].material.isSolid()) {
+				Block block = this.world.getType(i, j - 1, k);
+				if (block.getMaterial() != Material.AIR && block.getMaterial().isSolid()) {
 					flag1 = true;
 				} else {
 					--this.locY;
@@ -203,7 +202,7 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 		} else {
 			short short1 = 128;
 
-			for (l = 0; l < short1; ++l) {
+			for (int l = 0; l < short1; ++l) {
 				double d6 = (double) l / ((double) short1 - 1.0D);
 				float f = (this.random.nextFloat() - 0.5F) * 0.2F;
 				float f1 = (this.random.nextFloat() - 0.5F) * 0.2F;

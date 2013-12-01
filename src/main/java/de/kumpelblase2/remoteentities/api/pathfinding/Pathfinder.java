@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.pathfinding;
 
 import java.util.*;
-import net.minecraft.server.v1_6_R3.EntityLiving;
+import net.minecraft.server.v1_7_R1.EntityLiving;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;

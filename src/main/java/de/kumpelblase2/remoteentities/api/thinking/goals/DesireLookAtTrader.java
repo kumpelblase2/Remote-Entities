@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TradingFeature;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;
@@ -67,7 +67,7 @@ public class DesireLookAtTrader extends DesireLookAtNearest
 			EntityVillager villager = (EntityVillager)entity;
 			if(villager.bS())
 			{
-				this.m_target = villager.m_();
+				this.m_target = villager.b();
 				return true;
 			}
 

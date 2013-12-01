@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerNavigation extends Navigation
@@ -208,18 +208,18 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private int k() {
-		if (this.a.G() && this.m) {
+		if (this.a.L() && this.m) {
 			int i = (int) this.a.boundingBox.b;
-			int j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
+			Block j = this.b.getType(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
 			int k = 0;
 
 			do {
-				if (j != Block.WATER.id && j != Block.STATIONARY_WATER.id) {
+				if (j != Blocks.WATER && j != Blocks.STATIONARY_WATER) {
 					return i;
 				}
 
 				++i;
-				j = this.b.getTypeId(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
+				j = this.b.getType(MathHelper.floor(this.a.locX), i, MathHelper.floor(this.a.locZ));
 				++k;
 			} while (k <= 16);
 
@@ -234,15 +234,15 @@ public class PlayerNavigation extends Navigation
 	}
 
 	private boolean m() {
-		return this.a.G() || this.a.I();
+		return this.a.L() || this.a.N();
 	}
 
 	private void n() {
-		if (!this.b.l(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
+		if (!this.b.i(MathHelper.floor(this.a.locX), (int) (this.a.boundingBox.b + 0.5D), MathHelper.floor(this.a.locZ))) {
 			for (int i = 0; i < this.c.d(); ++i) {
 				PathPoint pathpoint = this.c.a(i);
 
-				if (this.b.l(pathpoint.a, pathpoint.b, pathpoint.c)) {
+				if (this.b.i(pathpoint.a, pathpoint.b, pathpoint.c)) {
 					this.c.b(i - 1);
 					return;
 				}
@@ -327,15 +327,15 @@ public class PlayerNavigation extends Navigation
 					double d3 = (double) j2 + 0.5D - vec3d.e;
 
 					if (d2 * d0 + d3 * d1 >= 0.0D) {
-						int k2 = this.b.getTypeId(i2, j - 1, j2);
+						Block k2 = this.b.getType(i2, j - 1, j2);
 
-						if (k2 <= 0) {
+						if (k2 == null || k2.getMaterial() == Material.AIR) {
 							return false;
 						}
 
-						Material material = Block.byId[k2].material;
+						Material material = k2.getMaterial();
 
-						if (material == Material.WATER && !this.a.G()) {
+						if (material == Material.WATER && !this.a.L()) {
 							return false;
 						}
 
@@ -358,9 +358,9 @@ public class PlayerNavigation extends Navigation
 					double d3 = (double) i2 + 0.5D - vec3d.e;
 
 					if (d2 * d0 + d3 * d1 >= 0.0D) {
-						int j2 = this.b.getTypeId(k1, l1, i2);
+						Block j2 = this.b.getType(k1, l1, i2);
 
-						if (j2 > 0 && !Block.byId[j2].b((IBlockAccess) this.b, k1, l1, i2)) {
+						if (j2.getMaterial() != Material.AIR && !j2.b(this.b, k1, l1, i2)) {
 							return false;
 						}
 					}

@@ -1,10 +1,14 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import java.nio.charset.Charset;
+import java.util.UUID;
+import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.util.com.google.common.base.Charsets;
+import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
@@ -58,7 +62,9 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 
 		inLocation = event.getSpawnLocation();
 		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
-		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, this.getName(), new PlayerInteractManager(worldServer), this);
+		UUID uuid = UUID.nameUUIDFromBytes(("NPC:" + this.getID() + this.getName()).getBytes(Charsets.UTF_8));
+		GameProfile profile = new GameProfile(uuid.toString().replaceAll("-", ""), this.getName());
+		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, profile, new PlayerInteractManager(worldServer), this);
 		worldServer.addEntity(m_entity);
 		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
@@ -127,16 +133,16 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	 */
 	public void doArmSwing()
 	{
-		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 1));
+		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new PacketPlayOutAnimation(this.getHandle(), 0));
 	}
 
 	/**
      * Send the hurt animation to nearby players.
      */
-	public void fakeDamage()
+	/*public void fakeDamage() TODO do we still need this?
 	{
 		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 2));
-	}
+	}*/
 
 	@Override
 	protected void setupSounds()

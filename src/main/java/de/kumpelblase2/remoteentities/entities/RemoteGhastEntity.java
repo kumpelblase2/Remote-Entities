@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.lang.reflect.Field;
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -51,9 +51,9 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -163,25 +163,25 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean bf()
+	public boolean bk()
 	{
 		return true;
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}

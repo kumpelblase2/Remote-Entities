@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -27,7 +27,7 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	{
 		this(world);
 		this.m_remoteEntity = inEntity;
-		this.setEquipment(0, new ItemStack(Item.BOW));
+		this.setEquipment(0, new ItemStack(Items.BOW));
 	}
 
 	@Override
@@ -54,9 +54,9 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		super.l_();
+		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
 	}
@@ -146,25 +146,25 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	}
 
 	@Override
-	protected String r()
+	protected String t()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.RANDOM);
 	}
 
 	@Override
-	protected String aO()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aP()
+	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
 
 	@Override
-	protected void a(int i, int j, int k, int l) {
+	protected void a(int i, int j, int k, Block l) {
 		this.makeSound(this.m_remoteEntity.getSound(EntitySound.STEP), 0.15F, 1.0F);
 	}
 
@@ -172,24 +172,24 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	public void a(EntityLiving entityliving, float f) {
 		//Taken from EntitySkeleton.java#204 - 224
 		//modified to work with custom sounds
-		EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty * 4));
-		int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.aZ());
-		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.aZ());
+		EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty.a() * 4));
+		int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.be());
+		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.be());
 
-		entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty * 0.11F));
+		entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty.a() * 0.11F));
 		if (i > 0) {
-			entityarrow.b(entityarrow.c() + (double) i * 0.5D + 0.5D);
+			entityarrow.b(entityarrow.e() + (double) i * 0.5D + 0.5D);
 		}
 
 		if (j > 0) {
 			entityarrow.a(j);
 		}
 
-		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.aZ()) > 0 || this.getSkeletonType() == 1) {
+		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.be()) > 0 || this.getSkeletonType() == 1) {
 			entityarrow.setOnFire(100);
 		}
 
-		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aD().nextFloat() * 0.4F + 0.8F));
+		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aI().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(entityarrow);
 	}
 

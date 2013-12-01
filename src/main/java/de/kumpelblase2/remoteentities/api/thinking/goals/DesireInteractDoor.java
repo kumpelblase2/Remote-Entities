@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -102,10 +102,10 @@ public class DesireInteractDoor extends DesireBase
 
 	protected BlockDoor getDoor(int x, int y, int z)
 	{
-		int id = this.getEntityHandle().world.getTypeId(x, y, z);
+		Block id = this.getEntityHandle().world.getType(x, y, z);
 
-		if((!this.m_ironDoor && id == Block.WOODEN_DOOR.id) || (this.m_ironDoor && id == Block.IRON_DOOR_BLOCK.id))
-			return (BlockDoor)Block.byId[id];
+		if((!this.m_ironDoor && id == Blocks.WOODEN_DOOR) || (this.m_ironDoor && id == Blocks.IRON_DOOR_BLOCK))
+			return (BlockDoor)id;
 		else
 			return null;
 	}

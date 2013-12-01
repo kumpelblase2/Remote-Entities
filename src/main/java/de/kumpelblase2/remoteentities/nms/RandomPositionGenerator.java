@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.util.Random;
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class RandomPositionGenerator
@@ -31,7 +31,7 @@ public class RandomPositionGenerator
 
     private static Vec3D c(EntityLiving entitycreature, int i, int j, Vec3D vec3d)
     {
-        Random random = entitycreature.aD();
+        Random random = entitycreature.aI();
         boolean flag = false;
         int k = 0;
         int l = 0;
@@ -66,7 +66,7 @@ public class RandomPositionGenerator
 	                if(entitycreature instanceof EntityCreature)
 		                f1 = ((EntityCreature)entitycreature).a(k2, l2, i2);
 	                else
-                        f1 = 0.5F - entitycreature.world.q(k2, l2, i2);
+                        f1 = 0.5F - entitycreature.world.n(k2, l2, i2);
 
                     if (f1 > f)
                     {

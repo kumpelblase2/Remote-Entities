@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -23,35 +24,37 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	protected ControllerJump m_controllerJump;
 	protected ControllerLook m_controllerLook;
 	protected ControllerMove m_controllerMove;
+	protected int m_jumpTicks = 0;
 
-	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager)
+	public RemotePlayerEntity(MinecraftServer minecraftserver, WorldServer world, GameProfile profile, PlayerInteractManager iteminworldmanager)
 	{
-		super(minecraftserver, world, s, iteminworldmanager);
+		super(minecraftserver, world, profile, iteminworldmanager);
 		try
 		{
 			NetworkManager manager = new RemoteEntityNetworkManager(minecraftserver);
 			this.playerConnection = new NullNetServerHandler(minecraftserver, manager, this);
-			manager.a(playerConnection);
+			manager.a(this.playerConnection);
 		}
 		catch(Exception e)
 		{
 		}
 
-		this.aX().b(GenericAttributes.b).setValue(16);
+		this.bc().b(GenericAttributes.b).setValue(16);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
-		this.Y = 1;
+		this.X = 1;
 		this.fauxSleeping = true;
 		this.m_navigation = new PlayerNavigation(this, this.world);
 		this.m_senses = new PlayerSenses(this);
 		this.m_controllerJump = new PlayerControllerJump(this);
 		this.m_controllerMove = new PlayerControllerMove(this);
 		this.m_controllerLook = new PlayerControllerLook(this);
+		this.abilities = new CustomPlayerAbilities();
 	}
 
-	public RemotePlayerEntity(MinecraftServer minecraftserver, World world, String s, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
+	public RemotePlayerEntity(MinecraftServer minecraftserver, WorldServer world, GameProfile profile, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)
 	{
-		this(minecraftserver, world, s, iteminworldmanager);
+		this(minecraftserver, world, profile, iteminworldmanager);
 		this.m_remoteEntity = inEntity;
 	}
 
@@ -68,10 +71,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 
 	@Override
-	public void l_()
+	public void h()
 	{
-		this.yaw = this.az;
-		super.l_();
+		super.h();
 		this.h();
 
 		if(this.noDamageTicks > 0)
@@ -82,9 +84,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
             motX = motY = motZ = 0;
 
 		this.updateControllers();
-		Navigation navigation = this.getNavigation();
-        if(!navigation.g())
-            this.applyMovement();
+		this.applyMovement();
         //End Citizens
 
         if(this.getRemoteEntity() != null)
@@ -108,23 +108,24 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
 		if(this.bd)
 		{
-            boolean inLiquid = G() || I();
+            boolean inLiquid = L() || N();
             if (inLiquid)
                 this.motY += 0.04;
-            else if (this.onGround && this.aV == 0)
+            else if (this.onGround && this.m_jumpTicks == 0)
             {
-                this.motY = 0.6;
-                this.be = 10;
+                this.be();
+	            this.m_jumpTicks = 10;
             }
         }
 		else
-            this.be = 0;
+            this.m_jumpTicks = 0;
 
 		this.be *= 0.98F;
 		this.bf *= 0.98F;
 		this.bg *= 0.9F;
 
 		this.e(this.be, this.bf);
+		this.getRemoteEntity().setYaw(this.yaw);
 		this.getRemoteEntity().setHeadYaw(this.yaw);
 	}
 
@@ -132,12 +133,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	public void setupStandardGoals()
 	{
 		this.getRemoteEntity().getMind().addMovementDesires(getDefaultMovementDesires());
-	}
-
-	@Override
-	public boolean bf()
-	{
-		return true;
 	}
 
 	@Override
@@ -237,7 +232,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
 	void updateSpawn()
 	{
-		Packet20NamedEntitySpawn packet = new Packet20NamedEntitySpawn(this);
+		PacketPlayOutNamedEntitySpawn packet = new PacketPlayOutNamedEntitySpawn(this);
 		for(Player player : this.getBukkitEntity().getLocation().getWorld().getPlayers())
 		{
 			WorldUtilities.sendPacketToPlayer(player, packet);

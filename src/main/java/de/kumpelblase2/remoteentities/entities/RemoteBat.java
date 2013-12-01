@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_6_R3.EntityBat;
+import net.minecraft.server.v1_7_R1.EntityBat;
 import org.bukkit.entity.Bat;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;
@@ -27,7 +27,7 @@ public class RemoteBat extends RemoteAttackingBaseEntity<Bat>
 
 	public boolean isHanging()
 	{
-		return ((EntityBat)this.m_entity).bJ();
+		return ((EntityBat)this.m_entity).bN(); //TODO check!
 	}
 
 	public void setHanging(boolean inHanging)
