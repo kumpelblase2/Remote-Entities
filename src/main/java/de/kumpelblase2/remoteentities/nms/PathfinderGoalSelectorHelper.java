@@ -38,7 +38,7 @@ public class PathfinderGoalSelectorHelper
 	{
 		try
 		{
-			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("a");
+			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("b");
 			arrayListField.setAccessible(true);
 			return (List)arrayListField.get(this.m_selector);
 		}
@@ -55,7 +55,7 @@ public class PathfinderGoalSelectorHelper
 		this.getGoals().clear();
 		try
 		{
-			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("b");
+			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("c");
 			arrayListField.setAccessible(true);
 			((List)arrayListField.get(this.m_selector)).clear();
 		}
