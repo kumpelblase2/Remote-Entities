@@ -38,7 +38,7 @@ public class ItemSerialization {
 		}
 
 		// Now save the list
-		//NBTBase.a(itemList, dataOutput);
+		NBTCompressedStreamTools.a(itemList, dataOutput);
 
 		// Serialize that array
 		return new BigInteger(1, outputStream.toByteArray()).toString(32);
@@ -52,7 +52,7 @@ public class ItemSerialization {
 	 */
 	public static Inventory fromString(String data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(new BigInteger(data, 32).toByteArray());
-		NBTTagList itemList = new NBTTagList();/*(NBTTagList) NBTBase.a(new DataInputStream(inputStream)); TODO*/
+		NBTTagList itemList = (NBTTagList) NBTCompressedStreamTools.a(new DataInputStream(inputStream));
 		Inventory inventory = new CraftInventoryCustom(null, itemList.size());
 
 		for (int i = 0; i < itemList.size(); i++) {
