@@ -23,7 +23,6 @@ public class ItemSerialization {
 	 */
 	public static String toString(Inventory inventory) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		DataOutputStream dataOutput = new DataOutputStream(outputStream);
 		NBTTagList itemList = new NBTTagList();
 
 		// Save every element in the list
@@ -34,11 +33,14 @@ public class ItemSerialization {
 			// Convert the item stack to a NBT compound
 			if (craft != null)
 				CraftItemStack.asNMSCopy(craft).save(outputObject);
+
 			itemList.add(outputObject);
 		}
 
 		// Now save the list
-		NBTCompressedStreamTools.a(itemList, dataOutput);
+		NBTTagCompound whole = new NBTTagCompound();
+		whole.set("Inventory", itemList);
+		NBTCompressedStreamTools.a(whole, outputStream);
 
 		// Serialize that array
 		return new BigInteger(1, outputStream.toByteArray()).toString(32);
@@ -52,7 +54,7 @@ public class ItemSerialization {
 	 */
 	public static Inventory fromString(String data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(new BigInteger(data, 32).toByteArray());
-		NBTTagList itemList = (NBTTagList) NBTCompressedStreamTools.a(new DataInputStream(inputStream));
+		NBTTagList itemList = NBTCompressedStreamTools.a(inputStream).getList("Inventory", 10);
 		Inventory inventory = new CraftInventoryCustom(null, itemList.size());
 
 		for (int i = 0; i < itemList.size(); i++) {
