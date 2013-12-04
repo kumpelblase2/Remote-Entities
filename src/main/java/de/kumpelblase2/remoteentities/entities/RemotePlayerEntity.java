@@ -72,8 +72,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	@Override
 	public void h()
 	{
-		super.h();
-		this.h();
+		this.i();
 
 		if(this.noDamageTicks > 0)
 			this.noDamageTicks--;

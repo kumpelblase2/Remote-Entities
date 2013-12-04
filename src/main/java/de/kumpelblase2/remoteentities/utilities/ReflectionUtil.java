@@ -3,7 +3,9 @@ package de.kumpelblase2.remoteentities.utilities;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.SocketAddress;
 import java.util.*;
+import net.minecraft.util.io.netty.channel.Channel;
 import org.bukkit.Bukkit;
 import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
@@ -163,5 +165,47 @@ public final class ReflectionUtil
 		}
 
 		return null;
+	}
+
+	public static void setNetworkChannel(Object inManager, Channel inChannel)
+	{
+		try
+		{
+			Field channel;
+			if(s_cachedFields.containsKey("networkSocket"))
+				channel = s_cachedFields.get("networkSocket");
+			else
+			{
+				channel = getNMSClassByName("NetworkManager").getDeclaredField("k");
+				channel.setAccessible(true);
+				s_cachedFields.put("networkSocket", channel);
+			}
+
+			channel.set(inManager, inChannel);
+		}
+		catch(Exception e)
+		{
+		}
+	}
+
+	public static void setNetworkAddress(Object inManager, SocketAddress inAddress)
+	{
+		try
+		{
+			Field address;
+			if(s_cachedFields.containsKey("networkAddress"))
+				address = s_cachedFields.get("networkAddress");
+			else
+			{
+				address = getNMSClassByName("NetworkManager").getDeclaredField("l");
+				address.setAccessible(true);
+				s_cachedFields.put("networkAddress", address);
+			}
+
+			address.set(inManager, inAddress);
+		}
+		catch(Exception e)
+		{
+		}
 	}
 }
