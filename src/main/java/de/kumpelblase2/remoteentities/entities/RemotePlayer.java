@@ -135,11 +135,13 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 
 	/**
      * Send the hurt animation to nearby players.
+	 * This is needed because normally players in creative mode cannot be damaged at all.
+	 * By keeping this, we allow the user to set the npc in creative mode and still keep hurt animations.
      */
-	/*public void fakeDamage() TODO do we still need this?
+	public void fakeDamage()
 	{
-		((WorldServer)this.getHandle().world).getTracker().a(this.getHandle(), new Packet18ArmAnimation(this.getHandle(), 2));
-	}*/
+		this.getHandle().world.broadcastEntityEffect(this.getHandle(), (byte)2);
+	}
 
 	@Override
 	protected void setupSounds()
