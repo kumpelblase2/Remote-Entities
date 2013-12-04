@@ -139,7 +139,7 @@ public class DesireSitOnBlock extends DesireBase
 			if(type == Blocks.BURNING_FURNACE)
 				return true;
 
-			if(type == Blocks.BED && !BlockBed.c(data)) //TODO -> was f_ before and c is probably wrong
+			if(type == Blocks.BED && !BlockBed.b(data))
 				return true;
 		}
 

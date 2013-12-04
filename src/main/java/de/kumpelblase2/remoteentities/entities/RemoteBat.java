@@ -27,7 +27,7 @@ public class RemoteBat extends RemoteAttackingBaseEntity<Bat>
 
 	public boolean isHanging()
 	{
-		return ((EntityBat)this.m_entity).bN(); //TODO check!
+		return ((EntityBat)this.m_entity).bN();
 	}
 
 	public void setHanging(boolean inHanging)
