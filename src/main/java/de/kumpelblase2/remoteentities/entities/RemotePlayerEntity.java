@@ -49,7 +49,6 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		this.m_controllerJump = new PlayerControllerJump(this);
 		this.m_controllerMove = new PlayerControllerMove(this);
 		this.m_controllerLook = new PlayerControllerLook(this);
-		this.abilities = new CustomPlayerAbilities();
 	}
 
 	public RemotePlayerEntity(MinecraftServer minecraftserver, WorldServer world, GameProfile profile, PlayerInteractManager iteminworldmanager, RemoteEntity inEntity)

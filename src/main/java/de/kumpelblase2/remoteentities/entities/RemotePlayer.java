@@ -1,6 +1,5 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import java.nio.charset.Charset;
 import java.util.UUID;
 import net.minecraft.server.v1_7_R1.*;
 import net.minecraft.util.com.google.common.base.Charsets;
@@ -12,11 +11,9 @@ import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.RemoteEntities;
 import de.kumpelblase2.remoteentities.api.DespawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 import de.kumpelblase2.remoteentities.api.events.RemoteEntitySpawnEvent;
-import de.kumpelblase2.remoteentities.nms.CustomPlayerAbilities;
 
 public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 {
@@ -89,7 +86,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	public void setSpeed(double inSpeed)
 	{
 		super.setSpeed(inSpeed);
-		((CustomPlayerAbilities)((RemotePlayerEntity)this.m_entity).abilities).setWalkSpeed((float)inSpeed);
+		((EntityPlayer)this.m_entity).abilities.walkSpeed = (float)inSpeed;
 	}
 
 	@Override
