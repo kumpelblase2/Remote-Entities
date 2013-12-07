@@ -86,7 +86,9 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	public void setSpeed(double inSpeed)
 	{
 		super.setSpeed(inSpeed);
-		((EntityPlayer)this.m_entity).abilities.walkSpeed = (float)inSpeed;
+
+		if(this.m_entity != null)
+			((EntityPlayer)this.m_entity).abilities.walkSpeed = (float)inSpeed;
 	}
 
 	@Override
