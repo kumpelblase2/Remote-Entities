@@ -13,12 +13,12 @@ public class RemoteEntityNetworkManager extends NetworkManager
 	public RemoteEntityNetworkManager(MinecraftServer server) throws IOException
 	{
 		super(false);
+
+		this.assignReplacementNetworking();
 	}
 
-	@Override
-	public void channelActive(ChannelHandlerContext inContext) throws Exception
+	private void assignReplacementNetworking()
 	{
-		super.channelActive(inContext);
 		ReflectionUtil.setNetworkChannel(this, new NullChannel(null));
 		ReflectionUtil.setNetworkAddress(this, new SocketAddress(){});
 	}
