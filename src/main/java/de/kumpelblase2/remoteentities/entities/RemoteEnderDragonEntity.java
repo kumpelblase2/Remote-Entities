@@ -58,7 +58,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	}
 
 	@Override
-	public void c()
+	public void e()
 	{
 		if(this.getRemoteEntity().isStationary())
 		{
@@ -83,7 +83,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 			return;
 		}
 
-		super.c();
+		super.e();
 	}
 
 	@Override
