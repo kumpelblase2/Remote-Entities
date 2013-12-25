@@ -1,6 +1,7 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import net.minecraft.server.v1_7_R1.*;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -15,6 +16,7 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	private final RemoteEntity m_remoteEntity;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
+	protected Location m_targetLocation;
 
 	public RemoteEnderDragonEntity(World world)
 	{
@@ -55,6 +57,13 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 		super.h();
 		if(this.getRemoteEntity() != null)
 			this.getRemoteEntity().getMind().tick();
+
+		if(this.m_targetLocation != null)
+		{
+			this.h = this.m_targetLocation.getX();
+			this.i = this.m_targetLocation.getY();
+			this.j = this.m_targetLocation.getZ();
+		}
 	}
 
 	@Override
@@ -83,7 +92,25 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 			return;
 		}
 
-		super.e();
+		if(((RemoteEnderDragon)this.m_remoteEntity).shouldNormallyFly())
+			super.e();
+		else
+		{
+			if(this.m_targetLocation != null)
+			{
+				if(this.getBukkitEntity().getLocation().distanceSquared(this.m_targetLocation) <= 4)
+				{
+					this.m_targetLocation = null;
+					return;
+				}
+
+				this.h = this.m_targetLocation.getX();
+				this.i = this.m_targetLocation.getY();
+				this.j = this.m_targetLocation.getZ();
+
+				super.e();
+			}
+		}
 	}
 
 	@Override
@@ -214,6 +241,11 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	protected String aU()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
+	}
+
+	protected void setTargetLocation(Location inTarget)
+	{
+		this.m_targetLocation = inTarget;
 	}
 
 	public static DesireItem[] getDefaultMovementDesires(RemoteEntity inEntityFor)
