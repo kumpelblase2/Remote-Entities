@@ -27,18 +27,8 @@ public final class ReflectionUtil
 	{
 		try
 		{
-			if(s_cachedFields.containsKey(inSelectorName))
-			{
-				Field f = s_cachedFields.get(inSelectorName);
-				f.set(inEntity, inNewSelector);
-			}
-			else
-			{
-				Field goalSelectorField = inEntity.getClass().getDeclaredField(inSelectorName);
-				goalSelectorField.setAccessible(true);
-				goalSelectorField.set(inEntity, inNewSelector);
-				s_cachedFields.put(inSelectorName, goalSelectorField);
-			}
+			Field field = getOrRegisterField(inEntity.getClass(), inSelectorName);
+			field.set(inEntity, inNewSelector);
 		}
 		catch(Exception e)
 		{
@@ -47,16 +37,18 @@ public final class ReflectionUtil
 	}
 
 	/**
-	 * Registers custom entity class at the native minecraft entity enum
+	 * Registers custom entity class at the native minecraft entity enum.
+	 * Automatically clears internal maps first @see ReflectionUtil#clearEntityType(String, int)
 	 *
 	 * @param inClass	class of the entity
-	 * @param name		minecraft entity name
+	 * @param inName	minecraft entity name
 	 * @param inID		minecraft entity id
 	 */
-	public static void registerEntityType(Class<?> inClass, String name, int inID)
+	public static void registerEntityType(Class<?> inClass, String inName, int inID)
 	{
 		try
 		{
+			clearEntityType(inName, inID);
             @SuppressWarnings("rawtypes")
             Class[] args = new Class[3];
             args[0] = Class.class;
@@ -66,12 +58,34 @@ public final class ReflectionUtil
             Method a = getNMSClassByName("EntityTypes").getDeclaredMethod("a", args);
             a.setAccessible(true);
 
-            a.invoke(a, inClass, name, inID);
+            a.invoke(a, inClass, inName, inID);
         }
 		catch (Exception e)
 		{
             e.printStackTrace();
         }
+	}
+
+	/**
+	 * Clears the entity name and entity id from the EntityTypes internal c and e map to allow registering of those names with different values.
+	 * The other maps are not touched and stay as they are.
+	 *
+	 * @param inName    The internal name of the entity
+	 * @param inID      The internal id of the entity
+	 */
+	public static void clearEntityType(String inName, int inID)
+	{
+		try
+		{
+			Field cMap = getOrRegisterNMSField("EntityTypes", "c");
+			Field eMap = getOrRegisterNMSField("EntityTypes", "e");
+			((Map)cMap.get(null)).remove(inName);
+			((Map)eMap.get(null)).remove(inID);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -84,16 +98,7 @@ public final class ReflectionUtil
 	{
 		try
 		{
-			Field jump;
-			if(s_cachedFields.containsKey("jump"))
-				jump = s_cachedFields.get("jump");
-			else
-			{
-				jump = getNMSClassByName("EntityLiving").getDeclaredField("bd");
-				jump.setAccessible(true);
-				s_cachedFields.put("jump", jump);
-			}
-
+			Field jump = getOrRegisterNMSField("EntityLiving", "bd");
 			return jump.getBoolean(inEntity);
 		}
 		catch(Exception e)
@@ -146,6 +151,11 @@ public final class ReflectionUtil
 		return parameters;
 	}
 
+	/**
+	 * Gets the current minecraft revision
+	 *
+	 * @return  The revision as string in the format "X.X_RX"
+	 */
 	public static String getMinecraftRevision()
 	{
 		Class serverClass = Bukkit.getServer().getClass();
@@ -153,6 +163,12 @@ public final class ReflectionUtil
 		return remaining.split("\\.")[0];
 	}
 
+	/**
+	 * Gets the nms class with the given name
+	 *
+	 * @param inName    The internal name of the class
+	 * @return          The class
+	 */
 	public static Class<?> getNMSClassByName(String inName)
 	{
 		try
@@ -167,20 +183,17 @@ public final class ReflectionUtil
 		return null;
 	}
 
+	/**
+	 * Sets the new socket channel of the given manager.
+	 *
+	 * @param inManager The manager to change the channel of
+	 * @param inChannel The new channel
+	 */
 	public static void setNetworkChannel(Object inManager, Channel inChannel)
 	{
 		try
 		{
-			Field channel;
-			if(s_cachedFields.containsKey("networkSocket"))
-				channel = s_cachedFields.get("networkSocket");
-			else
-			{
-				channel = getNMSClassByName("NetworkManager").getDeclaredField("k");
-				channel.setAccessible(true);
-				s_cachedFields.put("networkSocket", channel);
-			}
-
+			Field channel = getOrRegisterNMSField("NetworkManager", "k");
 			channel.set(inManager, inChannel);
 		}
 		catch(Exception e)
@@ -188,24 +201,69 @@ public final class ReflectionUtil
 		}
 	}
 
+	/**
+	 * Sets the network address of the given network manager.
+	 *
+	 * @param inManager The manager to change the address of
+	 * @param inAddress The new address
+	 */
 	public static void setNetworkAddress(Object inManager, SocketAddress inAddress)
 	{
 		try
 		{
-			Field address;
-			if(s_cachedFields.containsKey("networkAddress"))
-				address = s_cachedFields.get("networkAddress");
-			else
-			{
-				address = getNMSClassByName("NetworkManager").getDeclaredField("l");
-				address.setAccessible(true);
-				s_cachedFields.put("networkAddress", address);
-			}
-
+			Field address = getOrRegisterNMSField("NetworkManager", "l");
 			address.set(inManager, inAddress);
 		}
 		catch(Exception e)
 		{
+		}
+	}
+
+	static Field getOrRegisterField(Class<?> inSource, String inField)
+	{
+		Field field;
+		try
+		{
+			if(s_cachedFields.containsKey(inField))
+				field = s_cachedFields.get(inField);
+			else
+			{
+				field = inSource.getDeclaredField(inField);
+				field.setAccessible(true);
+				s_cachedFields.put(inField, field);
+			}
+
+			return field;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// We split up in two methods so we don't cause much overhead because otherwise we'd need to search for the nms class every time when calling the method
+	// instead of just once when we need it
+	static Field getOrRegisterNMSField(String inNMSClass, String inField)
+	{
+		Field field;
+		try
+		{
+			if(s_cachedFields.containsKey(inField))
+				field = s_cachedFields.get(inField);
+			else
+			{
+				field = getNMSClassByName(inNMSClass).getDeclaredField(inField);
+				field.setAccessible(true);
+				s_cachedFields.put(inField, field);
+			}
+
+			return field;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
