@@ -64,14 +64,11 @@ class ChunkEntityLoader implements Listener
 					if(!(entity instanceof LivingEntity))
 						continue;
 
-					if(RemoteEntities.isRemoteEntity((LivingEntity)entity))
+					RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
+					if(rentity != null && rentity.isSpawned())
 					{
-						RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
-						if(rentity.isSpawned())
-						{
-							m_toSpawn.add(new EntityLoadData(rentity, entity.getLocation()));
-							rentity.despawn(DespawnReason.CHUNK_UNLOAD);
-						}
+						m_toSpawn.add(new EntityLoadData(rentity, entity.getLocation()));
+						rentity.despawn(DespawnReason.CHUNK_UNLOAD);
 					}
 				}
 			}
