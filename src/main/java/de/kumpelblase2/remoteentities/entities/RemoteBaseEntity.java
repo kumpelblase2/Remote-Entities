@@ -665,6 +665,9 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 	void onDeath()
 	{
+		if(this.getMind().hasBehaviour("Death"))
+			((DeathBehavior)this.getMind().getBehaviour("Death")).onDeath();
+
 		this.getMind().clearMovementDesires();
 		this.getMind().clearTargetingDesires();
 	}
