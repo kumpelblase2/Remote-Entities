@@ -1,6 +1,5 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
