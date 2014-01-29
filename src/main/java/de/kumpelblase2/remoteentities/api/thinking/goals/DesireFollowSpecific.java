@@ -98,7 +98,7 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getNavigation().g() && this.m_toFollow.e(this.getEntityHandle()) > this.m_maxDistanceSquared;
+		return !this.getNavigation().g() && this.m_toFollow.e(this.getEntityHandle()) > this.m_minDistanceSquared;
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class DesireFollowSpecific extends DesireBase
 			this.m_moveTick = 10;
 			if(!this.getRemoteEntity().move((LivingEntity)this.m_toFollow.getBukkitEntity()))
 			{
-				if(this.getEntityHandle().e(this.m_toFollow) >= 144)
+				if(this.getEntityHandle().e(this.m_toFollow) >= this.m_maxDistanceSquared)
 				{
 					int x = MathHelper.floor(this.m_toFollow.locX) - 2;
 					int z = MathHelper.floor(this.m_toFollow.locZ) - 2;

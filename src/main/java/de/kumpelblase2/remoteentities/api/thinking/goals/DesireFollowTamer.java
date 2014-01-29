@@ -91,7 +91,7 @@ public class DesireFollowTamer extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		return !this.getNavigation().g() && this.m_animal.e(this.m_owner) > this.m_maxDistanceSquared && !this.isSitting();
+		return !this.getNavigation().g() && this.m_animal.e(this.m_owner) > this.m_minDistanceSquared && !this.isSitting();
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class DesireFollowTamer extends DesireBase
 				{
 					if(!NMSUtil.isOnLeash(this.m_animal))
 					{
-						if(this.m_animal.e(this.m_owner) >= 144)
+						if(this.m_animal.e(this.m_owner) >= this.m_maxDistanceSquared)
 						{
 							int x = MathHelper.floor(this.m_owner.locX) - 2;
 							int z = MathHelper.floor(this.m_owner.locZ) - 2;
