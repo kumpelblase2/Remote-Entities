@@ -57,7 +57,7 @@ public class ItemSerialization {
 	 * @param data  String to deserialize
 	 * @return      Deserialized inventory
 	 */
-	public static Inventory fromString(String data) throws IOException {
+	public static Inventory fromString(String data) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
 		NBTTagList itemList = (NBTTagList) readNbt(new DataInputStream(inputStream), 0);
 		Inventory inventory = new CraftInventoryCustom(null, itemList.size());

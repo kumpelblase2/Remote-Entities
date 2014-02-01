@@ -23,3 +23,5 @@ snapshots/*
 out/*
 
 src/main/resources/rebel.xml
+
+*.jar
