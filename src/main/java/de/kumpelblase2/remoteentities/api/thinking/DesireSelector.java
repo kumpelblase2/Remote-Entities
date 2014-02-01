@@ -31,10 +31,16 @@ public class DesireSelector
 				DesireItem item = it.next();
 				if(this.m_executingDesires.contains(item))
 				{
-					if(this.hasHighestPriority(item) && item.getDesire().canContinue())
+					RemoteDesireStopEvent.StopReason reason = null;
+					if(!this.hasHighestPriority(item))
+						reason = RemoteDesireStopEvent.StopReason.LOWER_PRIORITY;
+					else if(!item.getDesire().canContinue())
+						reason = RemoteDesireStopEvent.StopReason.CANT_CONTINUE;
+
+					if(reason == null)
 						continue;
 
-					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item, reason);
 					Bukkit.getPluginManager().callEvent(event);
 					if(event.isCancelled())
 						continue;
@@ -163,14 +169,14 @@ public class DesireSelector
 			}
 			temp.clear();
 			temp.add(lowest);
-			RemoteDesireStopEvent event = new RemoteDesireStopEvent(lowest.getDesire().getRemoteEntity(), lowest);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(lowest.getDesire().getRemoteEntity(), lowest, RemoteDesireStopEvent.StopReason.REMOVE);
 			Bukkit.getPluginManager().callEvent(event);
 			lowest.getDesire().stopExecuting();
 		}
 		else
 		{
 			DesireItem t = temp.get(0);
-			RemoteDesireStopEvent event = new RemoteDesireStopEvent(t.getDesire().getRemoteEntity(), t);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(t.getDesire().getRemoteEntity(), t, RemoteDesireStopEvent.StopReason.REMOVE);
 			Bukkit.getPluginManager().callEvent(event);
 			t.getDesire().stopExecuting();
 		}
@@ -184,7 +190,7 @@ public class DesireSelector
 	{
 		for(DesireItem item : this.m_executingDesires)
 		{
-			RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item, RemoteDesireStopEvent.StopReason.REMOVE);
 			Bukkit.getPluginManager().callEvent(event);
 			item.getDesire().stopExecuting();
 		}
