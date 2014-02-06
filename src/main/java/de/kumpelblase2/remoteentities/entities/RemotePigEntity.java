@@ -11,6 +11,7 @@ import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.api.thinking.RideBehavior;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 {
@@ -31,8 +32,7 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		try
 		{
-			Field temptField = EntityPig.class.getDeclaredField("d");
-			temptField.setAccessible(true);
+			Field temptField = ReflectionUtil.getOrRegisterField(EntityPig.class, "d");
 			temptField.set(this, new DesireFollowCarrotStickTemp(this.getRemoteEntity()));
 		}
 		catch(Exception e)

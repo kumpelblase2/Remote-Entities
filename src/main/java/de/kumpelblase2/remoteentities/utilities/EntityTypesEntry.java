@@ -29,10 +29,8 @@ public class EntityTypesEntry
 		  try
 		  {
 			  Class entityTypes = ReflectionUtil.getNMSClassByName("EntityTypes");
-			  Field classMap = entityTypes.getDeclaredField("c");
-			  classMap.setAccessible(true);
-			  Field idMap = entityTypes.getDeclaredField("f");
-			  idMap.setAccessible(true);
+			  Field classMap = ReflectionUtil.getOrRegisterField(entityTypes, "c");
+			  Field idMap = ReflectionUtil.getOrRegisterField(entityTypes, "f");
 			  Class entityClass = (Class)((Map)classMap.get(null)).get(inEntity);
 			  Integer id = (Integer)((Map)idMap.get(null)).get(entityClass);
 			  return new EntityTypesEntry(inEntity, entityClass, id);

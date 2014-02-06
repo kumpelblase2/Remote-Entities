@@ -10,6 +10,7 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 import de.kumpelblase2.remoteentities.api.thinking.RideBehavior;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 {
@@ -62,8 +63,7 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	{
 		try
 		{
-			Field targetField = EntityGhast.class.getDeclaredField("target");
-			targetField.setAccessible(true);
+			Field targetField = ReflectionUtil.getOrRegisterField(EntityGhast.class, "target");
 			targetField.set(this, inTarget);
 		}
 		catch(Exception e)
@@ -75,7 +75,7 @@ public class RemoteGhastEntity extends EntityGhast implements RemoteEntityHandle
 	{
 		try
 		{
-			Field targetField = EntityGhast.class.getDeclaredField("target");
+			Field targetField = ReflectionUtil.getOrRegisterField(EntityGhast.class, "target");
 			return (Entity)targetField.get(this);
 		}
 		catch(Exception e)

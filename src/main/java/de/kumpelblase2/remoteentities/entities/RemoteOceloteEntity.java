@@ -10,6 +10,7 @@ import de.kumpelblase2.remoteentities.api.features.InventoryFeature;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.goals.*;
 import de.kumpelblase2.remoteentities.nms.PathfinderGoalSelectorHelper;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHandle
 {
@@ -31,8 +32,7 @@ public class RemoteOceloteEntity extends EntityOcelot implements RemoteEntityHan
 		this.bp = new DesireSitTemp(this.getRemoteEntity());
 		try
 		{
-			Field temptField = EntityOcelot.class.getDeclaredField("bq");
-			temptField.setAccessible(true);
+			Field temptField = ReflectionUtil.getOrRegisterField(EntityOcelot.class, "bq");
 			temptField.set(this, new DesireTemptTemp(this.getRemoteEntity()));
 		}
 		catch(Exception e)

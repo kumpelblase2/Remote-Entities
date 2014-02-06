@@ -63,7 +63,7 @@ public class ItemSerialization {
 		Inventory inventory = new CraftInventoryCustom(null, itemList.size());
 
 		for (int i = 0; i < itemList.size(); i++) {
-			NBTTagCompound inputObject = (NBTTagCompound) itemList.get(i);
+			NBTTagCompound inputObject = itemList.get(i);
 
 			if (!inputObject.isEmpty()) {
 				inventory.setItem(i, CraftItemStack.asCraftMirror(
