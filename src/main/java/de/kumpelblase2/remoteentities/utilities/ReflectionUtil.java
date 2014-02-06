@@ -219,7 +219,15 @@ public final class ReflectionUtil
 		}
 	}
 
-	static Field getOrRegisterField(Class<?> inSource, String inField)
+	/**
+	 * Gets a declared field of the given class and caches it.
+	 * If a field is not cached it will attempt to get it from the given class.
+	 *
+	 * @param inSource  The class which has the field
+	 * @param inField   The field name
+	 * @return          The field
+	 */
+	public static Field getOrRegisterField(Class<?> inSource, String inField)
 	{
 		Field field;
 		try

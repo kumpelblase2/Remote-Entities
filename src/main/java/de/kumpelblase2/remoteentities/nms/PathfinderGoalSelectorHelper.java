@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.server.v1_7_R1.PathfinderGoal;
 import net.minecraft.server.v1_7_R1.PathfinderGoalSelector;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
+import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class PathfinderGoalSelectorHelper
 {
@@ -21,7 +22,7 @@ public class PathfinderGoalSelectorHelper
 		{
 			for(Object item : this.getGoals())
 			{
-				if(item.getClass().getField("a").get(item).getClass().isAssignableFrom(inDesire))
+				if(item.getClass().getField("c").get(item).getClass().isAssignableFrom(inDesire))
 					return item;
 			}
 			return null;
@@ -38,8 +39,7 @@ public class PathfinderGoalSelectorHelper
 	{
 		try
 		{
-			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("b");
-			arrayListField.setAccessible(true);
+			Field arrayListField = ReflectionUtil.getOrRegisterField(PathfinderGoalSelector.class, "b");
 			return (List)arrayListField.get(this.m_selector);
 		}
 		catch(Exception e)
@@ -55,8 +55,9 @@ public class PathfinderGoalSelectorHelper
 		this.getGoals().clear();
 		try
 		{
-			Field arrayListField = PathfinderGoalSelector.class.getDeclaredField("c");
-			arrayListField.setAccessible(true);
+			Field arrayListField = ReflectionUtil.getOrRegisterField(PathfinderGoalSelector.class, "b");
+			((List)arrayListField.get(this.m_selector)).clear();
+			arrayListField = ReflectionUtil.getOrRegisterField(PathfinderGoalSelector.class, "c");
 			((List)arrayListField.get(this.m_selector)).clear();
 		}
 		catch(Exception e)
