@@ -16,24 +16,6 @@ public class PathfinderGoalSelectorHelper
 		this.m_selector = inSelector;
 	}
 
-	public Object getGoal(Class<? extends Desire> inDesire)
-	{
-		try
-		{
-			for(Object item : this.getGoals())
-			{
-				if(item.getClass().getField("c").get(item).getClass().isAssignableFrom(inDesire))
-					return item;
-			}
-			return null;
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 	@SuppressWarnings("rawtypes")
 	public List getGoals()
 	{
