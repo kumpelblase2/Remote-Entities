@@ -12,16 +12,16 @@ public class RemoteDesireStopEvent extends RemoteEvent
 
 	private final StopReason m_stopReason;
 
-	public RemoteDesireStopEvent(RemoteEntity inEntity,  DesireItem inDesire, StopReason inReason)
+	public RemoteDesireStopEvent(DesireItem inDesire, StopReason inReason)
 	{
-		super(inEntity);
+		super(inDesire.getDesire().getRemoteEntity());
 		this.m_desire = inDesire;
 		this.m_stopReason = inReason;
 	}
 
-	public RemoteDesireStopEvent(RemoteEntity inEntity, DesireItem inDesire)
+	public RemoteDesireStopEvent(DesireItem inDesire)
 	{
-		this(inEntity, inDesire, StopReason.CANT_CONTINUE);
+		this(inDesire, StopReason.CANT_CONTINUE);
 	}
 
 	/**

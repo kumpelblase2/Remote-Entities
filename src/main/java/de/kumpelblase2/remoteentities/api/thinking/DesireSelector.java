@@ -22,14 +22,15 @@ public class DesireSelector
 
 	public void onUpdate()
 	{
-		Set<DesireItem> toRemove = new HashSet<DesireItem>();
+		Iterator<DesireItem> it;
+		DesireItem item;
 
 		if(++this.m_tick % this.m_delay == 0)
 		{
-			Iterator<DesireItem> it = this.m_desires.iterator();
+			it = this.m_desires.iterator();
 			while(it.hasNext())
 			{
-				DesireItem item = it.next();
+				item = it.next();
 				if(this.m_executingDesires.contains(item))
 				{
 					RemoteDesireStopEvent.StopReason reason = null;
@@ -41,40 +42,44 @@ public class DesireSelector
 					if(reason == null)
 						continue;
 
-					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item, reason);
+					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item, reason);
 					Bukkit.getPluginManager().callEvent(event);
 					if(event.isCancelled())
 						continue;
 
-					event.getDesire().stopExecuting();
-					if(event.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)event.getDesire()).isFinished())
-						toRemove.add(event.getDesireItem());
-
-					this.m_executingDesires.remove(event.getDesireItem());
+					item = event.getDesireItem();
+					item.getDesire().stopExecuting();
+					this.m_executingDesires.remove(item);
+					if(item.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)item.getDesire()).isFinished())
+					{
+						it.remove();
+						continue;
+					}
 				}
 
-				if(!toRemove.contains(item) && this.hasHighestPriority(item) && item.getDesire().shouldExecute())
+				if(this.hasHighestPriority(item) && item.getDesire().shouldExecute())
 				{
-					RemoteDesireStartEvent event = new RemoteDesireStartEvent(item.getDesire().getRemoteEntity(), item);
+					RemoteDesireStartEvent event = new RemoteDesireStartEvent(item);
 					Bukkit.getPluginManager().callEvent(event);
 					if(event.isCancelled())
 						continue;
 
-					event.getDesire().startExecuting();
-					this.m_executingDesires.add(event.getDesireItem());
+					item = event.getDesireItem();
+					item.getDesire().startExecuting();
+					this.m_executingDesires.add(item);
 				}
 			}
 			this.m_tick = 0;
 		}
 		else
 		{
-			Iterator<DesireItem> it = this.m_executingDesires.iterator();
+			it = this.m_executingDesires.iterator();
 			while(it.hasNext())
 			{
-				DesireItem item = it.next();
+				item = it.next();
 				if(!item.getDesire().canContinue())
 				{
-					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+					RemoteDesireStopEvent event = new RemoteDesireStopEvent(item);
 					Bukkit.getPluginManager().callEvent(event);
 					item.getDesire().stopExecuting();
 					if(item.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)item.getDesire()).isFinished())
@@ -85,18 +90,13 @@ public class DesireSelector
 			}
 		}
 
-		for(DesireItem remove : toRemove)
-		{
-			this.m_desires.remove(remove);
-		}
-
-		Iterator<DesireItem> it = this.m_executingDesires.iterator();
+		it = this.m_executingDesires.iterator();
 		while(it.hasNext())
 		{
-			DesireItem item = it.next();
+			item = it.next();
 			if(!item.getDesire().update())
 			{
-				RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item);
+				RemoteDesireStopEvent event = new RemoteDesireStopEvent(item);
 				Bukkit.getPluginManager().callEvent(event);
 				if(item.getDesire() instanceof OneTimeDesire && ((OneTimeDesire)item.getDesire()).isFinished())
 					this.m_desires.remove(item);
@@ -170,14 +170,14 @@ public class DesireSelector
 			}
 			temp.clear();
 			temp.add(lowest);
-			RemoteDesireStopEvent event = new RemoteDesireStopEvent(lowest.getDesire().getRemoteEntity(), lowest, RemoteDesireStopEvent.StopReason.REMOVE);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(lowest, RemoteDesireStopEvent.StopReason.REMOVE);
 			Bukkit.getPluginManager().callEvent(event);
 			lowest.getDesire().stopExecuting();
 		}
 		else
 		{
 			DesireItem t = temp.get(0);
-			RemoteDesireStopEvent event = new RemoteDesireStopEvent(t.getDesire().getRemoteEntity(), t, RemoteDesireStopEvent.StopReason.REMOVE);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(t, RemoteDesireStopEvent.StopReason.REMOVE);
 			Bukkit.getPluginManager().callEvent(event);
 			t.getDesire().stopExecuting();
 		}
@@ -191,7 +191,7 @@ public class DesireSelector
 	{
 		for(DesireItem item : this.m_executingDesires)
 		{
-			RemoteDesireStopEvent event = new RemoteDesireStopEvent(item.getDesire().getRemoteEntity(), item, RemoteDesireStopEvent.StopReason.REMOVE);
+			RemoteDesireStopEvent event = new RemoteDesireStopEvent(item, RemoteDesireStopEvent.StopReason.REMOVE);
 			Bukkit.getPluginManager().callEvent(event);
 			item.getDesire().stopExecuting();
 		}

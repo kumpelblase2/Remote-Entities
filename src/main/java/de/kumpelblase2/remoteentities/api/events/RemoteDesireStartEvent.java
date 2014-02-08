@@ -10,9 +10,9 @@ public class RemoteDesireStartEvent extends RemoteEvent
 	private static final HandlerList handlers = new HandlerList();
 	private DesireItem m_desire;
 
-	public RemoteDesireStartEvent(RemoteEntity inEntity, DesireItem inDesire)
+	public RemoteDesireStartEvent(DesireItem inDesire)
 	{
-		super(inEntity);
+		super(inDesire.getDesire().getRemoteEntity());
 		this.m_desire = inDesire;
 	}
 
@@ -45,6 +45,7 @@ public class RemoteDesireStartEvent extends RemoteEvent
 	{
 		this.m_desire = inDesire;
 	}
+
 	public DesireItem getDesireItem()
 	{
 		return this.m_desire;
