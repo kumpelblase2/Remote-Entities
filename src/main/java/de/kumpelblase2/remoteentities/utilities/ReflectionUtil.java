@@ -232,13 +232,14 @@ public final class ReflectionUtil
 		Field field;
 		try
 		{
-			if(s_cachedFields.containsKey(inField))
-				field = s_cachedFields.get(inField);
+			String id = inSource.getName() + "_" + inField;
+			if(s_cachedFields.containsKey(id))
+				field = s_cachedFields.get(id);
 			else
 			{
 				field = inSource.getDeclaredField(inField);
 				field.setAccessible(true);
-				s_cachedFields.put(inField, field);
+				s_cachedFields.put(id, field);
 			}
 
 			return field;
@@ -257,13 +258,14 @@ public final class ReflectionUtil
 		Field field;
 		try
 		{
-			if(s_cachedFields.containsKey(inField))
-				field = s_cachedFields.get(inField);
+			String id = inNMSClass + "_" + inField;
+			if(s_cachedFields.containsKey(id))
+				field = s_cachedFields.get(id);
 			else
 			{
 				field = getNMSClassByName(inNMSClass).getDeclaredField(inField);
 				field.setAccessible(true);
-				s_cachedFields.put(inField, field);
+				s_cachedFields.put(id, field);
 			}
 
 			return field;
