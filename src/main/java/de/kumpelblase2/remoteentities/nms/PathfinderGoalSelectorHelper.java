@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import net.minecraft.server.v1_7_R1.PathfinderGoal;
 import net.minecraft.server.v1_7_R1.PathfinderGoalSelector;
-import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class PathfinderGoalSelectorHelper
