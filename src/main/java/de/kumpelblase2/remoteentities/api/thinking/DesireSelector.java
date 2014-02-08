@@ -9,7 +9,8 @@ public class DesireSelector
 {
 	private final List<DesireItem> m_desires;
 	private final List<DesireItem> m_executingDesires;
-	private int m_delay = 0;
+	private int m_tick = 0;
+	protected int m_delay = 3;
 	private final RemoteEntity m_entity;
 
 	public DesireSelector(RemoteEntity inEntity)
@@ -23,7 +24,7 @@ public class DesireSelector
 	{
 		Set<DesireItem> toRemove = new HashSet<DesireItem>();
 
-		if(++this.m_delay % 3 == 0)
+		if(++this.m_tick % this.m_delay == 0)
 		{
 			Iterator<DesireItem> it = this.m_desires.iterator();
 			while(it.hasNext())
@@ -63,7 +64,7 @@ public class DesireSelector
 					this.m_executingDesires.add(event.getDesireItem());
 				}
 			}
-			this.m_delay = 0;
+			this.m_tick = 0;
 		}
 		else
 		{
