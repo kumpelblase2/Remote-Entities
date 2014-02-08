@@ -11,6 +11,7 @@
 *.DS_Store
 dependency-reduced-pom.xml
 
+*/target/*
 target/*
 releases/*
 snapshots/*
@@ -25,3 +26,5 @@ out/*
 src/main/resources/rebel.xml
 
 *.jar
+
+rebel.xml
