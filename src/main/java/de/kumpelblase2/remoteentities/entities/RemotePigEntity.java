@@ -32,7 +32,7 @@ public class RemotePigEntity extends EntityPig implements RemoteEntityHandle
 		new PathfinderGoalSelectorHelper(this.targetSelector).clearGoals();
 		try
 		{
-			Field temptField = ReflectionUtil.getOrRegisterField(EntityPig.class, "d");
+			Field temptField = ReflectionUtil.getOrRegisterField(EntityPig.class, "bp");
 			temptField.set(this, new DesireFollowCarrotStickTemp(this.getRemoteEntity()));
 		}
 		catch(Exception e)
