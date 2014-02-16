@@ -37,7 +37,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	protected boolean m_isPushable = true;
 	protected final EntityManager m_manager;
 	protected Location m_unloadedLocation;
-	protected String m_nameToSpawnwith;
+	protected String m_nameToSpawnWith;
 	protected int m_lastBouncedId;
 	protected long m_lastBouncedTime;
 	protected double m_speed = -1;
@@ -593,7 +593,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	public String getName()
 	{
 		if(!this.isSpawned())
-			return this.m_nameToSpawnwith;
+			return this.m_nameToSpawnWith;
 
 		return this.getBukkitEntity().getCustomName();
 	}
@@ -614,7 +614,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			}
 		}
 		else
-			this.m_nameToSpawnwith = inName;
+			this.m_nameToSpawnWith = inName;
 	}
 
 	/**
