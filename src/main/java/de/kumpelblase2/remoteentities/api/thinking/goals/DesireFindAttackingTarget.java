@@ -53,9 +53,13 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 	@Override
 	public boolean shouldExecute()
 	{
-		int lastAttackedTick = this.getEntityHandle().aK();
+		if(this.getEntityHandle() == null)
+			return false;
 
-		return lastAttackedTick != this.m_lastAttackedTick && this.getEntityHandle() != null && this.isSuitableTarget(this.getEntityHandle().getLastDamager(), true);
+		EntityLiving handle = this.getEntityHandle();
+		int lastAttackedTick = handle.aK();
+		EntityLiving lastAttacker = handle.getLastDamager();
+		return lastAttackedTick != this.m_lastAttackedTick && lastAttacker != null && this.isSuitableTarget(handle.getLastDamager(), true);
 	}
 
 	@Override
