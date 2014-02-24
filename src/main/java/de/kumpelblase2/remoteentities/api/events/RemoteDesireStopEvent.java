@@ -1,7 +1,6 @@
 package de.kumpelblase2.remoteentities.api.events;
 
 import org.bukkit.event.HandlerList;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.Desire;
 import de.kumpelblase2.remoteentities.api.thinking.DesireItem;
 

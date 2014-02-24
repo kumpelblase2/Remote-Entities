@@ -156,7 +156,7 @@ public class NMSUtil
 		if((inNMSStack.tag != null && inNMSStack2.tag == null) || (inNMSStack.tag == null && inNMSStack2.tag != null))
 			return false;
 
-		if(inNMSStack.tag != null && inNMSStack2.tag != null)
+		if(inNMSStack.tag != null)
 		{
 			if(!inNMSStack2.tag.equals(inNMSStack2.tag))
 				return false;

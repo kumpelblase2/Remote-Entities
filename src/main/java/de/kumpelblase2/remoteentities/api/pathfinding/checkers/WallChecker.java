@@ -22,7 +22,7 @@ public class WallChecker implements MoveChecker
 
 		if(inData.getXDiff() != 0 && inData.getZDiff() != 0)
 		{
-			if(!inData.getPathfinder().canWalk(inData.getFrom(), inData.getFrom().add(inData.getXDiff(), 0, 0)) || !inData.getPathfinder().canWalk(inData.getFrom(), inData.getFrom().add(0, 0, inData.getZDiff())))
+			if(!inData.getPathfinder().canWalk(inData.getFrom(), inData.getFrom().add(inData.getXDiff(), 0, 0)) || !inData.getPathfinder().canWalk(inData.getFrom(), inData.getFrom().add(0, 0, inData.getZDiff()))) // TODO this is really inefficient and might end in a loop
 				inData.setValid(false);
 		}
 	}

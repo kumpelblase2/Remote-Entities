@@ -2,15 +2,11 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.io.*;
 import java.lang.reflect.Method;
-import java.math.BigInteger;
 import net.minecraft.server.v1_7_R1.*;
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftInventoryCustom;
 import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.io.BukkitObjectInputStream;
-import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 /**
