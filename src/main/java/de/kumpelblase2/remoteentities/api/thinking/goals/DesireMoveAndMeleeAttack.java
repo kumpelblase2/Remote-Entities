@@ -2,7 +2,6 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.craftbukkit.v1_7_R1.event.CraftEventFactory;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -152,7 +151,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		return true;
 	}
 
-	public void attack(Entity inEntity)
+	public void attack(org.bukkit.entity.Entity inEntity)
 	{
 		this.getEntityHandle().m(this.m_target);
 	}
