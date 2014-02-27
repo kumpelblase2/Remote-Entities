@@ -567,4 +567,39 @@ public class EntityManager
 	{
 		return this.m_saveOnDisable;
 	}
+	
+	/**
+	 * Gets all RemoteEntities with the given type.
+	 * 
+	 * @param inType	The type of entity to look for
+	 * @return 		List of entities with that type
+	 */
+	public List<RemoteEntity> getEntitiesByType(RemoteEntityType inType)
+	{
+		return this.getEntitiesByType(inType, false);
+	}
+	
+	/**
+	 * Gets all RemoteEntities with the given type which are also currently spawned.
+	 * 
+	 * @param inType	The type of entity to look for
+	 * @param inSpawnedOnly	Whether to ignore despawned entities or not
+	 * @return		List of entities with the given type
+	 */
+	public List<RemoteEntity> getEntitiesByType(RemoteEntityType inType, boolean inSpawnedOnly)
+	{
+		List<RemoteEntity> entities = new ArrayList<RemoteEntity>();
+		for(RemoteEntity entity : this.m_entities.values())
+		{
+			if(entity.getType() == inType)
+			{
+				if(inSpawnedOnly && !entity.isSpawned())
+					continue;
+				
+				entities.add(entity);
+			}
+		}
+		
+		return entities;
+	}
 }
