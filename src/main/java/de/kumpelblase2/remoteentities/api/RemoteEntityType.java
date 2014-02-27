@@ -37,7 +37,7 @@ public class RemoteEntityType
 	public static final RemoteEntityType Horse = new RemoteEntityType("Horse", RemoteHorse.class, RemoteHorseEntity.class, false);
 
 	private static List<RemoteEntityType> values;
-	private static RemoteEntityType[] lastConvert = null;
+	private static RemoteEntityType[] lastConvert = new RemoteEntityType[0];
 
 	private Class<? extends EntityLiving> m_entityClass;
 	private Class<? extends RemoteEntity> m_remoteClass;
@@ -99,9 +99,9 @@ public class RemoteEntityType
 
 	public int ordinal()
 	{
-		for(int i = 0; i < values.size(); i++)
+		for(int i = 0; i < lastConvert.length; i++)
 		{
-			if(values.get(i) == this)
+			if(lastConvert[i] == this)
 				return i;
 		}
 		return -1; //This shouldn't happen however.
