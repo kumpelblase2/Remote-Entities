@@ -287,6 +287,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 				bukkitEntity.setRemoveWhenFarAway(false);
 			}
 
+			this.setHeadYaw(inLocation.getYaw());
+			this.setYaw(inLocation.getYaw());
 			if(!inLocation.getBlock().getRelative(BlockFace.DOWN).isEmpty())
 				this.m_entity.onGround = true;
 

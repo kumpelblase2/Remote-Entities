@@ -72,6 +72,8 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 			player.setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
 		}
 
+		this.setHeadYaw(inLocation.getYaw());
+		this.setYaw(inLocation.getYaw());
 		((RemotePlayerEntity)this.m_entity).updateSpawn();
 		if(!inLocation.getBlock().getRelative(BlockFace.DOWN).isEmpty())
 			this.m_entity.onGround = true;
