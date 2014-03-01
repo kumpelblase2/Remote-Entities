@@ -278,11 +278,13 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			this.m_entity.setPositionRotation(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inLocation.getYaw(), inLocation.getPitch());
 			worldServer.addEntity(this.m_entity, SpawnReason.CUSTOM);
 			entry.restore();
-			this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
-			if(this.getName() != null)
+			LivingEntity bukkitEntity = this.getBukkitEntity();
+			if(bukkitEntity != null)
 			{
-				this.getBukkitEntity().setCustomName(this.getName());
-				this.getBukkitEntity().setCustomNameVisible(true);
+				bukkitEntity.setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
+				bukkitEntity.setCustomName(this.getName());
+				bukkitEntity.setCustomNameVisible(true);
+				bukkitEntity.setRemoveWhenFarAway(false);
 			}
 
 			if(!inLocation.getBlock().getRelative(BlockFace.DOWN).isEmpty())

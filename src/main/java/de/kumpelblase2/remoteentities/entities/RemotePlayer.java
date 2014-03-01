@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
@@ -63,9 +64,14 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		GameProfile profile = new GameProfile(uuid.toString().replaceAll("-", ""), this.getName());
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, profile, new PlayerInteractManager(worldServer), this);
 		worldServer.addEntity(m_entity);
-		this.m_entity.getBukkitEntity().teleport(inLocation);
 		this.m_entity.world.players.remove(this.m_entity);
-		this.getBukkitEntity().setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
+		Player player = this.getBukkitEntity();
+		if(player != null)
+		{
+			player.teleport(inLocation);
+			player.setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
+		}
+
 		((RemotePlayerEntity)this.m_entity).updateSpawn();
 		if(!inLocation.getBlock().getRelative(BlockFace.DOWN).isEmpty())
 			this.m_entity.onGround = true;
