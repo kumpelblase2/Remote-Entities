@@ -18,6 +18,7 @@ public class RemoteEntityInteractEvent extends RemoteEvent
 		this(inEntity, inInteractor, true);
 	}
 
+	@Deprecated
 	public RemoteEntityInteractEvent(RemoteEntity inEntity, Player inInteractor, boolean inLeftClick)
 	{
 		super(inEntity);
@@ -39,7 +40,9 @@ public class RemoteEntityInteractEvent extends RemoteEvent
 	 * Returns whether the player used left or right click to interact with the entity
 	 *
 	 * @return  true for left click, false for right
+	 * @deprecated Because there's no way to actually either intercept with a right click or get notified if it's a right or left click, it'll always be just an interaction.
 	 */
+	@Deprecated
 	public boolean isLeftClick()
 	{
 		return this.m_isLeftClick;
