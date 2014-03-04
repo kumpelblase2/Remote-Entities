@@ -84,7 +84,7 @@ public class EntityData implements ConfigurationSerializable
 		}
 
 		List<FeatureData> featureList = new ArrayList<FeatureData>();
-		for(int i = 0; i < this.features.length; i++)
+		for(int i = 0; i < inEntity.getFeatures().getAllFeatures().size(); i++)
 		{
 			Feature f = inEntity.getFeatures().getAllFeatures().get(i);
 			if(!f.getClass().isAnnotationPresent(IgnoreSerialization.class))
