@@ -28,3 +28,9 @@ src/main/resources/rebel.xml
 *.jar
 
 rebel.xml
+
+build.xml
+
+logs/*
+
+src/main/resources/rebel-remote.xml
