@@ -5,7 +5,7 @@ import de.kumpelblase2.remoteentities.api.RemoteEntity;
 
 public class Mind
 {
-	private final Map<String, Behavior> m_behaviours;
+	private final Set<Behavior> m_behaviours;
 	private final RemoteEntity m_entity;
 	private boolean m_canFeel = true;
 	private DesireSelector m_targetNavigation;
@@ -20,7 +20,7 @@ public class Mind
 	public Mind(RemoteEntity inEntity)
 	{
 		this.m_entity = inEntity;
-		this.m_behaviours = new HashMap<String, Behavior>();
+		this.m_behaviours = new HashSet<Behavior>();
 		this.m_targetNavigation = new DesireSelector(inEntity);
 		this.m_movementNavigation = new DesireSelector(inEntity);
 	}
@@ -33,7 +33,7 @@ public class Mind
 	public void addBehaviour(Behavior inBehaviour)
 	{
 		inBehaviour.onAdd();
-		this.m_behaviours.put(inBehaviour.getName(), inBehaviour);
+		this.m_behaviours.add(inBehaviour);
 	}
 
 	/**
@@ -41,15 +41,42 @@ public class Mind
 	 *
 	 * @param inName	name
 	 * @return			true if behavior got removed, false if not
+	 * @deprecated in favor of #removeBehavior(Class)
 	 */
+	@Deprecated
 	public boolean removeBehaviour(String inName)
 	{
-		Behavior b = this.m_behaviours.remove(inName);
-		if(b != null)
+		Iterator<Behavior> iterator = this.m_behaviours.iterator();
+		while(iterator.hasNext())
 		{
-			b.onRemove();
-			return true;
+			if(iterator.next().getName().equals(inName))
+			{
+				iterator.remove();
+				return true;
+			}
 		}
+
+		return false;
+	}
+
+	/**
+	 * Removes a given type of behavior from the entity.
+	 *
+	 * @param inType    The type of behavior to remove.
+	 * @return          True or false, depending on whether or not the type of behavior could be removed or not
+	 */
+	public boolean removeBehavior(Class<? extends Behavior> inType)
+	{
+		Iterator<Behavior> iterator = this.m_behaviours.iterator();
+		while(iterator.hasNext())
+		{
+			if(inType.isAssignableFrom(iterator.next().getClass()))
+			{
+				iterator.remove();
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -58,10 +85,35 @@ public class Mind
 	 *
 	 * @param inName 	name
 	 * @return			true if the entity has such behavior, false if not
+	 * @deprecated in favor of #hasBehavior(Class)
 	 */
+	@Deprecated
 	public boolean hasBehaviour(String inName)
 	{
-		return this.m_behaviours.containsKey(inName);
+		for(Behavior behavior : this.m_behaviours)
+		{
+			if(behavior.getName().equals(inName))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if the entity has a specific type of behavior.
+	 *
+	 * @param inType    The type of behavior to to check for.
+	 * @return          True if the entity has such behavior, false if not
+	 */
+	public boolean hasBehavior(Class<? extends Behavior> inType)
+	{
+		for(Behavior behavior : this.m_behaviours)
+		{
+			if(inType.isAssignableFrom(behavior.getClass()))
+				return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -99,10 +151,35 @@ public class Mind
 	 *
 	 * @param inName	name
 	 * @return			behavior
+	 * @deprecated in favor of #getBehavior(Class)
 	 */
+	@Deprecated
 	public Behavior getBehaviour(String inName)
 	{
-		return this.m_behaviours.get(inName);
+		for(Behavior behavior : this.m_behaviours)
+		{
+			if(behavior.getName().equals(inName))
+				return behavior;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Gets the behavior of the given type.
+	 *
+	 * @param inType    The type of the behavior
+	 * @return          The behavior
+	 */
+	public <T extends Behavior> T getBehavior(Class<T> inType)
+	{
+		for(Behavior behavior : this.m_behaviours)
+		{
+			if(inType.isAssignableFrom(behavior.getClass()))
+				return (T)behavior;
+		}
+
+		return null;
 	}
 
 	/**
@@ -112,7 +189,7 @@ public class Mind
 	 */
 	public Collection<Behavior> getBehaviours()
 	{
-		return this.m_behaviours.values();
+		return this.m_behaviours;
 	}
 
 	/**
@@ -380,7 +457,7 @@ public class Mind
 
 		if(this.canFeel())
 		{
-			for(Behavior behaviour : this.m_behaviours.values())
+			for(Behavior behaviour : this.m_behaviours)
 			{
 				behaviour.run();
 			}

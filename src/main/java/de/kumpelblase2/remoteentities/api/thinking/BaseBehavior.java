@@ -48,4 +48,33 @@ public abstract class BaseBehavior implements Behavior
 	{
 		return ReflectionUtil.getParameterDataForClass(this).toArray(new ParameterData[0]);
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o)
+			return true;
+
+		if(!(o instanceof BaseBehavior))
+			return false;
+
+		BaseBehavior that = (BaseBehavior)o;
+
+		if(this.m_entity != null ? !this.m_entity.equals(that.m_entity) : that.m_entity != null)
+			return false;
+
+		if(this.m_name != null ? !this.m_name.equals(that.m_name) : that.m_name != null)
+			return false;
+
+		return this.getClass().equals(that.getClass());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = this.m_name != null ? this.m_name.hashCode() : 0;
+		result = 31 * result + (this.m_entity != null ? this.m_entity.hashCode() : 0);
+		result = 31 * result * this.getClass().hashCode();
+		return result;
+	}
 }

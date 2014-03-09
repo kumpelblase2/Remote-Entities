@@ -108,7 +108,7 @@ public class RemoteEntities extends JavaPlugin
 		}
 	}
 
-	private void checkConfig()
+	void checkConfig()
 	{
 		this.getConfig().set("autoUpdateSources", this.getConfig().get("autoUpdateSources", false));
 		COMPATIBLE_REVISION = this.getConfig().getString("COMPATIBLE_REVISION", "1_7_R1");
