@@ -1,11 +1,11 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
+import net.minecraft.server.v1_7_R1.EntityInsentient;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -23,7 +23,7 @@ public class MindTest
 	public void setup()
 	{
 		RemoteEntity entity = mock(RemoteEntity.class);
-		when(entity.getHandle()).thenReturn(NMSUtil.getTempInsentientEntity());
+		when(entity.getHandle()).thenReturn(mock(EntityInsentient.class));
 		this.m_mind = spy(new Mind(entity));
 		when(this.m_behavior.getName()).thenReturn("Interact");
 		when(this.m_behavior2.getName()).thenReturn("Interact");
