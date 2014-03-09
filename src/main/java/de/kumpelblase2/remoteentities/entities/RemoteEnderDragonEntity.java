@@ -82,10 +82,10 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 			// ---
 			return;
 		}
-		else if(this.getRemoteEntity().getMind().hasBehaviour("Ride"))
+		else if(this.getRemoteEntity().getMind().hasBehavior(RideBehavior.class))
 		{
 			float[] mot = new float[] { 0, 0, 0 };
-			((RideBehavior)this.getRemoteEntity().getMind().getBehaviour("Ride")).ride(mot);
+			this.getRemoteEntity().getMind().getBehavior(RideBehavior.class).ride(mot);
 			super.e(mot[0], mot[1]);
 			this.motY = mot[2];
 			this.m_remoteEntity.setYaw((this.yaw < 0 ? this.yaw + 180 : this.yaw - 180));
@@ -181,8 +181,8 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	public void e(float inXMotion, float inZMotion)
 	{
 		float[] motion = new float[] { inXMotion, inZMotion, (float)this.motY };
-		if(this.m_remoteEntity.getMind().hasBehaviour("Ride"))
-			((RideBehavior)this.m_remoteEntity.getMind().getBehaviour("Ride")).ride(motion);
+		if(this.m_remoteEntity.getMind().hasBehavior(RideBehavior.class))
+			this.m_remoteEntity.getMind().getBehavior(RideBehavior.class).ride(motion);
 
 		this.motY = (double)motion[2];
 		super.e(motion[0], motion[1]);

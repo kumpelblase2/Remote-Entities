@@ -655,10 +655,10 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			if(event.isCancelled())
 				return false;
 
-			if(inEntity instanceof Player && this.getMind().canFeel() && this.getMind().hasBehaviour("Touch"))
+			if(inEntity instanceof Player && this.getMind().canFeel() && this.getMind().hasBehavior(TouchBehavior.class))
 			{
 				if(inEntity.getLocation().distanceSquared(getBukkitEntity().getLocation()) <= 1)
-					((TouchBehavior)this.getMind().getBehaviour("Touch")).onTouch((Player)inEntity);
+					this.getMind().getBehavior(TouchBehavior.class).onTouch((Player)inEntity);
 			}
 		}
 
@@ -669,8 +669,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 	void onDeath()
 	{
-		if(this.getMind().hasBehaviour("Death"))
-			((DeathBehavior)this.getMind().getBehaviour("Death")).onDeath();
+		if(this.getMind().hasBehavior(DeathBehavior.class))
+			this.getMind().getBehavior(DeathBehavior.class).onDeath();
 
 		this.getMind().clearMovementDesires();
 		this.getMind().clearTargetingDesires();
@@ -695,8 +695,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			if(event.isCancelled())
 				return false;
 
-			if(this.getMind().hasBehaviour("Interact"))
-				((InteractBehavior)this.getMind().getBehaviour("Interact")).onInteract(inEntity);
+			if(this.getMind().hasBehavior(InteractBehavior.class))
+				this.getMind().getBehavior(InteractBehavior.class).onInteract(inEntity);
 		}
 		return true;
 	}
