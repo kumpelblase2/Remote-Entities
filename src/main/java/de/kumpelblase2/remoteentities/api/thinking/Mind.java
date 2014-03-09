@@ -133,7 +133,7 @@ public class Mind
 	 */
 	public void blockFeelings(boolean inState)
 	{
-		this.m_canFeel = inState;
+		this.m_canFeel = !inState;
 	}
 
 	/**
