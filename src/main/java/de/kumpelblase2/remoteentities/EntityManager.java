@@ -27,12 +27,22 @@ public class EntityManager
 	protected IEntitySerializer m_serializer;
 	private boolean m_saveOnDisable = false;
 
-	protected EntityManager(final Plugin inPlugin, boolean inRemoveDespawned)
+	protected EntityManager(Plugin inPlugin, boolean inRemoveDespawned)
+	{
+		this(inRemoveDespawned, inPlugin);
+		this.setup(inPlugin);
+	}
+
+	EntityManager(boolean inRemoveDespawned, Plugin inPlugin)
 	{
 		this.m_plugin = inPlugin;
 		this.m_entities = new ConcurrentHashMap<Integer, RemoteEntity>();
 		this.m_removeDespawned = inRemoveDespawned;
 		this.m_entityChunkLoader = new ChunkEntityLoader(this);
+	}
+
+	protected void setup(Plugin inPlugin)
+	{
 		Bukkit.getPluginManager().registerEvents(this.m_entityChunkLoader, RemoteEntities.getInstance());
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(inPlugin, new Runnable()
 		{
@@ -567,10 +577,10 @@ public class EntityManager
 	{
 		return this.m_saveOnDisable;
 	}
-	
+
 	/**
 	 * Gets all RemoteEntities with the given type.
-	 * 
+	 *
 	 * @param inType	The type of entity to look for
 	 * @return 		List of entities with that type
 	 */
@@ -578,10 +588,10 @@ public class EntityManager
 	{
 		return this.getEntitiesByType(inType, false);
 	}
-	
+
 	/**
 	 * Gets all RemoteEntities with the given type which are also currently spawned.
-	 * 
+	 *
 	 * @param inType	The type of entity to look for
 	 * @param inSpawnedOnly	Whether to ignore despawned entities or not
 	 * @return		List of entities with the given type
@@ -595,11 +605,11 @@ public class EntityManager
 			{
 				if(inSpawnedOnly && !entity.isSpawned())
 					continue;
-				
+
 				entities.add(entity);
 			}
 		}
-		
+
 		return entities;
 	}
 }
