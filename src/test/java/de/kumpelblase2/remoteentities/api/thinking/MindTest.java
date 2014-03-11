@@ -37,8 +37,6 @@ public class MindTest
 		assertTrue("Mind should contain behavior after adding.", this.m_mind.hasBehavior(InteractBehavior.class));
 		assertTrue("Mind should contain behavior after adding with name.", this.m_mind.hasBehaviour("Interact"));
 		assertTrue("There should only be one behavior in mind", this.m_mind.getBehaviours().size() == 1);
-
-		this.m_mind.clearBehaviours();
 	}
 
 	@Test
@@ -47,7 +45,6 @@ public class MindTest
 		this.m_mind.addBehaviour(this.m_behavior);
 		assertEquals("Behavior should be the same as store one", this.m_behavior, this.m_mind.getBehavior(InteractBehavior.class));
 		assertEquals("Behavior should be the same as store one with name", this.m_behavior, this.m_mind.getBehaviour("Interact"));
-		this.m_mind.clearBehaviours();
 	}
 
 	@Test
@@ -55,7 +52,6 @@ public class MindTest
 	{
 		this.m_mind.addBehaviour(this.m_behavior2);
 		verify(this.m_behavior2, times(1)).onAdd();
-		this.m_mind.clearBehaviours();
 	}
 
 	@Test
@@ -78,8 +74,6 @@ public class MindTest
 		this.m_mind.blockFeelings(true);
 		this.m_mind.tick();
 		verify(this.m_behavior, times(1)).run();
-		this.m_mind.clearBehaviours();
-		this.m_mind.blockFeelings(false);
 	}
 
 	@Test

@@ -75,7 +75,7 @@ public class RemoteEntities extends JavaPlugin
 
 		s_instance = this;
 		RemoteEntityType.update();
-		Bukkit.getPluginManager().registerEvents(new DisableListener(), this);
+		this.getServer().getPluginManager().registerEvents(new DisableListener(), this);
 	}
 
 	private void checkClasses()
