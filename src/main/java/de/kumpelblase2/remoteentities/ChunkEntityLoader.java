@@ -56,23 +56,18 @@ class ChunkEntityLoader implements Listener
 	public void onChunkUnload(ChunkUnloadEvent event)
 	{
 		final Chunk c = event.getChunk();
-		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable() {
-			public void run()
-			{
-				for(Entity entity : c.getEntities())
-				{
-					if(!(entity instanceof LivingEntity))
-						continue;
+		for(Entity entity : c.getEntities())
+		{
+			if(!(entity instanceof LivingEntity))
+				continue;
 
-					RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
-					if(rentity != null && rentity.isSpawned())
-					{
-						m_toSpawn.add(new EntityLoadData(rentity, entity.getLocation()));
-						rentity.despawn(DespawnReason.CHUNK_UNLOAD);
-					}
-				}
+			RemoteEntity rentity = RemoteEntities.getRemoteEntityFromEntity((LivingEntity)entity);
+			if(rentity != null && rentity.isSpawned())
+			{
+				m_toSpawn.add(new EntityLoadData(rentity, entity.getLocation()));
+				rentity.despawn(DespawnReason.CHUNK_UNLOAD);
 			}
-		});
+		}
 	}
 
 	/**
