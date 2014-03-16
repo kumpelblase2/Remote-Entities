@@ -282,8 +282,11 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			if(bukkitEntity != null)
 			{
 				bukkitEntity.setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
-				bukkitEntity.setCustomName(this.getName());
-				bukkitEntity.setCustomNameVisible(true);
+				if(this.getName() != null && this.getName().length() > 0)
+				{
+					bukkitEntity.setCustomName(this.getName());
+					bukkitEntity.setCustomNameVisible(true);
+				}
 				bukkitEntity.setRemoveWhenFarAway(false);
 			}
 
