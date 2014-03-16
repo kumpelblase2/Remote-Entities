@@ -4,6 +4,8 @@ import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
+import de.kumpelblase2.remoteentities.api.thinking.BaseBehavior;
+import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.mock;
