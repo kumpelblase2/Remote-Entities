@@ -313,11 +313,11 @@ public class EntityManager
 		if(!this.isRemoteEntity(inEntity))
 			return null;
 
-        for (RemoteEntity remoteEntity : this.getAllEntities())
-        {
-            if (remoteEntity.getBukkitEntity() == inEntity)
-                return remoteEntity;
-        }
+		for (RemoteEntity remoteEntity : this.getAllEntities())
+		{
+			if (remoteEntity.getBukkitEntity() == inEntity)
+				return remoteEntity;
+		}
 
 		return NMSUtil.getRemoteEntityFromEntity(inEntity);
 	}
