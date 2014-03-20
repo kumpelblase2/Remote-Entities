@@ -101,7 +101,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		if(entityTarget == null)
 			return false;
 
-		if(!this.m_target.isAlive())
+		if(this.m_target == null || !this.m_target.isAlive())
 			return false;
 
 		if(!this.m_ignoreSight)
