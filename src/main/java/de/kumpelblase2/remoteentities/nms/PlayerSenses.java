@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.nms;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerSenses extends EntitySenses
@@ -32,7 +32,7 @@ public class PlayerSenses extends EntitySenses
 			return false;
 		} else {
 			this.entity.world.methodProfiler.a("canSee");
-			boolean flag = this.entity.o(entity);
+			boolean flag = this.entity.p(entity);
 
 			this.entity.world.methodProfiler.b();
 			if (flag) {

@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.utilities;
 
-import net.minecraft.server.v1_7_R1.*;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R2.*;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntityHandle;
@@ -82,7 +82,7 @@ public class NMSUtil
 	public static int getMaxHeadRotation(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityInsentient)
-			return ((EntityInsentient)inEntity).x();
+			return ((EntityInsentient)inEntity).bv();
 		else
 			return 40;
 	}
@@ -90,7 +90,7 @@ public class NMSUtil
 	public static ChunkCoordinates getChunkCoordinates(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityCreature)
-			return ((EntityCreature)inEntity).bT();
+			return ((EntityCreature)inEntity).bV();
 		else if(inEntity instanceof EntityPlayer)
 			return ((EntityPlayer)inEntity).getChunkCoordinates();
 		else
@@ -99,10 +99,7 @@ public class NMSUtil
 
 	public static boolean isOnLeash(EntityLiving inEntity)
 	{
-		if(inEntity instanceof EntityInsentient)
-			return ((EntityInsentient)inEntity).bH();
-
-		return false;
+		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bJ();
 	}
 
 	public static boolean hasHomeArea(EntityLiving inEntity)
@@ -123,14 +120,14 @@ public class NMSUtil
 	public static float getHomeRange(EntityLiving inEntity)
 	{
 		if(inEntity instanceof EntityCreature)
-			return ((EntityCreature)inEntity).bU();
+			return ((EntityCreature)inEntity).bW();
 		else
 			return 5; //TODO 5 seems weird.
 	}
 
 	public static boolean canBeSteered(EntityLiving inEntity)
 	{
-		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bC();
+		return inEntity instanceof EntityInsentient && ((EntityInsentient)inEntity).bE();
 	}
 
 	public static EntityInsentient getTempInsentientEntity()

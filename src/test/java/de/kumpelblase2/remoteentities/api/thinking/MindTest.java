@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import net.minecraft.server.v1_7_R1.EntityInsentient;
+import net.minecraft.server.v1_7_R2.EntityInsentient;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

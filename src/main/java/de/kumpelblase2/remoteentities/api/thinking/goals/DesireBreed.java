@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_7_R1.*;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R2.*;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -70,7 +70,7 @@ public class DesireBreed extends DesireBase
 		else if(this.getEntityHandle() instanceof EntityAnimal)
 		{
 			EntityAnimal entity = (EntityAnimal)this.getEntityHandle();
-			if(!entity.cc())
+			if(!entity.ce())
 				return false;
 			else
 			{
@@ -166,7 +166,7 @@ public class DesireBreed extends DesireBase
 
 			((CraftLivingEntity)baby).getHandle().setPositionRotation(entity.locX, entity.locY, entity.locZ, 0, 0);
 			entity.world.addEntity(((CraftLivingEntity)baby).getHandle(), SpawnReason.BREEDING);
-			Random r = entity.aI();
+			Random r = entity.aH();
 			for(int i = 0; i < 7; ++i)
 			{
 				double d0 = r.nextGaussian() * 0.02D;

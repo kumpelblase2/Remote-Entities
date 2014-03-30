@@ -22,7 +22,7 @@ public class DesireRestrictSun extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getEntityHandle() != null && this.getEntityHandle().world.v();
+		return this.getEntityHandle() != null && this.getEntityHandle().world.w();
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class DesireLeaveBed extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getEntityHandle().world.v() && ((RemotePlayer)this.m_entity).isSleeping();
+		return this.getEntityHandle().world.w() && ((RemotePlayer)this.m_entity).isSleeping();
 	}
 
 	@Override

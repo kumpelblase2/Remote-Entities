@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_7_R1.EntityVillager;
-import net.minecraft.server.v1_7_R1.Vec3D;
+import net.minecraft.server.v1_7_R2.EntityVillager;
+import net.minecraft.server.v1_7_R2.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -68,7 +68,7 @@ public class DesirePlay extends DesireBase
 
 		if(this.m_villager.getAge() >= 0)
 			return false;
-		else if(this.m_villager.aI().nextInt(400) != 0)
+		else if(this.m_villager.aH().nextInt(400) != 0)
 			return false;
 		else
 		{
@@ -79,7 +79,7 @@ public class DesirePlay extends DesireBase
 			while(it.hasNext())
 			{
 				EntityVillager villager = (EntityVillager)it.next();
-				if(villager != this.m_villager && !villager.bZ() && villager.getAge() < 0)
+				if(villager != this.m_villager && !villager.cb() && villager.getAge() < 0)
 				{
 					double dist = villager.e(this.m_villager);
 
@@ -97,8 +97,6 @@ public class DesirePlay extends DesireBase
 
 				if(vec == null)
 					return false;
-
-				Vec3D.a.release(vec);
 			}
 
 			return true;
@@ -143,8 +141,7 @@ public class DesirePlay extends DesireBase
 			if(vec == null)
 				return true;
 
-			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.c, vec.d, vec.e), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
-			Vec3D.a.release(vec);
+			this.getRemoteEntity().move(new Location(this.getRemoteEntity().getBukkitEntity().getWorld(), vec.a, vec.b, vec.c), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 		}
 		return true;
 	}

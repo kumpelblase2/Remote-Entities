@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_7_R1.EntityBat;
+import net.minecraft.server.v1_7_R2.EntityBat;
 import org.bukkit.entity.Bat;
 import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;
@@ -32,7 +32,7 @@ public class RemoteBat extends RemoteAttackingBaseEntity<Bat>
 
 	public void setHanging(boolean inHanging)
 	{
-		((EntityBat)this.m_entity).a(inHanging);
+		((EntityBat)this.m_entity).setStartled(inHanging);
 	}
 
 	@Override

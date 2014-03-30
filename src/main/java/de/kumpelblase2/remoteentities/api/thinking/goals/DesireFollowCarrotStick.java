@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -115,7 +115,7 @@ public class DesireFollowCarrotStick extends DesireBase
 		float f3 = 0.16277136F / (f2 * f2 * f2);
         float f4 = MathHelper.sin(entity.yaw * 3.1415927F / 180.0F);
         float f5 = MathHelper.cos(entity.yaw * 3.1415927F / 180.0F);
-        float f6 = entity.bl() * f3;
+        float f6 = entity.bk() * f3;
         float f7 = Math.max(speed, 1.0F);
 
         f7 = f6 / f7;
@@ -157,9 +157,9 @@ public class DesireFollowCarrotStick extends DesireBase
 		        NMSUtil.getControllerLook(entity).a();
         }
 
-        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aI().nextFloat() < 0.006f && !this.m_speedBoosted)
+        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aH().nextFloat() < 0.006f && !this.m_speedBoosted)
         {
-        	ItemStack item = passenger.be();
+        	ItemStack item = passenger.bd();
 
         	if(item != null && item.getItem() == Items.CARROT_STICK)
         	{
@@ -186,7 +186,7 @@ public class DesireFollowCarrotStick extends DesireBase
 	{
 		this.m_speedBoosted = true;
 		this.m_speedBoostTime = 0;
-		this.m_maxSpeedBoostTime = this.getEntityHandle().aI().nextInt(841) + 140;
+		this.m_maxSpeedBoostTime = this.getEntityHandle().aH().nextInt(841) + 140;
 	}
 
 	public boolean isControlledByPlayer()

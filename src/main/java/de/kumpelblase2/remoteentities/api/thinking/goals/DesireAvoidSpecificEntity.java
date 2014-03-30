@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
+import net.minecraft.server.v1_7_R2.*;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.*;
 import de.kumpelblase2.remoteentities.api.thinking.selectors.EntitySelectorViewable;
@@ -72,20 +72,16 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 			return false;
 		else
 		{
-			Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a.create(this.m_entityToAvoid.locX, this.m_entityToAvoid.locY, this.m_entityToAvoid.locZ));
+			Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a(this.m_entityToAvoid.locX, this.m_entityToAvoid.locY, this.m_entityToAvoid.locZ));
 
 			if (var2 == null)
 				return false;
-			else if (this.m_entityToAvoid.e(var2.c, var2.d, var2.e) < this.m_entityToAvoid.e(this.getEntityHandle()))
-			{
-				Vec3D.a.release(var2);
+			else if (this.m_entityToAvoid.e(var2.a, var2.b, var2.c) < this.m_entityToAvoid.e(this.getEntityHandle()))
 				return false;
-			}
 			else
 			{
-				this.m_path = this.getNavigation().a(var2.c, var2.d, var2.e);
+				this.m_path = this.getNavigation().a(var2.a, var2.b, var2.c);
 				boolean returnValue = this.m_path != null && this.m_path.b(var2);
-				Vec3D.a.release(var2);
 				return returnValue;
 			}
 		}

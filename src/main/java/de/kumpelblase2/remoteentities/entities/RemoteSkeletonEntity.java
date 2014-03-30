@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -140,13 +140,13 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	}
 
 	@Override
-	protected String aT()
+	protected String aS()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aU()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}
@@ -161,8 +161,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		//Taken from EntitySkeleton.java#204 - 224
 		//modified to work with custom sounds
 		EntityArrow entityarrow = new EntityArrow(this.world, this, entityliving, 1.6F, (float) (14 - this.world.difficulty.a() * 4));
-		int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.be());
-		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.be());
+		int i = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.bd());
+		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.bd());
 
 		entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty.a() * 0.11F));
 		if (i > 0) {
@@ -170,14 +170,14 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		}
 
 		if (j > 0) {
-			entityarrow.a(j);
+			entityarrow.setKnockbackStrength(j);
 		}
 
-		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.be()) > 0 || this.getSkeletonType() == 1) {
+		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.bd()) > 0 || this.getSkeletonType() == 1) {
 			entityarrow.setOnFire(100);
 		}
 
-		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aI().nextFloat() * 0.4F + 0.8F));
+		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aH().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(entityarrow);
 	}
 

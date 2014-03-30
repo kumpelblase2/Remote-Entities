@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -59,9 +59,9 @@ public class DesireOfferFlower extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.getEntityHandle() == null || this.getEntityHandle().world.v())
+		if(this.getEntityHandle() == null || this.getEntityHandle().world.w())
 			return false;
-		else if(this.getEntityHandle().aI().nextInt(8000) != 0)
+		else if(this.getEntityHandle().aH().nextInt(8000) != 0)
 			return false;
 		else
 		{

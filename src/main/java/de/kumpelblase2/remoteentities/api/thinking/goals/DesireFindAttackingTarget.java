@@ -2,7 +2,7 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
@@ -57,7 +57,7 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 			return false;
 
 		EntityLiving handle = this.getEntityHandle();
-		int lastAttackedTick = handle.aK();
+		int lastAttackedTick = handle.aJ();
 		EntityLiving lastAttacker = handle.getLastDamager();
 		return lastAttackedTick != this.m_lastAttackedTick && lastAttacker != null && this.isSuitableTarget(handle.getLastDamager(), true);
 	}
@@ -75,12 +75,12 @@ public class DesireFindAttackingTarget extends DesireTargetBase
 		EntityLiving entity = this.getEntityHandle();
 		NMSUtil.setGoalTarget(entity, entity.getLastDamager());
 		this.m_target = entity.getLastDamager();
-		this.m_lastAttackedTick = this.getEntityHandle().aK();
+		this.m_lastAttackedTick = this.getEntityHandle().aJ();
 
 		if(this.m_attackNearest)
 		{
 			@SuppressWarnings("unchecked")
-			List<EntityLiving> list = entity.world.a(this.m_target.getClass(), AxisAlignedBB.a().a(entity.locX, entity.locY, entity.locZ, entity.locX + 1, entity.locY + 1, entity.locZ + 1).grow(this.m_distance, 4, this.m_distance));
+			List<EntityLiving> list = entity.world.a(this.m_target.getClass(), AxisAlignedBB.a(entity.locX, entity.locY, entity.locZ, entity.locX + 1, entity.locY + 1, entity.locZ + 1).grow(this.m_distance, 4, this.m_distance));
 			Iterator<EntityLiving> it = list.iterator();
 
 			while(it.hasNext())

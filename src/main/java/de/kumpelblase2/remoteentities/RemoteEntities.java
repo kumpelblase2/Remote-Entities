@@ -20,8 +20,8 @@ public class RemoteEntities extends JavaPlugin
 {
 	private final Map<String, EntityManager> m_managers = new HashMap<String, EntityManager>();
 	private static RemoteEntities s_instance;
-	private static String COMPATIBLE_VERSION = "1.7.2";
-	private static String COMPATIBLE_REVISION = "v1_7_R1";
+	private static String COMPATIBLE_VERSION = "1.7.5";
+	private static String COMPATIBLE_REVISION = "v1_7_R2";
 	private static final String VERSION_FILE = "http://repo.infinityblade.de/re_versions.txt";
 	private static String MINECRAFT_REVISION;
 	private final ClassPool m_pool = new ClassPool();

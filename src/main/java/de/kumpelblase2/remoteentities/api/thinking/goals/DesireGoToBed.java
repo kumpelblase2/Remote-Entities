@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.Block;
-import net.minecraft.server.v1_7_R1.Blocks;
+import net.minecraft.server.v1_7_R2.Block;
+import net.minecraft.server.v1_7_R2.Blocks;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -51,7 +51,7 @@ public class DesireGoToBed extends DesireFindBlockBase
 	@Override
 	public boolean shouldExecute()
 	{
-		if(this.m_entity.getHandle().world.v() || ((RemotePlayer)this.m_entity).isSleeping())
+		if(this.m_entity.getHandle().world.w() || ((RemotePlayer)this.m_entity).isSleeping())
 			return false;
 
 		return this.findNearest();

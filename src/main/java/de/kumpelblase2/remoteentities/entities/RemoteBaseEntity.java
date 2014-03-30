@@ -1,15 +1,15 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.util.*;
-import net.minecraft.server.v1_7_R1.*;
-import net.minecraft.server.v1_7_R1.World;
+import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R2.World;
 import org.bukkit.*;
 import org.bukkit.Chunk;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_7_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R2.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_7_R2.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -351,6 +351,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(this.getBukkitEntity() != null)
 			this.getBukkitEntity().remove();
+
 		this.m_entity = null;
 		return true;
 	}

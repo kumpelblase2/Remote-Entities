@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.util.Random;
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class RandomPositionGenerator
@@ -15,23 +15,23 @@ public class RandomPositionGenerator
 
     public static Vec3D a(EntityLiving entitycreature, int i, int j, Vec3D vec3d)
     {
-        a.c = vec3d.c - entitycreature.locX;
-        a.d = vec3d.d - entitycreature.locY;
-        a.e = vec3d.e - entitycreature.locZ;
+        a.a = vec3d.a - entitycreature.locX;
+        a.b = vec3d.b - entitycreature.locY;
+        a.c = vec3d.c - entitycreature.locZ;
         return c(entitycreature, i, j, a);
     }
 
     public static Vec3D b(EntityLiving entitycreature, int i, int j, Vec3D vec3d)
     {
-        a.c = entitycreature.locX - vec3d.c;
-        a.d = entitycreature.locY - vec3d.d;
-        a.e = entitycreature.locZ - vec3d.e;
+        a.a = entitycreature.locX - vec3d.a;
+        a.b = entitycreature.locY - vec3d.b;
+        a.c = entitycreature.locZ - vec3d.c;
         return c(entitycreature, i, j, a);
     }
 
     private static Vec3D c(EntityLiving entitycreature, int i, int j, Vec3D vec3d)
     {
-        Random random = entitycreature.aI();
+        Random random = entitycreature.aH();
         boolean flag = false;
         int k = 0;
         int l = 0;
@@ -81,7 +81,7 @@ public class RandomPositionGenerator
         }
 
         if (flag)
-            return entitycreature.world.getVec3DPool().create((double) k, (double) l, (double) i1);
+            return Vec3D.a((double) k, (double) l, (double) i1);
         else
             return null;
     }

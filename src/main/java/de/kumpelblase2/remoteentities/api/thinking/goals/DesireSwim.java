@@ -34,13 +34,13 @@ public class DesireSwim extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getEntityHandle() != null && (this.getEntityHandle().M() || this.getEntityHandle().P());
+		return this.getEntityHandle() != null && (this.getEntityHandle().L() || this.getEntityHandle().Q());
 	}
 
 	@Override
 	public boolean update()
 	{
-		if(this.getEntityHandle().aI().nextFloat() < 0.8F)
+		if(this.getEntityHandle().aH().nextFloat() < 0.8F)
 			NMSUtil.getControllerJump(this.getEntityHandle()).a();
 
 		return true;

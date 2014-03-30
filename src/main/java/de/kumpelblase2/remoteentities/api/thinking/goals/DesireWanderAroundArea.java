@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.Vec3D;
+import net.minecraft.server.v1_7_R2.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -47,10 +47,9 @@ public class DesireWanderAroundArea extends DesireWanderAround
 				Vec3D vector = RandomPositionGenerator.a(this.getEntityHandle(), 10, 7);
 				if(vector != null)
 				{
-					this.m_xPos = vector.c;
-					this.m_yPos = vector.d;
-					this.m_zPos = vector.e;
-					Vec3D.a.release(vector);
+					this.m_xPos = vector.a;
+					this.m_yPos = vector.b;
+					this.m_zPos = vector.c;
 				}
 				tries++;
 			}

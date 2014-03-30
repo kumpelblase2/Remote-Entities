@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
-import org.bukkit.craftbukkit.v1_7_R1.event.CraftEventFactory;
+import net.minecraft.server.v1_7_R2.*;
+import org.bukkit.craftbukkit.v1_7_R2.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -134,7 +134,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		NMSUtil.getControllerLook(entity).a(this.m_target, 30, 30);
 		if((this.m_ignoreSight || NMSUtil.getEntitySenses(entity).canSee(this.m_target)) && --this.m_moveTick <= 0)
 		{
-			this.m_moveTick = 4 + entity.aI().nextInt(7);
+			this.m_moveTick = 4 + entity.aH().nextInt(7);
 			this.getRemoteEntity().move((LivingEntity)this.m_target.getBukkitEntity(), (this.m_speed == -1 ? this.getRemoteEntity().getSpeed() : this.m_speed));
 		}
 
@@ -143,7 +143,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 		if(this.m_attackTick <= 0 && entity.e(this.m_target.locX, this.m_target.boundingBox.b, this.m_target.locZ) <= minDist)
 		{
 			this.m_attackTick = 20;
-			if(entity.be() != null)
+			if(entity.bd() != null)
 				this.getEntityHandle().aV();
 
 			this.attack(this.m_target.getBukkitEntity());

@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -16,7 +16,8 @@ import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 public class DesireTempt extends DesireBase
 {
 	@SerializeAs(pos = 1)
-	protected int m_itemID;
+	protected int m_itemID = -1;
+	protected Item m_item;
 	@SerializeAs(pos = 2)
 	protected boolean m_scaredByMovement;
 	protected double m_x;
@@ -36,6 +37,9 @@ public class DesireTempt extends DesireBase
 	{
 		super(inEntity);
 		this.m_itemID = inItemID;
+		if(inItemID != -1)
+			this.m_item = Item.d(inItemID);
+
 		this.m_scaredByMovement = inScaredByMovement;
 		this.m_type = DesireType.FULL_CONCENTRATION;
 	}
@@ -52,6 +56,8 @@ public class DesireTempt extends DesireBase
 		this.m_scaredByMovement = inScaredByMovement;
 		this.m_type = DesireType.FULL_CONCENTRATION;
 		this.m_speed = inSpeed;
+		if(inItemID != -1)
+			this.m_item = Item.d(inItemID);
 	}
 
 	@Override
@@ -72,8 +78,8 @@ public class DesireTempt extends DesireBase
 				return false;
 			else
 			{
-				ItemStack item = this.m_nearPlayer.bD();
-				return item != null && Item.b(item.getItem()) == this.m_itemID;
+				ItemStack item = this.m_nearPlayer.bE();
+				return item != null && item.getItem() == this.m_item;
 			}
 		}
 	}

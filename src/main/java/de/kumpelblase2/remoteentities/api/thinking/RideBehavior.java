@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking;
 
-import net.minecraft.server.v1_7_R1.EntityLiving;
+import net.minecraft.server.v1_7_R2.EntityLiving;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.persistence.ParameterData;
 import de.kumpelblase2.remoteentities.persistence.SerializeAs;
@@ -44,24 +44,24 @@ public abstract class RideBehavior extends BaseBehavior
 
 		this.m_entity.setYaw(entity.passenger.yaw);
 		this.m_entity.setPitch(entity.passenger.pitch);
-		entity.X = 0.5f;
+		entity.W = 0.5f;
 		if(inMotion[0] == 0)
-			inMotion[0] = ((EntityLiving)entity.passenger).be * 0.5f;
+			inMotion[0] = ((EntityLiving)entity.passenger).bd * 0.5f;
 
 		if(inMotion[1] == 0)
-			inMotion[1] = ((EntityLiving)entity.passenger).bf;
+			inMotion[1] = ((EntityLiving)entity.passenger).be;
 
 		if(this.m_canFly)
 		{
 			if(entity.passenger instanceof EntityLiving)
 			{
-				if(ReflectionUtil.isJumping((EntityLiving)entity.passenger))
+				if(ReflectionUtil.isJumping(entity.passenger))
 					inMotion[2] = 0.5f;
 				else if(((EntityLiving)entity.passenger).pitch >= 40)
 					inMotion[2] = -0.15f;
 			}
 		}
-		else if(this.m_jumpEnabled && ReflectionUtil.isJumping((EntityLiving)entity.passenger))
+		else if(this.m_jumpEnabled && ReflectionUtil.isJumping(entity.passenger))
 		{
 			if(entity.onGround)
 				inMotion[2] = 0.5f;

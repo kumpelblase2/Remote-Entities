@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class PlayerControllerMove extends ControllerMove
@@ -41,7 +41,7 @@ public class PlayerControllerMove extends ControllerMove
 	}
 
 	public void c() {
-		this.a.bf = 0.0f;
+		this.a.be = 0.0f;
 		if (this.f) {
 			this.f = false;
 			int i = MathHelper.floor(this.a.boundingBox.b + 0.5D);

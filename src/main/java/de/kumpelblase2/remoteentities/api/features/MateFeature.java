@@ -38,4 +38,11 @@ public interface MateFeature extends Feature
 	 * Resets the affection for this entity.
 	 */
 	public void resetAffection();
+
+	/**
+	 * Gets the partner of this entity if it has one.
+	 *
+	 * @return  The partner entity
+	 */
+	public LivingEntity getPartner();
 }

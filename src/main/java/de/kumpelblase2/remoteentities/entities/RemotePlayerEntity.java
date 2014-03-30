@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -39,10 +39,10 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		{
 		}
 
-		this.bc().b(GenericAttributes.b).setValue(16);
+		this.bb().b(GenericAttributes.b).setValue(16);
 		iteminworldmanager.setGameMode(EnumGamemode.SURVIVAL);
 		this.noDamageTicks = 1;
-		this.X = 1;
+		this.W = 1;
 		this.fauxSleeping = true;
 		this.m_navigation = new PlayerNavigation(this, this.world);
 		this.m_senses = new PlayerSenses(this);
@@ -104,9 +104,9 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		if(this.m_remoteEntity.isStationary())
 			return;
 
-		if(this.bd)
+		if(this.bc)
 		{
-            boolean inLiquid = L() || N();
+            boolean inLiquid = K() || M();
             if (inLiquid)
                 this.motY += 0.04;
             else if (this.onGround && this.m_jumpTicks == 0)
@@ -118,11 +118,11 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 		else
             this.m_jumpTicks = 0;
 
+		this.bd *= 0.98F;
 		this.be *= 0.98F;
-		this.bf *= 0.98F;
-		this.bg *= 0.9F;
+		this.bf *= 0.9F;
 
-		this.e(this.be, this.bf);
+		this.e(this.bd, this.be);
 		this.getRemoteEntity().setYaw(this.yaw);
 		this.getRemoteEntity().setHeadYaw(this.yaw);
 	}
@@ -210,10 +210,10 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 	}
 
 	@Override
-	public boolean m(Entity inEntity)
+	public boolean n(Entity inEntity)
 	{
 		this.attack(inEntity);
-		return super.m(inEntity);
+		return super.n(inEntity);
 	}
 
 	void updateSpawn()

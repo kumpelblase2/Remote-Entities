@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
@@ -36,9 +36,9 @@ public class DesireMoveIndoors extends DesireBase
 		if(entity == null)
 			return false;
 
-		if((!entity.world.v() || entity.world.P()) && !entity.world.worldProvider.g)
+		if((!entity.world.w() || entity.world.P()) && !entity.world.worldProvider.g)
 		{
-			if(entity.aI().nextInt(50) != 0)
+			if(entity.aH().nextInt(50) != 0)
 				return false;
 			else if(this.m_x != -1 && entity.e(this.m_x, entity.locY, this.m_z) < 4)
 				return false;
@@ -71,12 +71,9 @@ public class DesireMoveIndoors extends DesireBase
 		EntityLiving entity = this.getEntityHandle();
 		if(entity.e(this.m_targetDoor.getIndoorsX(), entity.locY, this.m_targetDoor.getIndoorsZ()) > 256)
 		{
-			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, entity.world.getVec3DPool().create(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
+			Vec3D vec = RandomPositionGenerator.a(entity, 14, 3, Vec3D.a(this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));
 			if(vec != null)
-			{
-				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.c, vec.d, vec.e));
-				Vec3D.a.release(vec);
-			}
+				this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), vec.a, vec.b, vec.c));
 		}
 		else
 			this.getRemoteEntity().move(new Location(entity.getBukkitEntity().getWorld(), this.m_targetDoor.getIndoorsX() + 0.5, this.m_targetDoor.getIndoorsY(), this.m_targetDoor.getIndoorsZ() + 0.5));

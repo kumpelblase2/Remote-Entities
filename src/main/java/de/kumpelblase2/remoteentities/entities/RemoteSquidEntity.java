@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -124,7 +124,7 @@ public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean bk()
+	public boolean bM()
 	{
 		return true;
 	}
@@ -136,13 +136,13 @@ public class RemoteSquidEntity extends EntitySquid implements RemoteEntityHandle
 	}
 
 	@Override
-	protected String aT()
+	protected String aS()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT);
 	}
 
 	@Override
-	protected String aU()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH);
 	}

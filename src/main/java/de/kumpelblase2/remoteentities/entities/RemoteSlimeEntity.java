@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.util.Vector;
@@ -71,7 +71,7 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	protected void bq()
+	protected void bp()
 	{
 		this.w();
 		if(this.m_target != null)
@@ -79,22 +79,22 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 
 		// --- Taken from EntitySlime.java#103 - #121
 		if (this.onGround && this.m_jumpDelay-- <= 0) {
-			this.m_jumpDelay = this.bP();
+			this.m_jumpDelay = this.bR();
 			if (this.m_target != null) {
 				this.m_jumpDelay /= 3;
 			}
 
-			this.bd = true;
+			this.bc = true;
 			if (this.bW()) {
-				this.makeSound(this.bT(), this.bf(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+				this.makeSound(this.bV(), this.be(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 			}
 
-			this.be = 1.0F - this.random.nextFloat() * 2.0F;
-			this.bf = (float)this.getSize();
+			this.bd = 1.0F - this.random.nextFloat() * 2.0F;
+			this.be = (float)this.getSize();
 		} else {
-			this.bd = false;
+			this.bc = false;
 			if (this.onGround) {
-				this.be = this.bf = 0.0F;
+				this.bd = this.be = 0.0F;
 			}
 		}
 		// ---
@@ -167,19 +167,19 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 	}
 
 	@Override
-	public boolean bk()
+	public boolean bM()
 	{
 		return true;
 	}
 
 	@Override
-	protected String aT()
+	protected String aS()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.HURT, (this.getSize() > 1 ? "big" : "small"));
 	}
 
 	@Override
-	protected String aU()
+	protected String aT()
 	{
 		return this.m_remoteEntity.getSound(EntitySound.DEATH, (this.getSize() > 1 ? "big" : "small"));
 	}

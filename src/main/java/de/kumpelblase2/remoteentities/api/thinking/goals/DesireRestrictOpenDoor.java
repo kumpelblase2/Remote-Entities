@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 
@@ -23,7 +23,7 @@ public class DesireRestrictOpenDoor extends DesireBase
 	public boolean shouldExecute()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		if(entity == null || entity.world.v())
+		if(entity == null || entity.world.w())
 			return false;
 		else
 		{
@@ -42,7 +42,7 @@ public class DesireRestrictOpenDoor extends DesireBase
 	public boolean canContinue()
 	{
 		EntityLiving entity = this.getEntityHandle();
-		return !entity.world.v() && !this.m_door.removed && this.m_door.a(MathHelper.floor(entity.locX), MathHelper.floor(entity.locZ));
+		return !entity.world.w() && !this.m_door.removed && this.m_door.a(MathHelper.floor(entity.locX), MathHelper.floor(entity.locZ));
 	}
 
 	@Override

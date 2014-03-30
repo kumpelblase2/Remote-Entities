@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.*;
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireBase;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;
@@ -49,7 +49,7 @@ public class DesireMoveThroughVillage extends DesireBase
 	{
 		this.cleanupDoors();
 		EntityLiving entity = this.getEntityHandle();
-		if(entity == null || (this.m_onlyNight && entity.world.v()))
+		if(entity == null || (this.m_onlyNight && entity.world.w()))
 			return false;
 		else
 		{
@@ -72,16 +72,15 @@ public class DesireMoveThroughVillage extends DesireBase
 						return true;
 					else
 					{
-						Vec3D vec = RandomPositionGenerator.a(entity, 10, 7, entity.world.getVec3DPool().create(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ));
+						Vec3D vec = RandomPositionGenerator.a(entity, 10, 7, Vec3D.a(this.m_nextDoor.locX, this.m_nextDoor.locY, this.m_nextDoor.locZ));
 
 						if(vec == null)
 							return false;
 						else
 						{
 							this.getNavigation().b(false);
-							this.m_path = this.getNavigation().a(vec.c, vec.d, vec.e);
+							this.m_path = this.getNavigation().a(vec.a, vec.b, vec.c);
 							this.getNavigation().b(flag);
-							Vec3D.a.release(vec);
 							return this.m_path != null;
 						}
 					}
