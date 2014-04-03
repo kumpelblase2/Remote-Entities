@@ -271,6 +271,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		try
 		{
+			String name = this.getName(); // Names has to be up here, because otherwise it will use the name of spawned entity.
 			EntityTypesEntry entry = EntityTypesEntry.fromEntity(this.getNativeEntityName());
 			ReflectionUtil.registerEntityType(this.getType().getEntityClass(), this.getNativeEntityName(), entry.getID());
 			WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
@@ -282,11 +283,9 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 			if(bukkitEntity != null)
 			{
 				bukkitEntity.setMetadata("remoteentity", new FixedMetadataValue(this.m_manager.getPlugin(), this));
-				if(this.getName() != null && this.getName().length() > 0)
-				{
-					bukkitEntity.setCustomName(this.getName());
-					bukkitEntity.setCustomNameVisible(true);
-				}
+				if(name != null && name.length() > 0)
+					this.setName(name); // Re-set name to trigger update.
+
 				bukkitEntity.setRemoveWhenFarAway(false);
 			}
 
