@@ -34,7 +34,7 @@ public class DesireSwim extends DesireBase
 	@Override
 	public boolean shouldExecute()
 	{
-		return this.getEntityHandle() != null && (this.getEntityHandle().L() || this.getEntityHandle().Q());
+		return this.getEntityHandle() != null && this.getEntityHandle().M();
 	}
 
 	@Override
