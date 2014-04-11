@@ -525,7 +525,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 		else
 		{
 			Random generator = new Random();
-			Object[] values = this.m_sounds.values().toArray();
+			Object[] values = ((Map)sound).values().toArray();
 			return (String)values[generator.nextInt(values.length)];
 		}
 	}
