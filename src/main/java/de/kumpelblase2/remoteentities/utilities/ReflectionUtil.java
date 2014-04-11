@@ -98,7 +98,7 @@ public final class ReflectionUtil
 	{
 		try
 		{
-			Field jump = getOrRegisterNMSField("EntityLiving", "bd");
+			Field jump = getOrRegisterNMSField("EntityLiving", "bc");
 			return jump.getBoolean(inEntity);
 		}
 		catch(Exception e)
