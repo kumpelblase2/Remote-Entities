@@ -2,8 +2,15 @@
 2) This license applies on all parts of the product except marked spots which belong to their respective owners and might be licensed under different licenses than this one.
 3) Parts that are written by other authors apart from the original author also fall under this license and will be treated the same. They do have the right to claim their own rights and/or license and it will be marked appropriately. It will then fall under 2) of this license.
 4) You are allowed to
-	a) modify the product in any way, shape or form for personal use. When redistributing the modified product you need the permission of the author of the original product. However, you are not allowed to use a different license than this one without permission.
-	b) include parts of this product in yours without marking that it is not yours. When doing so, you need to make clear that you used parts of this product. You don't need permission for this kind of redistribution even when making changes. However, notifying the author is appropriate. Marks inside the code are not needed but welcome.
-5) You are not allowed to redistribute this product in any way without the permission of the author except if one of the sections 3-4 of this license apply.
+	a) modify the product in any way, shape or form for personal use.
+		I)   When redistributing the resulting final product under your name or of the original author you need the permission of the author of the original final product.
+		II)  However, you are not allowed to use a different license than this one without a special permission.
+		III) When redistributing the modified non-final product you have to make sure it's clear that you derived your resulting work from the work of the original author.
+	b) include parts of this product in yours. However, you have to make clear, that in your (final) product are parts of this product included. In this case, you are also allowed to make any changes without further notice or permission.
+5) You are not allowed to redistribute this product in any way without the permission of the author except if one of the sections in 4) of this license apply.
 6) Development versions should be used at own risk and the author is not responsible for any damage done by the product when a development version is used. Development versions are the same as 'snapshots' of the product, every other version is considered a release version.
 7) Definition of "You" in This License. "You" throughout this License, whether in upper or lower case, means an individual or a legal entity exercising rights under, and complying with all of the terms of, this License. For legal entities, "You" includes any entity that controls, is controlled by, or is under common control with you. For purposes of this definition, "control" means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial ownership of such entity.
+8) Definition of 'product' in this license. The product are the sources and the work provided by the (original) author(s). This also refers to single parts of the sources or work done.
+9) Definition of 'final product' in this license. The final product is
+	a) the compiled source files or compiled package of the source files
+	b) the packaged source files of the product
