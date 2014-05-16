@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.nms;
 
 import java.util.Random;
-import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R3.*;
 import de.kumpelblase2.remoteentities.utilities.NMSUtil;
 
 public class RandomPositionGenerator

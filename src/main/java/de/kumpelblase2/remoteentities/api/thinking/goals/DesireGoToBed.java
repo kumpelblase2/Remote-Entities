@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R2.Block;
-import net.minecraft.server.v1_7_R2.Blocks;
+import net.minecraft.server.v1_7_R3.Block;
+import net.minecraft.server.v1_7_R3.Blocks;
 import org.bukkit.Location;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.thinking.DesireType;

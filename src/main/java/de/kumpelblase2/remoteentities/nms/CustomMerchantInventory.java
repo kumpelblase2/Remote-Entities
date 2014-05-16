@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.nms;
 
-import net.minecraft.server.v1_7_R2.InventoryMerchant;
+import net.minecraft.server.v1_7_R3.InventoryMerchant;
 import de.kumpelblase2.remoteentities.api.features.RemoteTradingFeature;
 
 public class CustomMerchantInventory extends InventoryMerchant
