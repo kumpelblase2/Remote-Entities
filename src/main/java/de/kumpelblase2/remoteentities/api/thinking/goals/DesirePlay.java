@@ -2,8 +2,8 @@ package de.kumpelblase2.remoteentities.api.thinking.goals;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.server.v1_7_R2.EntityVillager;
-import net.minecraft.server.v1_7_R2.Vec3D;
+import net.minecraft.server.v1_7_R3.EntityVillager;
+import net.minecraft.server.v1_7_R3.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;

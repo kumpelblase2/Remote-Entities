@@ -1,8 +1,8 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R2.EntityLiving;
-import net.minecraft.server.v1_7_R2.EntityTameableAnimal;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
+import net.minecraft.server.v1_7_R3.EntityLiving;
+import net.minecraft.server.v1_7_R3.EntityTameableAnimal;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TamingFeature;

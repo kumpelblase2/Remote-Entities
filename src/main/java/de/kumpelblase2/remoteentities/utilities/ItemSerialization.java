@@ -2,9 +2,9 @@ package de.kumpelblase2.remoteentities.utilities;
 
 import java.io.*;
 import java.lang.reflect.Method;
-import net.minecraft.server.v1_7_R2.*;
-import org.bukkit.craftbukkit.v1_7_R2.inventory.CraftInventoryCustom;
-import org.bukkit.craftbukkit.v1_7_R2.inventory.CraftItemStack;
+import net.minecraft.server.v1_7_R3.*;
+import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftInventoryCustom;
+import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
@@ -63,7 +63,7 @@ public class ItemSerialization {
 
 			if (!inputObject.isEmpty()) {
 				inventory.setItem(i, CraftItemStack.asCraftMirror(
-						net.minecraft.server.v1_7_R2.ItemStack.createStack(inputObject)));
+						net.minecraft.server.v1_7_R3.ItemStack.createStack(inputObject)));
 			}
 		}
 

@@ -1,13 +1,17 @@
 package de.kumpelblase2.remoteentities.entities;
 
 import java.util.UUID;
-import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R3.*;
 import net.minecraft.util.com.google.common.base.Charsets;
+import net.minecraft.util.com.google.common.collect.Iterables;
+import net.minecraft.util.com.mojang.authlib.Agent;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
+import net.minecraft.util.com.mojang.authlib.ProfileLookupCallback;
+import net.minecraft.util.com.mojang.authlib.properties.Property;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_7_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -58,10 +62,36 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		if(event.isCancelled())
 			return;
 
-		inLocation = event.getSpawnLocation();
-		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
-		UUID uuid = UUID.nameUUIDFromBytes(("NPC:" + this.getID() + this.getName()).getBytes(Charsets.UTF_8));
-		GameProfile profile = new GameProfile(uuid.toString().replaceAll("-", ""), this.getName());
+		final Location _inLocation = event.getSpawnLocation();
+
+		GameProfile profile = MinecraftServer.getServer().getUserCache().a(this.getName());
+		if(profile == null) {
+			MinecraftServer.getServer().getGameProfileRepository().findProfilesByNames(new String[] { this.getName() }, Agent.MINECRAFT, new ProfileLookupCallback() {
+				@Override
+				public void onProfileLookupSucceeded(GameProfile gameProfile) {
+					MinecraftServer.getServer().getUserCache().a(gameProfile);
+					doActualSpawn(_inLocation, gameProfile);
+				}
+
+				@Override
+				public void onProfileLookupFailed(GameProfile gameProfile, Exception e) {
+					UUID uuid = UUID.nameUUIDFromBytes(("NPC:" + getID() + getName()).getBytes(Charsets.UTF_8));
+					doActualSpawn(_inLocation, new GameProfile(uuid, getName()));
+				}
+			});
+		} else {
+			doActualSpawn(inLocation, profile);
+		}
+	}
+
+	public void doActualSpawn(Location inLocation, GameProfile profile)
+	{
+		Property property = Iterables.getFirst(profile.getProperties().get("textures"), null);
+		if(property == null)
+			profile = MinecraftServer.getServer().av().fillProfileProperties(profile, true);
+
+		WorldServer worldServer = ((CraftWorld) inLocation.getWorld()).getHandle();
+
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, profile, new PlayerInteractManager(worldServer), this);
 		worldServer.addEntity(m_entity);
 		this.m_entity.world.players.remove(this.m_entity);
@@ -144,10 +174,10 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	}
 
 	/**
-     * Send the hurt animation to nearby players.
+	 * Send the hurt animation to nearby players.
 	 * This is needed because normally players in creative mode cannot be damaged at all.
 	 * By keeping this, we allow the user to set the npc in creative mode and still keep hurt animations.
-     */
+	 */
 	public void fakeDamage()
 	{
 		this.getHandle().world.broadcastEntityEffect(this.getHandle(), (byte)2);

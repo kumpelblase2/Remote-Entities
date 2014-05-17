@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R2.*;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftLivingEntity;
+import net.minecraft.server.v1_7_R3.*;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftLivingEntity;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
 import de.kumpelblase2.remoteentities.api.features.TradingFeature;
 import de.kumpelblase2.remoteentities.utilities.NMSClassMap;

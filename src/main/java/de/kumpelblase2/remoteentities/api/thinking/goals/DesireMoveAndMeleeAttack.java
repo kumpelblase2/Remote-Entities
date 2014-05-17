@@ -1,7 +1,7 @@
 package de.kumpelblase2.remoteentities.api.thinking.goals;
 
-import net.minecraft.server.v1_7_R2.*;
-import org.bukkit.craftbukkit.v1_7_R2.event.CraftEventFactory;
+import net.minecraft.server.v1_7_R3.*;
+import org.bukkit.craftbukkit.v1_7_R3.event.CraftEventFactory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;

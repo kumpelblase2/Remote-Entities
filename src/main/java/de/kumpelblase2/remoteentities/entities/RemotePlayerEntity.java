@@ -1,6 +1,6 @@
 package de.kumpelblase2.remoteentities.entities;
 
-import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R3.*;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
