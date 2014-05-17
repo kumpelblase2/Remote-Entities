@@ -76,8 +76,8 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 			{
 				float f = (this.random.nextFloat() - 0.5F) * 8.0F;
 				float d05 = (this.random.nextFloat() - 0.5F) * 4.0F;
-	            float f1 = (this.random.nextFloat() - 0.5F) * 8.0F;
-	            this.world.addParticle("largeexplode", this.locX + (double) f, this.locY + 2.0D + (double) d05, this.locZ + (double) f1, 0.0D, 0.0D, 0.0D);
+				float f1 = (this.random.nextFloat() - 0.5F) * 8.0F;
+				this.world.addParticle("largeexplode", this.locX + (double)f, this.locY + 2.0D + (double)d05, this.locZ + (double)f1, 0.0D, 0.0D, 0.0D);
 			}
 			// ---
 			return;
@@ -117,31 +117,34 @@ public class RemoteEnderDragonEntity extends EntityEnderDragon implements Remote
 	public void collide(Entity entity)
 	{
 		// --- Taken from Entity.java#778 - #802
-		if (entity.passenger != this && entity.vehicle != this) {
-            double d0 = entity.locX - this.locX;
-            double d1 = entity.locZ - this.locZ;
-            double d2 = MathHelper.a(d0, d1);
+		if(entity.passenger != this && entity.vehicle != this)
+		{
+			double d0 = entity.locX - this.locX;
+			double d1 = entity.locZ - this.locZ;
+			double d2 = MathHelper.a(d0, d1);
 
-            if (d2 >= 0.009999999776482582D) {
-                d2 = (double) MathHelper.sqrt(d2);
-                d0 /= d2;
-                d1 /= d2;
-                double d3 = 1.0D / d2;
+			if(d2 >= 0.009999999776482582D)
+			{
+				d2 = (double)MathHelper.sqrt(d2);
+				d0 /= d2;
+				d1 /= d2;
+				double d3 = 1.0D / d2;
 
-                if (d3 > 1.0D) {
-                    d3 = 1.0D;
-                }
+				if(d3 > 1.0D)
+				{
+					d3 = 1.0D;
+				}
 
-                d0 *= d3;
-                d1 *= d3;
-                d0 *= 0.05000000074505806D;
-                d1 *= 0.05000000074505806D;
-                d0 *= (double) (1.0F - this.Z);
-                d1 *= (double) (1.0F - this.Z);
-                this.g(-d0, 0.0D, -d1);
-                entity.g(d0, 0.0D, d1);
-            }
-        }
+				d0 *= d3;
+				d1 *= d3;
+				d0 *= 0.05000000074505806D;
+				d1 *= 0.05000000074505806D;
+				d0 *= (double)(1.0F - this.Z);
+				d1 *= (double)(1.0F - this.Z);
+				this.g(-d0, 0.0D, -d1);
+				entity.g(d0, 0.0D, d1);
+			}
+		}
 		// ---
 
 		if(this.getRemoteEntity() == null)

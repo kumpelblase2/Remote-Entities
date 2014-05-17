@@ -40,8 +40,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the type of the entity
 	 *
-	 * @param inType	Type
-	 * @return			Context
+	 * @param inType Type
+	 * @return Context
 	 */
 	public CreateEntityContext withType(RemoteEntityType inType)
 	{
@@ -52,8 +52,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the location to spawn at. When the location is null, it won't get spawned.
 	 *
-	 * @param inLocation	Location to spawn at
-	 * @return				Context
+	 * @param inLocation Location to spawn at
+	 * @return Context
 	 */
 	public CreateEntityContext atLocation(Location inLocation)
 	{
@@ -65,8 +65,8 @@ public class CreateEntityContext
 	 * Sets the id of the entity. When the ID is already used, the next free ID will be used.
 	 * That means that you might not get the wanted entity id
 	 *
-	 * @param inID	Id of the entity
-	 * @return		Context
+	 * @param inID Id of the entity
+	 * @return Context
 	 */
 	public CreateEntityContext withID(int inID)
 	{
@@ -77,8 +77,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the name of the entity
 	 *
-	 * @param inName	Name
-	 * @return			Context
+	 * @param inName Name
+	 * @return Context
 	 */
 	public CreateEntityContext withName(String inName)
 	{
@@ -89,8 +89,8 @@ public class CreateEntityContext
 	/**
 	 * Features that the entity should have on creation
 	 *
-	 * @param inFeatures	Features
-	 * @return				Context
+	 * @param inFeatures Features
+	 * @return Context
 	 */
 	public CreateEntityContext withFeatures(Feature... inFeatures)
 	{
@@ -102,8 +102,8 @@ public class CreateEntityContext
 	/**
 	 * Behaviors that the entity should have on creation
 	 *
-	 * @param inBehaviors	Behaviors
-	 * @return				Context
+	 * @param inBehaviors Behaviors
+	 * @return Context
 	 */
 	public CreateEntityContext withBehaviors(Behavior... inBehaviors)
 	{
@@ -115,8 +115,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the stationary status on creation
 	 *
-	 * @param inStationary	Stationary
-	 * @return				Context
+	 * @param inStationary Stationary
+	 * @return Context
 	 */
 	public CreateEntityContext asStationary(boolean inStationary)
 	{
@@ -127,8 +127,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the pushable status on creation
 	 *
-	 * @param inPushable	Pushable
-	 * @return				Context
+	 * @param inPushable Pushable
+	 * @return Context
 	 */
 	public CreateEntityContext asPushable(boolean inPushable)
 	{
@@ -139,20 +139,20 @@ public class CreateEntityContext
 	/**
 	 * Sets the speed on creation
 	 *
-	 * @param inSpeed	Speed
-	 * @return			Context
+	 * @param inSpeed Speed
+	 * @return Context
 	 */
 	public CreateEntityContext withSpeed(double inSpeed)
 	{
-		this.m_speed  = inSpeed;
+		this.m_speed = inSpeed;
 		return this;
 	}
 
 	/**
 	 * Sets the max health on creation
 	 *
-	 * @param inMaxHealth	Max Health
-	 * @return				Context
+	 * @param inMaxHealth Max Health
+	 * @return Context
 	 */
 	public CreateEntityContext withMaxHealth(double inMaxHealth)
 	{
@@ -163,8 +163,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the initial movement desires
 	 *
-	 * @param inDesires	movement desires
-	 * @return			Context
+	 * @param inDesires movement desires
+	 * @return Context
 	 */
 	public CreateEntityContext withMovementDesires(DesireItem... inDesires)
 	{
@@ -176,8 +176,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the initial action desires
 	 *
-	 * @param inDesires	action desires
-	 * @return			Context
+	 * @param inDesires action desires
+	 * @return Context
 	 */
 	public CreateEntityContext withActionDesires(DesireItem... inDesires)
 	{
@@ -189,8 +189,8 @@ public class CreateEntityContext
 	/**
 	 * Sets the initial pathfinding range
 	 *
-	 * @param inRange   the range
-	 * @return          context
+	 * @param inRange the range
+	 * @return context
 	 */
 	public CreateEntityContext withPathfindingRange(double inRange)
 	{
@@ -201,10 +201,10 @@ public class CreateEntityContext
 	/**
 	 * Creates the entity with the earlier specified parameters
 	 *
-	 * @return					Created entity
-	 * @throws NoTypeException	When no type is specified
-	 * @throws NoNameException	When no name is specified while trying to spawn a named entity
-	 * @throws InternalError    When an error occurred during creation process
+	 * @return Created entity
+	 * @throws NoTypeException When no type is specified
+	 * @throws NoNameException When no name is specified while trying to spawn a named entity
+	 * @throws InternalError   When an error occurred during creation process
 	 */
 	public RemoteEntity create()
 	{

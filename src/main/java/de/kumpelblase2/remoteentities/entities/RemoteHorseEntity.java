@@ -124,26 +124,26 @@ public class RemoteHorseEntity extends EntityHorse implements RemoteEntityHandle
 	}
 
 	@Override
-	protected void b(float f) {
+	protected void b(float f)
+	{
 		//Taken from EntityHorse.java#276 - 297
 		//modified to work with custom sounds
-		if (f > 1.0F) {
+		if(f > 1.0F)
 			this.makeSound(this.m_remoteEntity.getSound(EntitySound.LAND), 0.4F, 1.0F);
-		}
 
 		int i = MathHelper.f(f * 0.5F - 3.0F);
 
-		if (i > 0) {
-			this.damageEntity(DamageSource.FALL, (float) i);
-			if (this.passenger != null) {
-				this.passenger.damageEntity(DamageSource.FALL, (float) i);
-			}
+		if(i > 0)
+		{
+			this.damageEntity(DamageSource.FALL, (float)i);
+			if(this.passenger != null)
+				this.passenger.damageEntity(DamageSource.FALL, (float)i);
 
-			Block j = this.world.getType(MathHelper.floor(this.locX), MathHelper.floor(this.locY - 0.2D - (double) this.lastYaw), MathHelper.floor(this.locZ));
+			Block j = this.world.getType(MathHelper.floor(this.locX), MathHelper.floor(this.locY - 0.2D - (double)this.lastYaw), MathHelper.floor(this.locZ));
 
-			if (j.getMaterial() != Material.AIR) {
+			if(j.getMaterial() != Material.AIR)
+			{
 				StepSound stepsound = j.stepSound;
-
 				this.world.makeSound(this, stepsound.getStepSound(), stepsound.getVolume1() * 0.5F, stepsound.getVolume2() * 0.75F);
 			}
 		}

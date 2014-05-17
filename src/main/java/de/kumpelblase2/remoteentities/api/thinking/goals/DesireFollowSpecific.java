@@ -83,7 +83,7 @@ public class DesireFollowSpecific extends DesireBase
 	@Override
 	public void startExecuting()
 	{
-		this.m_avoidWaterState =this.getNavigation().a();
+		this.m_avoidWaterState = this.getNavigation().a();
 		this.getNavigation().a(false);
 		this.m_moveTick = 0;
 	}

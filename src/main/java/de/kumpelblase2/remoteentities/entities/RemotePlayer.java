@@ -4,15 +4,12 @@ import java.util.UUID;
 import net.minecraft.server.v1_7_R3.*;
 import net.minecraft.util.com.google.common.base.Charsets;
 import net.minecraft.util.com.google.common.collect.Iterables;
-import net.minecraft.util.com.mojang.authlib.Agent;
-import net.minecraft.util.com.mojang.authlib.GameProfile;
-import net.minecraft.util.com.mojang.authlib.ProfileLookupCallback;
+import net.minecraft.util.com.mojang.authlib.*;
 import net.minecraft.util.com.mojang.authlib.properties.Property;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import de.kumpelblase2.remoteentities.EntityManager;
@@ -65,23 +62,27 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		final Location _inLocation = event.getSpawnLocation();
 
 		GameProfile profile = MinecraftServer.getServer().getUserCache().a(this.getName());
-		if(profile == null) {
-			MinecraftServer.getServer().getGameProfileRepository().findProfilesByNames(new String[] { this.getName() }, Agent.MINECRAFT, new ProfileLookupCallback() {
+		if(profile == null)
+		{
+			MinecraftServer.getServer().getGameProfileRepository().findProfilesByNames(new String[] { this.getName() }, Agent.MINECRAFT, new ProfileLookupCallback()
+			{
 				@Override
-				public void onProfileLookupSucceeded(GameProfile gameProfile) {
+				public void onProfileLookupSucceeded(GameProfile gameProfile)
+				{
 					MinecraftServer.getServer().getUserCache().a(gameProfile);
 					doActualSpawn(_inLocation, gameProfile);
 				}
 
 				@Override
-				public void onProfileLookupFailed(GameProfile gameProfile, Exception e) {
+				public void onProfileLookupFailed(GameProfile gameProfile, Exception e)
+				{
 					UUID uuid = UUID.nameUUIDFromBytes(("NPC:" + getID() + getName()).getBytes(Charsets.UTF_8));
 					doActualSpawn(_inLocation, new GameProfile(uuid, getName()));
 				}
 			});
-		} else {
-			doActualSpawn(inLocation, profile);
 		}
+		else
+			doActualSpawn(inLocation, profile);
 	}
 
 	public void doActualSpawn(Location inLocation, GameProfile profile)
@@ -90,7 +91,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 		if(property == null)
 			profile = MinecraftServer.getServer().av().fillProfileProperties(profile, true);
 
-		WorldServer worldServer = ((CraftWorld) inLocation.getWorld()).getHandle();
+		WorldServer worldServer = ((CraftWorld)inLocation.getWorld()).getHandle();
 
 		this.m_entity = new RemotePlayerEntity(worldServer.getMinecraftServer(), worldServer, profile, new PlayerInteractManager(worldServer), this);
 		worldServer.addEntity(m_entity);
@@ -138,8 +139,8 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	/**
 	 * Tries to place the npc in a bed at given location.
 	 *
-	 * @param inLocation	Location the bed is present.
-	 * @return				True if it was possible, false if not
+	 * @param inLocation Location the bed is present.
+	 * @return True if it was possible, false if not
 	 */
 	public boolean enterBed(Location inLocation)
 	{
@@ -158,7 +159,7 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	/**
 	 * Checks if the npc is currently in a bed.
 	 *
-	 * @return	true if he is, false if not
+	 * @return true if he is, false if not
 	 */
 	public boolean isSleeping()
 	{

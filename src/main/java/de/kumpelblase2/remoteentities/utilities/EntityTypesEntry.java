@@ -26,20 +26,20 @@ public class EntityTypesEntry
 	@SuppressWarnings("rawtypes")
 	public static EntityTypesEntry fromEntity(String inEntity)
 	{
-		  try
-		  {
-			  Class entityTypes = ReflectionUtil.getNMSClassByName("EntityTypes");
-			  Field classMap = ReflectionUtil.getOrRegisterField(entityTypes, "c");
-			  Field idMap = ReflectionUtil.getOrRegisterField(entityTypes, "f");
-			  Class entityClass = (Class)((Map)classMap.get(null)).get(inEntity);
-			  Integer id = (Integer)((Map)idMap.get(null)).get(entityClass);
-			  return new EntityTypesEntry(inEntity, entityClass, id);
-		  }
-		  catch(Exception e)
-		  {
-			  e.printStackTrace();
-		  }
-		  return null;
+		try
+		{
+			Class entityTypes = ReflectionUtil.getNMSClassByName("EntityTypes");
+			Field classMap = ReflectionUtil.getOrRegisterField(entityTypes, "c");
+			Field idMap = ReflectionUtil.getOrRegisterField(entityTypes, "f");
+			Class entityClass = (Class)((Map)classMap.get(null)).get(inEntity);
+			Integer id = (Integer)((Map)idMap.get(null)).get(entityClass);
+			return new EntityTypesEntry(inEntity, entityClass, id);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public int getID()

@@ -10,28 +10,34 @@ public class NullNetServerHandler extends PlayerConnection
 	}
 
 	@Override
-    public void a(PacketPlayInWindowClick packet) {
-    }
+	public void a(PacketPlayInWindowClick packet)
+	{
+	}
 
-    @Override
-    public void a(PacketPlayInTransaction packet) {
-    }
+	@Override
+	public void a(PacketPlayInTransaction packet)
+	{
+	}
 
-    @Override
-    public void a(PacketPlayInFlying packet) {
-    }
+	@Override
+	public void a(PacketPlayInFlying packet)
+	{
+	}
 
-    @Override
-    public void a(PacketPlayInUpdateSign packet) {
-    }
+	@Override
+	public void a(PacketPlayInUpdateSign packet)
+	{
+	}
 
-    @Override
-    public void a(PacketPlayInBlockDig packet) {
-    }
+	@Override
+	public void a(PacketPlayInBlockDig packet)
+	{
+	}
 
-    @Override
-    public void a(PacketPlayInBlockPlace packet) {
-    }
+	@Override
+	public void a(PacketPlayInBlockPlace packet)
+	{
+	}
 
 	@Override
 	public void disconnect(String s)
@@ -48,7 +54,8 @@ public class NullNetServerHandler extends PlayerConnection
 	{
 	}
 
-    @Override
-    public void sendPacket(Packet packet) {
-    }
+	@Override
+	public void sendPacket(Packet packet)
+	{
+	}
 }

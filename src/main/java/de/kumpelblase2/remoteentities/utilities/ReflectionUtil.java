@@ -19,9 +19,9 @@ public final class ReflectionUtil
 	/**
 	 * Replaces the goal selector of an entity with a new one
 	 *
-	 * @param inEntity			entity
-	 * @param inSelectorName	name of the selector (targetSelector or movementSelector)
-	 * @param inNewSelector		new selector
+	 * @param inEntity       entity
+	 * @param inSelectorName name of the selector (targetSelector or movementSelector)
+	 * @param inNewSelector  new selector
 	 */
 	public static void replaceGoalSelector(Object inEntity, String inSelectorName, Object inNewSelector)
 	{
@@ -40,38 +40,38 @@ public final class ReflectionUtil
 	 * Registers custom entity class at the native minecraft entity enum.
 	 * Automatically clears internal maps first @see ReflectionUtil#clearEntityType(String, int)
 	 *
-	 * @param inClass	class of the entity
-	 * @param inName	minecraft entity name
-	 * @param inID		minecraft entity id
+	 * @param inClass class of the entity
+	 * @param inName  minecraft entity name
+	 * @param inID    minecraft entity id
 	 */
 	public static void registerEntityType(Class<?> inClass, String inName, int inID)
 	{
 		try
 		{
 			clearEntityType(inName, inID);
-            @SuppressWarnings("rawtypes")
-            Class[] args = new Class[3];
-            args[0] = Class.class;
-            args[1] = String.class;
-            args[2] = int.class;
+			@SuppressWarnings("rawtypes")
+			Class[] args = new Class[3];
+			args[0] = Class.class;
+			args[1] = String.class;
+			args[2] = int.class;
 
-            Method a = getNMSClassByName("EntityTypes").getDeclaredMethod("a", args);
-            a.setAccessible(true);
+			Method a = getNMSClassByName("EntityTypes").getDeclaredMethod("a", args);
+			a.setAccessible(true);
 
-            a.invoke(a, inClass, inName, inID);
-        }
-		catch (Exception e)
+			a.invoke(a, inClass, inName, inID);
+		}
+		catch(Exception e)
 		{
-            e.printStackTrace();
-        }
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Clears the entity name and entity id from the EntityTypes internal c and e map to allow registering of those names with different values.
 	 * The other maps are not touched and stay as they are.
 	 *
-	 * @param inName    The internal name of the entity
-	 * @param inID      The internal id of the entity
+	 * @param inName The internal name of the entity
+	 * @param inID   The internal id of the entity
 	 */
 	public static void clearEntityType(String inName, int inID)
 	{
@@ -91,8 +91,8 @@ public final class ReflectionUtil
 	/**
 	 * Checks if the entity is jumping.
 	 *
-	 * @param inEntity  The entity to check
-	 * @return          True if it is, otherwise false
+	 * @param inEntity The entity to check
+	 * @return True if it is, otherwise false
 	 */
 	public static boolean isJumping(Object inEntity)
 	{
@@ -110,8 +110,8 @@ public final class ReflectionUtil
 	/**
 	 * Gets the data for the parameters of the classes' constructor
 	 *
-	 * @param inClass   The class to get the data for
-	 * @return          List of data for each parameter in order
+	 * @param inClass The class to get the data for
+	 * @return List of data for each parameter in order
 	 */
 	public static List<ParameterData> getParameterDataForClass(Object inClass)
 	{
@@ -154,7 +154,7 @@ public final class ReflectionUtil
 	/**
 	 * Gets the current minecraft revision
 	 *
-	 * @return  The revision as string in the format "X.X_RX"
+	 * @return The revision as string in the format "X.X_RX"
 	 */
 	public static String getMinecraftRevision()
 	{
@@ -166,8 +166,8 @@ public final class ReflectionUtil
 	/**
 	 * Gets the nms class with the given name
 	 *
-	 * @param inName    The internal name of the class
-	 * @return          The class
+	 * @param inName The internal name of the class
+	 * @return The class
 	 */
 	public static Class<?> getNMSClassByName(String inName)
 	{
@@ -223,9 +223,9 @@ public final class ReflectionUtil
 	 * Gets a declared field of the given class and caches it.
 	 * If a field is not cached it will attempt to get it from the given class.
 	 *
-	 * @param inSource  The class which has the field
-	 * @param inField   The field name
-	 * @return          The field
+	 * @param inSource The class which has the field
+	 * @param inField  The field name
+	 * @return The field
 	 */
 	public static Field getOrRegisterField(Class<?> inSource, String inField)
 	{

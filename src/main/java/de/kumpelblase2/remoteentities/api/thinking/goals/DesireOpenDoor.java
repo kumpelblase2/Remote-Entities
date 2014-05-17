@@ -21,7 +21,7 @@ public class DesireOpenDoor extends DesireInteractDoor
 		this.m_closeDoor = inCloseDoor;
 	}
 
-	public DesireOpenDoor( boolean inIronDoor, boolean inCloseDoor)
+	public DesireOpenDoor(boolean inIronDoor, boolean inCloseDoor)
 	{
 		super(inIronDoor);
 		this.m_closeDoor = inCloseDoor;

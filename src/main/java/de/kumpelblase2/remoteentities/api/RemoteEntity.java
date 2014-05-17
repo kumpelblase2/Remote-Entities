@@ -21,28 +21,28 @@ public interface RemoteEntity extends Nameable
 	/**
 	 * Gets the type of the entity
 	 *
-	 * @return	type
+	 * @return type
 	 */
 	public RemoteEntityType getType();
 
 	/**
 	 * Gets the mind of the entity
 	 *
-	 * @return	mind
+	 * @return mind
 	 */
 	public Mind getMind();
 
 	/**
 	 * Gets the bukkit entity of this RemoteEntity
 	 *
-	 * @return	bukkit entity
+	 * @return bukkit entity
 	 */
 	public LivingEntity getBukkitEntity();
 
 	/**
 	 * Gets the native minecraft entity
 	 *
-	 * @return	native entity
+	 * @return native entity
 	 */
 	public EntityLiving getHandle();
 
@@ -56,34 +56,34 @@ public interface RemoteEntity extends Nameable
 	/**
 	 * Tries to move the entity to a location
 	 *
-	 * @param inLocation	location to move to
-	 * @return				true if it was possible to move the entity, false if not
+	 * @param inLocation location to move to
+	 * @return true if it was possible to move the entity, false if not
 	 */
 	public boolean move(Location inLocation);
 
 	/**
 	 * Tries to move the entity to a location with given speed
 	 *
-	 * @param inLocation	location to move to
-	 * @param inSpeed		speed of the entity
-	 * @return				true if it was possible, false if not
+	 * @param inLocation location to move to
+	 * @param inSpeed    speed of the entity
+	 * @return true if it was possible, false if not
 	 */
 	public boolean move(Location inLocation, double inSpeed);
 
 	/**
 	 * Tries to move the entity towards another entity
 	 *
-	 * @param inEntity	entity to move to
-	 * @return			true if it was possible to move the entity, false if not
+	 * @param inEntity entity to move to
+	 * @return true if it was possible to move the entity, false if not
 	 */
 	public boolean move(LivingEntity inEntity);
 
 	/**
 	 * Tries to move the entity towards another entity with given speed
 	 *
-	 * @param inEntity	entity to move to
-	 * @param inSpeed	speed of the entity
-	 * @return			true if it was possible, false if not
+	 * @param inEntity entity to move to
+	 * @param inSpeed  speed of the entity
+	 * @return true if it was possible, false if not
 	 */
 	public boolean move(LivingEntity inEntity, double inSpeed);
 
@@ -91,7 +91,7 @@ public interface RemoteEntity extends Nameable
 	 * Sets that yaw of the entity
 	 * When the entity is stationary, the yaw value will be fixed to the new value.
 	 *
-	 * @param inYaw	new yaw
+	 * @param inYaw new yaw
 	 */
 	public void setYaw(float inYaw);
 
@@ -100,8 +100,8 @@ public interface RemoteEntity extends Nameable
 	 * Otherwise it will just set the new value.
 	 * When the entity is stationary, the yaw value will be fixed to the new value.
 	 *
-	 * @param inYaw		new yaw
-	 * @param inRotate	If the entity should rotate or snap to the new value
+	 * @param inYaw    new yaw
+	 * @param inRotate If the entity should rotate or snap to the new value
 	 */
 	public void setYaw(float inYaw, boolean inRotate);
 
@@ -109,7 +109,7 @@ public interface RemoteEntity extends Nameable
 	 * Sets the head pitch of the entity
 	 * When the entity is stationary, the pitch value will be fixed to the new value.
 	 *
-	 * @param inPitch	new pitch
+	 * @param inPitch new pitch
 	 */
 	public void setPitch(float inPitch);
 
@@ -117,21 +117,21 @@ public interface RemoteEntity extends Nameable
 	 * Sets that yaw of the head of the entity
 	 * When the entity is stationary, the yaw value will be fixed to the new value.
 	 *
-	 * @param inHeadYaw	new head yaw
+	 * @param inHeadYaw new head yaw
 	 */
 	public void setHeadYaw(float inHeadYaw);
 
 	/**
 	 * Lets the entity look at the given location
 	 *
-	 * @param inLocation	location to look at
+	 * @param inLocation location to look at
 	 */
 	public void lookAt(Location inLocation);
 
 	/**
 	 * Lets the entity look at another entity
 	 *
-	 * @param inEntity	entity to look at
+	 * @param inEntity entity to look at
 	 */
 	public void lookAt(Entity inEntity);
 
@@ -157,15 +157,15 @@ public interface RemoteEntity extends Nameable
 	/**
 	 * Spawns the entity at a location even when the chunk is not loaded
 	 *
-	 * @param inLocation	location to spawn at
-	 * @param inForce		if the spawn should be forced on a non-loaded chunk or not
+	 * @param inLocation location to spawn at
+	 * @param inForce    if the spawn should be forced on a non-loaded chunk or not
 	 */
 	public void spawn(Location inLocation, boolean inForce);
 
 	/**
 	 * Despawns the entity with a specific reason
 	 *
-	 * @param inReason	reason for despawning
+	 * @param inReason reason for despawning
 	 */
 	public boolean despawn(DespawnReason inReason);
 
@@ -181,7 +181,7 @@ public interface RemoteEntity extends Nameable
 	 * While being stationary an entity is unable to move.
 	 * This will also reset the fixed yaw and pitch rotation
 	 *
-	 * @param inState	stationary state
+	 * @param inState stationary state
 	 */
 	public void setStationary(boolean inState);
 
@@ -189,8 +189,8 @@ public interface RemoteEntity extends Nameable
 	 * Sets the stationary state of the entity.
 	 * While being stationary an entity is unable to move.
 	 *
-	 * @param inState			stationary state
-	 * @param inKeepHeadFixed	Determines whether the entity should keep its fixed yaw and pitch when changing its state
+	 * @param inState         stationary state
+	 * @param inKeepHeadFixed Determines whether the entity should keep its fixed yaw and pitch when changing its state
 	 */
 	public void setStationary(boolean inState, boolean inKeepHeadFixed);
 
@@ -218,8 +218,8 @@ public interface RemoteEntity extends Nameable
 	/**
 	 * Adds a speed modifier for your entity.
 	 *
-	 * @param inAmount      The amount of how much you want to alter the speed
-	 * @param inAdditive    If it should be additive to the current speed or should be multiplicative
+	 * @param inAmount   The amount of how much you want to alter the speed
+	 * @param inAdditive If it should be additive to the current speed or should be multiplicative
 	 */
 	public void addSpeedModifier(double inAmount, boolean inAdditive);
 
@@ -273,17 +273,17 @@ public interface RemoteEntity extends Nameable
 	/**
 	 * If a ISingleEntitySerializer is present, this entity will be saved alone.
 	 *
-	 * @return	true if the entity could get saved, false if not
+	 * @return true if the entity could get saved, false if not
 	 */
 	public boolean save();
 
 	/**
 	 * Gets the sound that should play for the specific sound type.
 	 * When more than one sound is registered for that type, a random one will be selected.
-	 * @see RemoteEntity#getSound(EntitySound, String)
 	 *
-	 * @param inType    The type of the sound
-	 * @return          The name of the sound
+	 * @param inType The type of the sound
+	 * @return The name of the sound
+	 * @see RemoteEntity#getSound(EntitySound, String)
 	 */
 	public String getSound(EntitySound inType);
 
@@ -291,9 +291,9 @@ public interface RemoteEntity extends Nameable
 	 * Gets the sound with the specific key from the sounds that are registered on the type of sound.
 	 * When only one sound is registered, it will return null.
 	 *
-	 * @param inType    Type of sound
-	 * @param inKey     Identifier for the sound
-	 * @return          The sound name or null if it wasn't found
+	 * @param inType Type of sound
+	 * @param inKey  Identifier for the sound
+	 * @return The sound name or null if it wasn't found
 	 */
 	public String getSound(EntitySound inType, String inKey);
 
@@ -301,26 +301,26 @@ public interface RemoteEntity extends Nameable
 	 * Gets all sounds registered for this type of sound.
 	 * If only a single sound with no key was registered, it will still return a map and the only entry will be the sound with key 'default'.
 	 *
-	 * @param inType    The type of sound
-	 * @return          Sounds for this type
+	 * @param inType The type of sound
+	 * @return Sounds for this type
 	 */
 	public Map<String, String> getSounds(EntitySound inType);
 
 	/**
 	 * Checks if the entity has at least one sound registered for that type.
-	 * @see RemoteEntity#hasSound(EntitySound, String)
 	 *
-	 * @param inType    The type of the sound
-	 * @return          true if it has it, false if not
+	 * @param inType The type of the sound
+	 * @return true if it has it, false if not
+	 * @see RemoteEntity#hasSound(EntitySound, String)
 	 */
 	public boolean hasSound(EntitySound inType);
 
 	/**
 	 * Checks if the entity has a sound with that key registered for the specific sound type.
 	 *
-	 * @param inType    Type of the sound
-	 * @param inKey     Identifier for the sound
-	 * @return          True if it has, false if not
+	 * @param inType Type of the sound
+	 * @param inKey  Identifier for the sound
+	 * @return True if it has, false if not
 	 */
 	public boolean hasSound(EntitySound inType, String inKey);
 
@@ -328,8 +328,8 @@ public interface RemoteEntity extends Nameable
 	 * Sets the sound name for the specific type of sound.
 	 * When more than one should has been registered on this type, it will override all previously added sounds.
 	 *
-	 * @param inType    Sound type to change
-	 * @param inSound   The new name for the sound
+	 * @param inType  Sound type to change
+	 * @param inSound The new name for the sound
 	 */
 	public void setSound(EntitySound inType, String inSound);
 
@@ -337,9 +337,9 @@ public interface RemoteEntity extends Nameable
 	 * Registers a sound with the key for the specific sound type.
 	 * If a single sound without key was registered earlier it will be overridden.
 	 *
-	 * @param inType    Type of the sound
-	 * @param inKey     Identifier for the sound
-	 * @param inSound   The sound
+	 * @param inType  Type of the sound
+	 * @param inKey   Identifier for the sound
+	 * @param inSound The sound
 	 */
 	public void setSound(EntitySound inType, String inKey, String inSound);
 
@@ -347,9 +347,8 @@ public interface RemoteEntity extends Nameable
 	 * Registers the map of sounds for the specific sound type.
 	 * If a single sound without key was registered earlier it will be overridden.
 	 *
-	 *
-	 * @param inType    Type of the sound
-	 * @param inSounds  The sounds
+	 * @param inType   Type of the sound
+	 * @param inSounds The sounds
 	 */
 	public void setSounds(EntitySound inType, Map<String, String> inSounds);
 }

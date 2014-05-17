@@ -54,7 +54,7 @@ public class DesireFollowCarrotStick extends DesireBase
 			return false;
 
 		return this.getEntityHandle().isAlive() && this.getEntityHandle().passenger != null && this.getEntityHandle().passenger instanceof EntityHuman && (this.m_speedBoosted || NMSUtil.canBeSteered(this.getEntityHandle()));
-}
+	}
 
 	@Override
 	public void stopExecuting()
@@ -111,69 +111,67 @@ public class DesireFollowCarrotStick extends DesireBase
 				f2 = block.frictionFactor * 0.91f;
 		}
 
-
 		float f3 = 0.16277136F / (f2 * f2 * f2);
-        float f4 = MathHelper.sin(entity.yaw * 3.1415927F / 180.0F);
-        float f5 = MathHelper.cos(entity.yaw * 3.1415927F / 180.0F);
-        float f6 = entity.bk() * f3;
-        float f7 = Math.max(speed, 1.0F);
+		float f4 = MathHelper.sin(entity.yaw * 3.1415927F / 180.0F);
+		float f5 = MathHelper.cos(entity.yaw * 3.1415927F / 180.0F);
+		float f6 = entity.bk() * f3;
+		float f7 = Math.max(speed, 1.0F);
 
-        f7 = f6 / f7;
-        float f8 = speed * f7;
-        float f9 = -(f8 * f4);
-        float f10 = f8 * f5;
+		f7 = f6 / f7;
+		float f8 = speed * f7;
+		float f9 = -(f8 * f4);
+		float f10 = f8 * f5;
 
-        if (MathHelper.abs(f9) > MathHelper.abs(f10)) {
-            if (f9 < 0.0F) {
-                f9 -= entity.width / 2.0F;
-            }
+		if(MathHelper.abs(f9) > MathHelper.abs(f10))
+		{
+			if(f9 < 0.0F)
+				f9 -= entity.width / 2.0F;
 
-            if (f9 > 0.0F) {
-                f9 += entity.width / 2.0F;
-            }
+			if(f9 > 0.0F)
+				f9 += entity.width / 2.0F;
 
-            f10 = 0.0F;
-        } else {
-            f9 = 0.0F;
-            if (f10 < 0.0F) {
-                f10 -= entity.width / 2.0F;
-            }
+			f10 = 0.0F;
+		}
+		else
+		{
+			f9 = 0.0F;
+			if(f10 < 0.0F)
+				f10 -= entity.width / 2.0F;
 
-            if (f10 > 0.0F) {
-                f10 += entity.width / 2.0F;
-            }
-        }
+			if(f10 > 0.0F)
+				f10 += entity.width / 2.0F;
+		}
 
-        int nextX = MathHelper.floor(entity.locX + f9);
-        int nextZ = MathHelper.floor(entity.locZ + f10);
-        PathPoint point = new PathPoint(MathHelper.d(entity.width + 1), MathHelper.d(entity.length + passenger.length + 1), MathHelper.d(entity.width + 1));
-        if(x != nextX || z != nextZ)
-        {
-        	Block type1 = entity.world.getType(x, y, z);
-        	Block type2 = entity.world.getType(x, y - 1, z);
-        	boolean isStep = this.isStep(type1) || type1 == null && this.isStep(type2);
+		int nextX = MathHelper.floor(entity.locX + f9);
+		int nextZ = MathHelper.floor(entity.locZ + f10);
+		PathPoint point = new PathPoint(MathHelper.d(entity.width + 1), MathHelper.d(entity.length + passenger.length + 1), MathHelper.d(entity.width + 1));
+		if(x != nextX || z != nextZ)
+		{
+			Block type1 = entity.world.getType(x, y, z);
+			Block type2 = entity.world.getType(x, y - 1, z);
+			boolean isStep = this.isStep(type1) || type1 == null && this.isStep(type2);
 
-        	if(!isStep && Pathfinder.a(entity, nextX, y, nextZ, point, false, false, true) == 0 && Pathfinder.a(entity, x, y + 1, z, point, false, false, true) == 1 && Pathfinder.a(entity, nextX, y + 1, nextZ, point, false, false, true) == 1)
-		        NMSUtil.getControllerLook(entity).a();
-        }
+			if(!isStep && Pathfinder.a(entity, nextX, y, nextZ, point, false, false, true) == 0 && Pathfinder.a(entity, x, y + 1, z, point, false, false, true) == 1 && Pathfinder.a(entity, nextX, y + 1, nextZ, point, false, false, true) == 1)
+				NMSUtil.getControllerLook(entity).a();
+		}
 
-        if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aH().nextFloat() < 0.006f && !this.m_speedBoosted)
-        {
-        	ItemStack item = passenger.bd();
+		if(!passenger.abilities.canInstantlyBuild && this.m_currentSpeed >= this.m_maxSpeed * 0.5 && entity.aH().nextFloat() < 0.006f && !this.m_speedBoosted)
+		{
+			ItemStack item = passenger.bd();
 
-        	if(item != null && item.getItem() == Items.CARROT_STICK)
-        	{
-        		item.damage(1, passenger);
-        		if(item.count == 0)
-        		{
-        			ItemStack newItem = new ItemStack(Items.FISHING_ROD);
-        			newItem.setTag(item.tag);
-        			passenger.inventory.items[passenger.inventory.itemInHandIndex] = newItem;
-        		}
-        	}
-        }
+			if(item != null && item.getItem() == Items.CARROT_STICK)
+			{
+				item.damage(1, passenger);
+				if(item.count == 0)
+				{
+					ItemStack newItem = new ItemStack(Items.FISHING_ROD);
+					newItem.setTag(item.tag);
+					passenger.inventory.items[passenger.inventory.itemInHandIndex] = newItem;
+				}
+			}
+		}
 
-        entity.e(0, speed);
+		entity.e(0, speed);
 		return true;
 	}
 

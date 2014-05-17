@@ -78,15 +78,15 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 			this.noDamageTicks--;
 
 		//Taken from Citizens2#EntityHumanNPC.java#129 - #138 - slightly modified.
-        if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
-            motX = motY = motZ = 0;
+		if(Math.abs(motX) < 0.001F && Math.abs(motY) < 0.001F && Math.abs(motZ) < 0.001F)
+			motX = motY = motZ = 0;
 
 		this.updateControllers();
 		this.applyMovement();
-        //End Citizens
+		//End Citizens
 
-        if(this.getRemoteEntity() != null)
-        	this.getRemoteEntity().getMind().tick();
+		if(this.getRemoteEntity() != null)
+			this.getRemoteEntity().getMind().tick();
 	}
 
 	private void updateControllers()
@@ -106,17 +106,17 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
 		if(this.bc)
 		{
-            boolean inLiquid = K() || M();
-            if (inLiquid)
-                this.motY += 0.04;
-            else if (this.onGround && this.m_jumpTicks == 0)
-            {
-                this.be();
-	            this.m_jumpTicks = 10;
-            }
-        }
+			boolean inLiquid = K() || M();
+			if(inLiquid)
+				this.motY += 0.04;
+			else if(this.onGround && this.m_jumpTicks == 0)
+			{
+				this.be();
+				this.m_jumpTicks = 10;
+			}
+		}
 		else
-            this.m_jumpTicks = 0;
+			this.m_jumpTicks = 0;
 
 		this.bd *= 0.98F;
 		this.be *= 0.98F;
@@ -227,9 +227,7 @@ public class RemotePlayerEntity extends EntityPlayer implements RemoteEntityHand
 
 	public static DesireItem[] getDefaultMovementDesires()
 	{
-		return new DesireItem[] {
-				new DesireItem(new DesireSwim(), 0)
-		};
+		return new DesireItem[] { new DesireItem(new DesireSwim(), 0) };
 	}
 
 	public static DesireItem[] getDefaultTargetingDesires()

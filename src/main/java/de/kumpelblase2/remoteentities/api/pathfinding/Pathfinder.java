@@ -29,14 +29,7 @@ public class Pathfinder
 
 	static
 	{
-		Material[] array = new Material[] {
-			Material.AIR, Material.ACTIVATOR_RAIL, Material.BROWN_MUSHROOM, Material.CARROT, Material.CROPS, Material.DETECTOR_RAIL, Material.DIODE, Material.DIODE_BLOCK_OFF,
-			Material.DIODE_BLOCK_ON, Material.FENCE_GATE, Material.GRASS, Material.LADDER, Material.LEVER, Material.LONG_GRASS, Material.MELON_STEM, Material.NETHER_WARTS,
-			Material.PAINTING, Material.PORTAL, Material.POTATO, Material.PUMPKIN_STEM, Material.RAILS, Material.REDSTONE, Material.RED_ROSE, Material.REDSTONE_COMPARATOR,
-			Material.REDSTONE_COMPARATOR_OFF, Material.REDSTONE_COMPARATOR_ON, Material.REDSTONE_WIRE, Material.REDSTONE_TORCH_OFF, Material.REDSTONE_TORCH_ON, Material.SAPLING,
-			Material.SIGN_POST, Material.SKULL, Material.SNOW, Material.TORCH, Material.TRIPWIRE, Material.WALL_SIGN, Material.WOOD_BUTTON, Material.STONE_BUTTON, Material.STONE_PLATE,
-			Material.WOOD_PLATE, Material.YELLOW_FLOWER
-		};
+		Material[] array = new Material[] { Material.AIR, Material.ACTIVATOR_RAIL, Material.BROWN_MUSHROOM, Material.CARROT, Material.CROPS, Material.DETECTOR_RAIL, Material.DIODE, Material.DIODE_BLOCK_OFF, Material.DIODE_BLOCK_ON, Material.FENCE_GATE, Material.GRASS, Material.LADDER, Material.LEVER, Material.LONG_GRASS, Material.MELON_STEM, Material.NETHER_WARTS, Material.PAINTING, Material.PORTAL, Material.POTATO, Material.PUMPKIN_STEM, Material.RAILS, Material.REDSTONE, Material.RED_ROSE, Material.REDSTONE_COMPARATOR, Material.REDSTONE_COMPARATOR_OFF, Material.REDSTONE_COMPARATOR_ON, Material.REDSTONE_WIRE, Material.REDSTONE_TORCH_OFF, Material.REDSTONE_TORCH_ON, Material.SAPLING, Material.SIGN_POST, Material.SKULL, Material.SNOW, Material.TORCH, Material.TRIPWIRE, Material.WALL_SIGN, Material.WOOD_BUTTON, Material.STONE_BUTTON, Material.STONE_PLATE, Material.WOOD_PLATE, Material.YELLOW_FLOWER };
 		transparentMaterial.addAll(Arrays.asList(array));
 
 		array = new Material[] { Material.WATER, Material.STATIONARY_WATER, Material.LAVA, Material.STATIONARY_LAVA, Material.LADDER };
@@ -69,7 +62,6 @@ public class Pathfinder
 			this.m_lastPath = new Path(end);
 			return PathResult.SUCCESS;
 		}
-
 
 		start.calculateGScore();
 		start.calculateHScore(end);
@@ -221,7 +213,7 @@ public class Pathfinder
 		{
 			for(int y = -1; y <= 1; y++)
 			{
-				for(int z = -1 ; z <= 1; z++)
+				for(int z = -1; z <= 1; z++)
 				{
 					if(x == 0 && y == 0 && z == 0)
 						continue;

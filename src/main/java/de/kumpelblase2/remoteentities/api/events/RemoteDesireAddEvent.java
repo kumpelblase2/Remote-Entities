@@ -12,7 +12,7 @@ public class RemoteDesireAddEvent extends RemoteEvent
 	private Desire m_desire;
 	private static final HandlerList handlers = new HandlerList();
 	private int m_priority;
-	
+
 	public RemoteDesireAddEvent(RemoteEntity inEntity, Desire inDesire, int inPriority)
 	{
 		super(inEntity);
@@ -25,45 +25,45 @@ public class RemoteDesireAddEvent extends RemoteEvent
 	{
 		return handlers;
 	}
-	
+
 	public static HandlerList getHandlerList()
 	{
 		return handlers;
 	}
-	
+
 	/**
 	 * Gets the desire that is about to get added
-	 * 
+	 *
 	 * @return desire
 	 */
 	public Desire getDesire()
 	{
 		return this.m_desire;
 	}
-	
+
 	/**
 	 * Sets the desire that should be added instead
-	 * 
+	 *
 	 * @param inDesire desire
 	 */
 	public void setDesire(Desire inDesire)
 	{
 		this.m_desire = inDesire;
 	}
-	
+
 	/**
 	 * Gets the priority the desire should have
-	 * 
+	 *
 	 * @return priority
 	 */
 	public int getPriority()
 	{
 		return this.m_priority;
 	}
-	
+
 	/**
 	 * Sets the priority the desire should have
-	 * 
+	 *
 	 * @param inPriority priority
 	 */
 	public void setPriority(int inPriority)

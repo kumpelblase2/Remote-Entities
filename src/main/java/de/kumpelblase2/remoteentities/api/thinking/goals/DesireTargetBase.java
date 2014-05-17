@@ -153,33 +153,32 @@ public abstract class DesireTargetBase extends DesireBase
 				EntityTargetEvent.TargetReason reason = EntityTargetEvent.TargetReason.RANDOM_TARGET;
 
 				if(this instanceof DesireDefendVillage)
-				    reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
+					reason = EntityTargetEvent.TargetReason.DEFEND_VILLAGE;
 				else if(this instanceof DesireFindAttackingTarget)
-				    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
+					reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY;
 				else if(this instanceof DesireFindNearestTarget)
 				{
-				    if(inEntity instanceof EntityHuman)
-				        reason = EntityTargetEvent.TargetReason.CLOSEST_PLAYER;
+					if(inEntity instanceof EntityHuman)
+						reason = EntityTargetEvent.TargetReason.CLOSEST_PLAYER;
 				}
 				else if(this instanceof DesireProtectOwner)
-				    reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
+					reason = EntityTargetEvent.TargetReason.TARGET_ATTACKED_OWNER;
 				else if(this instanceof DesireHelpAttacking)
-				    reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
+					reason = EntityTargetEvent.TargetReason.OWNER_ATTACKED_TARGET;
 
 				EntityTargetLivingEntityEvent event = CraftEventFactory.callEntityTargetLivingEvent(this.getEntityHandle(), inEntity, reason);
 				if(event.isCancelled() || event.getTarget() == null)
 				{
-				    if(this.getEntityHandle() instanceof EntityCreature)
-					    NMSUtil.setGoalTarget(this.getEntityHandle(), null);
+					if(this.getEntityHandle() instanceof EntityCreature)
+						NMSUtil.setGoalTarget(this.getEntityHandle(), null);
 
-				    return false;
+					return false;
 				}
 				else if(inEntity.getBukkitEntity() != event.getTarget())
-					NMSUtil.setGoalTarget(this.getEntityHandle(), (EntityLiving)((CraftEntity) event.getTarget()).getHandle());
+					NMSUtil.setGoalTarget(this.getEntityHandle(), (EntityLiving)((CraftEntity)event.getTarget()).getHandle());
 
 				if(this.getEntityHandle() instanceof EntityCreature)
-				    ((EntityCreature)this.getEntityHandle()).target = ((CraftEntity) event.getTarget()).getHandle();
-
+					((EntityCreature)this.getEntityHandle()).target = ((CraftEntity)event.getTarget()).getHandle();
 
 				return true;
 			}

@@ -121,7 +121,7 @@ public class DesireMoveAndMeleeAttack extends DesireBase
 	public void stopExecuting()
 	{
 		EntityTargetEvent.TargetReason reason = (this.m_target == null || this.m_target.isAlive()) ? EntityTargetEvent.TargetReason.FORGOT_TARGET : EntityTargetEvent.TargetReason.TARGET_DIED;
-        CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
+		CraftEventFactory.callEntityTargetEvent(this.getEntityHandle(), null, reason);
 
 		this.m_target = null;
 		this.getNavigation().h();

@@ -29,7 +29,7 @@ public class RemoteCreeper extends RemoteAttackingBaseEntity<Creeper>
 	/**
 	 * Lets the creeper explode at the current position with a given explosion modifier.
 	 *
-	 * @param inModifier	Modifier for explosion radius
+	 * @param inModifier Modifier for explosion radius
 	 */
 	public void explode(int inModifier)
 	{

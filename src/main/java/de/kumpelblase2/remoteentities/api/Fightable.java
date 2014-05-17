@@ -7,7 +7,7 @@ public interface Fightable
 	/**
 	 * Sets the target of the entity
 	 *
-	 * @param inTarget	entity to attack
+	 * @param inTarget entity to attack
 	 */
 	public void attack(LivingEntity inTarget);
 
@@ -19,7 +19,7 @@ public interface Fightable
 	/**
 	 * Gets the current target of the entity
 	 *
-	 * @return	current target
+	 * @return current target
 	 */
 	public LivingEntity getTarget();
 }

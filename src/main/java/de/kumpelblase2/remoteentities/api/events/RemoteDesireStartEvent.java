@@ -18,7 +18,7 @@ public class RemoteDesireStartEvent extends RemoteEvent
 	/**
 	 * Gets the desire is about to start.
 	 *
-	 * @return	Starting desire
+	 * @return Starting desire
 	 */
 	public Desire getDesire()
 	{
@@ -38,7 +38,7 @@ public class RemoteDesireStartEvent extends RemoteEvent
 	/**
 	 * Sets the desire that should be started instead.
 	 *
-	 * @param inDesire	Desire to start.
+	 * @param inDesire Desire to start.
 	 */
 	public void setDesire(DesireItem inDesire)
 	{

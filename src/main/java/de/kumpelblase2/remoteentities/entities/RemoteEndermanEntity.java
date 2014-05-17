@@ -148,7 +148,8 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 	}
 
 	@Override
-	protected boolean k(double d0, double d1, double d2) {
+	protected boolean k(double d0, double d1, double d2)
+	{
 		//Taken from EntityEnderman.java#206 - 263
 		// modified to use custom sounds
 		double d3 = this.locX;
@@ -163,43 +164,54 @@ public class RemoteEndermanEntity extends EntityEnderman implements RemoteEntity
 		int j = MathHelper.floor(this.locY);
 		int k = MathHelper.floor(this.locZ);
 
-		if (this.world.isLoaded(i, j, k)) {
+		if(this.world.isLoaded(i, j, k))
+		{
 			boolean flag1 = false;
 
-			while (!flag1 && j > 0) {
+			while(!flag1 && j > 0)
+			{
 				Block block = this.world.getType(i, j - 1, k);
-				if (block.getMaterial() != Material.AIR && block.getMaterial().isSolid()) {
+				if(block.getMaterial() != Material.AIR && block.getMaterial().isSolid())
+				{
 					flag1 = true;
-				} else {
+				}
+				else
+				{
 					--this.locY;
 					--j;
 				}
 			}
 
-			if (flag1) {
+			if(flag1)
+			{
 				this.setPosition(this.locX, this.locY, this.locZ);
-				if (this.world.getCubes(this, this.boundingBox).isEmpty() && !this.world.containsLiquid(this.boundingBox)) {
+				if(this.world.getCubes(this, this.boundingBox).isEmpty() && !this.world.containsLiquid(this.boundingBox))
+				{
 					flag = true;
 				}
 			}
 		}
 
-		if (!flag) {
+		if(!flag)
+		{
 			this.setPosition(d3, d4, d5);
 			return false;
-		} else {
+		}
+		else
+		{
 			short short1 = 128;
 
-			for (int l = 0; l < short1; ++l) {
-				double d6 = (double) l / ((double) short1 - 1.0D);
+			for(int l = 0; l < short1; ++l)
+			{
+				double d6 = (double)l / ((double)short1 - 1.0D);
 				float f = (this.random.nextFloat() - 0.5F) * 0.2F;
 				float f1 = (this.random.nextFloat() - 0.5F) * 0.2F;
 				float f2 = (this.random.nextFloat() - 0.5F) * 0.2F;
-				double d7 = d3 + (this.locX - d3) * d6 + (this.random.nextDouble() - 0.5D) * (double) this.width * 2.0D;
-				double d8 = d4 + (this.locY - d4) * d6 + this.random.nextDouble() * (double) this.length;
-				double d9 = d5 + (this.locZ - d5) * d6 + (this.random.nextDouble() - 0.5D) * (double) this.width * 2.0D;
+				double d7 = d3 + (this.locX - d3) * d6 + (this.random.nextDouble() - 0.5D) * (double)this.width * 2.0D;
+				double d8 = d4 + (this.locY - d4) * d6 + this.random.nextDouble() * (double)this.length;
+				double d9 = d5 + (this.locZ - d5) * d6 + (this.random.nextDouble() - 0.5D) * (double)this.width * 2.0D;
 
-				this.world.addParticle("portal", d7, d8, d9, (double) f, (double) f1, (double) f2);
+				this.world.addParticle("portal", d7, d8, d9, (double)f, (double)f1, (double)f2);
 			}
 
 			this.world.makeSound(d3, d4, d5, this.m_remoteEntity.getSound(EntitySound.TELEPORT), 1.0F, 1.0F);

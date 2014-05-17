@@ -78,24 +78,24 @@ public class RemoteSlimeEntity extends EntitySlime implements RemoteEntityHandle
 			this.a(this.m_target, 10.0F, 20.0F);
 
 		// --- Taken from EntitySlime.java#103 - #121
-		if (this.onGround && this.m_jumpDelay-- <= 0) {
+		if(this.onGround && this.m_jumpDelay-- <= 0)
+		{
 			this.m_jumpDelay = this.bR();
-			if (this.m_target != null) {
+			if(this.m_target != null)
 				this.m_jumpDelay /= 3;
-			}
 
 			this.bc = true;
-			if (this.bW()) {
+			if(this.bW())
 				this.makeSound(this.bV(), this.be(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
-			}
 
 			this.bd = 1.0F - this.random.nextFloat() * 2.0F;
 			this.be = (float)this.getSize();
-		} else {
+		}
+		else
+		{
 			this.bc = false;
-			if (this.onGround) {
+			if(this.onGround)
 				this.bd = this.be = 0.0F;
-			}
 		}
 		// ---
 	}

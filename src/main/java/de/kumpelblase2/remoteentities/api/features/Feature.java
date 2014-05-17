@@ -27,7 +27,7 @@ public interface Feature extends SerializableData
 	/**
 	 * Method that gets executed when the feature gets added to the given entity
 	 *
-	 * @param inEntity  Entity the feature gets added to
+	 * @param inEntity Entity the feature gets added to
 	 */
 	public void onAdd(RemoteEntity inEntity);
 

@@ -51,7 +51,7 @@ public abstract class PreparationSerializer implements IEntitySerializer
 		{
 			entity.getMind().addBehaviour(data.create(entity));
 		}
-		
+
 		for(FeatureData data : inData.features)
 		{
 			entity.getFeatures().addFeature(data.create(entity));

@@ -63,25 +63,21 @@ class NullChannel extends AbstractChannel
 	@Override
 	protected void doBind(SocketAddress inSocketAddress) throws Exception
 	{
-
 	}
 
 	@Override
 	protected void doDisconnect() throws Exception
 	{
-
 	}
 
 	@Override
 	protected void doClose() throws Exception
 	{
-
 	}
 
 	@Override
 	protected void doBeginRead() throws Exception
 	{
-
 	}
 
 	@Override

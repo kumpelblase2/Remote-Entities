@@ -134,7 +134,7 @@ public class DesireRangedAttack extends DesireBase
 				this.m_shootTicks = MathHelper.d(strength * (this.m_shootMaxDelay - this.m_shootMinDelay) + this.m_shootMinDelay);
 			}
 		}
-		else if( this.m_shootTicks < 0)
+		else if(this.m_shootTicks < 0)
 		{
 			strength = MathHelper.sqrt(dist) / this.m_minDistance;
 			this.m_shootTicks = MathHelper.d(strength * (this.m_shootMaxDelay - this.m_shootMinDelay) + this.m_shootMinDelay);
@@ -216,22 +216,22 @@ public class DesireRangedAttack extends DesireBase
 			EntityPotion potion = new EntityPotion(entity.world, this.getEntityHandle(), 32732);
 			potion.pitch -= 20;
 			double d0 = this.m_target.locX + this.m_target.motX - entity.locX;
-            double d1 = this.m_target.locY + (double) this.m_target.getHeadHeight() - 1.100000023841858D - entity.locY;
-            double d2 = this.m_target.locZ + this.m_target.motZ - entity.locZ;
-            float f = MathHelper.sqrt(d0 * d0 + d2 * d2);
+			double d1 = this.m_target.locY + (double)this.m_target.getHeadHeight() - 1.100000023841858D - entity.locY;
+			double d2 = this.m_target.locZ + this.m_target.motZ - entity.locZ;
+			float f = MathHelper.sqrt(d0 * d0 + d2 * d2);
 
-            if (f >= 8.0F && !this.m_target.hasEffect(MobEffectList.SLOWER_MOVEMENT))
-                potion.setPotionValue(32698);
-            else if (this.m_target.getHealth() >= 8 && !this.m_target.hasEffect(MobEffectList.POISON))
-                potion.setPotionValue(32660);
-            else if (f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aH().nextFloat() < 0.25F)
-                potion.setPotionValue(32696);
+			if(f >= 8.0F && !this.m_target.hasEffect(MobEffectList.SLOWER_MOVEMENT))
+				potion.setPotionValue(32698);
+			else if(this.m_target.getHealth() >= 8 && !this.m_target.hasEffect(MobEffectList.POISON))
+				potion.setPotionValue(32660);
+			else if(f <= 3.0F && !this.m_target.hasEffect(MobEffectList.WEAKNESS) && entity.aH().nextFloat() < 0.25F)
+				potion.setPotionValue(32696);
 
-            potion.shoot(d0, d1 + (double) (f * 0.2F), d2, 0.75F, 8.0F);
-            entity.world.addEntity(potion);
+			potion.shoot(d0, d1 + (double)(f * 0.2F), d2, 0.75F, 8.0F);
+			entity.world.addEntity(potion);
 		}
 		else if(entity instanceof IRangedEntity)
-				((IRangedEntity)entity).a(this.m_target, inStrength);
+			((IRangedEntity)entity).a(this.m_target, inStrength);
 	}
 
 	@Override

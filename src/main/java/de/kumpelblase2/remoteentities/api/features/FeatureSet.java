@@ -16,8 +16,8 @@ public class FeatureSet
 	/**
 	 * Checks if the entity has a specific kind of feature
 	 *
-	 * @param inType 	type of the feature to check
-	 * @return 			true if the entity has it, false if not
+	 * @param inType type of the feature to check
+	 * @return true if the entity has it, false if not
 	 */
 	public boolean hasFeature(Class<? extends Feature> inType)
 	{
@@ -63,11 +63,11 @@ public class FeatureSet
 	/**
 	 * Gets a feature by the given type
 	 *
-	 * @param inType	feature type
-	 * @return			feature
+	 * @param inType feature type
+	 * @return feature
 	 */
 	@SuppressWarnings("unchecked")
-	public<T extends Feature> T getFeature(Class<T> inType)
+	public <T extends Feature> T getFeature(Class<T> inType)
 	{
 		for(Feature feature : this.m_features)
 		{
@@ -80,7 +80,7 @@ public class FeatureSet
 	/**
 	 * Gets the amount of features on this entity.
 	 *
-	 * @return  feature count
+	 * @return feature count
 	 */
 	public int size()
 	{
@@ -90,7 +90,7 @@ public class FeatureSet
 	/**
 	 * Gets all features of the entity.
 	 *
-	 * @return  List of features
+	 * @return List of features
 	 */
 	public List<Feature> getAllFeatures()
 	{

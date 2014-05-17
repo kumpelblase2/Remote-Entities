@@ -3,10 +3,10 @@ package de.kumpelblase2.remoteentities.utilities;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.server.v1_7_R3.*;
+import org.bukkit.Chunk;
 import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
-import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import de.kumpelblase2.remoteentities.api.RemoteEntity;
@@ -17,12 +17,12 @@ public class WorldUtilities
 	/**
 	 * Checks if a position is inside a circle
 	 *
-	 * @param m_midXPos	middle x coordinate of circle
-	 * @param m_midZPos	middle y coordinate of circle
-	 * @param inPointX	point x value
-	 * @param inPointZ	point y value
-	 * @param inRadius	radius
-	 * @return			true if inside, false if not
+	 * @param m_midXPos middle x coordinate of circle
+	 * @param m_midZPos middle y coordinate of circle
+	 * @param inPointX  point x value
+	 * @param inPointZ  point y value
+	 * @param inRadius  radius
+	 * @return true if inside, false if not
 	 */
 	public static boolean isInCircle(double m_midXPos, double m_midZPos, double inPointX, double inPointZ, int inRadius)
 	{
@@ -34,8 +34,8 @@ public class WorldUtilities
 	/**
 	 * Gets the closest village to an entity
 	 *
-	 * @param inEntity	entity
-	 * @return			village
+	 * @param inEntity entity
+	 * @return village
 	 */
 	public static Village getClosestVillage(Entity inEntity)
 	{
@@ -53,8 +53,8 @@ public class WorldUtilities
 	/**
 	 * Gets the NMS entity from a bukkit entity.
 	 *
-	 * @param inEntity  The bukkit entity
-	 * @return          NMS entity
+	 * @param inEntity The bukkit entity
+	 * @return NMS entity
 	 */
 	public static EntityLiving getNMSEntity(org.bukkit.entity.LivingEntity inEntity)
 	{
@@ -64,9 +64,9 @@ public class WorldUtilities
 	/**
 	 * Gets the players which are nearby this entity.
 	 *
-	 * @param inEntity      The entity in which range the players should be
-	 * @param inDistance    The maximum distance to check
-	 * @return              List of found players
+	 * @param inEntity   The entity in which range the players should be
+	 * @param inDistance The maximum distance to check
+	 * @return List of found players
 	 */
 	public static List<Player> getNearbyPlayers(org.bukkit.entity.Entity inEntity, double inDistance)
 	{
@@ -84,8 +84,8 @@ public class WorldUtilities
 	/**
 	 * Sends a packet to a player.
 	 *
-	 * @param inPlayer  The player to send the packet to
-	 * @param inPacket  The packet to send
+	 * @param inPlayer The player to send the packet to
+	 * @param inPacket The packet to send
 	 */
 	public static void sendPacketToPlayer(Player inPlayer, Packet inPacket)
 	{

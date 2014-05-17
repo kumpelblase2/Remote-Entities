@@ -10,8 +10,8 @@ import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftInventoryPlayer;
-import org.bukkit.entity.*;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
@@ -137,7 +137,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 
 		if(!NMSUtil.getNavigation(this.m_entity).a(inLocation.getX(), inLocation.getY(), inLocation.getZ(), inSpeed))
 		{
-			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int) inLocation.getY(), MathHelper.floor(inLocation.getZ()), (float)this.getPathfindingRange(), true, false, false, true);
+			PathEntity path = this.m_entity.world.a(this.getHandle(), MathHelper.floor(inLocation.getX()), (int)inLocation.getY(), MathHelper.floor(inLocation.getZ()), (float)this.getPathfindingRange(), true, false, false, true);
 			return this.moveWithPath(path, inSpeed);
 		}
 		return true;
@@ -432,9 +432,9 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	/**
 	 * Sets the path of the entity with a given speed.
 	 *
-	 * @param inPath	Path to follow
-	 * @param inSpeed	Speed to walk with
-	 * @return			true if it could use the path, false if not
+	 * @param inPath  Path to follow
+	 * @param inSpeed Speed to walk with
+	 * @return true if it could use the path, false if not
 	 */
 	public boolean moveWithPath(PathEntity inPath, double inSpeed)
 	{
@@ -450,7 +450,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	/**
 	 * Copies the inventory from the given player to the inventory of this entity.
 	 *
-	 * @param inPlayer	Player to copy inventory from
+	 * @param inPlayer Player to copy inventory from
 	 */
 	public void copyInventory(Player inPlayer)
 	{
@@ -460,8 +460,8 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	/**
 	 * Copies the inventory from the given player to the inventory of this entity.
 	 *
-	 * @param inPlayer			Player to copy inventory from
-	 * @param inIgnoreArmor		If armor should not be copied or if it should
+	 * @param inPlayer      Player to copy inventory from
+	 * @param inIgnoreArmor If armor should not be copied or if it should
 	 */
 	public void copyInventory(Player inPlayer, boolean inIgnoreArmor)
 	{
@@ -479,7 +479,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	/**
 	 * Copies the the contents of the given inventory to the inventory of this entity.
 	 *
-	 * @param inInventory	Inventory to copy from.
+	 * @param inInventory Inventory to copy from.
 	 */
 	public void copyInventory(Inventory inInventory)
 	{
@@ -490,7 +490,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	/**
 	 * Gets the inventory of this entity.
 	 *
-	 * @return	Inventory
+	 * @return Inventory
 	 */
 	public Inventory getInventory()
 	{
@@ -627,7 +627,7 @@ public abstract class RemoteBaseEntity<T extends LivingEntity> implements Remote
 	/**
 	 * Gets the location the entity was last unloaded.
 	 *
-	 * @return	unloading location
+	 * @return unloading location
 	 */
 	public Location getUnloadedLocation()
 	{

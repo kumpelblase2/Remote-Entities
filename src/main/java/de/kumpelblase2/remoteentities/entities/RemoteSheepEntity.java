@@ -144,7 +144,8 @@ public class RemoteSheepEntity extends EntitySheep implements RemoteEntityHandle
 	}
 
 	@Override
-	protected void a(int i, int j, int k, Block l) {
+	protected void a(int i, int j, int k, Block l)
+	{
 		this.makeSound(this.m_remoteEntity.getSound(EntitySound.STEP), 0.15F, 1.0F);
 	}
 

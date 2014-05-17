@@ -150,8 +150,8 @@ public class RemoteEntities extends JavaPlugin
 	/**
 	 * Creates a manager for your plugin
 	 *
-	 * @param inPlugin	plugin using that manager
-	 * @return			instance of a manager
+	 * @param inPlugin plugin using that manager
+	 * @return instance of a manager
 	 */
 	public static EntityManager createManager(Plugin inPlugin) throws PluginNotEnabledException
 	{
@@ -165,9 +165,9 @@ public class RemoteEntities extends JavaPlugin
 	 * Creates a manager for your plugin
 	 * You can also specify whether despawned entities should be removed or not
 	 *
-	 * @param inPlugin				plugin using that manager
-	 * @param inRemoveDespawned		automatically removed despawned entities
-	 * @return						instance of a manager
+	 * @param inPlugin          plugin using that manager
+	 * @param inRemoveDespawned automatically removed despawned entities
+	 * @return instance of a manager
 	 */
 	public static EntityManager createManager(Plugin inPlugin, boolean inRemoveDespawned)
 	{
@@ -183,7 +183,7 @@ public class RemoteEntities extends JavaPlugin
 	 * Adds custom created manager to internal map
 	 *
 	 * @param inManager custom manager
-	 * @param inName	name of the plugin using it
+	 * @param inName    name of the plugin using it
 	 */
 	public static void registerCustomManager(EntityManager inManager, String inName)
 	{
@@ -196,8 +196,8 @@ public class RemoteEntities extends JavaPlugin
 	/**
 	 * Gets the manager of a specific plugin
 	 *
-	 * @param inName	name of the plugin
-	 * @return			EntityManager of that plugin
+	 * @param inName name of the plugin
+	 * @return EntityManager of that plugin
 	 */
 	public static EntityManager getManagerOfPlugin(String inName)
 	{
@@ -210,8 +210,8 @@ public class RemoteEntities extends JavaPlugin
 	/**
 	 * Checks if a specific plugin has registered a manager
 	 *
-	 * @param inName	name of the plugin
-	 * @return			true if the given plugin has a manager, false if not
+	 * @param inName name of the plugin
+	 * @return true if the given plugin has a manager, false if not
 	 */
 	public static boolean hasManagerForPlugin(String inName)
 	{
@@ -231,8 +231,8 @@ public class RemoteEntities extends JavaPlugin
 	/**
 	 * Checks if the given entity is a RemoteEntity created by any manager.
 	 *
-	 * @param inEntity	entity to check
-	 * @return			true if it is a RemoteEntity, false if not
+	 * @param inEntity entity to check
+	 * @return true if it is a RemoteEntity, false if not
 	 */
 	public static boolean isRemoteEntity(LivingEntity inEntity)
 	{
@@ -250,8 +250,8 @@ public class RemoteEntities extends JavaPlugin
 	/**
 	 * Gets the RemoteEntity from a given entity which can be created by any manager.
 	 *
-	 * @param inEntity	entity
-	 * @return			RemoteEntity
+	 * @param inEntity entity
+	 * @return RemoteEntity
 	 */
 	public static RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
 	{
@@ -270,7 +270,7 @@ public class RemoteEntities extends JavaPlugin
 	/**
 	 * Returns the minecraft version this version of remote entities is compatible with.
 	 *
-	 * @return  A string representing the version
+	 * @return A string representing the version
 	 */
 	public static String getCompatibleMinecraftVersion()
 	{
@@ -282,7 +282,7 @@ public class RemoteEntities extends JavaPlugin
 	 * These normally come in the format x_y_Rz .
 	 * Whereas x and y are the first two numbers of the minecraft version and z shows how many times the internal minecraft server code has been changed.
 	 *
-	 * @return  Revision string
+	 * @return Revision string
 	 */
 	public static String getMinecraftRevision()
 	{

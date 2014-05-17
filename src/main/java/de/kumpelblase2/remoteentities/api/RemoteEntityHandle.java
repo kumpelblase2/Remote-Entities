@@ -7,7 +7,7 @@ public interface RemoteEntityHandle extends InventoryHolder
 	/**
 	 * Gets the RemoteEntity of this entity
 	 *
-	 * @return	RemoteEntity
+	 * @return RemoteEntity
 	 */
 	public RemoteEntity getRemoteEntity();
 

@@ -26,7 +26,7 @@ public class RemoteDesireStopEvent extends RemoteEvent
 	/**
 	 * Gets the desire that is about to get stopped.
 	 *
-	 * @return	Stopping desire
+	 * @return Stopping desire
 	 */
 	public Desire getDesire()
 	{
@@ -36,7 +36,7 @@ public class RemoteDesireStopEvent extends RemoteEvent
 	/**
 	 * Gets the priority of the desire.
 	 *
-	 * @return	Desire priority
+	 * @return Desire priority
 	 */
 	public int getPriority()
 	{
@@ -46,7 +46,7 @@ public class RemoteDesireStopEvent extends RemoteEvent
 	/**
 	 * Gets the reason the desire was stopped.
 	 *
-	 * @return  Stop reason
+	 * @return Stop reason
 	 */
 	public StopReason getStopReason()
 	{

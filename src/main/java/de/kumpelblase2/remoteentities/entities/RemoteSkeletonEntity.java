@@ -152,7 +152,8 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 	}
 
 	@Override
-	protected void a(int i, int j, int k, Block l) {
+	protected void a(int i, int j, int k, Block l)
+	{
 		this.makeSound(this.m_remoteEntity.getSound(EntitySound.STEP), 0.15F, 1.0F);
 	}
 
@@ -165,17 +166,14 @@ public class RemoteSkeletonEntity extends EntitySkeleton implements RemoteEntity
 		int j = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, this.bd());
 
 		entityarrow.b((double) (f * 2.0F) + this.random.nextGaussian() * 0.25D + (double) ((float) this.world.difficulty.a() * 0.11F));
-		if (i > 0) {
+		if (i > 0)
 			entityarrow.b(entityarrow.e() + (double) i * 0.5D + 0.5D);
-		}
 
-		if (j > 0) {
+		if (j > 0)
 			entityarrow.setKnockbackStrength(j);
-		}
 
-		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.bd()) > 0 || this.getSkeletonType() == 1) {
+		if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, this.bd()) > 0 || this.getSkeletonType() == 1)
 			entityarrow.setOnFire(100);
-		}
 
 		this.makeSound(this.m_remoteEntity.getSound(EntitySound.ATTACK), 1.0F, 1.0F / (this.aH().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(entityarrow);

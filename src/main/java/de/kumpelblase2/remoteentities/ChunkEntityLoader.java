@@ -34,7 +34,8 @@ class ChunkEntityLoader implements Listener
 				WorldUtilities.updateEntityTracking(entity, c);
 		}
 
-		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTask(RemoteEntities.getInstance(), new Runnable()
+		{
 			public void run()
 			{
 				Iterator<EntityLoadData> it = m_toSpawn.iterator();
@@ -73,8 +74,8 @@ class ChunkEntityLoader implements Listener
 	/**
 	 * Checks if an entity can be directly be spawned at given location.
 	 *
-	 * @param inLocation	Location to check for
-	 * @return				true if it can be spawned, false if not
+	 * @param inLocation Location to check for
+	 * @return true if it can be spawned, false if not
 	 */
 	public boolean canSpawnAt(Location inLocation)
 	{
@@ -84,9 +85,9 @@ class ChunkEntityLoader implements Listener
 	/**
 	 * Queues an entity to spawn whenever the chunk is loaded.
 	 *
-	 * @param inEntity		Entity to spawn
-	 * @param inLocation	Location to spawn at
-	 * @return				true if it gets queued, false if it could be spawned directly
+	 * @param inEntity   Entity to spawn
+	 * @param inLocation Location to spawn at
+	 * @return true if it gets queued, false if it could be spawned directly
 	 */
 	public boolean queueSpawn(RemoteEntity inEntity, Location inLocation)
 	{
@@ -96,10 +97,10 @@ class ChunkEntityLoader implements Listener
 	/**
 	 * Queues an entity to spawn whenever the chunk is loaded.
 	 *
-	 * @param inEntity		Entity to spawn
-	 * @param inLocation	Location to spawn at
-	 * @param inSetupGoals	Whether standard goals should be applied or not
-	 * @return				true if it gets queued, false if it could be spawned directly
+	 * @param inEntity     Entity to spawn
+	 * @param inLocation   Location to spawn at
+	 * @param inSetupGoals Whether standard goals should be applied or not
+	 * @return true if it gets queued, false if it could be spawned directly
 	 */
 	public boolean queueSpawn(RemoteEntity inEntity, Location inLocation, boolean inSetupGoals)
 	{

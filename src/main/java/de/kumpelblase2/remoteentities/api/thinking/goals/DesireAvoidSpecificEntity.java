@@ -74,9 +74,9 @@ public class DesireAvoidSpecificEntity extends DesireBase implements OneTimeDesi
 		{
 			Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a(this.m_entityToAvoid.locX, this.m_entityToAvoid.locY, this.m_entityToAvoid.locZ));
 
-			if (var2 == null)
+			if(var2 == null)
 				return false;
-			else if (this.m_entityToAvoid.e(var2.a, var2.b, var2.c) < this.m_entityToAvoid.e(this.getEntityHandle()))
+			else if(this.m_entityToAvoid.e(var2.a, var2.b, var2.c) < this.m_entityToAvoid.e(this.getEntityHandle()))
 				return false;
 			else
 			{

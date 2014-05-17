@@ -76,7 +76,7 @@ public class EntityManager
 	/**
 	 * Gets the plugin that created this EntityManager
 	 *
-	 * @return	the plugin
+	 * @return the plugin
 	 */
 	public Plugin getPlugin()
 	{
@@ -86,7 +86,7 @@ public class EntityManager
 	/**
 	 * Gets the next free id starting from 0
 	 *
-	 * @return	next free id
+	 * @return next free id
 	 */
 	protected Integer getNextFreeID()
 	{
@@ -97,8 +97,8 @@ public class EntityManager
 	 * Gets the next free id starting from the id provided.
 	 * If the give it is free, it will get returned as well.
 	 *
-	 * @param inStart	starting id
-	 * @return			next free id
+	 * @param inStart starting id
+	 * @return next free id
 	 */
 	protected Integer getNextFreeID(int inStart)
 	{
@@ -113,10 +113,10 @@ public class EntityManager
 	/**
 	 * Create an entity at given location with given type.
 	 *
-	 * @param inType			type of the entity to create
-	 * @param inLocation		location where it should get created
-	 * @return					the created entity
-	 * @throws NoNameException  when trying to spawn a named entity. Use EntityManager#createNamedEntity(RemoteEntityType, Location, String) instead.
+	 * @param inType     type of the entity to create
+	 * @param inLocation location where it should get created
+	 * @return the created entity
+	 * @throws NoNameException when trying to spawn a named entity. Use EntityManager#createNamedEntity(RemoteEntityType, Location, String) instead.
 	 */
 	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation)
 	{
@@ -127,11 +127,11 @@ public class EntityManager
 	 * Creates an entity at given location with given type.
 	 * You can also specify if you want to setup the default desires/goals of the entity (default is true).
 	 *
-	 * @param inType			type of the entity to create
-	 * @param inLocation		location where it should get created
-	 * @param inSetupGoals		if default desires/goals should be applied
-	 * @return					the created entity
-	 * @throws NoNameException  when trying to spawn a named entity. Use EntityManager#createNamedEntity(RemoteEntityType, Location, String, boolean) instead.
+	 * @param inType       type of the entity to create
+	 * @param inLocation   location where it should get created
+	 * @param inSetupGoals if default desires/goals should be applied
+	 * @return the created entity
+	 * @throws NoNameException when trying to spawn a named entity. Use EntityManager#createNamedEntity(RemoteEntityType, Location, String, boolean) instead.
 	 */
 	public RemoteEntity createEntity(RemoteEntityType inType, Location inLocation, boolean inSetupGoals)
 	{
@@ -173,10 +173,10 @@ public class EntityManager
 	/**
 	 * Creates a named entity at given location with given type.
 	 *
-	 * @param inType		type of the entity to create
-	 * @param inLocation	location where it should get created
-	 * @param inName		name of the entity
-	 * @return				the created entity
+	 * @param inType     type of the entity to create
+	 * @param inLocation location where it should get created
+	 * @param inName     name of the entity
+	 * @return the created entity
 	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName)
 	{
@@ -186,11 +186,11 @@ public class EntityManager
 	/**
 	 * Creates a named entity at given location with given type.
 	 *
-	 * @param inType		type of the entity to create
-	 * @param inLocation	location where it should get created
-	 * @param inName		name of the entity
-	 * @param inSetupGoals	if default goals/desires should be applied
-	 * @return				the created entity
+	 * @param inType       type of the entity to create
+	 * @param inLocation   location where it should get created
+	 * @param inName       name of the entity
+	 * @param inSetupGoals if default goals/desires should be applied
+	 * @return the created entity
 	 */
 	public RemoteEntity createNamedEntity(RemoteEntityType inType, Location inLocation, String inName, boolean inSetupGoals)
 	{
@@ -239,8 +239,8 @@ public class EntityManager
 	/**
 	 * Creates a context that lets you specify more than using the normal methods
 	 *
-	 * @param inType	Type of the entity
-	 * @return			Context that lets you specify the creation parameters
+	 * @param inType Type of the entity
+	 * @return Context that lets you specify the creation parameters
 	 */
 	public CreateEntityContext prepareEntity(RemoteEntityType inType)
 	{
@@ -250,7 +250,7 @@ public class EntityManager
 	/**
 	 * Removes an entity completely. If the entity is not despawned already, it'll do so.
 	 *
-	 * @param inID	ID of the entity to remove
+	 * @param inID ID of the entity to remove
 	 */
 	public void removeEntity(int inID)
 	{
@@ -260,8 +260,8 @@ public class EntityManager
 	/**
 	 * Removes an entity from the list. When inDespawn is true, it'll also try to despawn it.
 	 *
-	 * @param inID			ID of the entity to remove
-	 * @param inDespawn		Whether the entity should get despawned or not
+	 * @param inID      ID of the entity to remove
+	 * @param inDespawn Whether the entity should get despawned or not
 	 */
 	public void removeEntity(int inID, boolean inDespawn)
 	{
@@ -274,8 +274,8 @@ public class EntityManager
 	/**
 	 * Checks whether the provided entity is a RemoteEntity created by this manager
 	 *
-	 * @param inEntity	entity to check
-	 * @return			true if the entity is a RemoteEntity and from this manager, false if not
+	 * @param inEntity entity to check
+	 * @return true if the entity is a RemoteEntity and from this manager, false if not
 	 */
 	public boolean isRemoteEntity(LivingEntity inEntity)
 	{
@@ -305,17 +305,17 @@ public class EntityManager
 	/**
 	 * Gets the existing RemoteEntity from the provided entity.
 	 *
-	 * @param inEntity	entity
-	 * @return			instance of the RemoteEntity
+	 * @param inEntity entity
+	 * @return instance of the RemoteEntity
 	 */
 	public RemoteEntity getRemoteEntityFromEntity(LivingEntity inEntity)
 	{
 		if(!this.isRemoteEntity(inEntity))
 			return null;
 
-		for (RemoteEntity remoteEntity : this.getAllEntities())
+		for(RemoteEntity remoteEntity : this.getAllEntities())
 		{
-			if (remoteEntity.getBukkitEntity() == inEntity)
+			if(remoteEntity.getBukkitEntity() == inEntity)
 				return remoteEntity;
 		}
 
@@ -325,8 +325,8 @@ public class EntityManager
 	/**
 	 * Gets the RemoteEntity by its ID
 	 *
-	 * @param inID	ID of the entity
-	 * @return		RemoteEntity with given ID
+	 * @param inID ID of the entity
+	 * @return RemoteEntity with given ID
 	 */
 	public RemoteEntity getRemoteEntityByID(int inID)
 	{
@@ -336,8 +336,8 @@ public class EntityManager
 	/**
 	 * Returns all entities with the specified name
 	 *
-	 * @param inName	Name to look for
-	 * @return			Entities with that name
+	 * @param inName Name to look for
+	 * @return Entities with that name
 	 */
 	public RemoteEntity[] getRemoteEntitiesByName(String inName)
 	{
@@ -358,8 +358,8 @@ public class EntityManager
 	/**
 	 * Adds an already existing RemoteEntity to the manager
 	 *
-	 * @param inID		ID of the entity
-	 * @param inEntity	entity to add
+	 * @param inID     ID of the entity
+	 * @param inEntity entity to add
 	 */
 	public void addRemoteEntity(int inID, RemoteEntity inEntity)
 	{
@@ -369,8 +369,8 @@ public class EntityManager
 	/**
 	 * Creates a RemoteEntity from an existing minecraft entity. The old entity will be replaced with the RemoteEntity
 	 *
-	 * @param inEntity	entity to replace
-	 * @return			instance of the RemoteEntity
+	 * @param inEntity entity to replace
+	 * @return instance of the RemoteEntity
 	 */
 	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity)
 	{
@@ -380,9 +380,9 @@ public class EntityManager
 	/**
 	 * Creates a RemoteEntity from an existing minecraft entity. The old entity will only get removed when inDeleteOld is true.
 	 *
-	 * @param inEntity		entity to copy from
-	 * @param inDeleteOld	should delete old one
-	 * @return				created entity
+	 * @param inEntity    entity to copy from
+	 * @param inDeleteOld should delete old one
+	 * @return created entity
 	 */
 	public RemoteEntity createRemoteEntityFromExisting(LivingEntity inEntity, boolean inDeleteOld) //TODO copy more shit from entity
 	{
@@ -421,7 +421,7 @@ public class EntityManager
 	 * Despawns all entities from this manager with the given {@link DespawnReason}.
 	 * This also saves the entities if the reason is PLUGIN_DISABLE and {@link #shouldSaveOnDisable()} returns true.
 	 *
-	 * @param inReason	despawn reason
+	 * @param inReason despawn reason
 	 */
 	public void despawnAll(DespawnReason inReason)
 	{
@@ -438,8 +438,8 @@ public class EntityManager
 	 * Despawns all entities from this manager with the given {@link DespawnReason}.
 	 * If inSave is true, it will save all entities before despawning them.
 	 *
-	 * @param inReason	The despawn reason
-	 * @param inSave	If the entities should be save before despawning
+	 * @param inReason The despawn reason
+	 * @param inSave   If the entities should be save before despawning
 	 */
 	public void despawnAll(DespawnReason inReason, boolean inSave)
 	{
@@ -456,7 +456,7 @@ public class EntityManager
 	/**
 	 * Gets all entities created by this manager
 	 *
-	 * @return	list of all entities
+	 * @return list of all entities
 	 */
 	public List<RemoteEntity> getAllEntities()
 	{
@@ -466,7 +466,7 @@ public class EntityManager
 	/**
 	 * Returns the amount of entities registered
 	 *
-	 * @return	entity count
+	 * @return entity count
 	 */
 	public int getEntityCount()
 	{
@@ -476,7 +476,7 @@ public class EntityManager
 	/**
 	 * Returns whether despawned entities will automatically get removed or not
 	 *
-	 * @return	true when they get removed, false when not
+	 * @return true when they get removed, false when not
 	 */
 	public boolean shouldRemoveDespawnedEntities()
 	{
@@ -486,7 +486,7 @@ public class EntityManager
 	/**
 	 * Sets if despawned entities should get automatically get removed
 	 *
-	 * @param inState	True if they should, false if not
+	 * @param inState True if they should, false if not
 	 */
 	public void setRemovingDespawned(boolean inState)
 	{
@@ -501,7 +501,7 @@ public class EntityManager
 	/**
 	 * Sets the serializer which should be used when saving the entities
 	 *
-	 * @param inSerializer	serializer to use
+	 * @param inSerializer serializer to use
 	 */
 	public void setEntitySerializer(IEntitySerializer inSerializer)
 	{
@@ -511,7 +511,7 @@ public class EntityManager
 	/**
 	 * Gets the currently used serializer
 	 *
-	 * @return	serializer
+	 * @return serializer
 	 */
 	public IEntitySerializer getSerializer()
 	{
@@ -521,7 +521,7 @@ public class EntityManager
 	/**
 	 * Saves all currently available entities
 	 *
-	 * @return  The amount of entities saved
+	 * @return The amount of entities saved
 	 */
 	public int saveEntities()
 	{
@@ -542,7 +542,7 @@ public class EntityManager
 	/**
 	 * Loads all saved entities
 	 *
-	 * @return  The amount of entities loaded
+	 * @return The amount of entities loaded
 	 */
 	public int loadEntities()
 	{
@@ -561,7 +561,7 @@ public class EntityManager
 	/**
 	 * Sets whether the entity manager should automatically save the entities when the plugin gets disabled.
 	 *
-	 * @param inSave	New save state
+	 * @param inSave New save state
 	 */
 	public void setSaveOnDisable(boolean inSave)
 	{
@@ -571,7 +571,7 @@ public class EntityManager
 	/**
 	 * Checks whether entities should be save when the plugin gets disabled.
 	 *
-	 * @return	state
+	 * @return state
 	 */
 	public boolean shouldSaveOnDisable()
 	{
@@ -581,8 +581,8 @@ public class EntityManager
 	/**
 	 * Gets all RemoteEntities with the given type.
 	 *
-	 * @param inType	The type of entity to look for
-	 * @return 		List of entities with that type
+	 * @param inType The type of entity to look for
+	 * @return List of entities with that type
 	 */
 	public List<RemoteEntity> getEntitiesByType(RemoteEntityType inType)
 	{
@@ -592,9 +592,9 @@ public class EntityManager
 	/**
 	 * Gets all RemoteEntities with the given type which are also currently spawned.
 	 *
-	 * @param inType	The type of entity to look for
-	 * @param inSpawnedOnly	Whether to ignore despawned entities or not
-	 * @return		List of entities with the given type
+	 * @param inType        The type of entity to look for
+	 * @param inSpawnedOnly Whether to ignore despawned entities or not
+	 * @return List of entities with the given type
 	 */
 	public List<RemoteEntity> getEntitiesByType(RemoteEntityType inType, boolean inSpawnedOnly)
 	{

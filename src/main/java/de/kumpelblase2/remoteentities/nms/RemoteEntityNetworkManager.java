@@ -2,7 +2,8 @@ package de.kumpelblase2.remoteentities.nms;
 
 import java.io.IOException;
 import java.net.SocketAddress;
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R3.MinecraftServer;
+import net.minecraft.server.v1_7_R3.NetworkManager;
 import de.kumpelblase2.remoteentities.utilities.ReflectionUtil;
 
 public class RemoteEntityNetworkManager extends NetworkManager
@@ -18,6 +19,7 @@ public class RemoteEntityNetworkManager extends NetworkManager
 	private void assignReplacementNetworking()
 	{
 		ReflectionUtil.setNetworkChannel(this, new NullChannel(null));
-		ReflectionUtil.setNetworkAddress(this, new SocketAddress(){});
+		ReflectionUtil.setNetworkAddress(this, new SocketAddress() {
+		});
 	}
 }

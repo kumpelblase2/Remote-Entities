@@ -39,8 +39,8 @@ public class Mind
 	/**
 	 * Removes a behavior from the entity with given name
 	 *
-	 * @param inName	name
-	 * @return			true if behavior got removed, false if not
+	 * @param inName name
+	 * @return true if behavior got removed, false if not
 	 * @deprecated in favor of #removeBehavior(Class)
 	 */
 	@Deprecated
@@ -62,8 +62,8 @@ public class Mind
 	/**
 	 * Removes a given type of behavior from the entity.
 	 *
-	 * @param inType    The type of behavior to remove.
-	 * @return          True or false, depending on whether or not the type of behavior could be removed or not
+	 * @param inType The type of behavior to remove.
+	 * @return True or false, depending on whether or not the type of behavior could be removed or not
 	 */
 	public boolean removeBehavior(Class<? extends Behavior> inType)
 	{
@@ -83,8 +83,8 @@ public class Mind
 	/**
 	 * Checks if the entity has a specific behavior
 	 *
-	 * @param inName 	name
-	 * @return			true if the entity has such behavior, false if not
+	 * @param inName name
+	 * @return true if the entity has such behavior, false if not
 	 * @deprecated in favor of #hasBehavior(Class)
 	 */
 	@Deprecated
@@ -102,8 +102,8 @@ public class Mind
 	/**
 	 * Checks if the entity has a specific type of behavior.
 	 *
-	 * @param inType    The type of behavior to to check for.
-	 * @return          True if the entity has such behavior, false if not
+	 * @param inType The type of behavior to to check for.
+	 * @return True if the entity has such behavior, false if not
 	 */
 	public boolean hasBehavior(Class<? extends Behavior> inType)
 	{
@@ -149,8 +149,8 @@ public class Mind
 	/**
 	 * Gets the behavior having this name
 	 *
-	 * @param inName	name
-	 * @return			behavior
+	 * @param inName name
+	 * @return behavior
 	 * @deprecated in favor of #getBehavior(Class)
 	 */
 	@Deprecated
@@ -168,8 +168,8 @@ public class Mind
 	/**
 	 * Gets the behavior of the given type.
 	 *
-	 * @param inType    The type of the behavior
-	 * @return          The behavior
+	 * @param inType The type of the behavior
+	 * @return The behavior
 	 */
 	public <T extends Behavior> T getBehavior(Class<T> inType)
 	{
@@ -243,10 +243,10 @@ public class Mind
 	/**
 	 * Gets the movement desire with given type
 	 *
-	 * @param inClass	type
-	 * @return			desire
+	 * @param inClass type
+	 * @return desire
 	 */
-	public<T extends Desire> T getMovementDesire(Class<T> inClass)
+	public <T extends Desire> T getMovementDesire(Class<T> inClass)
 	{
 		for(DesireItem desire : this.getMovementDesires())
 		{
@@ -259,10 +259,10 @@ public class Mind
 	/**
 	 * Gets the action desire with given type
 	 *
-	 * @param inClass	type
-	 * @return			desire
+	 * @param inClass type
+	 * @return desire
 	 */
-	public<T extends Desire> T getTargetingDesire(Class<T> inClass)
+	public <T extends Desire> T getTargetingDesire(Class<T> inClass)
 	{
 		for(DesireItem desire : this.getTargetingDesires())
 		{
@@ -275,8 +275,8 @@ public class Mind
 	/**
 	 * Adds a movement desire with given priority
 	 *
-	 * @param inDesire		desire
-	 * @param inPriority	priority
+	 * @param inDesire   desire
+	 * @param inPriority priority
 	 */
 	public void addMovementDesire(Desire inDesire, int inPriority)
 	{
@@ -286,7 +286,7 @@ public class Mind
 	/**
 	 * Adds all given desires to the movement desires with given priority.
 	 *
-	 * @param inDesires		Array of DesireItems containing the desire and it's priority
+	 * @param inDesires Array of DesireItems containing the desire and it's priority
 	 * @see #addMovementDesire(Desire, int)
 	 */
 	public void addMovementDesires(DesireItem... inDesires)
@@ -300,8 +300,8 @@ public class Mind
 	/**
 	 * Adds a targeting desire with given priority
 	 *
-	 * @param inDesire		desire
-	 * @param inPriority	priority
+	 * @param inDesire   desire
+	 * @param inPriority priority
 	 */
 	public void addTargetingDesire(Desire inDesire, int inPriority)
 	{
@@ -311,7 +311,7 @@ public class Mind
 	/**
 	 * Adds all given desires to the targeting desires with given priority.
 	 *
-	 * @param inDesires		Array of DesireItems containing the desire and it's priority
+	 * @param inDesires Array of DesireItems containing the desire and it's priority
 	 * @see #addTargetingDesire(Desire, int)
 	 */
 	public void addTargetingDesires(DesireItem... inDesires)
@@ -341,8 +341,8 @@ public class Mind
 	/**
 	 * Removes the movement desire with given type and the lowest priority of his type
 	 *
-	 * @param inToRemove	type
-	 * @return				true if it got removed, false if not
+	 * @param inToRemove type
+	 * @return true if it got removed, false if not
 	 */
 	public boolean removeMovementDesire(Class<? extends Desire> inToRemove)
 	{
@@ -356,14 +356,16 @@ public class Mind
 	 */
 	public void removeMovementDesires(Class<? extends Desire> inToRemove)
 	{
-		while(this.removeMovementDesire(inToRemove)){}
+		while(this.removeMovementDesire(inToRemove))
+		{
+		}
 	}
 
 	/**
 	 * Removes the targeting desire with given type and the lowest priority of his type
 	 *
-	 * @param inToRemove	type
-	 * @return				true if it got removed, false if not
+	 * @param inToRemove type
+	 * @return true if it got removed, false if not
 	 */
 	public boolean removeTargetingDesire(Class<? extends Desire> inToRemove)
 	{
@@ -377,13 +379,15 @@ public class Mind
 	 */
 	public void removeTargetingDesires(Class<? extends Desire> inToRemove)
 	{
-		while(this.removeTargetingDesire(inToRemove)){}
+		while(this.removeTargetingDesire(inToRemove))
+		{
+		}
 	}
 
 	/**
 	 * Fixes the yaw of an entity to a specific value.
 	 *
-	 * @param inYaw	Fixed yaw value
+	 * @param inYaw Fixed yaw value
 	 */
 	public void fixYawAt(float inYaw)
 	{
@@ -402,7 +406,7 @@ public class Mind
 	/**
 	 * Fixes the pitch of an entity to a specific value.
 	 *
-	 * @param inPitch	Fixed yaw value
+	 * @param inPitch Fixed yaw value
 	 */
 	public void fixPitchAt(float inPitch)
 	{
@@ -421,7 +425,7 @@ public class Mind
 	/**
 	 * Fixes the yaw of an entity to a specific value.
 	 *
-	 * @param inHeadYaw	Fixed yaw value
+	 * @param inHeadYaw Fixed yaw value
 	 */
 	public void fixHeadYawAt(float inHeadYaw)
 	{
@@ -453,7 +457,6 @@ public class Mind
 
 		if(this.m_hasFixedHeadYaw)
 			this.m_entity.setHeadYaw(this.m_fixedHeadYaw);
-
 
 		if(this.canFeel())
 		{

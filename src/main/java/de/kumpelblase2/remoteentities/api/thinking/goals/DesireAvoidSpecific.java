@@ -104,41 +104,40 @@ public class DesireAvoidSpecific extends DesireBase
 			return false;
 
 		if(this.m_toAvoid == EntityHuman.class)
-        {
-            if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isTamed())
-                return false;
+		{
+			if(this.getEntityHandle() instanceof EntityTameableAnimal && ((EntityTameableAnimal)this.getEntityHandle()).isTamed())
+				return false;
 
-            this.m_closestEntity = this.getEntityHandle().world.findNearbyPlayer(this.getEntityHandle(), (double)this.m_minDistance);
+			this.m_closestEntity = this.getEntityHandle().world.findNearbyPlayer(this.getEntityHandle(), (double)this.m_minDistance);
 
-            if(this.m_closestEntity == null)
-                return false;
-        }
-        else
-        {
-            @SuppressWarnings("rawtypes")
+			if(this.m_closestEntity == null)
+				return false;
+		}
+		else
+		{
+			@SuppressWarnings("rawtypes")
 			List var1 = this.getEntityHandle().world.a(this.m_toAvoid, this.getEntityHandle().boundingBox.grow((double)this.m_minDistance, 3.0D, (double)this.m_minDistance), this.m_selector);
 
-            if(var1.isEmpty())
-                return false;
+			if(var1.isEmpty())
+				return false;
 
-            this.m_closestEntity = (Entity)var1.get(0);
-        }
+			this.m_closestEntity = (Entity)var1.get(0);
+		}
 
 		if(!this.m_ignoreOutOfSight && !NMSUtil.getEntitySenses(this.getEntityHandle()).canSee(this.m_closestEntity))
 			return false;
 
-        Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a(this.m_closestEntity.locX, this.m_closestEntity.locY, this.m_closestEntity.locZ));
+		Vec3D var2 = de.kumpelblase2.remoteentities.nms.RandomPositionGenerator.b(this.getEntityHandle(), 16, 7, Vec3D.a(this.m_closestEntity.locX, this.m_closestEntity.locY, this.m_closestEntity.locZ));
 
-        if (var2 == null)
-            return false;
-        else if (this.m_closestEntity.e(var2.a, var2.b, var2.c) < this.m_closestEntity.e(this.getEntityHandle()))
-            return false;
-        else
-        {
-            this.m_path = this.getNavigation().a(var2.a, var2.b, var2.c);
-            boolean returnValue = this.m_path != null && this.m_path.b(var2);
-            return returnValue;
-        }
+		if(var2 == null)
+			return false;
+		else if(this.m_closestEntity.e(var2.a, var2.b, var2.c) < this.m_closestEntity.e(this.getEntityHandle()))
+			return false;
+		else
+		{
+			this.m_path = this.getNavigation().a(var2.a, var2.b, var2.c);
+			return this.m_path != null && this.m_path.b(var2);
+		}
 	}
 
 	@Override

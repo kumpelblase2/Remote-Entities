@@ -13,33 +13,36 @@ public class PlayerSenses extends EntitySenses
 	List<Entity> seenEntities = new ArrayList<Entity>();
 	List<Entity> unseenEntities = new ArrayList<Entity>();
 
-	public PlayerSenses(EntityLiving inEntity) {
+	public PlayerSenses(EntityLiving inEntity)
+	{
 		super(NMSUtil.getTempInsentientEntity());
 		this.entity = inEntity;
 	}
 
 	@Override
-	public void a() {
+	public void a()
+	{
 		this.seenEntities.clear();
 		this.unseenEntities.clear();
 	}
 
 	@Override
-	public boolean canSee(Entity entity) {
-		if (this.seenEntities.contains(entity)) {
+	public boolean canSee(Entity entity)
+	{
+		if(this.seenEntities.contains(entity))
 			return true;
-		} else if (this.unseenEntities.contains(entity)) {
+		else if(this.unseenEntities.contains(entity))
 			return false;
-		} else {
+		else
+		{
 			this.entity.world.methodProfiler.a("canSee");
 			boolean flag = this.entity.p(entity);
 
 			this.entity.world.methodProfiler.b();
-			if (flag) {
+			if(flag)
 				this.seenEntities.add(entity);
-			} else {
+			else
 				this.unseenEntities.add(entity);
-			}
 
 			return flag;
 		}

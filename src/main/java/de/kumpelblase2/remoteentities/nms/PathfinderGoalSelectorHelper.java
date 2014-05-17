@@ -47,7 +47,6 @@ public class PathfinderGoalSelectorHelper
 		}
 	}
 
-
 	public void addGoal(PathfinderGoal inGoal, int inPriority)
 	{
 		this.m_selector.a(inPriority, inGoal);

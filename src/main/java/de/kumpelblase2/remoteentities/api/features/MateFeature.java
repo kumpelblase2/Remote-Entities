@@ -8,7 +8,7 @@ public interface MateFeature extends Feature
 	 * Checks if the entity could be a possible partner of this entity.
 	 *
 	 * @param inPartner The partner to check
-	 * @return          True if it is possible, otherwise false
+	 * @return True if it is possible, otherwise false
 	 */
 	public boolean isPossiblePartner(LivingEntity inPartner);
 
@@ -16,21 +16,21 @@ public interface MateFeature extends Feature
 	 * Makes both entities mates of another.
 	 *
 	 * @param inPartner New mate
-	 * @return          True if it was successful, otherwise false
+	 * @return True if it was successful, otherwise false
 	 */
 	public boolean mate(LivingEntity inPartner);
 
 	/**
 	 * Creates a baby with the current partner
 	 *
-	 * @return  The created baby
+	 * @return The created baby
 	 */
 	public LivingEntity makeBaby();
 
 	/**
 	 * Checks if the entity is ready to mate.
 	 *
-	 * @return  true if it can, otherwise false
+	 * @return true if it can, otherwise false
 	 */
 	public boolean isAffected();
 
@@ -42,7 +42,7 @@ public interface MateFeature extends Feature
 	/**
 	 * Gets the partner of this entity if it has one.
 	 *
-	 * @return  The partner entity
+	 * @return The partner entity
 	 */
 	public LivingEntity getPartner();
 }

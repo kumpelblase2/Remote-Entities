@@ -74,11 +74,11 @@ public class DesireDestroyDoor extends DesireInteractDoor
 		World w = this.getEntityHandle().world;
 		if(this.m_breakTick == 240 && w.difficulty.a() == 3)
 		{
-			if (CraftEventFactory.callEntityBreakDoorEvent(this.getEntityHandle(), this.m_x, this.m_y, this.m_z).isCancelled())
+			if(CraftEventFactory.callEntityBreakDoorEvent(this.getEntityHandle(), this.m_x, this.m_y, this.m_z).isCancelled())
 			{
-                this.update();
-                return true;
-            }
+				this.update();
+				return true;
+			}
 
 			w.setAir(this.m_x, this.m_y, this.m_z);
 			w.triggerEffect(1012, this.m_x, this.m_y, this.m_z, 0);

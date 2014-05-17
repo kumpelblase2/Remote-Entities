@@ -26,8 +26,7 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 		super(inID, RemoteEntityType.EnderDragon, inManager);
 		this.m_entity = inEntity;
 
-		Bukkit.getPluginManager().registerEvents(new Listener()
-			{
+		Bukkit.getPluginManager().registerEvents(new Listener() {
 				@EventHandler
 				public void onEntityExplode(EntityExplodeEvent event)
 				{
@@ -42,8 +41,8 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 							event.setCancelled(true);
 					}
 				}
-			},
-		this.m_manager.getPlugin());
+			}, this.m_manager.getPlugin()
+		);
 	}
 
 	@Override
@@ -56,7 +55,7 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 	/**
 	 * Checks whether it should destroy blocks or not.
 	 *
-	 * @return	True if it should, false if not
+	 * @return True if it should, false if not
 	 */
 	public boolean shouldDestroyBlocks()
 	{
@@ -66,7 +65,7 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 	/**
 	 * Sets whether it should destroy blocks or not.
 	 *
-	 * @param inState 	destroy blocks
+	 * @param inState destroy blocks
 	 */
 	public void shouldDestroyBlocks(boolean inState)
 	{
@@ -76,7 +75,7 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 	/**
 	 * Gets whether the dragon should continue flying normally (like the default dragon does), or only when told by a plugin call.
 	 *
-	 * @return  True for normal flight, otherwise false
+	 * @return True for normal flight, otherwise false
 	 */
 	public boolean shouldNormallyFly()
 	{
@@ -86,7 +85,7 @@ public class RemoteEnderDragon extends RemoteAttackingBaseEntity<EnderDragon>
 	/**
 	 * Sets whether the dragon should continue flying normally (like the default dragon does), or only when told by a plugin call.
 	 *
-	 * @param inState   True for normal flight, false for plugin triggered flight
+	 * @param inState True for normal flight, false for plugin triggered flight
 	 */
 	public void shouldNormallyFly(boolean inState)
 	{

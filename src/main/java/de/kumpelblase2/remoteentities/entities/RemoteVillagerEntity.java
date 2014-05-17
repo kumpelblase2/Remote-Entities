@@ -150,16 +150,17 @@ public class RemoteVillagerEntity extends EntityVillager implements RemoteEntity
 	}
 
 	@Override
-	public void a_(ItemStack itemstack) {
+	public void a_(ItemStack itemstack)
+	{
 		//Taken from EntityVillager.java#264 - 273
 		//modified to work with custom sounds
-		if (!this.world.isStatic && this.a_ > -this.q() + 20) {
+		if(!this.world.isStatic && this.a_ > -this.q() + 20)
+		{
 			this.a_ = -this.q();
-			if (itemstack != null) {
+			if (itemstack != null)
 				this.makeSound(this.m_remoteEntity.getSound(EntitySound.YES), this.be(), this.bf());
-			} else {
+			else
 				this.makeSound(this.m_remoteEntity.getSound(EntitySound.NO), this.be(), this.bf());
-			}
 		}
 	}
 

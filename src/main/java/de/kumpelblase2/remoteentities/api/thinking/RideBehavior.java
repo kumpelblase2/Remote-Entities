@@ -32,8 +32,6 @@ public abstract class RideBehavior extends BaseBehavior
 	}
 
 	/**
-	 *
-	 *
 	 * @param inMotion
 	 */
 	public void ride(float[] inMotion)
@@ -71,8 +69,6 @@ public abstract class RideBehavior extends BaseBehavior
 	}
 
 	/**
-	 *
-	 *
 	 * @param inMotion
 	 */
 	protected abstract void onRide(float[] inMotion);

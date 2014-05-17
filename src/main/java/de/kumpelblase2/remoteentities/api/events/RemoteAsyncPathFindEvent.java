@@ -8,7 +8,7 @@ public class RemoteAsyncPathFindEvent extends RemoteEvent
 {
 	private static final HandlerList handlers = new HandlerList();
 	private Path m_path;
-	private final  boolean m_isAsync;
+	private final boolean m_isAsync;
 
 	public RemoteAsyncPathFindEvent(RemoteEntity inEntity, Path inPath)
 	{

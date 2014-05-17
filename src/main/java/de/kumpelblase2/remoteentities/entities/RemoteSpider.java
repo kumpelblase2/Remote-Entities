@@ -5,7 +5,7 @@ import de.kumpelblase2.remoteentities.EntityManager;
 import de.kumpelblase2.remoteentities.api.EntitySound;
 import de.kumpelblase2.remoteentities.api.RemoteEntityType;
 
-public class  RemoteSpider extends RemoteAttackingBaseEntity<Spider>
+public class RemoteSpider extends RemoteAttackingBaseEntity<Spider>
 {
 	public RemoteSpider(int inID, EntityManager inManager)
 	{
