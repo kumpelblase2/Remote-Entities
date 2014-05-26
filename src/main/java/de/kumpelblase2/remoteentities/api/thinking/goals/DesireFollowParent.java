@@ -97,7 +97,9 @@ public class DesireFollowParent extends DesireBase
 	@Override
 	public boolean canContinue()
 	{
-		if(!this.m_parent.isAlive())
+		if(this.m_parent == null)
+			return false;
+		else if(!this.m_parent.isAlive())
 			return false;
 		else
 		{
