@@ -111,10 +111,17 @@ public class RemotePlayer extends RemoteAttackingBaseEntity<Player>
 	 * @param inLocation	Location the bed is present.
 	 * @return				True if it was possible, false if not
 	 */
-	public boolean enterBed(Location inLocation)
-	{
-		this.teleport(inLocation);
-		return ((EntityHuman)this.getHandle()).a((int)inLocation.getX(), (int)inLocation.getY(), (int)inLocation.getZ()) == EnumBedResult.OK;
+	public void enterBed(Location x, Location y, Location z) {
+	    Packet17EntityLocationAction packet17 = new Packet17EntityLocationAction();
+            packet17.a = id;
+            packet17.b = (int) x;
+            packet17.c = (int) y;
+            packet17.d = (int) z;
+            packet17.e = 0;
+            for(Player p : Bukkit.getOnlinePlayers()) {
+                    ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet17);
+            }
+	
 	}
 
 	/**
